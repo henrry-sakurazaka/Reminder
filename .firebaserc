@@ -1,0 +1,19 @@
+{
+  "projects": {
+    "default": "reminder2-8990f",
+    "main": "reminder-b4527",
+    "reminder": "reminder2-8990f",
+    "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder2-8990f"
+  },
+  "targets": {
+    "reminder-b4527": {
+      "hosting": {
+        "reminder": [
+          "reminder-b4527",
+          "site"
+        ]
+      }
+    }
+  },
+  "etags": {}
+}
