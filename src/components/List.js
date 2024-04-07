@@ -4,15 +4,15 @@ import Edit from "./Edit";
 
 const List = () => {
    
-    const todos = useTodos(); 
-        
-    return (
-        <div>
-            {todos.map(todo => (
+    const {todos} = useTodos(); 
+ 
+    return ( 
+            <div>
+            {Array.isArray(todos) && todos.map(todo => (
                   <Edit key={todo.id} todo={todo} />
                 
             ))}
-        </div>
+            </div>    
     );
 }
 

@@ -10,7 +10,7 @@ const Todo = () => {
         <>
             <TodoProvider>
                 <List />
-                <Form />   
+                <Form />  
             </TodoProvider>
                
         </>

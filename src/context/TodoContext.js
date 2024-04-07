@@ -1,24 +1,37 @@
 import React from "react";
-import { createContext, useContext, useReducer } from "react";
+import { createContext, useContext, useReducer, useState } from "react";
 
  const todoList = [
     {
         id: 1,
         content: "Make a restaurant reservation",
         editing: false,
-        completed: false
+        completed: false,
+        reserve: false,
+        editingLock: false,
+        editingColor: false,
+        editingDateTime: false
     },
     {
         id: 2,
         content: "send a letter",
         editing: false,
-        completed: false
+        completed: false,
+        reserve: false,
+        editingLock: false,
+        editingColor: false,
+        editingDateTime: false
     },
     {
         id: 3,
         content: "buy flowers",
         editing: false,
-        completed: false
+        completed: false,
+        reserve: false,
+        editingLock: false,
+        editingColor: false,
+        editingDateTime: false
+        
     },
 ];
 
@@ -28,7 +41,7 @@ import { createContext, useContext, useReducer } from "react";
  
 
  const todoReducer = (todos, action ) => {
-
+   
     switch( action.type ) {
 
         case 'todo/add':
@@ -54,14 +67,30 @@ import { createContext, useContext, useReducer } from "react";
             return todos.filter((todo) => {
                 return null;
             })
-                
+        case 'todo/reserve':
+            return todos.map(_todo => {
+                return _todo.id === action.todo.id ?
+                 { ..._todo, editingLock: true} 
+                 : { ..._todo, editingLock: false };
+            })
+        case 'todo/reserveColor':
+            return todos.map(_todo => {
+                return _todo.editingDateTime ?
+                 { ..._todo, editingColor: true} 
+                 : { ..._todo, editingColor: false};
+            })
+         case 'todo/editingDateTime':
+            return todos.map(_todo => {
+                return _todo.editingLock ?
+                 { ..._todo, editingDateTime: true} 
+                 :{..._todo, editingDateTime: false}
                  
-        default : return todos;
-    
-    }
-    
+            })  
+            
+        
 
-    
+        default : return todos; 
+    }   
  }
 
 
@@ -69,11 +98,31 @@ import { createContext, useContext, useReducer } from "react";
  const TodoProvider = ({ children }) => {
  
     const [ todos, dispatch ] = useReducer(todoReducer, todoList);
-    
-   
-    
+    const [modalOpen, setModalOpen ] = useState(false);
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [isDateChecked, setIsDateChecked] = useState(false);
+    const [isTimeChecked, setIsTimeChecked] = useState(false);
+    const [isContainerDateCheck, setContainerDateCheck] = useState(false);
+    const [isContainerTimeCheck, setContainerTimeCheck] = useState(false);
+    const [selectedTime, setSelectedTime] = useState("12:00");
+
+    const handleDateChange = (date) => {
+        setSelectedDate(date);
+    }
+
+    const handleTimeChange = (event) => {    
+        setSelectedTime(event.target.value);
+      };
+      
     return (
-        <TodoContext.Provider value={todos}>
+        <TodoContext.Provider value=
+            {{ todos, handleDateChange, 
+            isDateChecked, setIsDateChecked, isTimeChecked , setIsTimeChecked, 
+            isContainerTimeCheck, setContainerTimeCheck, isContainerDateCheck, 
+            setContainerDateCheck, modalOpen, setModalOpen, selectedDate, setSelectedDate,
+            handleTimeChange, selectedTime, setSelectedTime
+            }} >
+
         <TodoDispatchContext.Provider value={dispatch}>
             {children}
         </TodoDispatchContext.Provider>
@@ -84,5 +133,5 @@ import { createContext, useContext, useReducer } from "react";
 
  const useTodos = () => useContext(TodoContext);
  const useDispatchTodos = () => useContext(TodoDispatchContext);
-
+ 
  export { useTodos , useDispatchTodos , TodoProvider};
