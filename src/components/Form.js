@@ -22,7 +22,7 @@ const Form = () => {
         const neoTodo = {
             completed: true
         };
-        dispatch({type: "todo/reset", todo: neoTodo, editing: false, completed: true });
+        dispatch({type: "todo/reset", todo: neoTodo, editing: false });
         
         
     }

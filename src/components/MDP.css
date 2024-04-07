@@ -1,0 +1,15 @@
+@charset "utf-8";
+
+.date-picker-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: 180px;
+    height: 180px;
+}
+
+.custom {
+    width: 160px;
+    font-size: 16px;
+}

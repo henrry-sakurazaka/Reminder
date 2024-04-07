@@ -128,7 +128,7 @@ p {
     margin-right: 8px;
     margin-top: 4px;
     font-size: 0.8em; 
-    color: #ccc;
+    color: grey;
 
 }
 button {
@@ -269,7 +269,11 @@ input {
     }
 
     .gif1, .gif2 {
-        width: 16px;
+        width: 27px;
+        
+    }
+    .reset img {
+        width: 30px;
     }
 }
 @media screen and (max-width: 390px) {

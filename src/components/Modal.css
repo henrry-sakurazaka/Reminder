@@ -1,0 +1,54 @@
+@charset "utf-8";
+
+.modalParent .modal {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    background-color: rgba(40, 147, 247, 0.772);
+    width: 250px;
+    height: 368px;
+    z-index: 10;
+}
+.switch-container {
+    width: 100%;
+    position: absolute;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.switch-container2 {
+    width: 100%;
+    position: absolute;
+    top: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: block;
+}
+
+.time-picker-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.message-container {
+    width: 200px;
+    height: 200px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    background-color: rgb(48, 48, 219);
+    column-gap: 16px;
+}
+
+.message {
+    margin: 0;
+}
