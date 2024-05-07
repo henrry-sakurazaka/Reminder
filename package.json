@@ -4,26 +4,26 @@
   "private": true,
   "homepage": "https://reminder-b4527.web.app",
   "dependencies": {
-    "@firebase/auth": "^1.6.0",
-    "@firebase/auth-compat": "^0.5.2",
-    "@firebase/firestore": "^4.4.2",
-    "@firebase/firestore-compat": "^0.3.25",
-    "@firebase/functions": "^0.11.1",
-    "@firebase/functions-compat": "^0.3.7",
-    "@firebase/storage": "^0.12.1",
-    "@firebase/storage-compat": "^0.3.4",
+    "@firebase/auth": "^1.4.0",
+    "@firebase/auth-compat": "^0.4.9",
+    "@firebase/firestore": "^4.3.2",
+    "@firebase/firestore-compat": "^0.3.22",
+    "@firebase/functions": "^0.10.0",
+    "@firebase/functions-compat": "^0.3.5",
+    "@firebase/storage": "^0.11.2",
+    "@firebase/storage-compat": "^0.3.2",
     "@testing-library/jest-dom": "^5.17.0",
     "@testing-library/react": "^13.4.0",
     "@testing-library/user-event": "^13.5.0",
     "axios": "^1.6.7",
     "date-fns": "^3.0.6",
-    "firebase": "^10.6.0",
+    "firebase": "^10.11.1",
     "html-entities": "^2.5.2",
-    "react": "^18.2.0",
+    "react": "^18.3.1",
     "react-datepicker": "^6.6.0",
     "react-datetime-picker": "^5.6.0",
-    "react-dom": "^18.2.0",
-    "react-router-dom": "^6.22.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.22.3",
     "react-scripts": "^5.0.1",
     "react-time-picker": "^6.6.0",
     "web-vitals": "^2.1.4"
@@ -55,6 +55,16 @@
     ]
   },
   "devDependencies": {
-    "json-server": "^1.0.0-alpha.23"
-  }
+    "firebase-mock": "^2.2.4",
+    "jsdom": "^24.0.0",
+    "json-server": "^1.0.0-alpha.23",
+    "text-encoding": "^0.7.0"
+  },
+  "moduleNameMapper": {
+    "^firebase$": "firebase"
+  },
+  "testEnvironment": "jsdom",
+  "setupFilesAfterEnv": [
+    "./src/setupTests.js"
+  ]
 }

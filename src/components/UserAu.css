@@ -1,0 +1,36 @@
+@charset "utf-8";
+
+body {
+    margin: 0;
+    padding: 0;
+    background-color: #222;
+}
+
+.container {
+    max-width: 1976px;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;    
+}
+
+.inner9-container {
+    width: 320px;
+    height: 320px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+
+.select-auth {
+    width: 240px;
+    height: 64px;
+    color: rgb(8, 232, 158);
+    text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+}
+.select-auth:hover {
+    text-decoration: underline;
+}

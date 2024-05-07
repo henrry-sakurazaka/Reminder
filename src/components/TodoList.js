@@ -3,26 +3,37 @@ import { useTodos } from "../context/TodoContext";
 import { useAsyncContext } from "../context/AsyncContext";
 import Edit from "./Edit";
 
-const List = () => {
+const TodoList = () => {
 
-  const { todos, task } = useTodos();
-  const { data, setData, loading, fetchedData } = useAsyncContext();
-  console.log('yes2')
+  const { todos } = useTodos();
+  const { data, loading , setData} = useAsyncContext();
+  console.log('data',data)
+  
     return ( 
-        <>
+        <> 
+            {/* <div> 
+                {dataArray.map((todo) => {
+                return todo && todo.id ? 
+                <Edit key={todo.id} todo={todo} /> : null;
+                })}
+
+            </div> */}
+          
           {loading ? ( // ローディング中の場合
                 <div>Loading...</div>
             ) : ( // ローディングが終了した場合
-                <div>         
+                <div>
+                    
                     {data && todos && todos.map(todo => (
                         todo && todo.id ? (
                             <Edit key={todo.id} todo={todo} />
                         ) : null     
                     ))}
+
                 </div>
-            )} 
               
-            
+            )} 
+
             {/* <div>
                 {Array.isArray(todos) && todos.map(todo => (
                     <Edit key={todo.id} todo={todo} />
@@ -54,4 +65,4 @@ const List = () => {
     );
 }
 
-export default List;
+export default TodoList;
