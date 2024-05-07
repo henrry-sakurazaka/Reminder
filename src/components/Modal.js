@@ -1,6 +1,7 @@
 
 import React, { useEffect } from "react";
 import { useTodos } from "../context/TodoContext";
+import { db , ref, set } from "../firebase";
 import SSwitch2 from "./SSwitch2";
 import MyTimePicker from "./MyTimePicker";
 import MyDatePicker from "./MyDatePicker";
@@ -15,7 +16,9 @@ const Modal = ({ handleCloseClick }) => {
             setIsDateChecked, setIsTimeChecked,
             isContainerDateCheck,setContainerDateCheck,
             isContainerTimeCheck,setContainerTimeCheck,
-            modalOpen, handleTimeChange, selectedTime
+            modalOpen, handleTimeChange, selectedTime,
+            displayDatePicker, displayTimePicker, 
+            isTimeSet, isDateSet
           } = useTodos();
 
     useEffect(() => {
@@ -43,11 +46,39 @@ const Modal = ({ handleCloseClick }) => {
         setContainerDateCheck(false);  
     }
 
-   
+    const setTimer = () => {
+        if( displayDatePicker && selectedDate && isDateSet) {
+        
+            set(ref(db, 'dates'), { // set関数を使用してデータを書き込む
+                date: selectedDate.toString(),
+
+            }).then(() => {
+                console.log('saved');
+            }).catch((error) => {
+                console.error('うまくいってません。');
+            }); 
+            } else {
+                console.warn('日時が選択されてません。');
+            
+        }
+        if( displayTimePicker && selectedTime && isTimeSet ) {
+
+            set(ref(db, 'times'), { // set関数を使用してデータを書き込む
+                time : selectedTime.toString(),
+
+            }).then(() => {
+                console.log('saved');
+            }).catch((error) => {
+                console.error('うまくいってません。');
+            }); 
+            } else {
+                console.warn('日時が選択されてません。');
+        }
+    }
     
             return (  
                 modalOpen ? 
-                <div className="modal" >
+                <div className="modal">
                     <div className="switch-container" onClick={() => switchFunction()}>
                         <SelectSwitch
                         isChecked={isDateChecked} 
@@ -112,7 +143,10 @@ const Modal = ({ handleCloseClick }) => {
                         </div>
                        </>
                     )          
-                }
+                } 
+                    <div className="btn-container">
+                        <button className="set-btn" onClick={() => setTimer()}>SET</button>
+                    </div>
                 </div>
              : false           
       

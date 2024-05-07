@@ -8,14 +8,15 @@ import Modal from "./Modal";
 
 
 const Edit= ({todo}) => {
-  
+    const { modalOpen, setModalOpen,
+        setIsDateChecked, setIsTimeChecked,
+        setContainerTimeCheck, setContainerDateCheck,
+        todosData, setTodosData
+      } = useTodos();
     const [editingContent, setEditingContent] = useState(todo.content);
     const dispatch = useDispatchTodos();
     // const { isTimeCheck, setIsTimeCheck, isDateCheck, setIsDateCheck} = useTodos();
-    const { modalOpen, setModalOpen,
-            setIsDateChecked, setIsTimeChecked,
-            setContainerTimeCheck, setContainerDateCheck   
-          } = useTodos();
+  
         
     const changeContent = (e) => {
         setEditingContent(e.target.value);
@@ -35,8 +36,8 @@ const Edit= ({todo}) => {
     }
 
     const complete2 = (todo) => {
-        const neoTodo2 = {...todo, completed: true};
-        dispatch({type: "todo/complete", todo: neoTodo2 });
+        const neoTodo2 = {...todo, completed: true };
+        dispatch({type: "complete2", todo: neoTodo2 });
         
      }
     const toggleReseveMode = (_todo) => {  
@@ -83,15 +84,18 @@ const Edit= ({todo}) => {
                 </form> 
 
                 {modalOpen && todo.editingLock ?(
-                    
-                 <Modal/>   
+                <div key={todo.id}>
+                    <Modal/> 
+                </div>    
+                   
                 )
                 : false
             }
                            
         </div>      
     )     
-} 
+ } 
+
 export default Edit;
 
 

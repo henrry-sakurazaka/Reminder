@@ -1,11 +1,18 @@
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useTodos } from '../context/TodoContext';
 
 const MyTimePicker = () => {
   
-  const { selectedTime, handleTimeChange } = useTodos();
-  
+  const { selectedTime, handleTimeChange,
+          setDisplayTimePicker, setDisplayDatePicker,
+        } = useTodos();
+        
+        useEffect(() => {
+          setDisplayTimePicker(true);
+          setDisplayDatePicker(false);
+        }, [setDisplayTimePicker, setDisplayDatePicker]);
+       
 
   return (
     <div className="time-picker-container" style={{ border: "1px solid #ccc", padding: "8px", borderRadius: "4px" }}>
