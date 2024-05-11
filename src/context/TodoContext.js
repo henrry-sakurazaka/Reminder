@@ -1,17 +1,16 @@
 import React from "react";
 import { createContext, useContext, useReducer, useState } from "react";
 import { useAsyncContext } from "./AsyncContext";
-// import { initializeApp } from "firebase/app";
-// import { getFirestore } from 'firebase/firestore';
+import { initializeApp } from "firebase/app";
+import { getFirestore } from 'firebase/firestore';
 import { getDoc } from 'firebase/firestore';
-// import firebaseConfig from "../firebase";
-// import { constructFrom } from "date-fns";
+import firebaseConfig from "../firebase";
 
 
  const TodoContext = createContext();
  const TodoDispatchContext = createContext();
-//  const firebaseApp = initializeApp(firebaseConfig);
-//  const firestore = getFirestore(firebaseApp);
+ const firebaseApp = initializeApp(firebaseConfig);
+ const firestore = getFirestore(firebaseApp);
 
 const todoList = [
   {
@@ -101,71 +100,48 @@ const todoReducer = (todos, action) => {
         : {...todo}
       )
           
-    // case 'SET_TODOS':
-    //   return action.payload;
-
-    // case 'SET_TODOS':
-    //   return [action.todo];
-
     default: 
       return todos 
   }
 };
 
-  //  const  todoReducer2 = (task, action) => {
-    //     switch (action.type) {
-    //       case 'todo/add':
-    //         return [...task, action.todo];
-    //     }
-    //   }
-    
+
+   
 
  const TodoProvider = ({ children }) => {
 
-
-      // const [task, dispatch2] = useState(todoList2);
       const [ todos, dispatch ] = useReducer(todoReducer, todoList); 
-      // const [newTodos, setNewTodos] = useState(todos);  
       const [ todosData, setTodosData ] = useState([]);
       const [modalOpen, setModalOpen ] = useState(false);
-      const [selectedDate, setSelectedDate] = useState(new Date());
       const [isDateSet, setIsDateSet] = useState(false);
       const [isDateChecked, setIsDateChecked] = useState(false);
       const [isTimeChecked, setIsTimeChecked] = useState(false);
       const [isContainerDateCheck, setContainerDateCheck] = useState(false);
       const [isContainerTimeCheck, setContainerTimeCheck] = useState(false);
-      const [selectedTime, setSelectedTime] = useState("12:00");
       const [isTimeSet, setIsTimeSet] = useState(false);
       const [displayTimePicker, setDisplayTimePicker] = useState(false);
       const [displayDatePicker, setDisplayDatePicker] = useState(false);
       const [enteredTodo, setEnteredTodo] = useState(""); 
       const [fireTodo, setFireTodo] = useState("");
+      const [selectedDate, setSelectedDate] = useState(false);
+      const [selectedTime, setSelectedTime] = useState(false);
       
     
      
-    const handleDateChange = (date) => {
-        setSelectedDate(date);
-        setIsDateSet(true);
-        console.log(selectedDate)
-    }
-
-    const handleTimeChange = (event) => {    
-        setSelectedTime(event.target.value);
-        setIsTimeSet(true)
-        console.log(selectedTime)
-      };
+   
     
     
     return (
         <TodoContext.Provider value=
-            {{ todos, handleDateChange, 
+            {{ todos, 
             isDateChecked, setIsDateChecked, isTimeChecked , setIsTimeChecked, 
             isContainerTimeCheck, setContainerTimeCheck, isContainerDateCheck, 
-            setContainerDateCheck, modalOpen, setModalOpen, selectedDate, setSelectedDate,
-            handleTimeChange, selectedTime, setSelectedTime, displayTimePicker, setDisplayTimePicker,
-            displayDatePicker, setDisplayDatePicker, isDateSet, setIsDateSet, isTimeSet, setIsTimeSet,
+            setContainerDateCheck, modalOpen, setModalOpen, displayTimePicker, 
+            setDisplayTimePicker,displayDatePicker, setDisplayDatePicker, 
+            isDateSet, setIsDateSet, isTimeSet, setIsTimeSet,
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
-            todosData, setTodosData, todoList
+            todosData, setTodosData, todoList, selectedDate, setSelectedDate,
+            selectedTime, setSelectedTime
 
             }}>
               

@@ -1,11 +1,13 @@
 import { useTodos } from "../context/TodoContext";
-import DatePicker from "react-datepicker";
+import MyDatePicker from "react-datepicker";
 import "./MDP.css";
 import { useEffect } from "react";
 
-const MyDatePicker = () => {
 
-  const {selectedDate, handleDateChange,
+
+const MyDatePickerCom = ({isDate, handleDateChange}) => {
+
+  const {selectedDate, 
         setDisplayDatePicker,setDisplayTimePicker,
         } = useTodos();
         
@@ -14,20 +16,26 @@ const MyDatePicker = () => {
           setDisplayTimePicker(false);
         }, [setDisplayTimePicker, setDisplayDatePicker]);
        
-  
+   
     return (
       <div className="date-picker-container" style={{ border: "1px solid #ccc", padding: "8px", borderRadius: "4px" }}>
         <h2 style={{ color: " rgb(48, 48, 219)" }}>Date Picker</h2>
 
-          <DatePicker 
-          className="custom"
-          selected={selectedDate}
-          onChange={handleDateChange}
+          <MyDatePicker
+            className="DateTimePicker custom"
+            label="DateTimePicker"
+            inputVariant="outlined"
+            onChange={handleDateChange}
+            selected={isDate}
+            showTodayButton
+            ampm={false}
+            autoOk
           />
-
-        <p style={{ color: " rgb(48, 48, 219)"  }}>Selected Date: {selectedDate.toLocaleDateString()}</p>
+        {selectedDate && isDate &&  (
+        <p style={{ color: " rgb(48, 48, 219)"  }}>Selected Date: {isDate.toLocaleDateString()}</p>
+      )}   
       </div>
     );
   }
   
-  export default MyDatePicker;
+  export default MyDatePickerCom;
