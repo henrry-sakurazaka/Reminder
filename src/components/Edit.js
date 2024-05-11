@@ -45,7 +45,6 @@ const Edit= ({todo}) => {
         //   const newEditingLock = !todo.editingLock; // editingLock をトグル 
         //   const newEditingDateTime = !todo.editingDateTime;
         const newEditingColor = !todo.editingColor; // editingColor をトグル 
-
         const neoTodo7 = {
             ...todo, 
             editingDateTime: true,
@@ -83,9 +82,9 @@ const Edit= ({todo}) => {
                         </span>}
                 </form> 
 
-                {modalOpen && todo.editingLock ?(
+                {modalOpen ?(
                 <div key={todo.id}>
-                    <Modal/> 
+                    <Modal todo={todo}/> 
                 </div>    
                    
                 )
