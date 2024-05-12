@@ -125,6 +125,7 @@ const todoReducer = (todos, action) => {
       const [fireTodo, setFireTodo] = useState("");
       const [selectedDate, setSelectedDate] = useState(false);
       const [selectedTime, setSelectedTime] = useState(false);
+      const [completedDateTimeSetting, setCompletedDateTimeSetting] = useState(false);
       
     
      
@@ -141,7 +142,8 @@ const todoReducer = (todos, action) => {
             isDateSet, setIsDateSet, isTimeSet, setIsTimeSet,
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
-            selectedTime, setSelectedTime
+            selectedTime, setSelectedTime, completedDateTimeSetting,
+            setCompletedDateTimeSetting
 
             }}>
               

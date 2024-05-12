@@ -11,7 +11,6 @@ const Edit= ({todo}) => {
     const { modalOpen, setModalOpen,
         setIsDateChecked, setIsTimeChecked,
         setContainerTimeCheck, setContainerDateCheck,
-        todosData, setTodosData
       } = useTodos();
     const [editingContent, setEditingContent] = useState(todo.content);
     const dispatch = useDispatchTodos();
