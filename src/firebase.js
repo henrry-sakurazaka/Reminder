@@ -41,6 +41,7 @@ import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
 // import FirebaseMock from 'firebase-mock';
 // import 'text-encoding';
+import { getMessaging } from "firebase/messaging";
 
 
 
@@ -60,12 +61,12 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(); // Firestoreのインスタンスを取得
+const messaging = getMessaging(app)
 // const post = () => {
 //   Api.addTodo(inputName, currentUser.currentUser.uid)
 // }
 
 
 
-
-export { app, auth, db, firestore, ref, set }; // dbもエクスポートする
+export { app, auth, db, firestore, ref, set, messaging }; // dbもエクスポートする
 export default firebaseConfig;

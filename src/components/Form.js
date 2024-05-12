@@ -7,7 +7,7 @@ import { getFirestore } from 'firebase/firestore';
 import firebase from "firebase/app"; // firebaseモジュールをインポート
 
 
-const Form = () => {
+const Form = ({todo}) => {
     
     const dispatch = useDispatchTodos();
     const dispatch2 = useDispatchTodos();

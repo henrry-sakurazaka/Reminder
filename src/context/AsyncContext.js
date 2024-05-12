@@ -153,7 +153,7 @@ const AsyncContextProvider = ({ children }) => {
         const snapshot =  await getDoc(todoDocRef);
         // ドキュメントが存在する場合のみ処理を続行
         if (snapshot.exists()) {
-          console.log('snapshot',snapshot)
+          // console.log('snapshot',snapshot)
             const getData = GetConverter.fromFirestore(snapshot); 
             setData(todos)
             // getData がオブジェクトである場合、配列にラップする

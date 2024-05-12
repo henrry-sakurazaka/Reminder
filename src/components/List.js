@@ -5,9 +5,9 @@ import Edit from "./Edit";
 
 const List = () => {
 
-  const { todos, task } = useTodos();
-  const { data, setData, loading, fetchedData } = useAsyncContext();
-  console.log('yes2')
+  const { todos } = useTodos();
+  const { data, loading } = useAsyncContext();
+  
     return ( 
         <>
           {loading ? ( // ローディング中の場合

@@ -19,7 +19,10 @@ const Modal = ({ handleCloseClick, todo }) => {
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
     const [inputTime, setInputTime] = useState('');
-    console.log(isDate)
+    const [prevIsDate, setPrevIsDate] = useState(isDate);
+    const [prevIsTime, setPrevIsTime] = useState(isTime);
+
+    // console.log(isDate)
     
     const { 
         isDateChecked, isTimeChecked, 
@@ -29,15 +32,23 @@ const Modal = ({ handleCloseClick, todo }) => {
         modalOpen,
         displayDatePicker, displayTimePicker, 
         isTimeSet, isDateSet, setIsTimeSet, setIsDateSet,
-        setSelectedDate, setSelectedTime
+        setSelectedDate, setSelectedTime,
+        completedDateTimeSetting,  setCompletedDateTimeSetting
     } = useTodos();
 
    
     useEffect(() => {
         const modal = document.querySelector('.modal');
         modal.style.alignItems = "center";
-        setTimer();
-    }, [isContainerTimeCheck, isDate, isTime]);
+        if (isDate !== prevIsDate || isTime !== prevIsTime) {
+            if (isDate !== prevIsDate || isTime !== prevIsTime) {
+                setTimer();
+            }
+            setPrevIsDate(isDate);
+            setPrevIsTime(isTime);
+        }
+      
+    }, [ isDate, isTime ]);
 
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
@@ -52,7 +63,7 @@ const Modal = ({ handleCloseClick, todo }) => {
         setContainerTimeCheck(false);
         setSelectedDate(true)
     };
-    console.log(setSelectedDate)
+
 
     const switchFunction2 = (isContainerTimeCheck) => {
         setContainerTimeCheck(isContainerTimeCheck ? false : true); 
@@ -93,21 +104,21 @@ const Modal = ({ handleCloseClick, todo }) => {
             //     // その他の必要なデータをここに追加
             // })
             // Firestoreにデータを書き込む
-            addDoc(collection(firestore, 'notifications'), {
-                notificationTime: dateTime,
-                // その他の必要なデータをここに追加
-            })
-            .then(() => {
-                console.log('Notification data has been written to Firestore successfully');
-            })
-            .catch((error) => {
-                console.error('Error writing notification data to Firestore: ', error);
-            });
-        } else {
-            console.error('Please select both date and time');
-        }
+            try {
+                addDoc(collection(firestore, 'notifications'), {
+                    notificationTime: dateTime,
+                    // その他の必要なデータをここに追加
+                })
+                setCompletedDateTimeSetting(true);
+                console.log('completedDateTimeSeitting', completedDateTimeSetting);
+                console.log('Notification data has been written to Firestore successfully');   
+            } catch (error) {
+                console.error('Error writing notification data to Firestore: ', error);   
+        } 
+      }
     };
 
+  
     return (  
         modalOpen ? 
         <div className="modal">
@@ -197,6 +208,6 @@ const Modal = ({ handleCloseClick, todo }) => {
         </div>
         : false           
     );     
-};
-
+ 
+}
 export default Modal;
