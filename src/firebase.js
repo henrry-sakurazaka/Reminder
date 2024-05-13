@@ -61,11 +61,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(); // Firestoreのインスタンスを取得
-const messaging = getMessaging(app)
-// const post = () => {
-//   Api.addTodo(inputName, currentUser.currentUser.uid)
-// }
-
+const messaging = getMessaging(app);
 
 
 export { app, auth, db, firestore, ref, set, messaging }; // dbもエクスポートする

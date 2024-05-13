@@ -110,7 +110,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     // その他の必要なデータをここに追加
                 })
                 setCompletedDateTimeSetting(true);
-                console.log('completedDateTimeSeitting', completedDateTimeSetting);
+        
                 console.log('Notification data has been written to Firestore successfully');   
             } catch (error) {
                 console.error('Error writing notification data to Firestore: ', error);   

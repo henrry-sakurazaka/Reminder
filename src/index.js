@@ -8,8 +8,25 @@ import './firebaseInit';
 // import FirstAuth from '../src/components/FirstAuth';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
+import { initializeApp } from 'firebase/app';
+import { getMessaging } from 'firebase/messaging';
+import firebaseConfig from './firebase'; // Firebase の設定情報が含まれるファイル
+
 import 'text-encoding';
 
+const app = initializeApp(firebaseConfig);
+const messaging = getMessaging(app);
+
+// サービスワーカーを登録する
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker.register('/firebase-messaging-sw.js')
+    .then((registration) => {
+      console.log('ServiceWorker registration successful:', registration);
+    })
+    .catch((error) => {
+      console.log('ServiceWorker registration failed:', error);
+    });
+}
 
 // // Your web app's Firebase configuration
 // const firebaseConfig = {
@@ -26,8 +43,6 @@ import 'text-encoding';
 // const app = initializeApp(firebaseConfig);
 // const auth = getAuth(app);
 const root = createRoot(document.getElementById('root'));
-
-
 
 root.render(
   <React.StrictMode>
