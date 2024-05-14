@@ -5,6 +5,7 @@ import { useNavigate } from 'react-router-dom';
 import { PrivateRoute, checkAuthentication } from './checkAuthentication';
 import Example from './Example';
 import UserAuth from './UserAuth';
+import { TodoProvider } from '../context/TodoContext';
 
 
 
@@ -31,13 +32,17 @@ function FirstAuth() {
       {authenticated ? (
         <div>
           <PrivateRoute>
-            <Example />
+            <TodoProvider>
+              <Example />
+            </TodoProvider>
           </PrivateRoute>
         </div>
       ) : (
         <div>
           <PrivateRoute>
-            <UserAuth/>
+            <TodoProvider>
+              <UserAuth/>
+            </TodoProvider>
           </PrivateRoute>
         </div>
       )}

@@ -126,10 +126,9 @@ const todoReducer = (todos, action) => {
       const [selectedDate, setSelectedDate] = useState(false);
       const [selectedTime, setSelectedTime] = useState(false);
       const [completedDateTimeSetting, setCompletedDateTimeSetting] = useState(false);
-      
+      const [userNavigate, setUserNavigate] = useState(false);
     
      
-   
     
     
     return (
@@ -143,7 +142,7 @@ const todoReducer = (todos, action) => {
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
             selectedTime, setSelectedTime, completedDateTimeSetting,
-            setCompletedDateTimeSetting
+            setCompletedDateTimeSetting, userNavigate, setUserNavigate
 
             }}>
               

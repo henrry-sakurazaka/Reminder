@@ -6,12 +6,16 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    
+   
     "rewrites": [
       {
-        "source": "**",
+        "source": "!/firebase/**",
         "destination": "/index.html"
       }
     ],
+    
+    
     "cleanUrls": true,
 
     "headers": [

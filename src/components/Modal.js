@@ -11,6 +11,7 @@ import MyDatePickerCom from "./MyDatePickerCom";
 import SelectSwitch from "./SelectSwitch";
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
+import '@webcomponents/webcomponentsjs/webcomponents-bundle';
 
 const firebaseApp = initializeApp(firebaseConfig);
 

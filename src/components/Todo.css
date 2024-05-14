@@ -15,6 +15,15 @@ body {
     transform-origin: top;
     transform: rotate(-45deg);
   }
+.logout {
+    top: 0;
+    right: 0;
+    color: rgb(8, 232, 158);
+    position: absolute;
+    margin-right: 8px;
+    cursor: pointer;
+    z-index: 9999;
+}
   
   .decoration {
     top: 0;

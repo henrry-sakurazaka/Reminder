@@ -21,7 +21,9 @@ const NotificationProvier = ({children}) => {
       const firebaseApp = initializeApp(firebaseConfig);
       const messaging = getMessaging(firebaseApp);
     
-      
+      // app.initializeApp(firebaseConfig);
+      // const messaging = app.messaging(); // Firebaseアプリを初期化し、Messagingモジュールを取得
+
       const NotificationHandler = async () => {
         
         try {

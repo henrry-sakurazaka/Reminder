@@ -18,7 +18,7 @@ const AsyncContextProvider = ({ children }) => {
     const {todos, todoList} = useTodos();
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
-    const [fetchedData, setFetchedData] = useState([]);  
+    const [fetchedData, setFetchedData] = useState();  
    
      console.log('first todos:', todos)
     const  dispatch  = useDispatchTodos();
@@ -156,6 +156,7 @@ const AsyncContextProvider = ({ children }) => {
           // console.log('snapshot',snapshot)
             const getData = GetConverter.fromFirestore(snapshot); 
             setData(todos)
+            console.log('getData', getData)
             // getData がオブジェクトである場合、配列にラップする
             const newFetchedData = Array.isArray(getData) ? getData : [getData];    
             // fetchedData が null でないことを確認してから処理を続行

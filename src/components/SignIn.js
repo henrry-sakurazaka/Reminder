@@ -60,8 +60,8 @@ function SignIn() {
 
       if (userCredential.user) {
         const idToken = await userCredential.user.getIdToken();
-        const deviceToken = await getDeviceToken(); // デバイストークンを取得
-        await sendTokensToServer(idToken, deviceToken); // トークンをサーバーに送信
+        // const deviceToken = await getDeviceToken(); // デバイストークンを取得
+        // await sendTokensToServer(idToken, deviceToken); // トークンをサーバーに送信
         navigate("/Example");
       }
     } catch (error) {
