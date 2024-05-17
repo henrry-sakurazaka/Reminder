@@ -8,9 +8,8 @@ import UserAuth from "./UserAuth";
 const Example = () => {
 
     const { userNavigate, setUserNavigate } = useTodos();
-    console.log('userNavigate',userNavigate)
+    // console.log('userNavigate',userNavigate)
     const logoutNavigation = () => {
-        console.log('yes')
         setUserNavigate(true);
     }
     return (
@@ -42,7 +41,7 @@ const Example = () => {
                           <UserAuth/>
                         ):(   
                           <Todo/>
-                        )};    
+                        )}   
                 </div>
            </section>
            

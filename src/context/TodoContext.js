@@ -91,14 +91,15 @@ const todoReducer = (todos, action) => {
           ? { ..._todo, editingDateTime: true }
           : { ..._todo, editingDateTime: false }
       );
-      case 'FETCH_TODOS':
-        return  action.payload
-     case 'complete2': 
-      return todos.map(todo =>
-        todo.id === action.todo.id 
-        ? {...todo, completed: true }
-        : {...todo}
-      )
+    case 'FETCH_TODOS':
+      return  action.payload
+
+    case 'complete2': 
+    return todos.map(todo =>
+      todo.id === action.todo.id 
+      ? {...todo, completed: true }
+      : {...todo}
+    )
           
     default: 
       return todos 
@@ -110,7 +111,7 @@ const todoReducer = (todos, action) => {
 
  const TodoProvider = ({ children }) => {
 
-      const [ todos, dispatch ] = useReducer(todoReducer, todoList); 
+      const [ todos, dispatch ] = useReducer(todoReducer, []); 
       const [ todosData, setTodosData ] = useState([]);
       const [modalOpen, setModalOpen ] = useState(false);
       const [isDateSet, setIsDateSet] = useState(false);
@@ -127,6 +128,7 @@ const todoReducer = (todos, action) => {
       const [selectedTime, setSelectedTime] = useState(false);
       const [completedDateTimeSetting, setCompletedDateTimeSetting] = useState(false);
       const [userNavigate, setUserNavigate] = useState(false);
+      const [addTask, setAddTask] = useState(false);
     
      
     
@@ -142,7 +144,8 @@ const todoReducer = (todos, action) => {
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
             selectedTime, setSelectedTime, completedDateTimeSetting,
-            setCompletedDateTimeSetting, userNavigate, setUserNavigate
+            setCompletedDateTimeSetting, userNavigate, setUserNavigate,
+            addTask, setAddTask
 
             }}>
               
