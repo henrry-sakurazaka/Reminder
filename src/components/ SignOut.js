@@ -2,6 +2,7 @@ import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signOut } from 'firebase/auth';
 import { auth } from '../firebase';
+import { useTodos } from '../context/TodoContext';
 
 
 function SignOut() {
@@ -18,6 +19,8 @@ function SignOut() {
     };
 
     handleSignOut();
+    localStorage.clear();
+
   }, [navigate]);
 
   return null; // ログアウトの間は何も表示しないためnullを返します

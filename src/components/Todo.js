@@ -3,6 +3,7 @@ import TodoList from "./TodoList";
 import Form from "./Form";
 import { TodoProvider } from "../context/TodoContext";
 import { AsyncContextProvider } from "../context/AsyncContext";
+import FirstAddTodos, { FirstAddTodosProvider } from "./FirstAddLogic";
 
 
 
@@ -12,12 +13,13 @@ const Todo = () => {
    
     return (
         <>
-            <TodoProvider>
-                <AsyncContextProvider>
-                    <TodoList/>
-                    <Form/>
-                </AsyncContextProvider>    
+            <TodoProvider> 
+                    <AsyncContextProvider>
+                        <TodoList/>
+                        <Form/>
+                    </AsyncContextProvider>              
             </TodoProvider>
+                    
                
         </>
     )

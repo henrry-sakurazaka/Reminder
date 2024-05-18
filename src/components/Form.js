@@ -13,6 +13,7 @@ const Form = ({todo}) => {
     const dispatch2 = useDispatchTodos();
     const { todos, task,
             enteredTodo, setEnteredTodo,
+            setAddTodosExecuted
             
     } = useTodos();
    
@@ -32,6 +33,7 @@ const Form = ({todo}) => {
         };
         dispatch2({ type: "todo/add", todo: newTodo, editing: false });
         setEnteredTodo("");
+        setAddTodosExecuted(true);
     }
 
     const allComplete = () => {
