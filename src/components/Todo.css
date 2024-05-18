@@ -49,7 +49,14 @@ body {
   .slash:nth-child(5) {
     width: 64px;
   }
-  
+  .logout {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 8px;
+    color:  rgb(8, 232, 158);
+    z-index: 999;
+  }
 
 .container {
     width: 100vw;

@@ -105,9 +105,6 @@ const todoReducer = (todos, action) => {
   }
 };
 
-
-   
-
  const TodoProvider = ({ children }) => {
 
       const [ todos, dispatch ] = useReducer(todoReducer, todoList); 
@@ -126,12 +123,9 @@ const todoReducer = (todos, action) => {
       const [selectedDate, setSelectedDate] = useState(false);
       const [selectedTime, setSelectedTime] = useState(false);
       const [completedDateTimeSetting, setCompletedDateTimeSetting] = useState(false);
-      
+      const [AddTodosExecuted, setAddTodosExecuted] = useState(false);
     
-     
    
-    
-    
     return (
         <TodoContext.Provider value=
             {{ todos, 
@@ -143,7 +137,7 @@ const todoReducer = (todos, action) => {
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
             selectedTime, setSelectedTime, completedDateTimeSetting,
-            setCompletedDateTimeSetting
+            setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted
 
             }}>
               

@@ -1,8 +1,16 @@
 import React from "react";
 import Todo from "./Todo";
 import "./Todo.css" ;
+import { useNavigate } from 'react-router-dom';
+import UserAuth from "./UserAuth";
 
-const example = () => {
+const Example = () => {
+    const navigate = useNavigate();
+
+    const navigationHandler = () => {
+        navigate('/UserAuth')
+    }
+    
     return (
         <>
          <div className="triangle"></div>
@@ -13,6 +21,7 @@ const example = () => {
                 <span className="slash"></span>
                 <span className="slash"></span>
             </div>
+        <span className="logout" onClick={navigationHandler}>Sign Out</span>
         <div className="container">
             <section>
                 <div className="big-title"><h1 className="big-text">REMINDER</h1></div>
@@ -26,15 +35,13 @@ const example = () => {
                         Complete button to erase them. Have a great lifestyle!</p>
                     </div>
                 <div className="out-line">
-                        <h2 className="title">Reminder</h2>
-                        <Todo />
+                    <h2 className="title">Reminder</h2> 
+                        <Todo/>         
                 </div>
-           </section>
-           
-           
+           </section>     
         </div>    
         </>
     );
 }
 
-export default example;
+export default Example;
