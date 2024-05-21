@@ -1,13 +1,19 @@
-import React, { useEffect } from "react";
-import { useState } from "react";
+import React from "react";
+import { useState, useEffect, useCallback} from "react";
 import { useDispatchTodos , useTodos , FirestoreContext } from "../context/TodoContext";
 import { collection, setDoc, addDoc, doc, deleteDoc, updateDoc, getDocs, onSnapshot } from 'firebase/firestore';
-import { db, app, firestore} from "../firebase";
+import { firestore, auth } from "../firebase";
+import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
+import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from "firebase/app"; // firebaseモジュールをインポート
+import firebaseConfig from "../firebase";
 
+const firebaseApp = initializeApp(firebaseConfig);
+    
 
-const Form = ({todo}) => {
+const Form = ({ firestore }) => {
+
     
     const dispatch = useDispatchTodos();
     const dispatch2 = useDispatchTodos();
@@ -16,6 +22,9 @@ const Form = ({todo}) => {
             setAddTodosExecuted
             
     } = useTodos();
+    const user = auth.currentUser;
+    const [uid, setUid] = useState(); // uidの初期化
+    
    
     const addTodo = () => {
         const newTodo = {
@@ -42,7 +51,32 @@ const Form = ({todo}) => {
         };
         dispatch({type: "todo/reset", todo: neoTodo, editing: false });   
     }
-   
+
+    
+
+   // Custom hook to manage todos
+const UseMidleTodos = (todoList, uid, firestore) => {
+
+    // Function to handle reset todos
+    const handleResetTodos = useCallback(async () => {
+      try {
+        const todoDocRef = doc(firestore, 'todoList3', uid);
+        await updateDoc(todoDocRef, { todos: [] });
+        console.log('Todos successfully reset');
+      } catch (error) {
+        console.error('Error resetting todos:', error);
+      }
+    }, [firestore, uid]);
+  
+    // Effect to watch for reset action
+    useEffect(() => {
+      if (todos.length === 0) {
+        handleResetTodos();
+      }
+    }, [todos, handleResetTodos]);
+  
+    return [todos, dispatch];
+  };
    
     
     return(
