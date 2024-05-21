@@ -1,30 +1,60 @@
 
-import React, { useMemo } from "react";
-import { createContext , useState, useRef, useEffect, useContext} from "react";
+import React from "react";
+import { useCallback } from "react";
+import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { createContext , useState, useRef, useEffect, useContext, useMemo} from "react";
 import { useDispatchTodos, useTodos } from "./TodoContext";
-import { firestore} from "../firebase";
-// import { initializeApp } from "firebase/app";
-// import { getFirestore } from 'firebase/firestore';
-// import firebaseConfig from "../firebase";
-import { collection, doc, setDoc, getDoc, addDoc} from 'firebase/firestore';
-import TodoList from "../components/TodoList";
+import { firestore, auth } from "../firebase";
+import { initializeApp } from "firebase/app";
+import firebaseConfig from "../firebase";
+import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
 
-// const firebaseApp = initializeApp(firebaseConfig);
-// const firestore = getFirestore(firebaseApp);
+
+const firebaseApp = initializeApp(firebaseConfig);
 const AsyncLogic = createContext();
 
 
 const AsyncContextProvider = ({ children }) => {
-    const {todos, todoList, AddTodosExecuted, setAddTodosExecuted} = useTodos();
+
+    const { todos, todoList, AddTodosExecuted } = useTodos();
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
-    const [fetchedData, setFetchedData] = useState([]);  
-   
-     console.log('first todos:', todos)
+    const [fetchedData, setFetchedData] = useState([]); 
     const  dispatch  = useDispatchTodos();
+    const user = auth.currentUser;
+    const [uid, setUid] = useState(); // uidの初期化
+    
     // const todosArray = todos && Object.values(todos);
     const fetchedDataRef = useRef(null);
 
+
+    useEffect(() => {
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          console.log('User is signed in:', user);
+          console.log('uid:', user.uid);
+          setUid(user.uid); 
+        } else {
+          console.log('No user is signed in');
+        }
+      });
+    
+      return () => unsubscribe();
+    }, []);
+    
+    // useEffect(() => {
+    //   const unsubscribe = onAuthStateChanged(auth, (user) => {
+    //     if (user) {
+    //       console.log('uid:', user.uid); 
+    //       const todoDocRef = doc(firestore, 'todoList3', user.uid);
+    //       // ここでtodoDocRefを使用してFirestoreにアクセスする他のコードを実行する
+    //     }
+    //   });
+    
+    //   return () => unsubscribe();
+    // }, []);
+     
+    
     const todosConverter2 = useMemo(() => {
       return {
         toFirestore: (todos) => {
@@ -54,7 +84,7 @@ const AsyncContextProvider = ({ children }) => {
     const GetConverter = useMemo(() => {
       return {
         fromFirestore: (snapshot, options) => {
-          const data = snapshot.data(options);
+          const data = snapshot;
           const dataArray = Object.values(data).map(item => ({
             title: item.title,
             description: item.description,
@@ -74,7 +104,48 @@ const AsyncContextProvider = ({ children }) => {
     }, []);
      
     
-
+    // const GetConverter = useMemo(() => {
+    //   return {
+    //     fromFirestore: (snapshot, options) => {
+    //       const data = snapshot;
+    //       const dataArray = Object.values(data).map(item => {
+    //         // titleがnullでないことを確認してからプロパティを読み取る
+    //         if (item.title !== null) {
+    //           return {
+    //             title: item.title,
+    //             description: item.description,
+    //             type: item.type,
+    //             id: item.id,
+    //             content: item.content,
+    //             editing: item.editing,
+    //             completed: item.completed,
+    //             reserve: item.reserve,
+    //             editingLock: item.editingLock,
+    //             editingColor: item.editingColor,
+    //             editingDateTime: item.editingDateTime
+    //           };
+    //         } else {
+    //           // titleがnullの場合はデフォルトの値などを設定するか、適切に処理する
+    //           return {
+    //             title: 'Default Title',
+    //             description: '',
+    //             type: '',
+    //             id: '',
+    //             content: '',
+    //             editing: false,
+    //             completed: false,
+    //             reserve: '',
+    //             editingLock: false,
+    //             editingColor: '',
+    //             editingDateTime: ''
+    //           };
+    //         }
+    //       });
+    //       return dataArray;
+    //     }
+    //   };
+    // }, []);
+    
 //     const GetConverter = {
 //     fromFirestore: (snapshot, options) => {
 //         const data = snapshot.data(options);
@@ -83,104 +154,107 @@ const AsyncContextProvider = ({ children }) => {
 //     }
 // }
 
-useEffect(() => {
-  const AddTodos = async () => {
-    try {
-      const todoCollectionRef = collection(firestore, 'todoList3');
-      const todoDocRef = doc(todoCollectionRef);
-      const converter2 = todosConverter2.toFirestore(todos)
-      await addDoc(todoDocRef, converter2);
-      console.log('add')
-      // const documentID = todoCollectionRef.id;
-      // const todoDocRef = doc(todoCollectionRef, documentID); 
-      const snapshot =  await getDoc(todoDocRef);
-      const getData = GetConverter.fromFirestore(snapshot); 
-      console.log(getData)
-      const newFetchedData = Array.isArray(getData) ? getData : [getData];    
-      // fetchedData が null でないことを確認してから処理を続行
-        console.log('newFetchedData:',newFetchedData)
-        if (newFetchedData !== null && newFetchedData.length > 0) {
-            setFetchedData(newFetchedData);
-            setData(newFetchedData);
-            dispatch({ type: 'FETCH_TODOS', payload: newFetchedData });
-        }
 
-      console.log('Todos added to Firestore successfully');
+
+useEffect(() => {
     
-    } catch (error) {
-      console.error('Error adding todoList to Firestore:', error);
-    } finally {
-      setLoading(false);
-    }
-  }
-  if (AddTodosExecuted) {
-    console.log('addTodo')
-    AddTodos();  
-  }
-},[AddTodosExecuted]);
+  const fetchTodosFromFirestore = async () => {
+    // if(user.uid) {
+    //   console.log('UID is null, fetchTodosFromFirestore will not execute');
+    //   return;
+    // }
+   
+      try {
+          // const todoCollectionRef = collection(firestore, 'todoList3');
+          const todoDocRef = doc(firestore, 'todoList3',user.uid);
+          // const converter2 = todosConverter2.toFirestore(todos)
+          // await addDoc(todoDocRef, converter2);
+          const snapshot =  await getDoc(todoDocRef);
+          console.log(snapshot)
+          // ドキュメントが存在する場合のみ処理を続行
+          if (snapshot.exists()) {
+            const data2 = snapshot.data();
+            const datatodos = data2.todos || []; // todos配列にアクセス
+
+              const getData = GetConverter.fromFirestore(datatodos); 
+              setData(true)
+              // getData がオブジェクトである場合、配列にラップする
+              const newFetchedData = Array.isArray(getData) ? getData : [getData];    
+              // fetchedData が null でないことを確認してから処理を続行
+                console.log('newFetchedData:',newFetchedData)
+                if (newFetchedData !== null && newFetchedData.length > 0) {
+                    setFetchedData(newFetchedData);
+                    setData(true);
+                    fetchedDataRef.current = newFetchedData;
+                    dispatch({ type: 'FETCH_TODOS', payload: newFetchedData || []});
+                  } 
+              }
+            } catch (error) {
+              console.error('Error saving todoList to Firestore:', error);
+            } finally {
+              setLoading(false);
+            }  
+        }
+      fetchTodosFromFirestore();  
+    }, [GetConverter, dispatch]);
+
 
   
-    useEffect(() => {
-    const fetchTodosFromFirestore = async () => {
+useEffect(() => {
+  
+  const AddTodos = async () => {
+
         try {
-        const todoCollectionRef = collection(firestore, 'todoList3');
-        const todoDocRef = doc(todoCollectionRef);
-        // const converter2 = todosConverter2.toFirestore(todos)
-        // await addDoc(todoDocRef, converter2);
-        const snapshot =  await getDoc(todoDocRef);
-        // ドキュメントが存在する場合のみ処理を続行
-        if (snapshot.exists()) {
-          // console.log('snapshot',snapshot)
-            const getData = GetConverter.fromFirestore(snapshot); 
-            setData(todos)
-            // getData がオブジェクトである場合、配列にラップする
-            const newFetchedData = Array.isArray(getData) ? getData : [getData];    
-            // fetchedData が null でないことを確認してから処理を続行
-              console.log('newFetchedData:',newFetchedData)
-              if (newFetchedData !== null && newFetchedData.length > 0) {
-                  setFetchedData(newFetchedData);
-                  setData(newFetchedData);
-                  fetchedDataRef.current = newFetchedData;
-                  dispatch({ type: 'FETCH_TODOS', payload: newFetchedData });
-                } 
-            }
-          } catch (error) {
-            console.error('Error saving todoList to Firestore:', error);
-          } finally {
-            setLoading(false);
-          }
+          // const todoCollectionRef = collection(firestore, 'todoList3');
+          const todoDocRef = doc(firestore, 'todoList3', user.uid);
+          const convertedData = todosConverter2.toFirestore(todos);
+          const dataWithUid = { uid: user.uid, todos: convertedData };
+          await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
+          console.log('add')
+          console.log('Todos added to Firestore successfully');
+        
+        } catch (error) {
+          console.error('Error adding todoList to Firestore:', error);
+        } finally {
+          setLoading(false);
         }
-        // 非同期関数を呼び出すため、関数を即時実行する必要があります
-        fetchTodosFromFirestore();
-      }, [GetConverter, dispatch]);
+    }
+      if (AddTodosExecuted) {
+        console.log('addTodo')
+        AddTodos();  
+      }
+},[AddTodosExecuted, dispatch, todos, GetConverter, todosConverter2]);
 
 
 
-    // const todosConverter3 = useMemo(() => todosConverter2, [fetchedData]);
 
-        useEffect(() => {
-          const saveNewDataToFirestore = async () => {
-            console.log('yes')
-                try {    
-                    const todoCollectionRef = collection(firestore, 'todoList3');
-                    const newDocRef = doc(todoCollectionRef);    
-                    if(fetchedData !== null && fetchedData !== undefined && fetchedData.length !== 0) {
-                        const converter = todosConverter2.toFirestore(todos);
-                        console.log('converter:',converter)
-                        await setDoc(newDocRef, converter);    
-                        console.log('New data saved to Firestore:');   
-                    }
-              } catch (error) {
-                console.error('Error saving new data to Firestore:', error);
-              }
-          };
+
+
+    // // const todosConverter3 = useMemo(() => todosConverter2, [fetchedData]);
+
+    //     useEffect(() => {
+    //       const saveNewDataToFirestore = async () => {
+    //         console.log('yes')
+    //             try {    
+    //                 const todoCollectionRef = collection(firestore, 'todoList3');
+    //                 const newDocRef = doc(todoCollectionRef, user.uid);    
+    //                 if(fetchedData !== null && fetchedData !== undefined && fetchedData.length !== 0) {
+    //                     const converter = todosConverter2.toFirestore(todos);
+    //                     console.log('converter:',converter)
+    //                     await setDoc(newDocRef, converter);    
+    //                     console.log('New data saved to Firestore:');   
+    //                 }
+    //           } catch (error) {
+    //             console.error('Error saving new data to Firestore:', error);
+    //           }
+    //       };
           
-          // 新しいデータがセットされた場合に Firestore に保存
-          if (fetchedData !== null && fetchedData !== undefined && fetchedData.length !== 0) {
-            saveNewDataToFirestore();
-          }
+    //       // 新しいデータがセットされた場合に Firestore に保存
+    //       if (fetchedData !== null && fetchedData !== undefined && fetchedData.length !== 0) {
+    //         saveNewDataToFirestore();
+    //       }
       
-        }, [todos, fetchedData, loading, todosConverter2 ]);
+    //     }, [todos, fetchedData, loading, todosConverter2 ]);
       
     
     console.log('fetchedData:', fetchedData)
@@ -320,7 +394,7 @@ useEffect(() => {
     
     return (
         <AsyncLogic.Provider value={{data, setData, loading, setLoading,
-          fetchedData, setFetchedData, todoList
+          fetchedData, setFetchedData, todoList, user, uid, firestore
         }} >
             {children}
         </AsyncLogic.Provider>
@@ -329,4 +403,4 @@ useEffect(() => {
 
 
 const useAsyncContext = () => useContext(AsyncLogic);
-export { useAsyncContext , AsyncContextProvider };
+export { useAsyncContext , AsyncContextProvider } 

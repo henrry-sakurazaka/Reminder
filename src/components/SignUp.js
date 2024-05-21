@@ -158,9 +158,11 @@ function SignUp() {
           await updateProfile(auth.currentUser, {
             displayName: name,
           });
-          const converter = todosConverter2.toFirestore(todoList);
+          const convertedData = todosConverter2.toFirestore(todoList);
+          const dataWithUid = { uid: user.uid, todos: convertedData };
+
           // サインアップ成功時にtodoListを保存する
-          await setDoc(doc(firestore, "todoList2", user.uid), { uid: user.uid, converter: converter});
+          await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
     
           navigate('/Example');
         } catch (error) {

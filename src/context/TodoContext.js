@@ -1,9 +1,9 @@
 import React from "react";
-import { createContext, useContext, useReducer, useState } from "react";
+import { createContext, useContext, useReducer, useState, useCallback } from "react";
 import { useAsyncContext } from "./AsyncContext";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
-import { getDoc } from 'firebase/firestore';
+import { getDoc, updateDoc} from 'firebase/firestore';
 import firebaseConfig from "../firebase";
 
 
@@ -71,7 +71,7 @@ const todoReducer = (todos, action) => {
         todo.id === action.todo.id ? { ...todo, ...action.todo } : { ...todo }
       );
     case 'todo/reset':
-      return []; // ここは正しくないので修正が必要
+      return []; // Reset todos to an empty array
 
     case 'todo/reserve':
       return todos.map(_todo =>
@@ -104,6 +104,9 @@ const todoReducer = (todos, action) => {
       return todos 
   }
 };
+
+ 
+
 
  const TodoProvider = ({ children }) => {
 
