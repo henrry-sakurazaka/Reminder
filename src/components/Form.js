@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useCallback} from "react";
-import { useDispatchTodos , useTodos , FirestoreContext } from "../context/TodoContext";
-import { collection, setDoc, addDoc, doc, deleteDoc, updateDoc, getDocs, onSnapshot } from 'firebase/firestore';
+import { useDispatchTodos , useTodos } from "../context/TodoContext";
+import { doc, updateDoc } from 'firebase/firestore';
 import { firestore, auth } from "../firebase";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';

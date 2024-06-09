@@ -1,49 +1,13 @@
-// // Import the functions you need from the SDKs you need
-// import { initializeApp } from "firebase/app";
-// import { getAuth } from "firebase/auth";
-// import { getDatabase } from "firebase/database"; // Realtime Databaseをインポート
 
-// // TODO: Add SDKs for Firebase products that you want to use
-// // https://firebase.google.com/docs/web/setup#available-libraries
-
-// // Your web app's Firebase configuration
-// const firebaseConfig = {
-//   apiKey: "AIzaSyDq5hfrZ2bVxGxOsWX2bJhK3hynMttRHXc",
-//   authDomain: "reminder-b4527.firebaseapp.com",
-//   databaseURL: "https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app",
-//   projectId: "reminder-b4527",
-//   storageBucket: "reminder-b4527.appspot.com",
-//   messagingSenderId: "968555995295",
-//   appId: "1:968555995295:web:42d909b7393394b85502aa"
-// };
-
-// // Initialize Firebase
-// const app = initializeApp(firebaseConfig);
-// const auth = getAuth(app);
-// const db = getDatabase(); // Realtime Databaseのインスタンスを取得
-
-// (async () => {
-//   try {
-//     await app; // Firebaseアプリの初期化を待機
-//     const db = getDatabase(app); // Firebase Realtime Databaseのインスタンスを取得
-//     // ここでdbを使用してデータベースの操作を行う
-//   } catch (error) {
-//     console.error("Firebaseアプリの初期化に失敗しました:", error);
-//   }
-// })();
-// export { auth , db};
-
-// Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
-import { getAuth } from "firebase/auth";
-// import * as Api from '../service/api';
+// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+// import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+import { getAuth , GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
 // import FirebaseMock from 'firebase-mock';
 // import 'text-encoding';
-import { getMessaging } from "firebase/messaging";
-
-
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -59,14 +23,91 @@ const firebaseConfig = {
 // Initialize Firebase
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getDatabase(); // Realtime Databaseのインスタンスを取得
-const firestore = getFirestore(); // Firestoreのインスタンスを取得
-const messaging = getMessaging(app)
-// const post = () => {
-//   Api.addTodo(inputName, currentUser.currentUser.uid)
-// }
+const db = getDatabase(app); // Realtime Databaseのインスタンスを取得
+const firestore = getFirestore(app); // Firestoreのインスタンスを取得
+const messaging = getMessaging(app);
+const provider = new GoogleAuthProvider();
 
 
+if ('serviceWorker' in navigator) {
 
-export { app, auth, db, firestore, ref, set, messaging }; // dbもエクスポートする
+    navigator.serviceWorker.getRegistrations().then(function(registrations) {
+      for (let registration of registrations) {
+          registration.unregister();
+      }
+    });
+
+    navigator.serviceWorker.register('/worker.js', { type: 'module' })
+      .then((registration) => {
+        console.log('Service Worker registration successful with scope: ', registration.scope);
+        
+        const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
+        return getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
+      })
+    
+      .then((currentToken) => {
+          if (currentToken) {
+            console.log('FCM Token:', currentToken);
+            return sendTokenToServer(currentToken); // トークンをサーバーに送信する処理
+          } else {
+            console.log('No registration token available. Request permission to generate one.');
+          }
+        })
+        .catch ((err) => {
+          console.log('An error occurred while retrieving token. ', err);
+      });
+}
+
+onMessage(messaging, (payload) => {
+  console.log('Message received. ', payload);
+  // 通知の表示コードをここに追加
+  // ブラウザが通知を表示する許可を持っているかを確認
+  if (Notification.permission === 'granted') {
+    // 通知のオプションを設定
+    const notificationOptions = {
+      body: payload.notification.body,
+      icon: payload.notification.icon
+    };
+
+    // 通知を表示
+    new Notification(payload.notification.title, notificationOptions);
+  } else {
+    // 許可をリクエストする
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        // 通知のオプションを設定
+        const notificationOptions = {
+          body: payload.notification.body,
+          icon: payload.notification.icon
+        };
+
+        // 通知を表示
+        new Notification(payload.notification.title, notificationOptions);
+      }
+    });
+  }
+});
+
+
+// トークンをサーバーに送信する関数
+const sendTokenToServer = async (token) => {
+  try {
+    const response = await fetch('https://reminder-b4527.web.app/register-token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
+    });
+    if (response.ok) {
+      console.log('トークンがサーバーに送信されました');
+    } else {
+      console.error('トークンの送信に失敗しました');
+    }
+  } catch (error) {
+    console.error('トークンの送信中にエラーが発生しました:', error);
+  }
+};
+
+export { app, auth, db, firestore, ref, set, messaging, provider }; // dbもエクスポートする
 export default firebaseConfig;

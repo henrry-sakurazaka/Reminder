@@ -27,7 +27,7 @@ const MyDatePickerCom = ({isDate, handleDateChange}) => {
             inputVariant="outlined"
             onChange={handleDateChange}
             selected={isDate}
-            showTodayButton
+            showTodayButton={true}
             ampm={false}
             autoOk
           />

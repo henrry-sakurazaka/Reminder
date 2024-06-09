@@ -140,7 +140,8 @@ const todoReducer = (todos, action) => {
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
             selectedTime, setSelectedTime, completedDateTimeSetting,
-            setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted
+            setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted,
+            completedDateTimeSetting, setCompletedDateTimeSetting
 
             }}>
               

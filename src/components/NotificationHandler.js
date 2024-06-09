@@ -1,64 +1,46 @@
 import { useEffect } from 'react';
 import { firestore } from '../firebase';
-import { getFirestore } from 'firebase/firestore';
-import { firebase } from "../firebase";
-import { onSnapshot, collection, query, where, getDocs, getDoc } from 'firebase/firestore';
-import { app, auth, messaging } from '../firebase';
-import { getAuth, signInWithEmailAndPassword } from "firebase/auth";
-import { useTodos } from "../context/TodoContext";
+import { collection, query, where, getDocs, getDoc, onSnapshot, 
+          doc } from 'firebase/firestore';
+import { messaging } from '../firebase';
+import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import useFCMToken from './useFCMtoken';
 
-import firebaseConfig from "../firebase";
 
-const firebaseApp = initializeApp(firebaseConfig);
-// const firestore = getFirestore(firebaseApp);
-const messaging = app.messaging();
-const { completedDateTimeSetting } = useTodos();
 
-messaging
-  .getToken({
-    vapidKey: 'BFuJxY_z25hMpIZ-TczFvqh6OApOCYIhFoORSr79hYDDKK7TRjFSFHpsmOmCvknGAskQN7QKngak42SzPwTHalY', // オプション。Webプッシュ通知を使用する場合に必要なVAPIDキーを指定します。
-  })
-  .then((currentToken) => {
-    if (currentToken) {
-      // デバイストークンを取得した後の処理
-      console.log('Current token:', currentToken);
-    } else {
-      // デバイストークンを取得できなかった場合の処理
-      console.log('No registration token available. Request permission to generate one.');
-    }
-  })
-  .catch((err) => {
-    // エラーが発生した場合の処理
-    console.log('An error occurred while retrieving token. ', err);
-  });
+const NotificationHandler = ({ shouldHandleNotifications , completedDateTimeSetting}) => {
+  
+  useFCMToken();    // コンポーネントの初期化時にFCMトークンを取得
 
-const NotificationHandler = () => {
   useEffect(() => {
+   if (completedDateTimeSetting && shouldHandleNotifications) {
     const fetchTimers = async () => {
+      console.log('yes')
       const timersCollection = collection(firestore, 'notifications');
-      const q = query(timersCollection, where('notificationTime', '>=', new Date())); // 未来のタイマーのみ取得
+      const q = query(timersCollection, where('notificationTime', '>=', new Date()));
       const querySnapshot = await getDocs(q);
 
       querySnapshot.forEach((doc) => {
         const timerData = doc.data();
         const notificationTime = timerData.notificationTime.toDate();
 
-        // 現在時刻とタイマーの設定を比較
         if (isTimeApproaching(notificationTime)) {
-          // プッシュ通知を送信
           sendPushNotification(timerData);
         }
       });
     };
 
-    const timerSubscription = onSnapshot(collection(firestore, 'notifications'), () => {
+    
+    const unsubscribe = onSnapshot(collection(firestore, 'notifications'), (snapshot) => {
       fetchTimers();
     });
 
     return () => {
-      timerSubscription(); // クリーンアップ
+      unsubscribe(); // クリーンアップ
     };
-  }, []);
+
+   }
+  }, [completedDateTimeSetting, shouldHandleNotifications]);
 
   const isTimeApproaching = (notificationTime) => {
     const currentTime = new Date();
@@ -70,22 +52,46 @@ const NotificationHandler = () => {
 
   const sendPushNotification = async (timerData) => {
     try {
-      // FirestoreからtodoListコレクション内のドキュメントを取得
-      const todoDocRef = doc(firestore, 'todoList', timerData.id);
+      const todoDocRef = doc(firestore, 'todoList3', timerData.id);
       const todoDocSnapshot = await getDoc(todoDocRef);
-  
-      // ドキュメントが存在する場合はcontentの値を取得し、プッシュ通知を送信
+
       if (todoDocSnapshot.exists()) {
         const todoData = todoDocSnapshot.data();
         const todoContent = todoData.content;
-  
-        // プッシュ通知の送信
-        await messaging.send({
-          data: {
-            title: 'Reminder',
-            body: `Reminder: ${todoContent}`, // タイマーに関連するメッセージとしてcontentを使用
+
+        const response = await fetch('https://reminder-b4527.web.app/get-token', {
+          method: 'GET',
+          headers: {
+            'Content-Type': 'application/json',
           },
         });
+        const { token } = await response.json();
+
+        const message = {
+          title: 'Reminder',
+          body: `Reminder: ${todoContent}`,
+        };
+        await sendPushNotificationToServer(token, message);
+
+        const sendPushNotificationToServer = async (token, message) => {
+          try {
+            const response = await fetch('https://reminder-b4527.web.app/send-notification', {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify({ token, message }),
+            });
+            if (response.ok) {
+              console.log('Notification sent successfully');
+            } else {
+              console.error('Error sending notification');
+            }
+          } catch (error) {
+            console.error('Error sending notification:', error);
+          }
+        };
+      
         console.log('Push notification sent successfully:', todoContent);
       } else {
         console.error('Document does not exist');
@@ -94,13 +100,9 @@ const NotificationHandler = () => {
       console.error('Error sending push notification:', error);
     }
   };
+
+  return null; 
 };
-console.log('completedDateTimeSetting', completedDateTimeSetting)
-if(completedDateTimeSetting) {
-  console.log('yes')
-  NotificationHandler();
-  isTimeApproaching();
-  sendPushNotification();
-}
 
 export default NotificationHandler;
+
