@@ -4,7 +4,8 @@
     "main": "reminder-b4527",
     "reminder": "reminder2-8990f",
     "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder-b4527",
-    "e": "reminder-b4527"
+    "e": "reminder-b4527",
+    "deployment": "reminder-b4527"
   },
   "targets": {
     "reminder-b4527": {
@@ -16,5 +17,6 @@
       }
     }
   },
-  "etags": {}
+  "etags": {},
+  "dataconnectEmulatorConfig": {}
 }

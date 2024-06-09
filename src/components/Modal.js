@@ -9,21 +9,21 @@ import SSwitch2 from "./SSwitch2";
 import MyTimePicker from "./MyTimePicker";
 import MyDatePickerCom from "./MyDatePickerCom";
 import SelectSwitch from "./SelectSwitch";
+import NotificationHandler from "./NotificationHandler";
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const Modal = ({ handleCloseClick, todo }) => {
+const Modal = () => {
 
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
     const [inputTime, setInputTime] = useState('');
     const [prevIsDate, setPrevIsDate] = useState(isDate);
     const [prevIsTime, setPrevIsTime] = useState(isTime);
+    const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
 
-    // console.log(isDate)
-    
     const { 
         isDateChecked, isTimeChecked, 
         setIsDateChecked, setIsTimeChecked,
@@ -37,19 +37,6 @@ const Modal = ({ handleCloseClick, todo }) => {
     } = useTodos();
 
    
-    useEffect(() => {
-        const modal = document.querySelector('.modal');
-        modal.style.alignItems = "center";
-        if (isDate !== prevIsDate || isTime !== prevIsTime) {
-            if (isDate !== prevIsDate || isTime !== prevIsTime) {
-                setTimer();
-            }
-            setPrevIsDate(isDate);
-            setPrevIsTime(isTime);
-        }
-      
-    }, [ isDate, isTime ]);
-
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
     };
@@ -71,8 +58,9 @@ const Modal = ({ handleCloseClick, todo }) => {
         setSelectedTime(true);
     };
 
-    const handleDateChange = (date) => {
-        setIsDate(date);
+    const handleDateChange = (e) => {
+        const newDate = new Date(e.target.value);
+        setIsDate(newDate);
         setIsDateSet(true);
       };
       
@@ -84,10 +72,12 @@ const Modal = ({ handleCloseClick, todo }) => {
 
     const handleTimeChange = (e) => {
         const { value } = e.target;
-        const [hours, minutes] = value.split(":");
+        const [hours, minutes] = value.split(":"); 
         const newTime = new Date();
-        newTime.setHours(parseInt(hours), parseInt(minutes));
-        setInputTime(newTime);
+        newTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    
+        setIsTime(newTime);
+        setInputTime(value)
         setIsTimeSet(true);
     };
     
@@ -96,27 +86,39 @@ const Modal = ({ handleCloseClick, todo }) => {
     const setTimer = () => {
         if (isDate && isTime) {
             const dateTime = new Date(isDate);
-            dateTime.setHours(isTime.getHours(), isTime.getMinutes());
-      
-            // // Firestoreにデータを書き込む
-            // firestore().collection('notifications').add({
-            //     notificationTime: dateTime,
-            //     // その他の必要なデータをここに追加
-            // })
-            // Firestoreにデータを書き込む
+            dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
+            console.log('dateTime', dateTime)
             try {
                 addDoc(collection(firestore, 'notifications'), {
                     notificationTime: dateTime,
-                    // その他の必要なデータをここに追加
                 })
                 setCompletedDateTimeSetting(true);
+                setShouldHandleNotifications(true);
+               
                 console.log('completedDateTimeSeitting', completedDateTimeSetting);
+                console.log(' setShouldHandleNotifications',  shouldHandleNotifications)
                 console.log('Notification data has been written to Firestore successfully');   
             } catch (error) {
                 console.error('Error writing notification data to Firestore: ', error);   
         } 
       }
     };
+
+    useEffect(() => {
+        const modal = document.querySelector('.modal');
+        modal.style.alignItems = "center";
+        if (isDate !== prevIsDate || isTime !== prevIsTime) {
+            if (isDate !== prevIsDate || isTime !== prevIsTime) {
+                setTimer();
+                setPrevIsDate(isDate);
+                setPrevIsTime(isTime);
+            }
+            
+        }
+      
+    }, [ isDate, isTime ]);
+
+    
 
   
     return (  
@@ -155,6 +157,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     onChange={handleDateChange}
                     selected={isDate}
                     isDate={isDate}
+                    inputVariant="outlined"
                     handleDateChange={handleDateChange}
                 />  
             ) : isDateChecked && isTimeChecked ? (
@@ -163,6 +166,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
                     setInputTime={setInputTime}
+                    inputVariant="outlined"
                 />
             ) : isDateChecked ? (
                 <MyDatePickerCom
@@ -176,6 +180,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     isTime={isTime}
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
+                    inputVariant="outlined"
                     setInputTime={setInputTime}
                 />
             ) : isContainerDateCheck ? (
@@ -183,6 +188,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     onChange={handleDateChange}
                     selected={isDate}
                     isDate={isDate}
+                    inputVariant="outlined"
                     handleDateChange={handleDateChange}
                 />
             ) : isContainerTimeCheck ? (
@@ -190,6 +196,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     isTime={isTime}
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
+                    inputVariant="outlined"
                     setInputTime={setInputTime}
                 />
             ) : (
@@ -204,6 +211,10 @@ const Modal = ({ handleCloseClick, todo }) => {
         } 
         <div className="btn-container">
             <button className="set-btn" onClick={() => setTimer()}>SET</button>
+            {completedDateTimeSetting && shouldHandleNotifications && (
+             <NotificationHandler shouldHandleNotifications={shouldHandleNotifications} 
+             completedDateTimeSetting = {completedDateTimeSetting} />
+      )}
         </div>
         </div>
         : false           

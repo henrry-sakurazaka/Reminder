@@ -7,7 +7,6 @@ import UserAuth from "./components/UserAuth";
 import SignOut from "./components/ SignOut";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import FirstAddTodos, { FirstAddTodosProvider } from "./components/FirstAddLogic";
 
 export default function App() {
   return (
@@ -20,7 +19,6 @@ export default function App() {
           <Route path="/SignOut" element={<SignOut/>} />
           <Route path="/SignUp" element={<SignUp/>} />
           <Route path="/SignIn" element={<SignIn/>} />
-          <Route path="/FirstAddLogic" element={<FirstAddTodosProvider/>}/>
         </Routes>
       </BrowserRouter>
     

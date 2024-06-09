@@ -6,7 +6,48 @@
       "**/.*",
       "**/node_modules/**"
     ],
+    "site": "reminder-b4527",
+    "headers": [
+      {
+        "source": "/worker.js",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]  
+      },
+      {
+        "source": "/firebase-messaging-sw.js",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]  
+      }
+    ],
     "rewrites": [
+      {
+        "source": "/worker.js",
+        "destination": "/worker.js"
+      },
+      {
+        "source": "/firebase-messaging-sw.js",
+        "destination": "/worker.js"
+      },
+      {
+        "source": "/api/**",
+        "function": "app"
+      },
       {
         "source": "**",
         "destination": "/index.html"
@@ -15,14 +56,11 @@
   },
   "functions": [
     {
-      "source": "functions",
-      "codebase": "default",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log"
-      ]
-    }
-  ]
+      "source": "functions"
+    }  
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  }
 }

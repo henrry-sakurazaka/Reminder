@@ -1,13 +1,9 @@
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
-import { initializeApp } from "firebase/app";
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-// import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
-import { getAuth , GoogleAuthProvider} from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
-// import FirebaseMock from 'firebase-mock';
-// import 'text-encoding';
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -31,11 +27,6 @@ const provider = new GoogleAuthProvider();
 
 if ('serviceWorker' in navigator) {
 
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for (let registration of registrations) {
-          registration.unregister();
-      }
-    });
 
     navigator.serviceWorker.register('/worker.js', { type: 'module' })
       .then((registration) => {
@@ -48,7 +39,7 @@ if ('serviceWorker' in navigator) {
       .then((currentToken) => {
           if (currentToken) {
             console.log('FCM Token:', currentToken);
-            return sendTokenToServer(currentToken); // トークンをサーバーに送信する処理
+            return sendTokenToServer(currentToken); 
           } else {
             console.log('No registration token available. Request permission to generate one.');
           }
@@ -57,6 +48,32 @@ if ('serviceWorker' in navigator) {
           console.log('An error occurred while retrieving token. ', err);
       });
 }
+
+
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/worker.js')
+//   .then(async function(registration) {
+//     console.log('Service Worker registration successful with scope: ', registration.scope);
+//     const messaging = firebase.messaging();
+//     messaging.useServiceWorker(registration);
+    
+//     try {
+//       const currentToken = await messaging.getToken({ vapidKey: 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po' });
+//       if (currentToken) {
+//         console.log('FCM Token:', currentToken);
+//         // return sendTokenToServer(currentToken); 
+//         // Send the token to your server or save it to localStorage
+//       } else {
+//         console.warn('No registration token available. Request permission to generate one.');
+//       }
+//     } catch (err) {
+//       console.error('An error occurred while retrieving token. ', err);
+//     }
+//   })
+//   .catch(function(err) {
+//     console.error('Service Worker registration failed: ', err);
+//   });
+// }
 
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);

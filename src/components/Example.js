@@ -2,7 +2,7 @@ import React from "react";
 import Todo from "./Todo";
 import "./Todo.css" ;
 import { useNavigate } from 'react-router-dom';
-import UserAuth from "./UserAuth";
+
 
 const Example = () => {
     const navigate = useNavigate();
