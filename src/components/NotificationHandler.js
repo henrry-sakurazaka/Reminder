@@ -50,6 +50,25 @@ const NotificationHandler = ({ shouldHandleNotifications , completedDateTimeSett
     return timeDifference <= timeThreshold && timeDifference > 0;
   };
 
+  const sendPushNotificationToServer = async (token, message) => {
+    try {
+      const response = await fetch('https://reminder-b4527.web.app/send-notification', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ token, message }),
+      });
+      if (response.ok) {
+        console.log('Notification sent successfully');
+      } else {
+        console.error('Error sending notification');
+      }
+    } catch (error) {
+      console.error('Error sending notification:', error);
+    }
+  };
+
   const sendPushNotification = async (timerData) => {
     try {
       const todoDocRef = doc(firestore, 'todoList3', timerData.id);
@@ -73,24 +92,7 @@ const NotificationHandler = ({ shouldHandleNotifications , completedDateTimeSett
         };
         await sendPushNotificationToServer(token, message);
 
-        const sendPushNotificationToServer = async (token, message) => {
-          try {
-            const response = await fetch('https://reminder-b4527.web.app/send-notification', {
-              method: 'POST',
-              headers: {
-                'Content-Type': 'application/json',
-              },
-              body: JSON.stringify({ token, message }),
-            });
-            if (response.ok) {
-              console.log('Notification sent successfully');
-            } else {
-              console.error('Error sending notification');
-            }
-          } catch (error) {
-            console.error('Error sending notification:', error);
-          }
-        };
+      
       
         console.log('Push notification sent successfully:', todoContent);
       } else {
