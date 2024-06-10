@@ -41,24 +41,24 @@ const firebaseApp = initializeApp({
 
 const messaging = getMessaging(firebaseApp);
 
-// worker.js の例
-// self.addEventListener('push', function(event) {
-//   const options = {
-//       body: event.data.text(),
-//       icon: 'icon.png',
-//       badge: 'badge.png'
-//   };
-//   event.waitUntil(
-//       self.registration.showNotification('Notification Title', options)
-//   );
-// });
 
-// self.addEventListener('notificationclick', function(event) {
-//   event.notification.close();
-//   event.waitUntil(
-//       clients.openWindow('https://reminder-b4527.web.app')
-//   );
-// });
+self.addEventListener('push', function(event) {
+  const options = {
+      body: event.data.text(),
+      icon: 'icon.png',
+      badge: 'badge.png'
+  };
+  event.waitUntil(
+      self.registration.showNotification('Notification Title', options)
+  );
+});
+
+self.addEventListener('notificationclick', function(event) {
+  event.notification.close();
+  event.waitUntil(
+      clients.openWindow('https://reminder-b4527.web.app')
+  );
+});
 
 
 onBackgroundMessage(messaging,(payload) => {
