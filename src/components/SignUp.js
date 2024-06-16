@@ -159,7 +159,7 @@ function SignUp() {
             displayName: name,
           });
           const convertedData = todosConverter2.toFirestore(todoList);
-          const dataWithUid = { uid: user.uid, todos: convertedData };
+          const dataWithUid = { todoId: user.uid, todos: convertedData };
 
           // サインアップ成功時にtodoListを保存する
           await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
