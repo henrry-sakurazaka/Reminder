@@ -1,6 +1,8 @@
-import { useEffect } from 'react';
-// import { firestore } from '../firebase';
+import { useEffect, useMemo, useState} from 'react';
 import { initializeApp } from 'firebase/app';
+import { getAuth, onAuthStateChanged  } from 'firebase/auth';
+import { getMessaging, getToken } from 'firebase/messaging'; 
+import { onMessage } from 'firebase/messaging/sw';
 import { getFirestore, collection, query, where, getDocs, getDoc, onSnapshot, doc } from 'firebase/firestore';
 import useFCMToken from './useFCMtoken';
 
@@ -16,11 +18,41 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const firestore = getFirestore(app);
+const messaging = getMessaging(app); // Messagingの初期化
+const auth = getAuth();
+const user = auth.currentUser;
+
+
+
 
 const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting }) => {
+  const [uid, setUid] = useState(); 
 
   useFCMToken();
 
+  const GetConverter = useMemo(() => {
+    return {
+      fromFirestore: (snapshot, options) => {
+        const data = snapshot.data();
+        return {
+          id: snapshot.id,
+          content: data.content,
+        } 
+      }
+    };
+  }, []);
+
+  useEffect(() => {
+    const unsubscribe = onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUid(user.uid); 
+      } 
+    });
+  
+    return () => unsubscribe();
+  }, []);
+
+  
   useEffect(() => {
     if (completedDateTimeSetting && shouldHandleNotifications) {
       const fetchTimers = async () => {
@@ -30,10 +62,12 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
         querySnapshot.forEach((doc) => {
           const timerData = doc.data();
-          
+          timerData.id = doc.id;
+ 
           // Firestore TimestampオブジェクトをDateオブジェクトに変換
           const notificationTime = timerData.notificationTime.toDate();
-
+           console.log('Converted notificationTime:', notificationTime); // 3. デバッグ用のログを追加
+          
           // Dateオブジェクトの型チェック
           if (!notificationTime || !(notificationTime instanceof Date)) {
             console.error('Invalid notificationTime:', timerData.notificationTime);
@@ -44,9 +78,12 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
           const notificationTimeMinus5Minutes = new Date(notificationTime.getTime() - 5 * 60 * 1000);
 
           if (isTimeApproaching(notificationTimeMinus5Minutes)) {
+            console.log('Time is approaching, sending push notification...');
             sendPushNotification(timerData);
+          } else {
+            console.log('Time is not approaching yet.');
           }
-        });
+        });  
       };
 
       const unsubscribe = onSnapshot(collection(firestore, 'notifications'), (snapshot) => {
@@ -57,7 +94,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         unsubscribe();
       };
     }
-  }, [completedDateTimeSetting, shouldHandleNotifications]);
+  }, [completedDateTimeSetting, shouldHandleNotifications, uid]);
 
   const isTimeApproaching = (notificationTimeMinus5Minutes) => {
     const currentTime = new Date();
@@ -71,17 +108,27 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
   const sendPushNotificationToServer = async (token, message) => {
     try {
-      const response = await fetch('https://reminder-b4527.web.app/send-notification', {
+      const response = await fetch('https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification', {
+
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',
         },
         body: JSON.stringify({ token, message }),
+        
       });
       if (response.ok) {
         console.log('Notification sent successfully');
       } else {
         console.error('Error sending notification');
+        let responseData;
+      try {
+        responseData = await response.json();
+      } catch (error) {
+        throw new Error('Invalid JSON response from server');
+      }
+        console.log('Notification response:', responseData); // レスポンスの内容をログに出力
+
       }
     } catch (error) {
       console.error('Error sending notification:', error);
@@ -97,14 +144,20 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         return;
       }
 
-      const todoDocRef = doc(firestore, 'todoList3', timerData.id);
+      const todoDocRef = doc(firestore, 'todoList3', timerData.todoId);
       const todoDocSnapshot = await getDoc(todoDocRef);
 
       if (todoDocSnapshot.exists()) {
         const todoData = todoDocSnapshot.data();
-        const todoContent = todoData.content;
+        const getData = GetConverter.fromFirestore(todoDocSnapshot); 
+        const todoContent = getData.content;
 
-        const response = await fetch('https://reminder-b4527.web.app/get-token', {
+        if (!uid) {
+          console.error('UID is not set');
+          return;
+        }
+
+        const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
           method: 'GET',
           headers: {
             'Content-Type': 'application/json',
@@ -121,7 +174,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
         console.log('Push notification sent successfully:', todoContent);
       } else {
-        console.error('Document does not exist');
+        console.error('Document does not exist', timerData.id);
       }
     } catch (error) {
       console.error('Error sending push notification:', error);
@@ -132,140 +185,4 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 };
 
 export default NotificationHandler;
-
-// const app = initializeApp(firebaseConfig);
-
-// // Firestoreインスタンスを取得
-// const firestore = getFirestore(app);
-
-// const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting }) => {
-  
-//   useFCMToken();    // コンポーネントの初期化時にFCMトークンを取得
-
-//   useEffect(() => {
-//     if (completedDateTimeSetting && shouldHandleNotifications) {
-//       const fetchTimers = async () => {
-//         console.log('yes');
-//         try {
-//           const timersCollection = collection(firestore, 'notifications');
-//           const q = query(timersCollection, where('notificationTime', '>=', new Date()));
-//           const querySnapshot = await getDocs(q);
-
-//           if (querySnapshot.empty) {
-//             console.log('No matching documents.');
-//             return;
-//           }
-
-//           querySnapshot.forEach((doc) => {
-//             const timerData = doc.data();
-//             timerData.id = doc.id;  // doc.idをtimerDataに追加
-//             const notificationTime = timerData.notificationTime.toDate();
-
-//             if (timerData.notificationTime && timerData.notificationTime.toDate) {
-            
-//               if (isTimeApproaching(notificationTime)) {
-//                 sendPushNotification(timerData);
-//               } else {
-//                 console.log('Notification time is not approaching:', notificationTime);
-//               }
-//             } else {
-//               console.error('Invalid notificationTime format:', timerData.notificationTime);
-//             }
-//         });
-//     } catch (error) {
-//       console.error('Error fetching timers:', error);
-//     }
-//   };
-     
-//       const unsubscribe = onSnapshot(collection(firestore, 'notifications'), (snapshot) => {
-//         fetchTimers();
-//       });
-
-//       return () => {
-//         unsubscribe(); // クリーンアップ
-//       };
-//     }
-//   }, [completedDateTimeSetting, shouldHandleNotifications]);
-
-//   const isTimeApproaching = (notificationTime) => {
-//     const currentTime = new Date();
-//     const timeDifference = notificationTimeMinus5Minutes - currentTime;
-//     // const timeDifference = notificationTime - currentTime;
-//     // const timeDifference = notificationTime.getTime() - currentTime.getTime();
-//     const timeThreshold = 5 * 60 * 1000; // 5分前
-//     console.log('Time Difference (ms):', timeDifference);
-
-//     return timeDifference <= timeThreshold && timeDifference > 0;
-//   };
-
-//   const sendPushNotificationToServer = async (token, message) => {
-    
-//     try {
-//       const response = await fetch('https://reminder-b4527.web.app/send-notification', {
-//         method: 'POST',
-//         headers: {
-//           'Content-Type': 'application/json',
-//         },
-//         body: JSON.stringify({ token, message }),
-//       });
-//       if (response.ok) {
-//         console.log('Notification sent successfully');
-//       } else {
-//         console.error('Error sending notification');
-//       }
-//     } catch (error) {
-//       console.error('Error sending notification:', error);
-//     }
-//   };
-
-//   const sendPushNotification = async (timerData) => {
-//     try {
-//       console.log('Timer Data:', timerData); // Debugging line
-
-//       if (!timerData.notificationTime ||!(timerData.notificationTime instanceof Date)) {
-//         console.error('Invalid notificationTime:', timerData.notificationTime);
-//         return;
-//       }
-//       if (!timerData.id) {
-//         console.error('Invalid timer data:', timerData);
-//         return;
-//       }
-
-//       const todoDocRef = doc(firestore, 'todoList3', timerData.id);
-//       const todoDocSnapshot = await getDoc(todoDocRef);
-
-//       if (todoDocSnapshot.exists()) {
-//         const todoData = todoDocSnapshot.data();
-//         const todoContent = todoData.content;
-
-//         const response = await fetch('https://reminder-b4527.web.app/get-token', {
-//           method: 'GET',
-//           headers: {
-//             'Content-Type': 'application/json',
-//           },
-//         });
-//         const { token } = await response.json();
-
-//         const message = {
-//           title: 'Reminder',
-//           body: `Reminder: ${todoContent}`,
-//         };
-        
-//         await sendPushNotificationToServer(token, message);
-
-//         console.log('Push notification sent successfully:', todoContent);
-//       } else {
-//         console.error('Document does not exist');
-//       }
-//     } catch (error) {
-//       console.error('Error sending push notification:', error);
-//     }
-//   };
-
-//   return null; 
-// };
-
-// export default NotificationHandler;
-
-
 

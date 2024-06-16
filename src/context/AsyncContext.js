@@ -20,6 +20,7 @@ const AsyncContextProvider = ({ children }) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [fetchedData, setFetchedData] = useState([]); 
+    const [convertdedNotificationData, setComvertedNotificationData] = useState();
     const  dispatch  = useDispatchTodos();
     const user = auth.currentUser;
     const [uid, setUid] = useState(); // uidの初期化
@@ -144,7 +145,7 @@ useEffect(() => {
           // const todoCollectionRef = collection(firestore, 'todoList3');
           const todoDocRef = doc(firestore, 'todoList3', user.uid);
           const convertedData = todosConverter2.toFirestore(todos);
-          const dataWithUid = { uid: user.uid, todos: convertedData };
+          const dataWithUid = { todoId: user.uid, todos: convertedData };
           await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
           console.log('add')
           console.log('Todos added to Firestore successfully');
@@ -189,7 +190,8 @@ useEffect(() => {
     
     return (
         <AsyncLogic.Provider value={{data, setData, loading, setLoading,
-          fetchedData, setFetchedData, todoList, user, uid, firestore
+          fetchedData, setFetchedData, todoList, user, uid, firestore,
+          convertdedNotificationData
         }} >
             {children}
         </AsyncLogic.Provider>

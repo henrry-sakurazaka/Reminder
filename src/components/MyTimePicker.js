@@ -37,14 +37,9 @@ const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime}) => {
       <h2 style={{ color: " rgb(48, 48, 219)" }}>Time Picker</h2>
       <input 
           className="MyTimePicker"
-          // onChange={(e) => setInputTime(e.target.value)}
           onChange={handleTimeChange}
           selected={inputTime}  
           label="MyTimePicker"
-          inputVariant="outlined"
-          showTodayButton
-          ampm={false}
-          autoOk
           type="time" 
           value={inputTime}  
           style={{ width: "160px", padding: "6px", 

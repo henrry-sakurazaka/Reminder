@@ -1,21 +1,23 @@
 import React, { useEffect, useState } from "react";
 import { useTodos } from "../context/TodoContext";
 import { initializeApp } from 'firebase/app';
-import 'firebase/firestore'; // Firestoreを使用する場合
-import { firestore } from "../firebase";
-import { collection, addDoc} from 'firebase/firestore';
+import { onAuthStateChanged } from "firebase/auth";
+import { firestore, auth } from "../firebase";
+import { collection, addDoc, setDoc, doc} from 'firebase/firestore';
 import firebaseConfig from "../firebase";
 import SSwitch2 from "./SSwitch2";
 import MyTimePicker from "./MyTimePicker";
 import MyDatePickerCom from "./MyDatePickerCom";
 import SelectSwitch from "./SelectSwitch";
 import NotificationHandler from "./NotificationHandler";
+import 'firebase/firestore'; // Firestoreを使用する場合
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
+import { useAsyncContext } from "../context/AsyncContext";
 
 const firebaseApp = initializeApp(firebaseConfig);
 
-const Modal = () => {
+const Modal = ( {todo} ) => {
 
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
@@ -23,7 +25,10 @@ const Modal = () => {
     const [prevIsDate, setPrevIsDate] = useState(isDate);
     const [prevIsTime, setPrevIsTime] = useState(isTime);
     const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
-
+    const user = auth.currentUser;
+    const [uid, setUid] = useState(); // uidの初期化
+    
+    const { convertedNotificationData } = useAsyncContext();
     const { 
         isDateChecked, isTimeChecked, 
         setIsDateChecked, setIsTimeChecked,
@@ -36,6 +41,16 @@ const Modal = () => {
         completedDateTimeSetting,  setCompletedDateTimeSetting
     } = useTodos();
 
+    useEffect(() => {
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setUid(user.uid); 
+          } 
+        });
+      
+        return () => unsubscribe();
+      }, []);
+      
    
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
@@ -84,14 +99,24 @@ const Modal = () => {
    
 
     const setTimer = () => {
-        if (isDate && isTime) {
+        if (isDate && isTime && todo.content) {
             const dateTime = new Date(isDate);
             dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
-            console.log('dateTime', dateTime)
+            console.log('dateTime', dateTime);
+            
             try {
-                addDoc(collection(firestore, 'notifications'), {
+                const notificationData = {
                     notificationTime: dateTime,
-                })
+                    todoId: uid,
+                    content: todo.content 
+                };
+                addDoc(collection(firestore, 'notifications'), {
+                    ...notificationData,
+                   
+                });
+                const dataWithUid = { todoId: uid, content: todo.content };
+                addDoc(collection(firestore, "todoList3"), dataWithUid);
+                
                 setCompletedDateTimeSetting(true);
                 setShouldHandleNotifications(true);
                
@@ -167,6 +192,9 @@ const Modal = () => {
                     inputTime={inputTime}
                     setInputTime={setInputTime}
                     inputVariant="outlined"
+                    showTodayButton
+                    ampm={false}
+                    autoOk
                 />
             ) : isDateChecked ? (
                 <MyDatePickerCom
@@ -181,6 +209,9 @@ const Modal = () => {
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
                     inputVariant="outlined"
+                    showTodayButton
+                    ampm={false}
+                    autoOk
                     setInputTime={setInputTime}
                 />
             ) : isContainerDateCheck ? (
@@ -197,6 +228,9 @@ const Modal = () => {
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
                     inputVariant="outlined"
+                    showTodayButton
+                    ampm={false}
+                    autoOk
                     setInputTime={setInputTime}
                 />
             ) : (
