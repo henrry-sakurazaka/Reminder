@@ -114,8 +114,8 @@ const Modal = ( {todo} ) => {
                     ...notificationData,
                    
                 });
-                const dataWithUid = { todoId: uid, content: todo.content };
-                addDoc(collection(firestore, "todoList3"), dataWithUid);
+                // const dataWithUid = { todoId: uid, content: todo.content };
+                // addDoc(collection(firestore, "todoList3"), dataWithUid);
                 
                 setCompletedDateTimeSetting(true);
                 setShouldHandleNotifications(true);
