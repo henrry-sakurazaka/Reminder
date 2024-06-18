@@ -112,7 +112,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
         method: 'POST',
         headers: {
-          'Content-Type': 'application/json',
+          'Content-Type': 'application/json', 
         },
         body: JSON.stringify({ token, message }),
         
@@ -144,7 +144,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         return;
       }
 
-      const todoDocRef = doc(firestore, 'todoList3', timerData.todoId);
+      const todoDocRef = doc(firestore, 'notification', timerData.id);
       const todoDocSnapshot = await getDoc(todoDocRef);
 
       if (todoDocSnapshot.exists()) {
@@ -158,12 +158,17 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         }
 
         const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
-          method: 'GET',
+        // const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
+          method: 'POST',
+          // mode: 'cors',
           headers: {
             'Content-Type': 'application/json',
-          },
+            // 'Access-Control-Allow-Origin': 'https://reminder-b4527.web.app'  
+           },
         });
-        const { token } = await response.json();
+      
+        const responseData = await response.json();
+        const token = responseData.token;  
 
         const message = {
           title: 'Reminder',
