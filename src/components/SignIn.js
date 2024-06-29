@@ -59,10 +59,17 @@ function SignIn() {
   // サーバーにトークンを送信する関数
   const sendTokensToServer = async (idToken, deviceToken) => {
     try {
-      const response = await axios.post("/api/saveTokens", {
+      const response = await axios.post("https://us-central1-reminder-b4527.cloudfunctions.net/saveTokens", {
         idToken: idToken,
-        deviceToken: deviceToken,
-      });
+        deviceToken: deviceToken
+      }, {
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${idToken}`,
+            'Access-Control-Allow-Origin': 'https://reminder-b4527.web.app',
+        //     'Access-Control-Allow-Methods': "PUT, POST, GET, DELETE, HEAD, PATCH, OPTIONS"
+        },
+    });
       console.log("Server response:", response.data);
     } catch (error) {
       console.log("Error sending tokens to server:", error);

@@ -102,10 +102,7 @@ useEffect(() => {
   const fetchTodosFromFirestore = async () => {
     
       try {
-          // const todoCollectionRef = collection(firestore, 'todoList3');
           const todoDocRef = doc(firestore, 'todoList3',user.uid);
-          // const converter2 = todosConverter2.toFirestore(todos)
-          // await addDoc(todoDocRef, converter2);
           const snapshot =  await getDoc(todoDocRef);
           console.log(snapshot)
           // ドキュメントが存在する場合のみ処理を続行
@@ -142,7 +139,6 @@ useEffect(() => {
   const AddTodos = async () => {
 
         try {
-          // const todoCollectionRef = collection(firestore, 'todoList3');
           const todoDocRef = doc(firestore, 'todoList3', user.uid);
           const convertedData = todosConverter2.toFirestore(todos);
           const dataWithUid = { todoId: user.uid, todos: convertedData };
@@ -166,28 +162,7 @@ useEffect(() => {
     console.log('todos:', todos)
     console.log('data:',data)
     console.log('loading:' , loading)
-
-      
-    
-      // // タイマー予約
-      // const reserveTodo = async (todoId, updatedFields) => {
-      //   const todoDocRef = doc(firestore, 'todoList', todoId);
-      //   await updateDoc(todoDocRef, updatedFields);
-      //   dispatch({ type: 'todo/reserve', payload: { id: todoId, updatedFields } });
-      // };
-      // // Todo予約色
-      // const reserveColor = async (todoId, updatedFields) => {
-      //   const todoDocRef = doc(firestore, 'todoList', todoId);
-      //   await updateDoc(todoDocRef, updatedFields);
-      //   dispatch({ type: 'todo/reserveColor', payload: { id: todoId, updatedFields } });
-      // };
-      // // Todo日時編集
-      // const editingDateTime = async (todoId, updatedFields) => {
-      //   const todoDocRef = doc(firestore, 'todoList', todoId);
-      //   await updateDoc(todoDocRef, updatedFields);
-      //   dispatch({ type: 'todo/editingDateTime', payload: { id: todoId, updatedFields } });
-      // };
-    
+ 
     return (
         <AsyncLogic.Provider value={{data, setData, loading, setLoading,
           fetchedData, setFetchedData, todoList, user, uid, firestore,

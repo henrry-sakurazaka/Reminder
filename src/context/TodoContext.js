@@ -127,7 +127,9 @@ const todoReducer = (todos, action) => {
       const [selectedTime, setSelectedTime] = useState(false);
       const [completedDateTimeSetting, setCompletedDateTimeSetting] = useState(false);
       const [AddTodosExecuted, setAddTodosExecuted] = useState(false);
-    
+      const [notificationDocId, setNotificationDocId] = useState();
+      const [isSubmitting, setIsSubmitting] = useState();
+      const [isDocRef, setIsDocRef] = useState();
    
     return (
         <TodoContext.Provider value=
@@ -141,8 +143,9 @@ const todoReducer = (todos, action) => {
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
             selectedTime, setSelectedTime, completedDateTimeSetting,
             setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted,
-            completedDateTimeSetting, setCompletedDateTimeSetting
-
+            completedDateTimeSetting, setCompletedDateTimeSetting,
+            notificationDocId, setNotificationDocId, isSubmitting, setIsSubmitting,
+            isDocRef, setIsDocRef
             }}>
               
           <TodoDispatchContext.Provider value={dispatch}>    

@@ -1,57 +1,184 @@
+
 const express = require('express');
 const {onRequest} = require("firebase-functions/v2/https");
 const logger = require("firebase-functions/logger");
 const functions = require("firebase-functions");
 const admin = require("firebase-admin");
-const cors = require('cors');
 const bodyParser = require("body-parser"); 
-const path = require("path"); 
+const path = require("path");
+const cors = require('cors');
+   
+var serviceAccount = require("./reminder-b4527-firebase-adminsdk-bta94-ca32803afb.json"); 
 
-admin.initializeApp();
+admin.initializeApp({
+    credential: admin.credential.cert(serviceAccount),
+    databaseURL: "https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app" 
+});
+
 const app = express();
+ 
+// CORSのミドルウェアを設定
+const corsOptions = {
+    origin: 'https://reminder-b4527.web.app',
+    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+    // allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
+    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+    credentials: true,
+    optionsSuccessStatus: 204,
+  };
+  const corsHandler = cors(corsOptions);
 
-app.use(cors({
-  origin: 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js',
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-  credentials: true,
-}));
-// 他のミドルウェアやルートの設定
+// Express app に CORS ミドルウェアを適用
+
 app.use(express.json());
-// 例: app.post('/register-token', (req, res) => { ... });
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
-app.get('/', (req, res) => {
-    res.sendFile(path.join(__dirname, 'build', 'index.html'));
-  });
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions));
+// app.use(cors({
+//     origin: 'https://reminder-b4527.web.app', 
+//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
+//     credentials: true,
+//     optionsSuccessStatus: 204,
+//   }));
 
-  app.post('/api/saveTokens', async (req, res) => {
-    const { idToken, deviceToken } = req.body;
-    console.log('Received idToken:', idToken);
-    console.log('Received deviceToken:', deviceToken);
-    // トークンを保存する処理を実装する
-    res.status(200).send('Tokens saved successfully');
-  });
-  
-  app.post('/send-notification', async (req, res) => {
-    const { token, message } = req.body;
+app.get('/', (req, res) => {
+res.sendFile(path.join(__dirname, 'build', 'index.html'));
+});
+
+// トークンを返すエンドポイントを追加
+app.get('/get-token', cors(corsOptions), async (req, res) => {
+
+    const { uid } = req.query;
+    if (!uid) {
+      return res.status(400).send('UID is required');
+    }
     try {
-      const response = await admin.messaging().send({
-        token: token,
-        notification: {
-          title: message.title,
-          body: message.body,
-        },
-      });
-      console.log('Successfully sent message:', response);
-      res.status(200).send('Notification sent successfully');
+      
+      const tokenSnapshot = await admin.database().ref('tokens').child(uid).get();
+  
+      if (!tokenSnapshot.exists()) {
+        return res.status(404).send('Token not found');
+      }
+  
+      const deviceToken = tokenSnapshot.val().deviceToken;
+      res.status(200).json({ token: deviceToken });
     } catch (error) {
-      console.error('Error sending message:', error);
-      res.status(500).send(`Error sending notification: ${error.message}`);
+      console.error('Error fetching token:', error);
+      res.status(500).send(`Error fetching token: ${error.message}`);
     }
   });
   
+
+app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
+const { idToken, deviceToken } = req.body;
+console.log('Received idToken:', idToken);
+console.log('Received deviceToken:', deviceToken);
+// トークンを保存する処理を実装する
+res.status(200).send('Tokens saved successfully');
+
+try {
+    // idToken を検証し、ユーザーを認証
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+    console.log('Decoded UID:', uid);
+
+    // トークンをデータベースに保存
+    await admin.database().ref('tokens').child(uid).set({
+      deviceToken: deviceToken,
+    });
+    console.log('Token saved for UID:', uid);
+
+    res.status(200).send('Tokens saved successfully');
+  } catch (error) {
+    console.error('Error saving tokens:', error);
+    res.status(500).send(`Error saving tokens: ${error.message}`);
+  }
+});
+
   
-exports.app = functions.https.onRequest(app);
+app.post('/send-notification', cors(corsOptions), async (req, res) => {
+const idToken = req.headers.authorization?.split('Bearer ')[1]; // Authorizationヘッダーからトークンを取得
+if (!idToken) {
+    return res.status(403).json({ error: 'Authorization header missing' });
+    }
+
+try {
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+    const { token, message, deviceToken } = req.body;
+
+    if (!deviceToken) {
+        return res.status(400).json({ error: 'Device token missing' });
+        }
+    // デバイストークンをデータベースに保存
+    await admin.database().ref('tokens').child(uid).set({
+        deviceToken: deviceToken,
+    });
+    const response = await admin.messaging().send({
+        token: token,
+        notification: {
+        title: message.title,
+        body: message.body,
+        },
+    });
+    console.log('Successfully sent message:', response);
+    res.status(200).send('Notification sent successfully');
+} catch (error) {
+    console.error('Error sending message:', error);
+    res.status(500).send(`Error sending notification: ${error.message}`);
+}
+});
+
+  
+//     // /send-notification エンドポイントを追加
+//   app.post('/send-notification', cors(corsOptions), async (req, res) => {
+//     const { token, message } = req.body;
+//     console.log('Received notification request:', token, message);
+  
+//     const payload = {
+//       notification: {
+//         title: message.title,
+//         body: message.body,
+//       },
+//     };
+  
+//     try {
+//       const response2 = await admin.messaging().send(token, payload);
+//       const response = await sendNotification(token, message);
+//       console.log('Successfully sent message:', response2);
+//       res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
+//       res.status(200).json({message: response});
+  
+//     } catch (error) {
+//       console.error('Error sending notification:', error);
+//       res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
+//       res.status(500).send(`Error sending notification: ${error.message}`);
+//     }
+//   });
+
+//     // sendNotification関数を定義
+// const sendNotification = async (token, message) => {
+//     try {
+//     const response = await admin.messaging().send({
+//         token: token,
+//         notification: {
+//         title: message.title,
+//         body: message.body,
+//         },
+//     });
+//     console.log('Successfully sent message:', response);
+//     return 'Notification sent successfully';
+//     } catch (error) {
+//     console.error('Error sending message:', error);
+//     throw new Error(`Error sending notification: ${error.message}`);
+//     }
+// };
+  
+
+// exports.app = functions.https.onRequest(app);
+exports.api = functions.https.onRequest(app);
+
 
 // データベースの特定の場所を監視するトリガー関数を定義する
 exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
@@ -70,24 +197,84 @@ exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
         return Promise.resolve();
     });
 
+ 
 // 通知を送信する関数
 exports.sendNotification = functions.https.onRequest((req, res) => {
-    const topic = req.body.topic;
-    const payload = {
-        notification: {
-            title: req.body.title,
-            body: req.body.body,
+        cors(corsOptions)(req, res, async  () => {
+            try {  
+               
+                const idToken = req.headers.authorization?.split('Bearer ')[1];
+
+                if (!idToken) {
+                  return res.status(403).json({ error: 'Authorization header missing' });
+                }
+          
+                // Firebase Auth トークンを検証
+                const decodedToken = await admin.auth().verifyIdToken(idToken);
+                const uid = decodedToken.uid; // デコードされたトークンから UID を取得
+
+               
+                const topic = 'valid-topic_123';
+                const title = String(req.body.title); // title を文字列型に変換
+                const body = String(req.body.body);
+                const payload = {
+                notification: {
+                    title: title,
+                    body: body
+                }
+                };
+               // Preflightリクエストの処理
+      
+                if (req.method === 'OPTIONS') {
+                    res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
+                    res.set('Access-Control-Allow-Methods', 'GET, POST');
+                    res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
+
+                    res.status(204).send('');
+                    
+                } else {
+                cors(req, res, () => {
+                    res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
+                    res.set('Access-Control-Allow-Methods', 'GET, POST');
+                    res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
+                    res.status(204).send('');
+                });
+                }
+       
+                const response = await admin.messaging().sendToTopic(topic, payload);
+
+                
+                return res.status(200).json({ message: "Successfully sent message", response: response });
+            } catch (error) {
+            res.status(500).json({error:`Error sending notification2: ${error.message}`});
         }
-    };
-    
-    admin.messaging().sendToTopic(topic, payload)
-        .then(response => {
-            res.status(200).send("Successfully sent message: " + response);
-        })
-        .catch(error => {
-            res.status(500).send("Error sending message: " + error);
-        });
+    });
 });
+
+exports.saveTokens = functions.https.onRequest((req, res) => {
+    corsHandler(req, res, () => {
+        if (req.method !== 'POST') {
+            return res.status(405).send({ message: 'Only POST requests are allowed' });
+            }
+      // ここにトークンを保存するロジックを記述
+      const idToken = req.body.idToken;
+      const deviceToken = req.body.deviceToken;
+
+      // トークンを保存する処理（例）
+      admin.firestore().collection('tokens').add({
+        idToken: idToken,
+        deviceToken: deviceToken,
+        createdAt: admin.firestore.FieldValue.serverTimestamp()
+      })
+      .then(() => {
+        return res.status(200).send({ success: true });
+      })
+      .catch(error => {
+        console.error('Error saving tokens: ', error);
+        return res.status(500).send({ success: false, error: error.message });
+      });
+    });
+  });
 
 // データを取得する関数
 exports.getTodoList = functions.https.onRequest((req, res) => {
@@ -130,3 +317,5 @@ exports.helloWorld = onRequest((request, response) => {
     response.send("Hello from Firebase!");
 });
 
+// Firebase Functionsとしてエクスポート
+exports.api = functions.https.onRequest(app);

@@ -3,7 +3,8 @@ import { initializeApp } from 'firebase/app';
 import { getAuth, onAuthStateChanged  } from 'firebase/auth';
 import { getMessaging, getToken } from 'firebase/messaging'; 
 import { onMessage } from 'firebase/messaging/sw';
-import { getFirestore, collection, query, where, getDocs, getDoc, onSnapshot, doc } from 'firebase/firestore';
+import { useTodos } from '../context/TodoContext';
+import { getFirestore, collection, query, where, getDocs, getDoc, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore';
 import useFCMToken from './useFCMtoken';
 
 const firebaseConfig = {
@@ -23,24 +24,36 @@ const auth = getAuth();
 const user = auth.currentUser;
 
 
-
-
 const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting }) => {
   const [uid, setUid] = useState(); 
+  const { notificationDocId, isDocRef } = useTodos();
+  
+  onAuthStateChanged(auth, (user) => {
+    if (user) {
+      // User is signed in.
+      user.getIdToken(true).then((idToken) => {
+        // Send token to your backend via HTTPS
+        console.log('Newly refreshed token: done');
+      }).catch((error) => {
+        // Handle error
+        console.error('Error refreshing token:', error);
+      });
+    }
+  });
 
   useFCMToken();
 
-  const GetConverter = useMemo(() => {
-    return {
-      fromFirestore: (snapshot, options) => {
-        const data = snapshot.data();
-        return {
-          id: snapshot.id,
-          content: data.content,
-        } 
-      }
-    };
-  }, []);
+  // const GetConverter = useMemo(() => {
+  //   return {
+  //     fromFirestore: (snapshot, options) => {
+  //       const data = snapshot.data();
+  //       return {
+  //         id: snapshot.id,
+  //         content: data,
+  //       } 
+  //     }
+  //   };
+  // }, []);
 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
@@ -96,6 +109,8 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
     }
   }, [completedDateTimeSetting, shouldHandleNotifications, uid]);
 
+ 
+
   const isTimeApproaching = (notificationTimeMinus5Minutes) => {
     const currentTime = new Date();
     const timeDifference = notificationTimeMinus5Minutes - currentTime;
@@ -106,15 +121,20 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
     return timeDifference <= timeThreshold && timeDifference > 0;
   };
 
-  const sendPushNotificationToServer = async (token, message) => {
-    try {
-      const response = await fetch('https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification', {
 
+  const sendPushNotificationToServer = async (token, message, deviceToken) => {
+    const User = auth.currentUser;
+    const idToken = await User.getIdToken();
+
+    try {
+      const response = await fetch('https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', 
+          'Authorization': `Bearer ${idToken}`, // Firebase Authトークンをヘッダーに追加
         },
-        body: JSON.stringify({ token, message }),
+        mode: 'cors', // CORSリクエストを送信する設定
+        body: JSON.stringify({ token, message, deviceToken }),
         
       });
       if (response.ok) {
@@ -135,49 +155,64 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
     }
   };
 
+       // ドキュメントの存在確認と更新/作成処理
+       const createOrUpdateDocument = async (docId, data) => {
+        const docRef = doc(firestore, 'notifications', docId);
+        const docSnap = await getDoc(docRef);
+    
+        if (docSnap.exists()) {
+          // ドキュメントが既に存在する場合は更新
+          await updateDoc(docRef, data);
+        } else {
+          // ドキュメントが存在しない場合は作成
+          await setDoc(docRef, data);
+        }
+      };
   const sendPushNotification = async (timerData) => {
+    const User = auth.currentUser;
+    const idToken = await User.getIdToken();
+    const todoId = timerData.todoId;
+    const notificationData = {
+      notificationTime: timerData.notificationTime,
+      todoId: timerData.todoId,
+      content: timerData.content
+    };
+  
     try {
       console.log('Timer Data:', timerData);
-
-      if (!timerData.id) {
-        console.error('Invalid timer data:', timerData);
-        return;
-      }
-
-      const todoDocRef = doc(firestore, 'notification', timerData.id);
-      const todoDocSnapshot = await getDoc(todoDocRef);
-
-      if (todoDocSnapshot.exists()) {
-        const todoData = todoDocSnapshot.data();
-        const getData = GetConverter.fromFirestore(todoDocSnapshot); 
-        const todoContent = getData.content;
-
-        if (!uid) {
-          console.error('UID is not set');
-          return;
+      console.log(isDocRef)
+      console.log('notificationDocId', notificationDocId);
+  
+      if (isDocRef) {
+        const todoContent = isDocRef.content;
+  
+        if (uid === todoId) {
+          console.log('match');
+          
+          const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
+            method: 'POST',
+            headers: {
+              'Content-Type': 'application/json',
+              'Authorization': `Bearer ${idToken}`,  
+            },
+            mode: 'cors', // CORSリクエストを送信する設定
+          });
+          
+          const responseData = await response.json();
+          const token = responseData.token;  
+  
+          const message = {
+            title: 'Reminder',
+            body: `Reminder: ${timerData.content}`,
+          };
+  
+          await sendPushNotificationToServer(token, message);
+  
+          // ドキュメントの存在確認と更新/作成処理の呼び出し
+          await createOrUpdateDocument(timerData.id, notificationData);
+  
+          console.log('Push notification sent successfully:', timerData.content);
         }
-
-        const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
-        // const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
-          method: 'POST',
-          // mode: 'cors',
-          headers: {
-            'Content-Type': 'application/json',
-            // 'Access-Control-Allow-Origin': 'https://reminder-b4527.web.app'  
-           },
-        });
-      
-        const responseData = await response.json();
-        const token = responseData.token;  
-
-        const message = {
-          title: 'Reminder',
-          body: `Reminder: ${todoContent}`,
-        };
-
-        await sendPushNotificationToServer(token, message);
-
-        console.log('Push notification sent successfully:', todoContent);
       } else {
         console.error('Document does not exist', timerData.id);
       }
@@ -185,8 +220,9 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
       console.error('Error sending push notification:', error);
     }
   };
-
+ 
   return null;
+
 };
 
 export default NotificationHandler;

@@ -14,6 +14,8 @@ import 'firebase/firestore'; // Firestoreを使用する場合
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
 import { useAsyncContext } from "../context/AsyncContext";
+import { title } from "process";
+import { v4 as uuidv4 } from 'uuid';
 
 const firebaseApp = initializeApp(firebaseConfig);
 
@@ -38,7 +40,9 @@ const Modal = ( {todo} ) => {
         displayDatePicker, displayTimePicker, 
         isTimeSet, isDateSet, setIsTimeSet, setIsDateSet,
         setSelectedDate, setSelectedTime,
-        completedDateTimeSetting,  setCompletedDateTimeSetting
+        completedDateTimeSetting,  setCompletedDateTimeSetting,
+        setNotificationDocId, isSubmitting, setIsSubmitting,
+        setIsDocRef
     } = useTodos();
 
     useEffect(() => {
@@ -96,51 +100,61 @@ const Modal = ( {todo} ) => {
         setIsTimeSet(true);
     };
     
-   
-
-    const setTimer = () => {
+    const setTimer = async () => {
+        if (isSubmitting) return; // 重複防止
+      
+        setIsSubmitting(true);
         if (isDate && isTime && todo.content) {
-            const dateTime = new Date(isDate);
-            dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
-            console.log('dateTime', dateTime);
+          const dateTime = new Date(isDate);
+          dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
+      
+          try {
+            const notificationData = {
+              title: 'Reminder',
+              description: 'Time is approaching, receive to push notification..',
+              type: 'string',
+              notificationTime: dateTime,
+              todoId: uid,
+              content: todo.content
+            };
             
-            try {
-                const notificationData = {
-                    notificationTime: dateTime,
-                    todoId: uid,
-                    content: todo.content 
-                };
-                addDoc(collection(firestore, 'notifications'), {
-                    ...notificationData,
-                   
-                });
-                // const dataWithUid = { todoId: uid, content: todo.content };
-                // addDoc(collection(firestore, "todoList3"), dataWithUid);
-                
-                setCompletedDateTimeSetting(true);
-                setShouldHandleNotifications(true);
-               
-                console.log('completedDateTimeSeitting', completedDateTimeSetting);
-                console.log(' setShouldHandleNotifications',  shouldHandleNotifications)
-                console.log('Notification data has been written to Firestore successfully');   
-            } catch (error) {
-                console.error('Error writing notification data to Firestore: ', error);   
-        } 
-      }
-    };
+            // 一意のIDを生成
+            const docId = uuidv4();
+            // Firestoreのコレクション参照
+            const docRef = doc(collection(firestore, 'notifications'), docId);
+            await setDoc(docRef, notificationData);
+            // // 非同期でドキュメントを追加し、その結果を待機
+            // const docRef = await addDoc(collection(firestore, 'notifications'), notificationData);
+            // const docId = docRef.id;
+           
+            console.log('Generated docId:', docId);
+            setNotificationDocId(docId);
+            setIsDocRef(docRef);
+            setCompletedDateTimeSetting(true);
+            setShouldHandleNotifications(true);
+      
+            console.log('Notification data has been written to Firestore successfully');
+          } catch (error) {
+            console.error('Error writing notification data to Firestore: ', error);
+          } finally {
+            setIsSubmitting(false);
+          }
+        } else {
+          setIsSubmitting(false);
+        }
+      };
+      
+    
 
     useEffect(() => {
         const modal = document.querySelector('.modal');
         modal.style.alignItems = "center";
         if (isDate !== prevIsDate || isTime !== prevIsTime) {
             if (isDate !== prevIsDate || isTime !== prevIsTime) {
-                setTimer();
                 setPrevIsDate(isDate);
                 setPrevIsTime(isTime);
-            }
-            
-        }
-      
+            }   
+        }   
     }, [ isDate, isTime ]);
 
     
