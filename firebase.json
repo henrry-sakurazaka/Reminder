@@ -18,8 +18,12 @@
           {
             "key": "Cache-Control",
             "value": "no-cache, no-store, must-revalidate"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://reminder-b4527.web.app"
           }
-        ]  
+        ]
       },
       {
         "source": "/firebase-messaging-sw.js",
@@ -32,7 +36,7 @@
             "key": "Cache-Control",
             "value": "no-cache, no-store, must-revalidate"
           }
-        ]  
+        ]
       }
     ],
     "rewrites": [
@@ -60,8 +64,9 @@
       "runtime": "nodejs16",
       "ignore": [
         "node_modules/**"
-      ]
-    }  
+      ],
+      "codebase": "default"
+    }
   ],
   "firestore": {
     "rules": "firestore.rules",
