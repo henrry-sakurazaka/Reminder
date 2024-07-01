@@ -37,7 +37,6 @@ const Edit= ({todo}) => {
     const complete2 = (todo) => {
         const neoTodo2 = {...todo, completed: true };
         dispatch({type: "complete2", todo: neoTodo2 });
-        
      }
     const toggleReseveMode = (_todo) => {  
         //   modalOpen ?  setModalOpen(false): setModalOpen(true); 

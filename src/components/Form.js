@@ -38,7 +38,8 @@ const Form = ({ firestore }) => {
             reserve: false,
             editingLock: false,
             editingColor: false,
-            editingDateTime: false
+            editingDateTime: false,
+            notification: false
         };
         dispatch2({ type: "todo/add", todo: newTodo, editing: false });
         setEnteredTodo("");

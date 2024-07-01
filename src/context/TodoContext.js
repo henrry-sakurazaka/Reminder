@@ -24,7 +24,8 @@ const todoList = [
     reserve: false,
     editingLock: false,
     editingColor: false,
-    editingDateTime: false
+    editingDateTime: false,
+    notification: false
   },
   { 
     title: "send a letter",
@@ -37,7 +38,9 @@ const todoList = [
     reserve: false,
     editingLock: false,
     editingColor: false,
-    editingDateTime: false
+    editingDateTime: false,
+    notification: false
+
   },
   {
     title: "buy flowers",
@@ -50,7 +53,8 @@ const todoList = [
     reserve: false,
     editingLock: false,
     editingColor: false,
-    editingDateTime: false
+    editingDateTime: false,
+    notification: false
   }
 ]
 
@@ -91,15 +95,22 @@ const todoReducer = (todos, action) => {
           ? { ..._todo, editingDateTime: true }
           : { ..._todo, editingDateTime: false }
       );
-      case 'FETCH_TODOS':
-        return  action.payload
-     case 'complete2': 
+    case 'FETCH_TODOS':
+      return  action.payload
+
+    case 'complete2': 
       return todos.map(todo =>
         todo.id === action.todo.id 
         ? {...todo, completed: true }
         : {...todo}
-      )
-          
+      );
+   
+    case 'todo/notification':
+      return todos.map(todo =>
+        todo.id === action.todo.id
+          ? { ...todo, notification: true }
+          : todo
+      );  
     default: 
       return todos 
   }

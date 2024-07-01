@@ -22,7 +22,8 @@ const todoList = [
       reserve: false,
       editingLock: false,
       editingColor: false,
-      editingDateTime: false
+      editingDateTime: false,
+      notification: false
     },
     { 
       title: "send a letter",
@@ -35,7 +36,8 @@ const todoList = [
       reserve: false,
       editingLock: false,
       editingColor: false,
-      editingDateTime: false
+      editingDateTime: false,
+      notification: false
     },
     {
       title: "buy flowers",
@@ -48,7 +50,8 @@ const todoList = [
       reserve: false,
       editingLock: false,
       editingColor: false,
-      editingDateTime: false
+      editingDateTime: false,
+      notification: false
     }
   ];
 
@@ -72,7 +75,8 @@ function SignUp() {
                 reserve: todo.reserve,
                 editingLock: todo.editingLock,
                 editingColor: todo.editingColor,
-                editingDateTime: todo.editingDateTime
+                editingDateTime: todo.editingDateTime,
+                notification: todo.notification
               };
             });
             return firestoreData;

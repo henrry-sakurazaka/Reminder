@@ -63,14 +63,15 @@ const AsyncContextProvider = ({ children }) => {
               reserve: todo.reserve,
               editingLock: todo.editingLock,
               editingColor: todo.editingColor,
-              editingDateTime: todo.editingDateTime
+              editingDateTime: todo.editingDateTime,
+              notification: todo.notification
             };
           });
           return firestoreData;
         }
       };
     }, []);
-    
+   
 
     const GetConverter = useMemo(() => {
       return {
@@ -87,7 +88,9 @@ const AsyncContextProvider = ({ children }) => {
             reserve: item.reserve,
             editingLock: item.editingLock,
             editingColor: item.editingColor,
-            editingDateTime: item.editingDateTime
+            editingDateTime: item.editingDateTime,
+            notification: item.notification
+          
           }));
           return dataArray;
         }

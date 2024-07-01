@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import { useTodos } from "../context/TodoContext";
+import { useTodos, useDispatchTodos } from "../context/TodoContext";
 import { initializeApp } from 'firebase/app';
 import { onAuthStateChanged } from "firebase/auth";
 import { firestore, auth } from "../firebase";
@@ -20,7 +20,7 @@ import { v4 as uuidv4 } from 'uuid';
 const firebaseApp = initializeApp(firebaseConfig);
 
 const Modal = ( {todo} ) => {
-
+    const dispatch = useDispatchTodos();
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
     const [inputTime, setInputTime] = useState('');
@@ -115,7 +115,7 @@ const Modal = ( {todo} ) => {
               type: 'string',
               notificationTime: dateTime,
               todoId: uid,
-              content: todo.content
+              content: todo.content,
             };
             
             // 一意のIDを生成
@@ -132,6 +132,11 @@ const Modal = ( {todo} ) => {
             setIsDocRef(docRef);
             setCompletedDateTimeSetting(true);
             setShouldHandleNotifications(true);
+            const newTodo = {
+                ...todo,
+                notification: true
+            }
+            dispatch({ type: "todo/notification", todo: newTodo });
       
             console.log('Notification data has been written to Firestore successfully');
           } catch (error) {
