@@ -16,12 +16,27 @@ admin.initializeApp({
 });
 
 const app = express();
- 
+
+// // HTTPS証明書とキーの読み込み
+// const options = {
+//     key: fs.readFileSync('server.key'),
+//     cert: fs.readFileSync('server.cert')
+//   };
+
+// // エンドポイントの例
+// app.get('/', (req, res) => {
+//     res.send('Hello, HTTPS world!');
+//   });
+  
+//   // HTTPSサーバーの作成と起動
+//   https.createServer(options, app).listen(3000, () => {
+//     console.log('Express HTTPS server listening on port 3000');
+//   });
+
 // CORSのミドルウェアを設定
 const corsOptions = {
     origin: 'https://reminder-b4527.web.app',
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    // allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin', 'Access-Control-Allow-Methods'],
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
     optionsSuccessStatus: 204,
@@ -35,12 +50,7 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 app.options('*', cors(corsOptions));
-// app.use(cors({
-//     origin: 'https://reminder-b4527.web.app', 
-//     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
-//     credentials: true,
-//     optionsSuccessStatus: 204,
-//   }));
+
 
 app.get('/', (req, res) => {
 res.sendFile(path.join(__dirname, 'build', 'index.html'));
@@ -130,52 +140,6 @@ try {
 }
 });
 
-  
-//     // /send-notification エンドポイントを追加
-//   app.post('/send-notification', cors(corsOptions), async (req, res) => {
-//     const { token, message } = req.body;
-//     console.log('Received notification request:', token, message);
-  
-//     const payload = {
-//       notification: {
-//         title: message.title,
-//         body: message.body,
-//       },
-//     };
-  
-//     try {
-//       const response2 = await admin.messaging().send(token, payload);
-//       const response = await sendNotification(token, message);
-//       console.log('Successfully sent message:', response2);
-//       res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
-//       res.status(200).json({message: response});
-  
-//     } catch (error) {
-//       console.error('Error sending notification:', error);
-//       res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
-//       res.status(500).send(`Error sending notification: ${error.message}`);
-//     }
-//   });
-
-//     // sendNotification関数を定義
-// const sendNotification = async (token, message) => {
-//     try {
-//     const response = await admin.messaging().send({
-//         token: token,
-//         notification: {
-//         title: message.title,
-//         body: message.body,
-//         },
-//     });
-//     console.log('Successfully sent message:', response);
-//     return 'Notification sent successfully';
-//     } catch (error) {
-//     console.error('Error sending message:', error);
-//     throw new Error(`Error sending notification: ${error.message}`);
-//     }
-// };
-  
-
 // exports.app = functions.https.onRequest(app);
 exports.api = functions.https.onRequest(app);
 
@@ -197,7 +161,40 @@ exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
         return Promise.resolve();
     });
 
- 
+    const firestore = admin.firestore();
+
+exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{todoId}')
+    .onUpdate(async (change, context) => {
+        const beforeData = change.before.data(); // 変更前のデータ
+        const afterData = change.after.data(); // 変更後のデータ
+
+        // データの変更をチェック
+        if (beforeData.notificationTime !== afterData.notificationTime) {
+            const payload = {
+                notification: {
+                    title: 'Todo Updated',
+                    body: `Todo with ID: ${context.params.todoId} has been updated.`,
+                }
+            };
+
+            // ユーザーのトークンを取得して通知を送信
+            try {
+                const tokensSnapshot = await firestore.collection('tokens').get();
+                const deviceTokens = tokensSnapshot.docs.map(doc => doc.data().deviceToken);
+
+                if (deviceTokens.length > 0) {
+                    const response = await admin.messaging().send(deviceTokens, payload);
+                    console.log('Notifications sent successfully:', response);
+                }
+            } catch (error) {
+                console.error('Error sending notifications:', error);
+            }
+        }
+
+        return null;
+    });
+
+
 // 通知を送信する関数
 exports.sendNotification = functions.https.onRequest((req, res) => {
         cors(corsOptions)(req, res, async  () => {
