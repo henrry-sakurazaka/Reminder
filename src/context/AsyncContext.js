@@ -7,7 +7,7 @@ import { useDispatchTodos, useTodos } from "./TodoContext";
 import { firestore, auth } from "../firebase";
 import { initializeApp } from "firebase/app";
 import firebaseConfig from "../firebase";
-import { doc, setDoc, getDoc, updateDoc } from 'firebase/firestore';
+import { doc, setDoc, getDoc, updateDoc, getFirestore } from 'firebase/firestore';
 
 
 const firebaseApp = initializeApp(firebaseConfig);
@@ -101,11 +101,13 @@ const AsyncContextProvider = ({ children }) => {
    
 
 useEffect(() => {
+  const auth = getAuth();
+  const firestore = getFirestore();
     
-  const fetchTodosFromFirestore = async () => {
-    
+  const fetchTodosFromFirestore = async (uid) => {
+
       try {
-          const todoDocRef = doc(firestore, 'todoList3',user.uid);
+          const todoDocRef = doc(firestore, 'todoList3', uid);
           const snapshot =  await getDoc(todoDocRef);
           console.log(snapshot)
           // ドキュメントが存在する場合のみ処理を続行
@@ -127,15 +129,23 @@ useEffect(() => {
                   } 
               }
             } catch (error) {
-              console.error('Error saving todoList to Firestore:', error);
+              console.error('Error fetching todoList to Firestore:', error);
             } finally {
               setLoading(false);
             }  
         }
-      fetchTodosFromFirestore();  
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            fetchTodosFromFirestore(user.uid);
+          } else {
+            console.log("User signed out");
+          }
+        });
+    
+        return () => unsubscribe();
     }, [GetConverter, dispatch]);
 
-
+  
   
 useEffect(() => {
   

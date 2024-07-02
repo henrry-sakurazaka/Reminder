@@ -28,35 +28,75 @@ const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
 
+const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
 
-if ('serviceWorker' in navigator) {
-
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for (let registration of registrations) {
-          registration.unregister();
-      }
+// トークンをサーバーに送信する関数
+const sendTokenToServer = async (token) => {
+  try {
+    const response = await fetch('https://reminder-b4527.web.app/register-token', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ token }),
     });
+    if (response.ok) {
+      console.log('トークンがサーバーに送信されました');
+    } else {
+      console.error('トークンの送信に失敗しました');
+    }
+  } catch (error) {
+    console.error('トークンの送信中にエラーが発生しました:', error);
+  }
+};
 
-    navigator.serviceWorker.register('/worker.js', { type: 'module' })
-      .then((registration) => {
-        console.log('Service Worker registration successful with scope: ', registration.scope);
+// サービスワーカーを登録し、トークンを取得する関数
+const registerServiceWorkerAndRequestToken = async () => {
+  if ('serviceWorker' in navigator) {
+    try {
+      const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' });
+      console.log('Service Worker registration successful with scope: ', registration.scope);
+      const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
+      if (currentToken) {
+        console.log('FCM Token:', currentToken);
+        await sendTokenToServer(currentToken);
+      } else {
+        console.log('No registration token available. Request permission to generate one.');
+      }
+    } catch (err) {
+      console.log('An error occurred while retrieving token. ', err);
+    }
+  }
+};
+
+// if ('serviceWorker' in navigator) {
+
+//     navigator.serviceWorker.getRegistrations().then(function(registrations) {
+//       for (let registration of registrations) {
+//           registration.unregister();
+//       }
+//     });
+
+//     navigator.serviceWorker.register('/worker.js', { type: 'module' })
+//       .then((registration) => {
+//         console.log('Service Worker registration successful with scope: ', registration.scope);
         
-        const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
-        return getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
-      })
+//         const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
+//         return getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
+//       })
     
-      .then((currentToken) => {
-          if (currentToken) {
-            console.log('FCM Token:', currentToken);
-            return sendTokenToServer(currentToken); // トークンをサーバーに送信する処理
-          } else {
-            console.log('No registration token available. Request permission to generate one.');
-          }
-        })
-        .catch ((err) => {
-          console.log('An error occurred while retrieving token. ', err);
-      });
-}
+//       .then((currentToken) => {
+//           if (currentToken) {
+//             console.log('FCM Token:', currentToken);
+//             return sendTokenToServer(currentToken); // トークンをサーバーに送信する処理
+//           } else {
+//             console.log('No registration token available. Request permission to generate one.');
+//           }
+//         })
+//         .catch ((err) => {
+//           console.log('An error occurred while retrieving token. ', err);
+//       });
+// }
 
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);
@@ -88,26 +128,25 @@ onMessage(messaging, (payload) => {
   }
 });
 
-
-// トークンをサーバーに送信する関数
-const sendTokenToServer = async (token) => {
-  try {
-    const response = await fetch('https://reminder-b4527.web.app/register-token', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token }),
-    });
-    if (response.ok) {
-      console.log('トークンがサーバーに送信されました');
+// トークンを取得する関数（手動トリガー用）
+export const requestForToken = () => {
+  getToken(messaging, { vapidKey }).then((currentToken) => {
+    if (currentToken) {
+      console.log('FCM Token:', currentToken);
+      // ここでトークンをサーバーに送信するなどの処理を行う
+      sendTokenToServer(currentToken);
     } else {
-      console.error('トークンの送信に失敗しました');
+      console.log('No registration token available. Request permission to generate one.');
     }
-  } catch (error) {
-    console.error('トークンの送信中にエラーが発生しました:', error);
-  }
+  }).catch((err) => {
+    console.log('An error occurred while retrieving token. ', err);
+  });
 };
+
+// サービスワーカーを登録し、トークンを取得
+registerServiceWorkerAndRequestToken();
+
+
 
 export { app, auth, db, firestore, ref, set, messaging, provider }; // dbもエクスポートする
 export default firebaseConfig;

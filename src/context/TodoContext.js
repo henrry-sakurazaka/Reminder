@@ -121,7 +121,7 @@ const todoReducer = (todos, action) => {
 
  const TodoProvider = ({ children }) => {
 
-      const [ todos, dispatch ] = useReducer(todoReducer, todoList); 
+      const [ todos, dispatch ] = useReducer(todoReducer, {todoList: []}); 
       const [ todosData, setTodosData ] = useState([]);
       const [modalOpen, setModalOpen ] = useState(false);
       const [isDateSet, setIsDateSet] = useState(false);
