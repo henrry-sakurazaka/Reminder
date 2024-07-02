@@ -78,6 +78,18 @@ app.get('/get-token', cors(corsOptions), async (req, res) => {
       res.status(500).send(`Error fetching token: ${error.message}`);
     }
   });
+  app.post('/handleEasyLogin', (req, res) => {
+    const { email, password } = req.body;
+
+    admin.auth().signInWithEmailAndPassword(email, password)
+        .then(userCredential => {
+            const idToken = userCredential.user.getIdToken();
+            res.status(200).send({ idToken: idToken });
+        })
+        .catch(error => {
+            res.status(400).send({ message: 'Failed to login', error: error.message });
+        });
+});
   
 
 app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {

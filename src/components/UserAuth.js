@@ -33,9 +33,9 @@ const UserAuth = () => {
         });
     }
     
-    // const handleClickTrial = () => {
-    //     history.push('/Trial');
-    // }
+    const handleClickEasyLogin = () => {
+        navigate('/EasyLogin');
+    }
 
     return (
             
@@ -44,7 +44,7 @@ const UserAuth = () => {
                         <span className="select-auth" onClick={() => handleClickSignUp()}>Sign Up</span>
                         <span className="select-auth" onClick={() => handleClickSignIn()}>Sign In</span>
                         <span className="select-auth" onClick={() => handleClickSignOut()}>Sign Out</span>
-                        {/* <span onClick={() => handleClickTrial()}>お試しログイン</span> */}
+                        <span className="select-auth" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
                     </div>
                 </div>
 

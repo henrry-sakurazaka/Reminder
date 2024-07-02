@@ -47,13 +47,15 @@ function SignIn() {
       const currentToken = await getToken(messaging, { vapidKey: 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po' });
       console.log("FCM Token:", currentToken);
       
-      return currentToken;
-    } catch (error) {
-      console.error('Error getting device token:', error);
-      return null;
-    }
-  };
-  
+
+       
+          return currentToken;
+        } catch (error) {
+          console.error('Error getting device token:', error);
+          return null;
+        }
+      };
+    
 
 
   // サーバーにトークンを送信する関数
@@ -101,9 +103,11 @@ function SignIn() {
         }
         navigate("/Example");
       }
+     
     } catch (error) {
       console.log(error);
     }
+     
   };
 
   return (

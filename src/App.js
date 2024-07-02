@@ -8,7 +8,8 @@ import UserAuth from "./components/UserAuth";
 import SignOut from "./components/ SignOut";
 import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn";
-import { messaging } from "./firebase";
+import EasyLogin from "./components/EasyLogin";
+import { messaging , requestForToken} from "./firebase";
 import { getMessaging, getToken, onMessage } from "firebase/messaging"; // Firebase関連のインポートを追加
 
 
@@ -80,6 +81,7 @@ export default function App() {
           <Route path="/SignOut" element={<SignOut/>} />
           <Route path="/SignUp" element={<SignUp/>} />
           <Route path="/SignIn" element={<SignIn/>} />
+          <Route path="/EasyLogin" element={<EasyLogin/>} />
         </Routes>
       </BrowserRouter>
     
