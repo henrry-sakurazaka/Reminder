@@ -24,7 +24,7 @@ const auth = getAuth();
 const user = auth.currentUser;
 
 
-const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting }) => {
+const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting , todo}) => {
   const [uid, setUid] = useState(); 
   const { notificationDocId, isDocRef } = useTodos();
   
@@ -67,7 +67,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
   
   useEffect(() => {
-    if (completedDateTimeSetting && shouldHandleNotifications) {
+    if (completedDateTimeSetting && shouldHandleNotifications && todo) {
       const fetchTimers = async () => {
         const timersCollection = collection(firestore, 'notifications');
         const q = query(timersCollection, where('notificationTime', '>=', new Date()));

@@ -30,6 +30,36 @@ self.addEventListener('push', function(event) {
   );
 });
 
+// self.addEventListener('install', function(event) {
+//   event.waitUntil(
+//     caches.open('my-cache').then(function(cache) {
+//       return cache.addAll([
+//         '/',
+//         '/index.html',
+//         '/styles.css',
+//         '/script.js',
+//         // 他のキャッシュするリソース
+//       ]);
+//     })
+//   );
+// });
+
+// self.addEventListener('activate', function(event) {
+//   var cacheWhitelist = ['my-cache'];
+//   event.waitUntil(
+//     caches.keys().then(function(cacheNames) {
+//       return Promise.all(
+//         cacheNames.map(function(cacheName) {
+//           if (cacheWhitelist.indexOf(cacheName) === -1) {
+//             return caches.delete(cacheName);
+//           }
+//         })
+//       );
+//     })
+//   );
+// });
+
+
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   event.waitUntil(

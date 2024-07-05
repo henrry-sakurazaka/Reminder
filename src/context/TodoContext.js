@@ -101,23 +101,20 @@ const todoReducer = (todos, action) => {
     case 'complete2': 
       return todos.map(todo =>
         todo.id === action.todo.id 
-        ? {...todo, completed: true }
-        : {...todo}
+        ? { ...todo, completed: true }
+        : {...todo }
       );
    
     case 'todo/notification':
-      return todos.map(todo =>
-        todo.id === action.todo.id
-          ? { ...todo, notification: true }
-          : todo
+      return todos.map(_todo =>
+        _todo.id === action.todo.id
+          ? { ..._todo, notification: true }
+          : { ..._todo }
       );  
     default: 
       return todos 
   }
 };
-
- 
-
 
  const TodoProvider = ({ children }) => {
 
@@ -141,7 +138,12 @@ const todoReducer = (todos, action) => {
       const [notificationDocId, setNotificationDocId] = useState();
       const [isSubmitting, setIsSubmitting] = useState();
       const [isDocRef, setIsDocRef] = useState();
-   
+      const [reserveModeTodo, setReserveModeTodo] = useState();
+      const [reserveModeId, setReserveModeId] = useState();
+      const [todoId, setTodoId] = useState();
+      const [todoContent, setTodoContent] = useState();
+      const [Todo, setTodo] = useState();
+
     return (
         <TodoContext.Provider value=
             {{ todos, 
@@ -156,7 +158,9 @@ const todoReducer = (todos, action) => {
             setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted,
             completedDateTimeSetting, setCompletedDateTimeSetting,
             notificationDocId, setNotificationDocId, isSubmitting, setIsSubmitting,
-            isDocRef, setIsDocRef
+            isDocRef, setIsDocRef, reserveModeTodo, setReserveModeTodo,
+            reserveModeId, setReserveModeId, todoId, setTodoId, todoContent,
+            setTodoContent, Todo, setTodo
             }}>
               
           <TodoDispatchContext.Provider value={dispatch}>    
