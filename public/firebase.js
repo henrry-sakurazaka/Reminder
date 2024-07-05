@@ -73,7 +73,7 @@ const sendTokenToServer = async (token) => {
 const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
-      const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' });
+      const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' , scope: '/'});
       console.log('Service Worker registration successful with scope: ', registration.scope);
       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
       if (currentToken) {

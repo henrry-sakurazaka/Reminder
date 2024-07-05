@@ -42,7 +42,8 @@ const Modal = ( {todo} ) => {
         setSelectedDate, setSelectedTime,
         completedDateTimeSetting,  setCompletedDateTimeSetting,
         setNotificationDocId, isSubmitting, setIsSubmitting,
-        setIsDocRef
+        setIsDocRef, reserveModeTodo, reserveModeId,
+        setReserveModeId, todoId, setTodoId, Todo, setTodo
     } = useTodos();
 
     useEffect(() => {
@@ -54,7 +55,10 @@ const Modal = ( {todo} ) => {
       
         return () => unsubscribe();
       }, []);
-      
+
+    // useEffect(() => {
+    //     console.log(todo)
+    // }, [todo]); 
    
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
@@ -70,7 +74,6 @@ const Modal = ( {todo} ) => {
         setSelectedDate(true)
     };
 
-
     const switchFunction2 = (isContainerTimeCheck) => {
         setContainerTimeCheck(isContainerTimeCheck ? false : true); 
         setContainerDateCheck(false); 
@@ -82,12 +85,6 @@ const Modal = ( {todo} ) => {
         setIsDate(newDate);
         setIsDateSet(true);
       };
-      
-    //   const handleTimeChange = (time) => {    
-    //     setIsTime(time);
-    //     setIsTimeSet(true);
-    //   };
-
 
     const handleTimeChange = (e) => {
         const { value } = e.target;
@@ -99,12 +96,14 @@ const Modal = ( {todo} ) => {
         setInputTime(value)
         setIsTimeSet(true);
     };
+   
     
     const setTimer = async () => {
+       console.log(todo.content)
         if (isSubmitting) return; // 重複防止
       
         setIsSubmitting(true);
-        if (isDate && isTime && todo.content) {
+        if (isDate && isTime && todo.content && todo.id) {
           const dateTime = new Date(isDate);
           dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
       
@@ -116,6 +115,7 @@ const Modal = ( {todo} ) => {
               notificationTime: dateTime,
               todoId: uid,
               content: todo.content,
+              id: todo.id
             };
             
             // 一意のIDを生成
@@ -123,20 +123,20 @@ const Modal = ( {todo} ) => {
             // Firestoreのコレクション参照
             const docRef = doc(collection(firestore, 'notifications'), docId);
             await setDoc(docRef, notificationData);
-            // // 非同期でドキュメントを追加し、その結果を待機
+            // 非同期でドキュメントを追加し、その結果を待機
             // const docRef = await addDoc(collection(firestore, 'notifications'), notificationData);
             // const docId = docRef.id;
-           
             console.log('Generated docId:', docId);
-            setNotificationDocId(docId);
-            setIsDocRef(docRef);
-            setCompletedDateTimeSetting(true);
-            setShouldHandleNotifications(true);
             const newTodo = {
                 ...todo,
                 notification: true
             }
             dispatch({ type: "todo/notification", todo: newTodo });
+            setNotificationDocId(docId);
+            setIsDocRef(docRef);
+            setCompletedDateTimeSetting(true);
+            setShouldHandleNotifications(true);
+           
       
             console.log('Notification data has been written to Firestore successfully');
           } catch (error) {
@@ -147,6 +147,22 @@ const Modal = ( {todo} ) => {
         } else {
           setIsSubmitting(false);
         }
+
+        try {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+              console.log('Notification permission granted!');
+              // ここで通知の送信を設定する
+            } else if (permission === 'denied') {
+              console.warn('Notification permission denied');
+              // 通知の許可が拒否された場合の処理
+            } else {
+              console.warn('Notification permission dismissed');
+              // ユーザーが許可の決定を延期した場合の処理
+            }
+          } catch (error) {
+            console.error('Failed to request permission:', error);
+          }
       };
       
     
@@ -162,12 +178,10 @@ const Modal = ( {todo} ) => {
         }   
     }, [ isDate, isTime ]);
 
-    
-
   
     return (  
-        modalOpen ? 
-        <div className="modal">
+        modalOpen ? (
+        <div key={todo.id} className="modal">
             <div className="switch-container" onClick={() => switchFunction()}>
                 <SelectSwitch
                     isChecked={isDateChecked} 
@@ -262,16 +276,17 @@ const Modal = ( {todo} ) => {
                 </>
             )          
         } 
-        <div className="btn-container">
-            <button className="set-btn" onClick={() => setTimer()}>SET</button>
-            {completedDateTimeSetting && shouldHandleNotifications && (
-             <NotificationHandler shouldHandleNotifications={shouldHandleNotifications} 
-             completedDateTimeSetting = {completedDateTimeSetting} />
-      )}
-        </div>
-        </div>
-        : false           
+            <div  className="btn-container">
+                <button className="set-btn" onClick={() => setTimer()}>SET</button>
+                {completedDateTimeSetting && shouldHandleNotifications && (
+                <NotificationHandler shouldHandleNotifications={shouldHandleNotifications} 
+                completedDateTimeSetting = {completedDateTimeSetting} todo={todo}/>
+                )}
+            </div>
+         </div>
+        ) : null
+               
     );     
  
-}
+};
 export default Modal;

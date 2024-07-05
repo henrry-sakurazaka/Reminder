@@ -2,7 +2,7 @@
 import React, { useEffect } from 'react';
 import { useTodos } from '../context/TodoContext';
 
-const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime}) => {
+const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime, todo}) => {
   
   const { selectedTime, 
           setDisplayTimePicker, setDisplayDatePicker,
