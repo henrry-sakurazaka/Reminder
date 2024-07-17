@@ -47,12 +47,13 @@ const provider = new GoogleAuthProvider();
 //       });
 // }
 
-const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
+const vapidKey = 'BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8';
 
 // トークンをサーバーに送信する関数
 const sendTokenToServer = async (token) => {
   try {
-    const response = await fetch('https://reminder-b4527.web.app/register-token', {
+    // const response = await fetch('https://us-central1-reminder-b4527.cloudfunctions.net/registerToken', {
+    const response = await fetch('https://reminder-b4527.web.app/registerToken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

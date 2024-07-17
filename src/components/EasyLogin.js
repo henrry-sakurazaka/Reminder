@@ -4,7 +4,7 @@ import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, app } from "../firebase"; 
 import { getMessaging, getToken } from "firebase/messaging";
 import axios from "axios";
-import "./SignIn.css";
+import "./logging.css";
 
 
 // Firebase Messagingの初期化
@@ -39,13 +39,13 @@ const urlBase64ToUint8Array = (base64String) => {
       // PushManagerでのサブスクリプション
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po')
+        applicationServerKey: urlBase64ToUint8Array('BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8')
       });
       const pushManagerToken = subscription.endpoint;
       console.log('PushManager Subscription Token:', pushManagerToken);
   
       // Firebase Cloud Messagingのトークン取得
-      const currentToken = await getToken(messaging, { vapidKey: 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po' });
+      const currentToken = await getToken(messaging, { vapidKey: 'BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8' });
       console.log("FCM Token:", currentToken);
       
 
@@ -105,7 +105,11 @@ const urlBase64ToUint8Array = (base64String) => {
       handleEasyLogin();
     }, []);
 
-  return null;
+  return (
+    <div className="login-container">
+      <div className="logging-in">Logging in...</div>
+    </div>
+  )
  }
 
 
