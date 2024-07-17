@@ -6,7 +6,7 @@ const useFCMToken = () => {
   useEffect(() => {
     const fetchToken = async () => {
       try {
-        const currentToken = await getToken(messaging, { vapidKey: 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po' });
+        const currentToken = await getToken(messaging, { vapidKey: 'BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8' });
         if (currentToken) {
           console.log('FCMトークン:', currentToken);
           await sendTokenToServer(currentToken); // サーバーにトークンを送信
@@ -33,7 +33,7 @@ useEffect(() => {
 
 const sendTokenToServer = async (token) => {
   try {
-    const response = await fetch('https://reminder-b4527.web.app//register-token', {
+    const response = await fetch('https://reminder-b4527.web.app//registerToken', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

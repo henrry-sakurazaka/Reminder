@@ -155,6 +155,22 @@ try {
 // exports.app = functions.https.onRequest(app);
 exports.api = functions.https.onRequest(app);
 
+exports.registerToken = functions.https.onRequest(async (req, res) => {
+    const token = req.body.token;
+    if (!token) {
+        res.status(400).send('Token is required');
+        return;
+    }
+
+    try {
+        await admin.firestore().collection('tokens').add({ token });
+        res.status(200).send('Token registered successfully');
+    } catch (error) {
+        console.error('Error registering token:', error);
+        res.status(500).send('Error registering token');
+    }
+});
+
 
 // データベースの特定の場所を監視するトリガー関数を定義する
 exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
