@@ -23,30 +23,6 @@ const db = getDatabase(app); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
-
-
-// if ('serviceWorker' in navigator) {
-//     navigator.serviceWorker.register('/worker.js', { type: 'module' })
-//       .then((registration) => {
-//         console.log('Service Worker registration successful with scope: ', registration.scope);
-        
-//         const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
-//         return getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
-//       })
-    
-//       .then((currentToken) => {
-//           if (currentToken) {
-//             console.log('FCM Token:', currentToken);
-//             return sendTokenToServer(currentToken); 
-//           } else {
-//             console.log('No registration token available. Request permission to generate one.');
-//           }
-//         })
-//         .catch ((err) => {
-//           console.log('An error occurred while retrieving token. ', err);
-//       });
-// }
-
 const vapidKey = 'BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8';
 
 // トークンをサーバーに送信する関数

@@ -1,12 +1,8 @@
 
 import { initializeApp } from "firebase/app";
-// import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
-// import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 import { getAuth , GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
-// import FirebaseMock from 'firebase-mock';
-// import 'text-encoding';
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 // Your web app's Firebase configuration
@@ -69,34 +65,6 @@ const registerServiceWorkerAndRequestToken = async () => {
   }
 };
 
-// if ('serviceWorker' in navigator) {
-
-//     navigator.serviceWorker.getRegistrations().then(function(registrations) {
-//       for (let registration of registrations) {
-//           registration.unregister();
-//       }
-//     });
-
-//     navigator.serviceWorker.register('/worker.js', { type: 'module' })
-//       .then((registration) => {
-//         console.log('Service Worker registration successful with scope: ', registration.scope);
-        
-//         const vapidKey = 'BEwsfQdJI6-6niIqi1XFnKAGVQlwBzU87syDndbmAkJQrXFxmBYgrT34QpEQl6zlYTElWGZAtqpasljODwMz9Po';
-//         return getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
-//       })
-    
-//       .then((currentToken) => {
-//           if (currentToken) {
-//             console.log('FCM Token:', currentToken);
-//             return sendTokenToServer(currentToken); // トークンをサーバーに送信する処理
-//           } else {
-//             console.log('No registration token available. Request permission to generate one.');
-//           }
-//         })
-//         .catch ((err) => {
-//           console.log('An error occurred while retrieving token. ', err);
-//       });
-// }
 
 onMessage(messaging, (payload) => {
   console.log('Message received. ', payload);

@@ -17,21 +17,6 @@ admin.initializeApp({
 
 const app = express();
 
-// // HTTPS証明書とキーの読み込み
-// const options = {
-//     key: fs.readFileSync('server.key'),
-//     cert: fs.readFileSync('server.cert')
-//   };
-
-// // エンドポイントの例
-// app.get('/', (req, res) => {
-//     res.send('Hello, HTTPS world!');
-//   });
-  
-//   // HTTPSサーバーの作成と起動
-//   https.createServer(options, app).listen(3000, () => {
-//     console.log('Express HTTPS server listening on port 3000');
-//   });
 
 // CORSのミドルウェアを設定
 const corsOptions = {
@@ -49,7 +34,6 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
-app.options('*', cors(corsOptions));
 
 
 app.get('/', (req, res) => {
@@ -137,13 +121,21 @@ try {
     await admin.database().ref('tokens').child(uid).set({
         deviceToken: deviceToken,
     });
-    const response = await admin.messaging().send({
-        token: token,
+    // プッシュ通知の送信
+    const payload = {
         notification: {
-        title: message.title,
-        body: message.body,
+            title: message.title,
+            body: message.body,
         },
-    });
+    };
+    const response = await admin.messaging().sendToDevice(deviceToken, payload);
+    // const response = await admin.messaging().send({
+    //     token: token,
+    //     notification: {
+    //     title: message.title,
+    //     body: message.body,
+    //     },
+    // });
     console.log('Successfully sent message:', response);
     res.status(200).send('Notification sent successfully');
 } catch (error) {
@@ -154,22 +146,6 @@ try {
 
 // exports.app = functions.https.onRequest(app);
 exports.api = functions.https.onRequest(app);
-
-exports.registerToken = functions.https.onRequest(async (req, res) => {
-    const token = req.body.token;
-    if (!token) {
-        res.status(400).send('Token is required');
-        return;
-    }
-
-    try {
-        await admin.firestore().collection('tokens').add({ token });
-        res.status(200).send('Token registered successfully');
-    } catch (error) {
-        console.error('Error registering token:', error);
-        res.status(500).send('Error registering token');
-    }
-});
 
 
 // データベースの特定の場所を監視するトリガー関数を定義する
