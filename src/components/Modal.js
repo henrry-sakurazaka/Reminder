@@ -1,10 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useTodos, useDispatchTodos } from "../context/TodoContext";
-import { initializeApp } from 'firebase/app';
 import { onAuthStateChanged } from "firebase/auth";
 import { firestore, auth } from "../firebase";
 import { collection, addDoc, setDoc, doc} from 'firebase/firestore';
-import firebaseConfig from "../firebase";
 import SSwitch2 from "./SSwitch2";
 import MyTimePicker from "./MyTimePicker";
 import MyDatePickerCom from "./MyDatePickerCom";
@@ -14,10 +12,8 @@ import 'firebase/firestore'; // Firestoreを使用する場合
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
 import { useAsyncContext } from "../context/AsyncContext";
-import { title } from "process";
 import { v4 as uuidv4 } from 'uuid';
 
-const firebaseApp = initializeApp(firebaseConfig);
 
 const Modal = ( {todo} ) => {
     const dispatch = useDispatchTodos();

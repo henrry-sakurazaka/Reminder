@@ -5,12 +5,12 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import { createContext , useState, useRef, useEffect, useContext, useMemo} from "react";
 import { useDispatchTodos, useTodos } from "./TodoContext";
 import { firestore, auth } from "../firebase";
-import { initializeApp } from "firebase/app";
-import firebaseConfig from "../firebase";
+// import { initializeApp } from "firebase/app";
+// import firebaseConfig from "../firebase";
 import { doc, setDoc, getDoc, updateDoc, getFirestore } from 'firebase/firestore';
 
 
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
 const AsyncLogic = createContext();
 
 
@@ -96,13 +96,11 @@ const AsyncContextProvider = ({ children }) => {
         }
       };
     }, []);
-     
-    
-   
+       
 
 useEffect(() => {
-  const auth = getAuth();
-  const firestore = getFirestore();
+  // const auth = getAuth();
+  // const firestore = getFirestore();
     
   const fetchTodosFromFirestore = async (uid) => {
 

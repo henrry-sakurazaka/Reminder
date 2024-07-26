@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from "firebase/app"; // firebaseモジュールをインポート
 import firebaseConfig from "../firebase";
 
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
     
 
 const Form = ({ firestore }) => {

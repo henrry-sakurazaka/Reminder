@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from 'firebase/auth';
 import { useTodos } from "../context/TodoContext";
 import { useEffect } from "react";
-// import SignIn from "./SignIn";
-// import SignUp from "./SignUp";
-// import SignOut from "./ SignOut";
 import "./UserAu.css";
 
 const auth = getAuth();

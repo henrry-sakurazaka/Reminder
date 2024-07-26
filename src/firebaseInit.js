@@ -8,13 +8,14 @@ import { getDatabase } from 'firebase/database';
 // Firebaseの設定
 const firebaseConfig = {
   // your firebase config here
-  apiKey: "AIzaSyDq5hfrZ2bVxGxOsWX2bJhK3hynMttRHXc",
-  authDomain: "reminder-b4527.firebaseapp.com",
-  databaseURL: "https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "reminder-b4527",
-  storageBucket: "reminder-b4527.appspot.com",
-  messagingSenderId: "968555995295",
-  appId: "1:968555995295:web:42d909b7393394b85502aa"
+apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
+authDomain: "reminder3-65e84.firebaseapp.com",
+databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
+projectId: "reminder3-65e84",
+storageBucket: "reminder3-65e84.appspot.com",
+messagingSenderId: "280162142902",
+appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
+measurementId: "G-C0NL3GWNWZ"
 };
 
 // Firebaseアプリの初期化

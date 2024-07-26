@@ -1,25 +1,34 @@
 import { useEffect, useMemo, useState} from 'react';
-import { initializeApp } from 'firebase/app';
+import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged  } from 'firebase/auth';
 import { getMessaging, getToken } from 'firebase/messaging'; 
 import { onMessage } from 'firebase/messaging/sw';
 import { useTodos } from '../context/TodoContext';
 import { getFirestore, collection, query, where, getDocs, getDoc, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore';
+import { app, firestore, db } from '../firebase'
 import useFCMToken from './useFCMtoken';
+import firebaseConfig from '../firebase';
 
-const firebaseConfig = {
-  apiKey: "AIzaSyDq5hfrZ2bVxGxOsWX2bJhK3hynMttRHXc",
-  authDomain: "reminder-b4527.firebaseapp.com",
-  databaseURL: "https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "reminder-b4527",
-  storageBucket: "reminder-b4527.appspot.com",
-  messagingSenderId: "968555995295",
-  appId: "1:968555995295:web:42d909b7393394b85502aa"
-};
 
-const app = initializeApp(firebaseConfig);
-const firestore = getFirestore(app);
-const messaging = getMessaging(app); // Messagingの初期化
+
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
+//   authDomain: "reminder3-65e84.firebaseapp.com",
+//   databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
+//   projectId: "reminder3-65e84",
+//   storageBucket: "reminder3-65e84.appspot.com",
+//   messagingSenderId: "280162142902",
+//   appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
+//   measurementId: "G-C0NL3GWNWZ"
+// };
+
+if (!getApps().length) {
+  initializeApp(firebaseConfig);
+}
+
+// const app = initializeApp(firebaseConfig);
+// const firestore = getFirestore(app);
+// const messaging = getMessaging(app); // Messagingの初期化
 const auth = getAuth();
 const user = auth.currentUser;
 
@@ -41,7 +50,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
     }
   });
 
-  useFCMToken();
+  // useFCMToken();
 
   // const GetConverter = useMemo(() => {
   //   return {
@@ -127,7 +136,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
     const idToken = await User.getIdToken();
 
     try {
-      const response = await fetch('https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification', { 
+      const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/sendNotification', { 
         method: 'POST',
         headers: {
           'Content-Type': 'application/json', 
@@ -189,7 +198,7 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         if (uid === todoId) {
           console.log('match');
           
-          const response = await fetch(`https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification?uid=${uid}`, {
+          const response = await fetch(`https://us-central1-reminder3-65e84.cloudfunctions.net/sendNotification?uid=${uid}`, {
             method: 'POST',
             headers: {
               'Content-Type': 'application/json',

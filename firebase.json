@@ -6,7 +6,7 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "site": "reminder-b4527",
+    "site": "reminder3-65e84",
     "headers": [
       {
         "source": "/worker.js",
@@ -21,7 +21,7 @@
           },
           {
             "key": "Access-Control-Allow-Origin",
-            "value": "https://reminder-b4527.web.app"
+            "value": "https://reminder3-65e84.web.app"
           }
         ]
       },
@@ -56,7 +56,8 @@
         "source": "**",
         "destination": "/index.html"
       }
-    ]
+    ],
+    "cleanUrls": true
   },
   "functions": [
     {
@@ -71,5 +72,8 @@
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
+  },
+  "database": {
+    "rules": "database.rules.json"
   }
 }
