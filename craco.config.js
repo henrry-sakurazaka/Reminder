@@ -37,6 +37,15 @@ module.exports = {
             'process.env.REACT_APP_FIREBASE_APP_ID': JSON.stringify(process.env.REACT_APP_FIREBASE_APP_ID),
           }),
         ];
+
+          // HMRを無効にする設定を追加
+        if (process.env.NODE_ENV === 'development') {
+          webpackConfig.devServer = {
+            ...webpackConfig.devServer,
+            hot: false, // HMRを無効にする
+          };
+        }
+
   
         return webpackConfig;
       },

@@ -9,8 +9,8 @@ import firebaseConfig from "../firebase";
 
  const TodoContext = createContext();
  const TodoDispatchContext = createContext();
- const firebaseApp = initializeApp(firebaseConfig);
- const firestore = getFirestore(firebaseApp);
+//  const firebaseApp = initializeApp(firebaseConfig);
+//  const firestore = getFirestore(firebaseApp);
 
 const todoList = [
   {

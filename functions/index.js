@@ -8,11 +8,11 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require('cors');
    
-var serviceAccount = require("./reminder-b4527-firebase-adminsdk-bta94-ca32803afb.json"); 
-
+var serviceAccount = require("./reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json"); 
+                            
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: "https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app" 
+    databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com" 
 });
 
 const app = express();
@@ -20,7 +20,7 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: 'https://reminder-b4527.web.app',
+    origin: 'https://reminder3-65e84.web.app' ,
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
@@ -34,6 +34,16 @@ app.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
+
+
+// 静的ファイルを正しいMIMEタイプで配信するための設定
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 
 
 app.get('/', (req, res) => {
@@ -62,6 +72,9 @@ app.get('/get-token', cors(corsOptions), async (req, res) => {
       res.status(500).send(`Error fetching token: ${error.message}`);
     }
   });
+
+  
+  
   app.post('/handleEasyLogin', (req, res) => {
     const { email, password } = req.body;
 
@@ -74,7 +87,8 @@ app.get('/get-token', cors(corsOptions), async (req, res) => {
             res.status(400).send({ message: 'Failed to login', error: error.message });
         });
 });
-  
+
+
 
 app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 const { idToken, deviceToken } = req.body;
@@ -102,7 +116,26 @@ try {
   }
 });
 
-  
+ // トークンを受け取るエンドポイント
+app.post('/registerToken', cors(corsOptions), async (req, res) => {
+  const token = req.body.token;
+  if (!token) {
+    return res.status(400).send('Invalid request: Token is missing');
+  }
+
+  try {
+    // トークンをデータベースに保存する処理をここに追加します
+    // 例:
+    await admin.firestore().collection('tokens').add({ token });
+
+    return res.status(200).send('Token registered successfully');
+  } catch (error) {
+    console.error('Error registering token:', error);
+    return res.status(500).send('Internal Server Error');
+  }
+});
+
+
 app.post('/send-notification', cors(corsOptions), async (req, res) => {
 const idToken = req.headers.authorization?.split('Bearer ')[1]; // Authorizationヘッダーからトークンを取得
 if (!idToken) {
@@ -147,6 +180,27 @@ try {
 // exports.app = functions.https.onRequest(app);
 exports.api = functions.https.onRequest(app);
 
+
+exports.registerToken = functions.https.onRequest((req, res) => {
+  cors(req, res, async () => {
+    if (req.method !== 'POST') {
+      return res.status(405).send('Method Not Allowed');
+    }
+
+    const token = req.body.token;
+    if (!token) {
+      return res.status(400).send('Token is required');
+    }
+
+    try {
+      await admin.firestore().collection('tokens').add({ token });
+      return res.status(200).send('Token registered successfully');
+    } catch (error) {
+      console.error('Error registering token:', error);
+      return res.status(500).send('Internal Server Error');
+    }
+  });
+});
 
 // データベースの特定の場所を監視するトリガー関数を定義する
 exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
@@ -227,7 +281,7 @@ exports.sendNotification = functions.https.onRequest((req, res) => {
                // Preflightリクエストの処理
       
                 if (req.method === 'OPTIONS') {
-                    res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
+                    res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
                     res.set('Access-Control-Allow-Methods', 'GET, POST');
                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
@@ -235,7 +289,7 @@ exports.sendNotification = functions.https.onRequest((req, res) => {
                     
                 } else {
                 cors(req, res, () => {
-                    res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
+                    res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
                     res.set('Access-Control-Allow-Methods', 'GET, POST');
                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
                     res.status(204).send('');

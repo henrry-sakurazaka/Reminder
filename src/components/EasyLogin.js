@@ -39,13 +39,13 @@ const urlBase64ToUint8Array = (base64String) => {
       // PushManagerでのサブスクリプション
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8')
+        applicationServerKey: urlBase64ToUint8Array('BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ')
       });
       const pushManagerToken = subscription.endpoint;
       console.log('PushManager Subscription Token:', pushManagerToken);
   
       // Firebase Cloud Messagingのトークン取得
-      const currentToken = await getToken(messaging, { vapidKey: 'BIfCYrmbPNygypGPf3dCGj-xaRnKmk2LVz_nfqVSW6CVS1S5suozQmm9oPE4sIhrDbW6eCNzyIZPvRSOWKs1IQ8' });
+      const currentToken = await getToken(messaging, { vapidKey: 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ'});
       console.log("FCM Token:", currentToken);
       
 
@@ -62,14 +62,15 @@ const urlBase64ToUint8Array = (base64String) => {
       // サーバーにトークンを送信する関数
       const sendTokensToServer = async (idToken, deviceToken) => {
         try {
-          const response = await axios.post("https://us-central1-reminder-b4527.cloudfunctions.net/saveTokens", {
+          // const apiKey = 'AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA';
+          const response = await axios.post(`https://us-central1-reminder3-65e84.cloudfunctions.net/saveTokens`, {
             idToken: idToken,
             deviceToken: deviceToken
           }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${idToken}`,
-                'Access-Control-Allow-Origin': 'https://reminder-b4527.web.app',
+                'Access-Control-Allow-Origin': 'https://reminder3-65e84.web.app',
             },
         });
           console.log("Server response:", response.data);

@@ -1,17 +1,17 @@
 {
   "projects": {
-    "default": "reminder-b4527",
-    "main": "reminder-b4527",
-    "reminder": "reminder2-8990f",
-    "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder-b4527",
-    "e": "reminder-b4527",
-    "deployment": "reminder-b4527"
+    "default": "reminder3-65e84",
+    "main": "reminder3-65e84",
+    "reminder": "reminder3-65e84",
+    "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder3-65e84",
+    "e": "reminder3-65e84",
+    "deployment": "reminder3-65e84"
   },
   "targets": {
-    "reminder-b4527": {
+    "reminder3-65e84": {
       "hosting": {
         "reminder": [
-          "reminder-b4527",
+          "reminder3-65e84",
           "site"
         ]
       }

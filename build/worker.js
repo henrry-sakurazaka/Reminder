@@ -1,22 +1,47 @@
 'use strict';
 
-import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
-import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-sw.js';
+
+// import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+// import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-sw.js';
+// importScripts ('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+// importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging-sw.js');
+// import { initializeApp } from 'https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js';
+// import { getMessaging, onBackgroundMessage } from 'https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging-sw.js';
+// importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-app.js');
+// importScripts('https://www.gstatic.com/firebasejs/8.10.0/firebase-messaging.js');
+// importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
+// importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js');
 
 
 
-const firebaseApp = initializeApp({
-  apiKey: "AIzaSyDq5hfrZ2bVxGxOsWX2bJhK3hynMttRHXc",
-  authDomain: "reminder-b4527.firebaseapp.com",
-  databaseURL: "https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "reminder-b4527",
-  storageBucket: "reminder-b4527.appspot.com",
-  messagingSenderId: "968555995295",
-  appId: "1:968555995295:web:42d909b7393394b85502aa"
-});
+// const firebaseApp =  initializeApp ({
+//   apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
+//   authDomain: "reminder3-65e84.firebaseapp.com",
+//   databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
+//   projectId: "reminder3-65e84",
+//   storageBucket: "reminder3-65e84.appspot.com",
+//   messagingSenderId: "280162142902",
+//   appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
+//   measurementId: "G-C0NL3GWNWZ"
+// });
 
-
-const messaging = getMessaging(firebaseApp);
+// const firebaseConfig = {
+//   apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
+//   authDomain: "reminder3-65e84.firebaseapp.com",
+//   databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
+//   projectId: "reminder3-65e84",
+//   storageBucket: "reminder3-65e84.appspot.com",
+//   messagingSenderId: "280162142902",
+//   appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
+//   measurementId: "G-C0NL3GWNWZ"
+// }
+// const messaging = getMessaging(firebaseApp);
+// const messaging = getMessaging(firebaseApp);
+// firebase.initializeApp(firebaseConfig);
+// Initialize Firebase
+// const app = !getApps().length ? initializeApp(firebaseApp) : getApp();
+// initializeApp(firebaseApp);
+// const messaging = firebase.messaging();
 
 
 self.addEventListener('push', function(event) {
@@ -63,20 +88,20 @@ self.addEventListener('push', function(event) {
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
   event.waitUntil(
-      clients.openWindow('https://reminder-b4527.web.app')
+      clients.openWindow('https://reminder3-65e84.web.app')
   );
 });
 
 
-onBackgroundMessage(messaging,(payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    body:  payload.notification.body || 'Background Message body.',
-    icon: payload.notification.icon || '/firebase-logo.png'
-  };
+// onBackgroundMessage(messaging,(payload) => {
+//   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+//   const notificationTitle = 'Background Message Title';
+//   const notificationOptions = {
+//     body:  payload.notification.body || 'Background Message body.',
+//     icon: payload.notification.icon || '/firebase-logo.png'
+//   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });
 
-export {};
+// export {};

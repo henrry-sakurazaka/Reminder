@@ -2,7 +2,7 @@
   "name": "reminder",
   "version": "0.1.0",
   "private": true,
-  "homepage": "https://reminder-b4527.web.app",
+  "homepage": "https://reminder3-65e84.web.app",
   "dependencies": {
     "@firebase/auth": "^1.4.0",
     "@firebase/auth-compat": "^0.4.9",
