@@ -32,6 +32,8 @@ const sendTokenToServer = async (token) => {
   try {
     const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
     
+    // const response = await fetch('https://reminder3-65e84.web.app/registerToken', {
+    
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

@@ -30,14 +30,16 @@ const vapidKey = 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF8
 // トークンをサーバーに送信する関数
 const sendTokenToServer = async (token) => {
   try {
-    const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
+    // const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
+    
+    const response = await fetch('https://reminder3-65e84.web.app/registerToken', {
     
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
       body: JSON.stringify({ token }),
-      mode: 'cors', // CORSリクエストを送信する設定
+      // mode: 'cors', // CORSリクエストを送信する設定
     });
     if (response.ok) {
       console.log('トークンがサーバーに送信されました');
