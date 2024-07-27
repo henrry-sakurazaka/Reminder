@@ -63,14 +63,15 @@ const urlBase64ToUint8Array = (base64String) => {
       const sendTokensToServer = async (idToken, deviceToken) => {
         try {
           // const apiKey = 'AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA';
-          const response = await axios.post(`https://us-central1-reminder3-65e84.cloudfunctions.net/saveTokens`, {
+          const response = await axios.post("https://us-central1-reminder3-65e84.cloudfunctions.net/saveTokens", {
             idToken: idToken,
             deviceToken: deviceToken
           }, {
             headers: {
                 'Content-Type': 'application/json',
                 'Authorization': `Bearer ${idToken}`,
-                'Access-Control-Allow-Origin': 'https://reminder3-65e84.web.app',
+                // // 'Access-Control-Allow-Origin': 'https://reminder3-65e84.web.app',
+                // 'Access-Control-Allow-Origin': ['http://localhost:3000', 'https://reminder3-65e84.web.app'],
             },
         });
           console.log("Server response:", response.data);
