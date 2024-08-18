@@ -6,7 +6,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const bodyParser = require("body-parser"); 
 const path = require("path");
-const cors = require('cors');
+const cors = require('cors')({ origin: true });
    
 var serviceAccount = require("./reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json"); 
                             
@@ -20,7 +20,7 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: 'https://reminder3-65e84.web.app' ,
+    origin: ['https://reminder3-65e84.web.app', 'http://localhost:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
@@ -343,7 +343,7 @@ exports.sendNotification = functions.https.onRequest((req, res) => {
                // Preflightリクエストの処理
       
                 if (req.method === 'OPTIONS') {
-                    res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
+                    res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
                     res.set('Access-Control-Allow-Methods', 'GET, POST');
                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
@@ -351,7 +351,7 @@ exports.sendNotification = functions.https.onRequest((req, res) => {
                     
                 } else {
                 cors(req, res, () => {
-                    res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
+                    res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
                     res.set('Access-Control-Allow-Methods', 'GET, POST');
                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
                     res.status(204).send('');

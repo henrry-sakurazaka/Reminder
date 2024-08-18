@@ -229,8 +229,36 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
       console.error('Error sending push notification:', error);
     }
   };
+
+  function monitorTimer() {
+    setInterval(() => {
+        const timerData = JSON.parse(localStorage.getItem('timerData'));
+        if (timerData) {
+            const currentTime = new Date().getTime();
+            const timeDifference = timerData.notificationTimeMinus5Minutes - currentTime;
+
+            // 例えば、通知の1分前に通知を送る
+            if (timeDifference <= 60000 && timeDifference > 0) {
+                sendNotification(timerData.message);
+                localStorage.removeItem('timerData'); // 通知後はデータを削除
+            }
+        }
+    }, 1000); // 1秒ごとにチェック
+}
+
+  function sendNotification(message) {
+      if ('Notification' in window && Notification.permission === 'granted') {
+          new Notification('リマインダー', {
+              body: message
+          });
+      }
+}
+  monitorTimer();
  
   return null;
+
+
+  
 
 };
 
