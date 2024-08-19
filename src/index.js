@@ -9,6 +9,8 @@ import './firebaseInit';
 import reportWebVitals from './reportWebVitals';
 import App from './App';
 import 'text-encoding';
+// After
+// import someModule from './someModule';
 
 
 // // Your web app's Firebase configuration
@@ -26,8 +28,23 @@ import 'text-encoding';
 // const app = initializeApp(firebaseConfig);
 // const auth = getAuth(app);
 const root = createRoot(document.getElementById('root'));
+// const functions = require('firebase-functions');
+// const admin = require('firebase-admin');
+// admin.initializeApp();
 
+// exports.helloWorld = functions.https.onRequest((request, response) => {
+//   response.send("Hello from Firebase!");
+// });
 
+// if ('serviceWorker' in navigator) {
+//   navigator.serviceWorker.register('/firebase-messaging-sw.js')
+//     .then((registration) => {
+//       console.log('Service Worker registered with scope:', registration.scope);
+//     })
+//     .catch((err) => {
+//       console.log('Service Worker registration failed:', err);
+//     });
+// }
 
 root.render(
   <React.StrictMode>
@@ -38,3 +55,4 @@ root.render(
 // to log results (for example: reportWebVitals(console.log))
 // or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals
 reportWebVitals();
+

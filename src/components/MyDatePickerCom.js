@@ -5,7 +5,7 @@ import { useEffect } from "react";
 
 
 
-const MyDatePickerCom = ({isDate, handleDateChange}) => {
+const MyDatePickerCom = ({isDate, handleDateChange, todo}) => {
 
   const {selectedDate, 
         setDisplayDatePicker,setDisplayTimePicker,
@@ -27,7 +27,7 @@ const MyDatePickerCom = ({isDate, handleDateChange}) => {
             inputVariant="outlined"
             onChange={handleDateChange}
             selected={isDate}
-            showTodayButton
+            showTodayButton={true}
             ampm={false}
             autoOk
           />

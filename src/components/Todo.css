@@ -54,8 +54,11 @@ body {
     top: 0;
     right: 0;
     margin-right: 8px;
-    color:  rgb(8, 232, 158);
+    /* color:  rgb(8, 232, 158);
+    color: rgba(40, 147, 247, 0.772); */
+    color: black;
     z-index: 999;
+    cursor: pointer;
   }
 
 .container {
@@ -136,17 +139,20 @@ p {
     margin-top: 4px;
     font-size: 0.8em; 
     color: grey;
+    cursor: pointer;
 
 }
 button {
     width: 80px;
     outline: none;
+    cursor: pointer;
 
 }
 input {
     width: 240px;
     height: 32px;
     background-color: #ccc;
+    cursor: pointer;
 }
 .add {
     display: block;
@@ -156,10 +162,12 @@ input {
     background-color: black;
     outline: none;
     padding-bottom: 4px;
+    cursor: pointer;
 }
 .reset {
     width: 40px;
-    background-color: black;    
+    background-color: black;  
+    cursor: pointer;  
 }
 
 .reset2 {
@@ -171,12 +179,14 @@ input {
     justify-content: center;
     margin-top: 8px;
     margin-left: 4px;
+    cursor: pointer;
 }
 
 .compBtn {
     margin-bottom: 8px;
     margin-right: 8px;
     background-color: grey;
+    cursor: pointer;
    
 }
 .plus {
@@ -185,6 +195,7 @@ input {
     justify-content: center;
     align-items: center;
     flex-direction: column;
+    cursor: pointer;
 }
 
 .gif1 {

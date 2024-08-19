@@ -1,0 +1,179 @@
+[2024-06-17T02:14:44.664Z] > command requires scopes: ["email","openid","https://www.googleapis.com/auth/cloudplatformprojects.readonly","https://www.googleapis.com/auth/firebase","https://www.googleapis.com/auth/cloud-platform"]
+[2024-06-17T02:14:44.666Z] > authorizing via signed-in user (vasto.mar3xc@gmail.com)
+[2024-06-17T02:14:44.666Z] [iam] checking project reminder-b4527 for permissions ["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]
+[2024-06-17T02:14:44.668Z] >>> [apiv2][query] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminder-b4527:testIamPermissions [none]
+[2024-06-17T02:14:44.668Z] >>> [apiv2][(partial)header] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminder-b4527:testIamPermissions x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:14:44.669Z] >>> [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminder-b4527:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[2024-06-17T02:14:44.950Z] <<< [apiv2][status] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminder-b4527:testIamPermissions 200
+[2024-06-17T02:14:44.950Z] <<< [apiv2][body] POST https://cloudresourcemanager.googleapis.com/v1/projects/reminder-b4527:testIamPermissions {"permissions":["cloudfunctions.functions.create","cloudfunctions.functions.delete","cloudfunctions.functions.get","cloudfunctions.functions.list","cloudfunctions.functions.update","cloudfunctions.operations.get","firebase.projects.get"]}
+[2024-06-17T02:14:44.951Z] >>> [apiv2][query] POST https://iam.googleapis.com/v1/projects/reminder-b4527/serviceAccounts/reminder-b4527@appspot.gserviceaccount.com:testIamPermissions [none]
+[2024-06-17T02:14:44.951Z] >>> [apiv2][body] POST https://iam.googleapis.com/v1/projects/reminder-b4527/serviceAccounts/reminder-b4527@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+[2024-06-17T02:14:45.910Z] <<< [apiv2][status] POST https://iam.googleapis.com/v1/projects/reminder-b4527/serviceAccounts/reminder-b4527@appspot.gserviceaccount.com:testIamPermissions 200
+[2024-06-17T02:14:45.910Z] <<< [apiv2][body] POST https://iam.googleapis.com/v1/projects/reminder-b4527/serviceAccounts/reminder-b4527@appspot.gserviceaccount.com:testIamPermissions {"permissions":["iam.serviceAccounts.actAs"]}
+
+=== Deploying to 'reminder-b4527'...
+
+i  deploying functions 
+[2024-06-17T02:14:45.913Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527 [none]
+[2024-06-17T02:14:46.250Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527 200
+[2024-06-17T02:14:46.250Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527 {"projectId":"reminder-b4527","projectNumber":"968555995295","displayName":"reminder","name":"projects/reminder-b4527","resources":{"hostingSite":"reminder-b4527","realtimeDatabaseInstance":"reminder-b4527-default-rtdb"},"state":"ACTIVE","etag":"1_96ed5da2-5a82-4de6-842f-bd8e2bc00a6f"}
+i  functions: preparing codebase default for deployment 
+i  functions: ensuring required API cloudfunctions.googleapis.com is enabled... 
+i  functions: ensuring required API cloudbuild.googleapis.com is enabled... 
+i  artifactregistry: ensuring required API artifactregistry.googleapis.com is enabled... 
+[2024-06-17T02:14:46.252Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudfunctions.googleapis.com [none]
+[2024-06-17T02:14:46.252Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudfunctions.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:14:46.253Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/runtimeconfig.googleapis.com [none]
+[2024-06-17T02:14:46.254Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/runtimeconfig.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:14:46.255Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudbuild.googleapis.com [none]
+[2024-06-17T02:14:46.255Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudbuild.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:14:46.256Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/artifactregistry.googleapis.com [none]
+[2024-06-17T02:14:46.256Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/artifactregistry.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:14:47.280Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/runtimeconfig.googleapis.com 200
+[2024-06-17T02:14:47.280Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/runtimeconfig.googleapis.com [omitted]
+[2024-06-17T02:14:47.281Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/artifactregistry.googleapis.com 200
+[2024-06-17T02:14:47.281Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/artifactregistry.googleapis.com [omitted]
+✔  artifactregistry: required API artifactregistry.googleapis.com is enabled 
+[2024-06-17T02:14:47.302Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudfunctions.googleapis.com 200
+[2024-06-17T02:14:47.302Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudfunctions.googleapis.com [omitted]
+✔  functions: required API cloudfunctions.googleapis.com is enabled 
+[2024-06-17T02:14:47.303Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudbuild.googleapis.com 200
+[2024-06-17T02:14:47.303Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/cloudbuild.googleapis.com [omitted]
+✔  functions: required API cloudbuild.googleapis.com is enabled 
+[2024-06-17T02:14:47.304Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527/adminSdkConfig [none]
+[2024-06-17T02:14:47.617Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527/adminSdkConfig 200
+[2024-06-17T02:14:47.617Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527/adminSdkConfig {"projectId":"reminder-b4527","databaseURL":"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app","storageBucket":"reminder-b4527.appspot.com"}
+[2024-06-17T02:14:47.618Z] >>> [apiv2][query] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminder-b4527/configs [none]
+[2024-06-17T02:14:47.978Z] <<< [apiv2][status] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminder-b4527/configs 200
+[2024-06-17T02:14:47.979Z] <<< [apiv2][body] GET https://runtimeconfig.googleapis.com/v1beta1/projects/reminder-b4527/configs {}
+[2024-06-17T02:14:47.980Z] Validating nodejs source
+⚠  functions: Runtime Node.js 16 was deprecated on 2024-01-30 and will be decommissioned on 2025-01-30, after which you will not be able to deploy without upgrading. Consider upgrading now to avoid disruption. See https://cloud.google.com/functions/docs/runtime-support for full details on the lifecycle policy 
+[2024-06-17T02:14:52.503Z] > [functions] package.json contents: {
+  "name": "functions",
+  "description": "Cloud Functions for Firebase",
+  "scripts": {
+    "serve": "firebase emulators:start --only functions",
+    "shell": "firebase functions:shell",
+    "start": "npm run shell",
+    "deploy": "firebase deploy --only functions",
+    "logs": "firebase functions:log"
+  },
+  "engines": {
+    "node": "18"
+  },
+  "main": "index.js",
+  "dependencies": {
+    "express": "^4.19.2",
+    "firebase-admin": "^12.0.0",
+    "firebase-functions": "^5.0.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.6.0",
+    "eslint-config-google": "^0.14.0",
+    "eslint-plugin-promise": "^4.2.1"
+  }
+}
+[2024-06-17T02:14:52.504Z] Building nodejs source
+i  functions: Loading and analyzing source code for codebase default to determine what to deploy 
+[2024-06-17T02:14:52.505Z] Could not find functions.yaml. Must use http discovery
+[2024-06-17T02:14:52.518Z] Found firebase-functions binary at '/Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/functions/node_modules/.bin/firebase-functions'
+Serving at port 8292
+
+[2024-06-17T02:14:53.207Z] Got response from /__/functions.yaml {"endpoints":{"app":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"app"},"monitorDatabaseChanges":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"eventTrigger":{"eventType":"providers/google.firebase.database/eventTypes/ref.write","eventFilters":{"resource":"projects/_/instances/reminder-b4527-default-rtdb/refs/todos/{todoId}"},"retry":false},"labels":{},"entryPoint":"monitorDatabaseChanges"},"sendNotification":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"sendNotification"},"getTodoList":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"getTodoList"},"myFunction":{"platform":"gcfv1","availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"serviceAccountEmail":null,"vpc":null,"httpsTrigger":{},"entryPoint":"myFunction"},"helloWorld":{"availableMemoryMb":null,"timeoutSeconds":null,"minInstances":null,"maxInstances":null,"ingressSettings":null,"concurrency":null,"serviceAccountEmail":null,"vpc":null,"platform":"gcfv2","labels":{},"httpsTrigger":{},"entryPoint":"helloWorld"}},"specVersion":"v1alpha1","requiredAPIs":[]}
+i  functions: preparing functions directory for uploading... 
+i  functions: packaged /Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/functions (16.22 MB) for uploading 
+i  functions: packaged /Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/functions (16.22 MB) for uploading 
+[2024-06-17T02:15:25.097Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v1/projects/reminder-b4527/locations/-/functions [none]
+[2024-06-17T02:15:25.924Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v1/projects/reminder-b4527/locations/-/functions 200
+[2024-06-17T02:15:25.924Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v1/projects/reminder-b4527/locations/-/functions {"functions":[{"name":"projects/reminder-b4527/locations/us-central1/functions/app","httpsTrigger":{"url":"https://us-central1-reminder-b4527.cloudfunctions.net/app","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"app","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"reminder-b4527@appspot.gserviceaccount.com","updateTime":"2024-06-10T04:40:25.105Z","versionId":"3","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"df9574952c6ee9db2d07763392cbf4babc670a5d"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-254689547760.us-central1.cloudfunctions.appspot.com/1e46101e-81c6-4916-8641-8b43bcd63d12.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminder-b4527\",\"databaseURL\":\"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app\",\"storageBucket\":\"reminder-b4527.appspot.com\"}","GCLOUD_PROJECT":"reminder-b4527","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminder-b4527/locations/us-central1/functions/app"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"79356b8e-e466-4834-bc4c-382eb5a10236","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/968555995295/locations/us-central1/builds/79356b8e-e466-4834-bc4c-382eb5a10236","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},{"name":"projects/reminder-b4527/locations/us-central1/functions/getTodoList","httpsTrigger":{"url":"https://us-central1-reminder-b4527.cloudfunctions.net/getTodoList","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"getTodoList","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"reminder-b4527@appspot.gserviceaccount.com","updateTime":"2024-06-10T04:40:23.632Z","versionId":"5","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"df9574952c6ee9db2d07763392cbf4babc670a5d"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-254689547760.us-central1.cloudfunctions.appspot.com/1e46101e-81c6-4916-8641-8b43bcd63d12.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminder-b4527\",\"databaseURL\":\"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app\",\"storageBucket\":\"reminder-b4527.appspot.com\"}","GCLOUD_PROJECT":"reminder-b4527","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminder-b4527/locations/us-central1/functions/getTodoList"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"79356b8e-e466-4834-bc4c-382eb5a10236","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/968555995295/locations/us-central1/builds/79356b8e-e466-4834-bc4c-382eb5a10236","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},{"name":"projects/reminder-b4527/locations/us-central1/functions/monitorDatabaseChanges","eventTrigger":{"eventType":"providers/google.firebase.database/eventTypes/ref.write","resource":"projects/_/instances/reminder-b4527-default-rtdb/refs/todos/{todoId}","service":"firebaseio.com","failurePolicy":{}},"status":"ACTIVE","entryPoint":"monitorDatabaseChanges","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"reminder-b4527@appspot.gserviceaccount.com","updateTime":"2024-06-10T04:40:26.594Z","versionId":"13","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"df9574952c6ee9db2d07763392cbf4babc670a5d"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-254689547760.us-central1.cloudfunctions.appspot.com/1e46101e-81c6-4916-8641-8b43bcd63d12.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminder-b4527\",\"databaseURL\":\"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app\",\"storageBucket\":\"reminder-b4527.appspot.com\"}","GCLOUD_PROJECT":"reminder-b4527","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminder-b4527/locations/us-central1/functions/monitorDatabaseChanges"},"runtime":"nodejs16","maxInstances":3000,"ingressSettings":"ALLOW_ALL","buildId":"79356b8e-e466-4834-bc4c-382eb5a10236","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/968555995295/locations/us-central1/builds/79356b8e-e466-4834-bc4c-382eb5a10236","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},{"name":"projects/reminder-b4527/locations/us-central1/functions/myFunction","httpsTrigger":{"url":"https://us-central1-reminder-b4527.cloudfunctions.net/myFunction","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"myFunction","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"reminder-b4527@appspot.gserviceaccount.com","updateTime":"2024-06-10T04:40:23.901Z","versionId":"9","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"df9574952c6ee9db2d07763392cbf4babc670a5d"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-254689547760.us-central1.cloudfunctions.appspot.com/1e46101e-81c6-4916-8641-8b43bcd63d12.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminder-b4527\",\"databaseURL\":\"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app\",\"storageBucket\":\"reminder-b4527.appspot.com\"}","GCLOUD_PROJECT":"reminder-b4527","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminder-b4527/locations/us-central1/functions/myFunction"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"79356b8e-e466-4834-bc4c-382eb5a10236","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/968555995295/locations/us-central1/builds/79356b8e-e466-4834-bc4c-382eb5a10236","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}},{"name":"projects/reminder-b4527/locations/us-central1/functions/sendNotification","httpsTrigger":{"url":"https://us-central1-reminder-b4527.cloudfunctions.net/sendNotification","securityLevel":"SECURE_ALWAYS"},"status":"ACTIVE","entryPoint":"sendNotification","timeout":"60s","availableMemoryMb":256,"serviceAccountEmail":"reminder-b4527@appspot.gserviceaccount.com","updateTime":"2024-06-10T04:40:24.741Z","versionId":"10","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"df9574952c6ee9db2d07763392cbf4babc670a5d"},"sourceUploadUrl":"https://storage.googleapis.com/uploads-254689547760.us-central1.cloudfunctions.appspot.com/1e46101e-81c6-4916-8641-8b43bcd63d12.zip","environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminder-b4527\",\"databaseURL\":\"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app\",\"storageBucket\":\"reminder-b4527.appspot.com\"}","GCLOUD_PROJECT":"reminder-b4527","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminder-b4527/locations/us-central1/functions/sendNotification"},"runtime":"nodejs16","ingressSettings":"ALLOW_ALL","buildId":"79356b8e-e466-4834-bc4c-382eb5a10236","buildEnvironmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"buildName":"projects/968555995295/locations/us-central1/builds/79356b8e-e466-4834-bc4c-382eb5a10236","dockerRegistry":"ARTIFACT_REGISTRY","automaticUpdatePolicy":{}}]}
+[2024-06-17T02:15:25.925Z] >>> [apiv2][query] GET https://cloudfunctions.googleapis.com/v2/projects/reminder-b4527/locations/-/functions filter=environment%3D%22GEN_2%22
+[2024-06-17T02:15:27.517Z] <<< [apiv2][status] GET https://cloudfunctions.googleapis.com/v2/projects/reminder-b4527/locations/-/functions 200
+[2024-06-17T02:15:27.517Z] <<< [apiv2][body] GET https://cloudfunctions.googleapis.com/v2/projects/reminder-b4527/locations/-/functions {"functions":[{"name":"projects/reminder-b4527/locations/us-central1/functions/helloWorld","buildConfig":{"build":"projects/968555995295/locations/us-central1/builds/cfcfc8ac-d0fe-41a2-b96c-44f6d682974d","runtime":"nodejs16","entryPoint":"helloWorld","source":{"storageSource":{"bucket":"gcf-v2-sources-968555995295-us-central1","object":"helloWorld/function-source.zip","generation":"1717994348772607"}},"environmentVariables":{"GOOGLE_NODE_RUN_SCRIPTS":""},"dockerRepository":"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts","sourceProvenance":{"resolvedStorageSource":{"bucket":"gcf-v2-sources-968555995295-us-central1","object":"helloWorld/function-source.zip","generation":"1717994348772607"}},"dockerRegistry":"ARTIFACT_REGISTRY"},"serviceConfig":{"service":"projects/reminder-b4527/locations/us-central1/services/helloworld","timeoutSeconds":60,"environmentVariables":{"FIREBASE_CONFIG":"{\"projectId\":\"reminder-b4527\",\"databaseURL\":\"https://reminder-b4527-default-rtdb.asia-southeast1.firebasedatabase.app\",\"storageBucket\":\"reminder-b4527.appspot.com\"}","GCLOUD_PROJECT":"reminder-b4527","EVENTARC_CLOUD_EVENT_SOURCE":"projects/reminder-b4527/locations/us-central1/services/helloWorld","FUNCTION_TARGET":"helloWorld"},"maxInstanceCount":100,"ingressSettings":"ALLOW_ALL","uri":"https://helloworld-aonhjho7zq-uc.a.run.app","serviceAccountEmail":"968555995295-compute@developer.gserviceaccount.com","availableMemory":"256Mi","allTrafficOnLatestRevision":true,"revision":"helloworld-00006-mec","maxInstanceRequestConcurrency":80,"availableCpu":"1"},"state":"ACTIVE","updateTime":"2024-06-10T04:40:29.983300332Z","labels":{"deployment-tool":"cli-firebase","firebase-functions-hash":"b04b4f9013b7a739dab70a692bc3bc189516ac23"},"environment":"GEN_2","url":"https://us-central1-reminder-b4527.cloudfunctions.net/helloWorld","createTime":"2024-06-04T13:16:09.732197008Z"}]}
+i  functions: ensuring required API run.googleapis.com is enabled... 
+i  functions: ensuring required API eventarc.googleapis.com is enabled... 
+i  functions: ensuring required API pubsub.googleapis.com is enabled... 
+i  functions: ensuring required API storage.googleapis.com is enabled... 
+[2024-06-17T02:15:27.521Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/run.googleapis.com [none]
+[2024-06-17T02:15:27.521Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/run.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:15:27.522Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/eventarc.googleapis.com [none]
+[2024-06-17T02:15:27.522Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/eventarc.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:15:27.524Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/pubsub.googleapis.com [none]
+[2024-06-17T02:15:27.524Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/pubsub.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:15:27.526Z] >>> [apiv2][query] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/storage.googleapis.com [none]
+[2024-06-17T02:15:27.526Z] >>> [apiv2][(partial)header] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/storage.googleapis.com x-goog-quota-user=projects/reminder-b4527
+[2024-06-17T02:15:27.864Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/pubsub.googleapis.com 200
+[2024-06-17T02:15:27.864Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/pubsub.googleapis.com [omitted]
+✔  functions: required API pubsub.googleapis.com is enabled 
+[2024-06-17T02:15:28.029Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/run.googleapis.com 200
+[2024-06-17T02:15:28.029Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/run.googleapis.com [omitted]
+✔  functions: required API run.googleapis.com is enabled 
+[2024-06-17T02:15:28.548Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/storage.googleapis.com 200
+[2024-06-17T02:15:28.548Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/storage.googleapis.com [omitted]
+✔  functions: required API storage.googleapis.com is enabled 
+[2024-06-17T02:15:28.554Z] <<< [apiv2][status] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/eventarc.googleapis.com 200
+[2024-06-17T02:15:28.555Z] <<< [apiv2][body] GET https://serviceusage.googleapis.com/v1/projects/reminder-b4527/services/eventarc.googleapis.com [omitted]
+✔  functions: required API eventarc.googleapis.com is enabled 
+i  functions: generating the service identity for pubsub.googleapis.com... 
+i  functions: generating the service identity for eventarc.googleapis.com... 
+[2024-06-17T02:15:28.555Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/968555995295/services/pubsub.googleapis.com:generateServiceIdentity [none]
+[2024-06-17T02:15:28.557Z] >>> [apiv2][query] POST https://serviceusage.googleapis.com/v1beta1/projects/968555995295/services/eventarc.googleapis.com:generateServiceIdentity [none]
+[2024-06-17T02:15:29.654Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/968555995295/services/pubsub.googleapis.com:generateServiceIdentity 200
+[2024-06-17T02:15:29.654Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/968555995295/services/pubsub.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-968555995295@gcp-sa-pubsub.iam.gserviceaccount.com","uniqueId":"102812224586874074485"}}
+[2024-06-17T02:15:29.882Z] <<< [apiv2][status] POST https://serviceusage.googleapis.com/v1beta1/projects/968555995295/services/eventarc.googleapis.com:generateServiceIdentity 200
+[2024-06-17T02:15:29.882Z] <<< [apiv2][body] POST https://serviceusage.googleapis.com/v1beta1/projects/968555995295/services/eventarc.googleapis.com:generateServiceIdentity {"name":"operations/finished.DONE_OPERATION","done":true,"response":{"@type":"type.googleapis.com/google.api.serviceusage.v1beta1.ServiceIdentity","email":"service-968555995295@gcp-sa-eventarc.iam.gserviceaccount.com","uniqueId":"114569841034518900902"}}
+[2024-06-17T02:15:29.884Z] >>> [apiv2][query] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527 [none]
+[2024-06-17T02:15:30.196Z] <<< [apiv2][status] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527 200
+[2024-06-17T02:15:30.196Z] <<< [apiv2][body] GET https://firebase.googleapis.com/v1beta1/projects/reminder-b4527 {"projectId":"reminder-b4527","projectNumber":"968555995295","displayName":"reminder","name":"projects/reminder-b4527","resources":{"hostingSite":"reminder-b4527","realtimeDatabaseInstance":"reminder-b4527-default-rtdb"},"state":"ACTIVE","etag":"1_96ed5da2-5a82-4de6-842f-bd8e2bc00a6f"}
+i  functions: Skipping the deploy of unchanged functions. 
+✔  functions[app(us-central1)] Skipped (No changes detected) 
+✔  functions[monitorDatabaseChanges(us-central1)] Skipped (No changes detected) 
+✔  functions[sendNotification(us-central1)] Skipped (No changes detected) 
+✔  functions[getTodoList(us-central1)] Skipped (No changes detected) 
+✔  functions[myFunction(us-central1)] Skipped (No changes detected) 
+✔  functions[helloWorld(us-central1)] Skipped (No changes detected) 
+[2024-06-17T02:15:30.207Z] Total Function Deployment time: 0
+[2024-06-17T02:15:30.207Z] 0 Functions Deployed
+[2024-06-17T02:15:30.207Z] 0 Functions Errored
+[2024-06-17T02:15:30.207Z] 0 Function Deployments Aborted
+[2024-06-17T02:15:30.207Z] Average Function Deployment time: NaN
+[2024-06-17T02:15:30.322Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[2024-06-17T02:15:30.322Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[2024-06-17T02:15:30.322Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[2024-06-17T02:15:30.322Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+[2024-06-17T02:15:30.322Z] Not printing URL for HTTPS function. Typically this means it didn't match a filter or we failed deployment
+i  functions: cleaning up build files... 
+[2024-06-17T02:15:30.324Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/app [none]
+[2024-06-17T02:15:30.325Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/monitor_database_changes [none]
+[2024-06-17T02:15:30.326Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/send_notification [none]
+[2024-06-17T02:15:30.327Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/get_todo_list [none]
+[2024-06-17T02:15:30.328Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/my_function [none]
+[2024-06-17T02:15:30.328Z] >>> [apiv2][query] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/hello_world [none]
+[2024-06-17T02:15:30.329Z] >>> [apiv2][query] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list [none]
+[2024-06-17T02:15:30.773Z] <<< [apiv2][status] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list 404
+[2024-06-17T02:15:30.773Z] <<< [apiv2][body] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[2024-06-17T02:15:30.774Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[2024-06-17T02:15:30.776Z] >>> [apiv2][query] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list [none]
+[2024-06-17T02:15:31.114Z] <<< [apiv2][status] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list 404
+[2024-06-17T02:15:31.114Z] <<< [apiv2][body] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[2024-06-17T02:15:31.114Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+[2024-06-17T02:15:31.216Z] >>> [apiv2][query] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list [none]
+[2024-06-17T02:15:31.464Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/app 404
+[2024-06-17T02:15:31.464Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/app {"error":{"code":404,"message":"Package \"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/app\" was not found.","status":"NOT_FOUND"}}
+[2024-06-17T02:15:31.467Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/monitor_database_changes 404
+[2024-06-17T02:15:31.467Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/monitor_database_changes {"error":{"code":404,"message":"Package \"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/monitor_database_changes\" was not found.","status":"NOT_FOUND"}}
+[2024-06-17T02:15:31.469Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/get_todo_list 404
+[2024-06-17T02:15:31.469Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/get_todo_list {"error":{"code":404,"message":"Package \"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/get_todo_list\" was not found.","status":"NOT_FOUND"}}
+[2024-06-17T02:15:31.470Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/my_function 404
+[2024-06-17T02:15:31.471Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/my_function {"error":{"code":404,"message":"Package \"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/my_function\" was not found.","status":"NOT_FOUND"}}
+[2024-06-17T02:15:31.471Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/hello_world 404
+[2024-06-17T02:15:31.471Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/hello_world {"error":{"code":404,"message":"Package \"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/hello_world\" was not found.","status":"NOT_FOUND"}}
+[2024-06-17T02:15:31.482Z] <<< [apiv2][status] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/send_notification 404
+[2024-06-17T02:15:31.482Z] <<< [apiv2][body] DELETE https://artifactregistry.googleapis.com/v1beta2/projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/send_notification {"error":{"code":404,"message":"Package \"projects/reminder-b4527/locations/us-central1/repositories/gcf-artifacts/packages/send_notification\" was not found.","status":"NOT_FOUND"}}
+[2024-06-17T02:15:31.558Z] <<< [apiv2][status] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list 404
+[2024-06-17T02:15:31.558Z] <<< [apiv2][body] GET https://us.gcr.io/v2/reminder-b4527/gcf/us-central1/tags/list {"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}]}
+[2024-06-17T02:15:31.559Z] Failed docker command with error  HTTP Error: 404, Not Found {"name":"FirebaseError","children":[],"context":{"body":{"errors":[{"code":"NAME_UNKNOWN","message":"Repository \"us.gcr.io\" not found"}],"error":{"message":"Not Found"}},"response":{"statusCode":404}},"exit":1,"message":"HTTP Error: 404, Not Found","status":404}
+⚠  functions: Unhandled error cleaning up build images. This could result in a small monthly bill if not corrected. You can attempt to delete these images by redeploying or you can delete them manually at https://console.cloud.google.com/gcr/images/reminder-b4527/us/gcf 
+
+✔  Deploy complete! 
+
+Project Console: https://console.firebase.google.com/project/reminder-b4527/overview

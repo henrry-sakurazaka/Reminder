@@ -1,7 +1,7 @@
 import React from "react";
 import { useState, useEffect, useCallback} from "react";
-import { useDispatchTodos , useTodos , FirestoreContext } from "../context/TodoContext";
-import { collection, setDoc, addDoc, doc, deleteDoc, updateDoc, getDocs, onSnapshot } from 'firebase/firestore';
+import { useDispatchTodos , useTodos } from "../context/TodoContext";
+import { doc, updateDoc } from 'firebase/firestore';
 import { firestore, auth } from "../firebase";
 import { initializeApp } from "firebase/app";
 import { getFirestore } from 'firebase/firestore';
@@ -9,7 +9,7 @@ import { getAuth, onAuthStateChanged } from "firebase/auth";
 import firebase from "firebase/app"; // firebaseモジュールをインポート
 import firebaseConfig from "../firebase";
 
-const firebaseApp = initializeApp(firebaseConfig);
+// const firebaseApp = initializeApp(firebaseConfig);
     
 
 const Form = ({ firestore }) => {
@@ -38,7 +38,8 @@ const Form = ({ firestore }) => {
             reserve: false,
             editingLock: false,
             editingColor: false,
-            editingDateTime: false
+            editingDateTime: false,
+            notification: false
         };
         dispatch2({ type: "todo/add", todo: newTodo, editing: false });
         setEnteredTodo("");

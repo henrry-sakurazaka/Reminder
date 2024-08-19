@@ -31,6 +31,14 @@ body {
     cursor: pointer;
     font-size: 24px;
 }
+.select-auth2 {
+    width: 240px;
+    height: 64px;
+    color: rgba(40, 147, 247, 0.772);
+    text-align: center;
+    cursor: pointer;
+    font-size: 24px;
+}
 .select-auth:hover {
     text-decoration: underline;
 }

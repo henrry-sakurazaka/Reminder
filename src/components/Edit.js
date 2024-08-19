@@ -8,14 +8,26 @@ import Modal from "./Modal";
 
 
 const Edit= ({todo}) => {
-    const { modalOpen, setModalOpen,
+    const [isDate, setIsDate] = useState(new Date());
+    const [isTime, setIsTime] = useState(new Date());
+    const { setModalOpen,
+        setReserveModeTodo, setReserveModeId,
+        isDateChecked, isTimeChecked, 
         setIsDateChecked, setIsTimeChecked,
-        setContainerTimeCheck, setContainerDateCheck,
+        isContainerDateCheck, setContainerDateCheck,
+        isContainerTimeCheck, setContainerTimeCheck,
+        modalOpen,
+        displayDatePicker, displayTimePicker, 
+        isTimeSet, isDateSet, setIsTimeSet, setIsDateSet,
+        setSelectedDate, setSelectedTime,
+        completedDateTimeSetting,  setCompletedDateTimeSetting,
+        setNotificationDocId, isSubmitting, setIsSubmitting,
+        setIsDocRef, reseveModeTodo, reserveModeId, Todo, setTodo
       } = useTodos();
     const [editingContent, setEditingContent] = useState(todo.content);
     const dispatch = useDispatchTodos();
     // const { isTimeCheck, setIsTimeCheck, isDateCheck, setIsDateCheck} = useTodos();
-  
+    
         
     const changeContent = (e) => {
         setEditingContent(e.target.value);
@@ -37,9 +49,9 @@ const Edit= ({todo}) => {
     const complete2 = (todo) => {
         const neoTodo2 = {...todo, completed: true };
         dispatch({type: "complete2", todo: neoTodo2 });
-        
      }
-    const toggleReseveMode = (_todo) => {  
+    const toggleReseveMode = (todo) => {  
+      console.log(todo.content)
         //   modalOpen ?  setModalOpen(false): setModalOpen(true); 
         //   const newEditingLock = !todo.editingLock; // editingLock をトグル 
         //   const newEditingDateTime = !todo.editingDateTime;
@@ -48,23 +60,27 @@ const Edit= ({todo}) => {
             ...todo, 
             editingDateTime: true,
             editingColor: newEditingColor,
-            editingLock: true
+            editingLock: true,
+            id: todo.id,
+            content: todo.content
         }
         dispatch({type: "todo/reserve", todo: neoTodo7 });
         dispatch({type: "todo/reserveColor", todo: neoTodo7});
         dispatch({type: "todo/editingDateTime", todo: neoTodo7})
         setModalOpen(prev => !prev ); 
+        setReserveModeTodo(todo);
+        setReserveModeId(todo.id);
+        setTodo(todo);
+
         !modalOpen && setIsDateChecked(false);
         !modalOpen && setIsTimeChecked(false);
         !modalOpen && setContainerDateCheck(false); 
-        !modalOpen && setContainerTimeCheck(false);
+        !modalOpen && setContainerTimeCheck(false);   
     }
    
-    
-
      return (
          <div key={todo.id} className="modalParent">
-                <span className="circleI" onClick={() => toggleReseveMode()}
+                <span className="circleI" onClick={() => toggleReseveMode(todo)}
                 style={{color: modalOpen && todo.editingColor && todo.editingDateTime && todo.editingLock ? 'yellow' :  !modalOpen && 'grey' }} >i</span> 
                 
                 <button className="compBtn" onClick={() => complete2(todo)} onDoubleClick={() => complete(todo)} style={{ color: todo.completed ? 'rgb(8, 232, 158)' : 'none' }}>
@@ -83,11 +99,11 @@ const Edit= ({todo}) => {
 
                 {modalOpen ?(
                 <div key={todo.id}>
-                    <Modal todo={todo}/> 
+                    <Modal todo={Todo} /> 
                 </div>    
                    
                 )
-                : false
+                : null
             }
                            
         </div>      
