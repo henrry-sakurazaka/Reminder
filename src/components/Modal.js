@@ -1,29 +1,32 @@
 import React, { useEffect, useState } from "react";
-import { useTodos } from "../context/TodoContext";
-import { initializeApp } from 'firebase/app';
-import 'firebase/firestore'; // Firestoreを使用する場合
-import { firestore } from "../firebase";
-import { collection, addDoc} from 'firebase/firestore';
-import firebaseConfig from "../firebase";
+import { useTodos, useDispatchTodos } from "../context/TodoContext";
+import { onAuthStateChanged } from "firebase/auth";
+import { firestore, auth } from "../firebase";
+import { collection, addDoc, setDoc, doc} from 'firebase/firestore';
 import SSwitch2 from "./SSwitch2";
 import MyTimePicker from "./MyTimePicker";
 import MyDatePickerCom from "./MyDatePickerCom";
 import SelectSwitch from "./SelectSwitch";
+import NotificationHandler from "./NotificationHandler";
+import 'firebase/firestore'; // Firestoreを使用する場合
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
+import { useAsyncContext } from "../context/AsyncContext";
+import { v4 as uuidv4 } from 'uuid';
 
-const firebaseApp = initializeApp(firebaseConfig);
 
-const Modal = ({ handleCloseClick, todo }) => {
-
+const Modal = ( {todo} ) => {
+    const dispatch = useDispatchTodos();
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
     const [inputTime, setInputTime] = useState('');
     const [prevIsDate, setPrevIsDate] = useState(isDate);
     const [prevIsTime, setPrevIsTime] = useState(isTime);
-
-    // console.log(isDate)
+    const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
+    const user = auth.currentUser;
+    const [uid, setUid] = useState(); // uidの初期化
     
+    const { convertedNotificationData } = useAsyncContext();
     const { 
         isDateChecked, isTimeChecked, 
         setIsDateChecked, setIsTimeChecked,
@@ -33,23 +36,26 @@ const Modal = ({ handleCloseClick, todo }) => {
         displayDatePicker, displayTimePicker, 
         isTimeSet, isDateSet, setIsTimeSet, setIsDateSet,
         setSelectedDate, setSelectedTime,
-        completedDateTimeSetting,  setCompletedDateTimeSetting
+        completedDateTimeSetting,  setCompletedDateTimeSetting,
+        setNotificationDocId, isSubmitting, setIsSubmitting,
+        setIsDocRef, reserveModeTodo, reserveModeId,
+        setReserveModeId, todoId, setTodoId, Todo, setTodo
     } = useTodos();
 
-   
     useEffect(() => {
-        const modal = document.querySelector('.modal');
-        modal.style.alignItems = "center";
-        if (isDate !== prevIsDate || isTime !== prevIsTime) {
-            if (isDate !== prevIsDate || isTime !== prevIsTime) {
-                setTimer();
-            }
-            setPrevIsDate(isDate);
-            setPrevIsTime(isTime);
-        }
+        const unsubscribe = onAuthStateChanged(auth, (user) => {
+          if (user) {
+            setUid(user.uid); 
+          } 
+        });
       
-    }, [ isDate, isTime ]);
+        return () => unsubscribe();
+      }, []);
 
+    // useEffect(() => {
+    //     console.log(todo)
+    // }, [todo]); 
+   
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
     };
@@ -64,64 +70,114 @@ const Modal = ({ handleCloseClick, todo }) => {
         setSelectedDate(true)
     };
 
-
     const switchFunction2 = (isContainerTimeCheck) => {
         setContainerTimeCheck(isContainerTimeCheck ? false : true); 
         setContainerDateCheck(false); 
         setSelectedTime(true);
     };
 
-    const handleDateChange = (date) => {
-        setIsDate(date);
+    const handleDateChange = (e) => {
+        const newDate = new Date(e.target.value);
+        setIsDate(newDate);
         setIsDateSet(true);
       };
-      
-    //   const handleTimeChange = (time) => {    
-    //     setIsTime(time);
-    //     setIsTimeSet(true);
-    //   };
-
 
     const handleTimeChange = (e) => {
         const { value } = e.target;
-        const [hours, minutes] = value.split(":");
+        const [hours, minutes] = value.split(":"); 
         const newTime = new Date();
-        newTime.setHours(parseInt(hours), parseInt(minutes));
-        setInputTime(newTime);
+        newTime.setHours(parseInt(hours), parseInt(minutes), 0, 0);
+    
+        setIsTime(newTime);
+        setInputTime(value)
         setIsTimeSet(true);
     };
-    
    
-
-    const setTimer = () => {
-        if (isDate && isTime) {
-            const dateTime = new Date(isDate);
-            dateTime.setHours(isTime.getHours(), isTime.getMinutes());
+    
+    const setTimer = async () => {
+       console.log(todo.content)
+        if (isSubmitting) return; // 重複防止
       
-            // // Firestoreにデータを書き込む
-            // firestore().collection('notifications').add({
-            //     notificationTime: dateTime,
-            //     // その他の必要なデータをここに追加
-            // })
-            // Firestoreにデータを書き込む
-            try {
-                addDoc(collection(firestore, 'notifications'), {
-                    notificationTime: dateTime,
-                    // その他の必要なデータをここに追加
-                })
-                setCompletedDateTimeSetting(true);
-                console.log('completedDateTimeSeitting', completedDateTimeSetting);
-                console.log('Notification data has been written to Firestore successfully');   
-            } catch (error) {
-                console.error('Error writing notification data to Firestore: ', error);   
-        } 
-      }
-    };
+        setIsSubmitting(true);
+        if (isDate && isTime && todo.content && todo.id) {
+          const dateTime = new Date(isDate);
+          dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
+      
+          try {
+            const notificationData = {
+              title: 'Reminder',
+              description: 'Time is approaching, receive to push notification..',
+              type: 'string',
+              notificationTime: dateTime,
+              todoId: uid,
+              content: todo.content,
+              id: todo.id
+            };
+            
+            // 一意のIDを生成
+            const docId = uuidv4();
+            // Firestoreのコレクション参照
+            const docRef = doc(collection(firestore, 'notifications'), docId);
+            await setDoc(docRef, notificationData);
+            // 非同期でドキュメントを追加し、その結果を待機
+            // const docRef = await addDoc(collection(firestore, 'notifications'), notificationData);
+            // const docId = docRef.id;
+            console.log('Generated docId:', docId);
+            const newTodo = {
+                ...todo,
+                notification: true
+            }
+            dispatch({ type: "todo/notification", todo: newTodo });
+            setNotificationDocId(docId);
+            setIsDocRef(docRef);
+            setCompletedDateTimeSetting(true);
+            setShouldHandleNotifications(true);
+           
+      
+            console.log('Notification data has been written to Firestore successfully');
+          } catch (error) {
+            console.error('Error writing notification data to Firestore: ', error);
+          } finally {
+            setIsSubmitting(false);
+          }
+        } else {
+          setIsSubmitting(false);
+        }
+
+        try {
+            const permission = await Notification.requestPermission();
+            if (permission === 'granted') {
+              console.log('Notification permission granted!');
+              // ここで通知の送信を設定する
+            } else if (permission === 'denied') {
+              console.warn('Notification permission denied');
+              // 通知の許可が拒否された場合の処理
+            } else {
+              console.warn('Notification permission dismissed');
+              // ユーザーが許可の決定を延期した場合の処理
+            }
+          } catch (error) {
+            console.error('Failed to request permission:', error);
+          }
+      };
+      
+    
+
+    useEffect(() => {
+        const modal = document.querySelector('.modal');
+        modal.style.alignItems = "center";
+        if (isDate !== prevIsDate || isTime !== prevIsTime) {
+            if (isDate !== prevIsDate || isTime !== prevIsTime) {
+                setPrevIsDate(isDate);
+                setPrevIsTime(isTime);
+            }   
+        }   
+    }, [ isDate, isTime ]);
 
   
     return (  
-        modalOpen ? 
-        <div className="modal">
+        modalOpen ? (
+        <div key={todo.id} className="modal">
             <div className="switch-container" onClick={() => switchFunction()}>
                 <SelectSwitch
                     isChecked={isDateChecked} 
@@ -155,6 +211,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     onChange={handleDateChange}
                     selected={isDate}
                     isDate={isDate}
+                    inputVariant="outlined"
                     handleDateChange={handleDateChange}
                 />  
             ) : isDateChecked && isTimeChecked ? (
@@ -163,6 +220,10 @@ const Modal = ({ handleCloseClick, todo }) => {
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
                     setInputTime={setInputTime}
+                    inputVariant="outlined"
+                    showTodayButton
+                    ampm={false}
+                    autoOk
                 />
             ) : isDateChecked ? (
                 <MyDatePickerCom
@@ -176,6 +237,10 @@ const Modal = ({ handleCloseClick, todo }) => {
                     isTime={isTime}
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
+                    inputVariant="outlined"
+                    showTodayButton
+                    ampm={false}
+                    autoOk
                     setInputTime={setInputTime}
                 />
             ) : isContainerDateCheck ? (
@@ -183,6 +248,7 @@ const Modal = ({ handleCloseClick, todo }) => {
                     onChange={handleDateChange}
                     selected={isDate}
                     isDate={isDate}
+                    inputVariant="outlined"
                     handleDateChange={handleDateChange}
                 />
             ) : isContainerTimeCheck ? (
@@ -190,6 +256,10 @@ const Modal = ({ handleCloseClick, todo }) => {
                     isTime={isTime}
                     handleTimeChange={handleTimeChange}
                     inputTime={inputTime}
+                    inputVariant="outlined"
+                    showTodayButton
+                    ampm={false}
+                    autoOk
                     setInputTime={setInputTime}
                 />
             ) : (
@@ -202,12 +272,17 @@ const Modal = ({ handleCloseClick, todo }) => {
                 </>
             )          
         } 
-        <div className="btn-container">
-            <button className="set-btn" onClick={() => setTimer()}>SET</button>
-        </div>
-        </div>
-        : false           
+            <div  className="btn-container">
+                <button className="set-btn" onClick={() => setTimer()}>SET</button>
+                {completedDateTimeSetting && shouldHandleNotifications && (
+                <NotificationHandler shouldHandleNotifications={shouldHandleNotifications} 
+                completedDateTimeSetting = {completedDateTimeSetting} todo={todo}/>
+                )}
+            </div>
+         </div>
+        ) : null
+               
     );     
  
-}
+};
 export default Modal;

@@ -17,7 +17,7 @@ const TodoList = () => {
             ) : ( 
                 <div>
                     
-                    {data && todos && todos.map(todo => (
+                    {Array.isArray(todos)&& todos.length > 0 && data && todos && todos.map(todo => (
                         todo && todo.id ? (
                             <Edit key={todo.id} todo={todo} />
                         ) : null     
@@ -25,14 +25,7 @@ const TodoList = () => {
 
                 </div>
               
-            )} 
-
-            {/* <div>
-                {Array.isArray(todos) && todos.map(todo => (
-                    <Edit key={todo.id} todo={todo} />
-                    
-                ))}
-            </div>     */}    
+            )}       
         </>    
     );
 }

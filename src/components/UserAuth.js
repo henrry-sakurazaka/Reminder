@@ -3,9 +3,6 @@ import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from 'firebase/auth';
 import { useTodos } from "../context/TodoContext";
 import { useEffect } from "react";
-// import SignIn from "./SignIn";
-// import SignUp from "./SignUp";
-// import SignOut from "./ SignOut";
 import "./UserAu.css";
 
 const auth = getAuth();
@@ -33,9 +30,9 @@ const UserAuth = () => {
         });
     }
     
-    // const handleClickTrial = () => {
-    //     history.push('/Trial');
-    // }
+    const handleClickEasyLogin = () => {
+        navigate('/EasyLogin');
+    }
 
     return (
             
@@ -44,7 +41,7 @@ const UserAuth = () => {
                         <span className="select-auth" onClick={() => handleClickSignUp()}>Sign Up</span>
                         <span className="select-auth" onClick={() => handleClickSignIn()}>Sign In</span>
                         <span className="select-auth" onClick={() => handleClickSignOut()}>Sign Out</span>
-                        {/* <span onClick={() => handleClickTrial()}>お試しログイン</span> */}
+                        <span className="select-auth" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
                     </div>
                 </div>
 

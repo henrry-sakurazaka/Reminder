@@ -2,7 +2,7 @@ import React from "react";
 import Todo from "./Todo";
 import "./Todo.css" ;
 import { useNavigate } from 'react-router-dom';
-import UserAuth from "./UserAuth";
+
 
 const Example = () => {
     const navigate = useNavigate();
@@ -30,9 +30,11 @@ const Example = () => {
                         <p>Manage your tasks and make your lifestyle meaningful 
                         with the Reminder App. Let's get started. You can input 
                         your requirements and add them by pressing the plus
-                        button or hitting the Enter key. Once your tasks are 
-                        successfully executed and completed, you can click the
-                        Complete button to erase them. Have a great lifestyle!</p>
+                        button. Once your tasks are successfully executed and completed, 
+                        press the complete button. You can delete a task by double-clicking it.
+                        Once all tasks are completed, you can clear them using the refresh button.
+                        Be careful, as pressing the refresh button is irreversible.
+                        Have a great lifestyle!</p>
                     </div>
                 <div className="out-line">
                     <h2 className="title">Reminder</h2> 

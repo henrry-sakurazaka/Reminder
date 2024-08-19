@@ -9,8 +9,8 @@ import firebaseConfig from "../firebase";
 
  const TodoContext = createContext();
  const TodoDispatchContext = createContext();
- const firebaseApp = initializeApp(firebaseConfig);
- const firestore = getFirestore(firebaseApp);
+//  const firebaseApp = initializeApp(firebaseConfig);
+//  const firestore = getFirestore(firebaseApp);
 
 const todoList = [
   {
@@ -24,7 +24,8 @@ const todoList = [
     reserve: false,
     editingLock: false,
     editingColor: false,
-    editingDateTime: false
+    editingDateTime: false,
+    notification: false
   },
   { 
     title: "send a letter",
@@ -37,7 +38,9 @@ const todoList = [
     reserve: false,
     editingLock: false,
     editingColor: false,
-    editingDateTime: false
+    editingDateTime: false,
+    notification: false
+
   },
   {
     title: "buy flowers",
@@ -50,7 +53,8 @@ const todoList = [
     reserve: false,
     editingLock: false,
     editingColor: false,
-    editingDateTime: false
+    editingDateTime: false,
+    notification: false
   }
 ]
 
@@ -91,26 +95,30 @@ const todoReducer = (todos, action) => {
           ? { ..._todo, editingDateTime: true }
           : { ..._todo, editingDateTime: false }
       );
-      case 'FETCH_TODOS':
-        return  action.payload
-     case 'complete2': 
+    case 'FETCH_TODOS':
+      return  action.payload
+
+    case 'complete2': 
       return todos.map(todo =>
         todo.id === action.todo.id 
-        ? {...todo, completed: true }
-        : {...todo}
-      )
-          
+        ? { ...todo, completed: true }
+        : {...todo }
+      );
+   
+    case 'todo/notification':
+      return todos.map(_todo =>
+        _todo.id === action.todo.id
+          ? { ..._todo, notification: true }
+          : { ..._todo }
+      );  
     default: 
       return todos 
   }
 };
 
- 
-
-
  const TodoProvider = ({ children }) => {
 
-      const [ todos, dispatch ] = useReducer(todoReducer, todoList); 
+      const [ todos, dispatch ] = useReducer(todoReducer, {todoList: []}); 
       const [ todosData, setTodosData ] = useState([]);
       const [modalOpen, setModalOpen ] = useState(false);
       const [isDateSet, setIsDateSet] = useState(false);
@@ -127,8 +135,15 @@ const todoReducer = (todos, action) => {
       const [selectedTime, setSelectedTime] = useState(false);
       const [completedDateTimeSetting, setCompletedDateTimeSetting] = useState(false);
       const [AddTodosExecuted, setAddTodosExecuted] = useState(false);
-    
-   
+      const [notificationDocId, setNotificationDocId] = useState();
+      const [isSubmitting, setIsSubmitting] = useState();
+      const [isDocRef, setIsDocRef] = useState();
+      const [reserveModeTodo, setReserveModeTodo] = useState();
+      const [reserveModeId, setReserveModeId] = useState();
+      const [todoId, setTodoId] = useState();
+      const [todoContent, setTodoContent] = useState();
+      const [Todo, setTodo] = useState();
+
     return (
         <TodoContext.Provider value=
             {{ todos, 
@@ -140,8 +155,12 @@ const todoReducer = (todos, action) => {
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
             selectedTime, setSelectedTime, completedDateTimeSetting,
-            setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted
-
+            setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted,
+            completedDateTimeSetting, setCompletedDateTimeSetting,
+            notificationDocId, setNotificationDocId, isSubmitting, setIsSubmitting,
+            isDocRef, setIsDocRef, reserveModeTodo, setReserveModeTodo,
+            reserveModeId, setReserveModeId, todoId, setTodoId, todoContent,
+            setTodoContent, Todo, setTodo
             }}>
               
           <TodoDispatchContext.Provider value={dispatch}>    
