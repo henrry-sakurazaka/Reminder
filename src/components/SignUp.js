@@ -2,14 +2,11 @@
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase";
-import { initializeApp } from "firebase/app";
-import { getFirestore, doc, setDoc } from 'firebase/firestore';
-import firebaseConfig from "../firebase";
+import { auth, firestore} from "../firebase";
+import { doc, setDoc } from 'firebase/firestore';
 import "./SignUp.css";
 
-const firebaseApp = initializeApp(firebaseConfig);
-const firestore = getFirestore(firebaseApp);
+
 const todoList = [
     {
       title: "Make a restaurant reservation",
@@ -22,7 +19,8 @@ const todoList = [
       reserve: false,
       editingLock: false,
       editingColor: false,
-      editingDateTime: false
+      editingDateTime: false,
+      notification: false
     },
     { 
       title: "send a letter",
@@ -35,7 +33,8 @@ const todoList = [
       reserve: false,
       editingLock: false,
       editingColor: false,
-      editingDateTime: false
+      editingDateTime: false,
+      notification: false
     },
     {
       title: "buy flowers",
@@ -48,7 +47,8 @@ const todoList = [
       reserve: false,
       editingLock: false,
       editingColor: false,
-      editingDateTime: false
+      editingDateTime: false,
+      notification: false
     }
   ];
 
@@ -72,7 +72,8 @@ function SignUp() {
                 reserve: todo.reserve,
                 editingLock: todo.editingLock,
                 editingColor: todo.editingColor,
-                editingDateTime: todo.editingDateTime
+                editingDateTime: todo.editingDateTime,
+                notification: todo.notification
               };
             });
             return firestoreData;
@@ -159,7 +160,7 @@ function SignUp() {
             displayName: name,
           });
           const convertedData = todosConverter2.toFirestore(todoList);
-          const dataWithUid = { uid: user.uid, todos: convertedData };
+          const dataWithUid = { todoId: user.uid, todos: convertedData };
 
           // サインアップ成功時にtodoListを保存する
           await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);

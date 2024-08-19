@@ -1,14 +1,12 @@
 import React from "react";
 import { useEffect, useState, useMemo} from 'react';
 import { useNavigate } from 'react-router-dom';
-import { PrivateRoute, checkAuthentication } from './checkAuthentication';
+import { checkAuthentication } from './checkAuthentication';
 import { createContext, useContext} from "react";
 import { useDispatchTodos, useTodos } from "../context/TodoContext";
 import { firestore} from "../firebase";
 import { collection, doc, setDoc, getDoc, addDoc} from 'firebase/firestore';
-import TodoList from "./TodoList";
-import Example from './Example';
-import UserAuth from './UserAuth';
+
 
 
 const todoList = [
@@ -57,11 +55,8 @@ const FirstAddLogic = createContext();
 
 const FirstAddTodosProvider = ({ childeren }) => {
 
-console.log('Hi')
-  const navigate = useNavigate();
-  const { data, setData, loading, setLoading, fetchedData, setFetchedData} = useTodos();
+  const navigate = useNavigate(); 
   const [authenticated, setAuthenticated] = useState(false); // authenticatedを状態として宣言
-  const dispatch = useDispatchTodos();
   const [savedToDatabase, setSavedToDatabase] = useState(false); // 初回保存フラグ
   
   
