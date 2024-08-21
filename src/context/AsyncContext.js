@@ -25,7 +25,7 @@ const AsyncContextProvider = ({ children }) => {
     const user = auth.currentUser;
     const [uid, setUid] = useState(); // uidの初期化
     
-    // const todosArray = todos && Object.values(todos);
+    
     const fetchedDataRef = useRef(null);
 
 
@@ -103,7 +103,7 @@ useEffect(() => {
   // const firestore = getFirestore();
     
   const fetchTodosFromFirestore = async (uid) => {
-
+    console.log('yes')
       try {
           const todoDocRef = doc(firestore, 'todoList3', uid);
           const snapshot =  await getDoc(todoDocRef);
