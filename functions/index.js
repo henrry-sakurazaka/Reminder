@@ -6,7 +6,8 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const bodyParser = require("body-parser"); 
 const path = require("path");
-const cors = require('cors')({ origin: true });
+const cors = require('cors');
+// const cors = require('cors')({ origin: true });
    
 var serviceAccount = require("./reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json"); 
                             
@@ -20,7 +21,7 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app', 'http://localhost:3000'],
+    origin: ['https://reminder3-65e84.web.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
@@ -184,7 +185,7 @@ exports.api = functions.https.onRequest(app);
 
 
 exports.registerToken = functions.https.onRequest((req, res) => {
-  const allowedOrigins = ['http://localhost:3000', 'https://reminder3-65e84.web.app'];
+  const allowedOrigins = ['https://reminder3-65e84.web.app'];
 
   const origin = req.headers.origin;
 
