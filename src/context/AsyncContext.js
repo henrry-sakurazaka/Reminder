@@ -20,6 +20,7 @@ const AsyncContextProvider = ({ children }) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [fetchedData, setFetchedData] = useState([]); 
+    const [todosChanged, setTodosChanged] = useState(false);
     const [convertdedNotificationData, setComvertedNotificationData] = useState();
     const  dispatch  = useDispatchTodos();
     const user = auth.currentUser;
@@ -43,7 +44,9 @@ const AsyncContextProvider = ({ children }) => {
       return () => unsubscribe();
     }, []);
     
-    
+    useEffect(() => {
+      setTodosChanged(true);
+    }, [todos]);
      
     
     const todosConverter2 = useMemo(() => {
@@ -99,17 +102,16 @@ const AsyncContextProvider = ({ children }) => {
        
 
 useEffect(() => {
-  // const auth = getAuth();
-  // const firestore = getFirestore();
-    
+  
   const fetchTodosFromFirestore = async (uid) => {
-    console.log('yes')
       try {
+        console.log('yes')
           const todoDocRef = doc(firestore, 'todoList3', uid);
           const snapshot =  await getDoc(todoDocRef);
           console.log(snapshot)
           // ドキュメントが存在する場合のみ処理を続行
           if (snapshot.exists()) {
+            console.log('yes2')
             const data2 = snapshot.data();
             const datatodos = data2.todos || []; // todos配列にアクセス
 
@@ -133,18 +135,18 @@ useEffect(() => {
             }  
         }
         const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (user) {
+          if (todosChanged || user) {
             fetchTodosFromFirestore(user.uid);
           } else {
             console.log("User signed out");
           }
         });
-    
+        
         return () => unsubscribe();
-    }, [GetConverter, dispatch]);
+        
+    }, [GetConverter, dispatch, auth, firestore]);
 
-  
-  
+
 useEffect(() => {
   
   const AddTodos = async () => {

@@ -16,7 +16,7 @@ const Form = ({ firestore }) => {
 
     
     const dispatch = useDispatchTodos();
-    const dispatch2 = useDispatchTodos();
+    
     const { todos, task,
             enteredTodo, setEnteredTodo,
             setAddTodosExecuted
@@ -41,16 +41,13 @@ const Form = ({ firestore }) => {
             editingDateTime: false,
             notification: false
         };
-        dispatch2({ type: "todo/add", todo: newTodo, editing: false });
+        dispatch({ type: "todo/add", todo: newTodo, editing: false });
         setEnteredTodo("");
         setAddTodosExecuted(true);
     }
 
     const allComplete = () => {
-        const neoTodo = {
-            completed: true
-        };
-        dispatch({type: "todo/reset", todo: neoTodo, editing: false });   
+        dispatch({type: "todo/reset" });   
     }
 
     
