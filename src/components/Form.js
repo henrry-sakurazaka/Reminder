@@ -47,7 +47,8 @@ const Form = ({ firestore }) => {
     }
 
     const allComplete = () => {
-        dispatch({type: "todo/reset" });   
+        const neoTodo = [];
+        dispatch({type: "todo/reset", todo: neoTodo });   
     }
 
     

@@ -55,43 +55,76 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
       useEffect(() => {
         if (completedDateTimeSetting && shouldHandleNotifications && todo) {
-          const fetchTimers = async () => {
-            const timersCollection = collection(firestore, 'notifications');
-            const q = query(timersCollection, where('notificationTime', '>=', new Date()));
-            const querySnapshot = await getDocs(q);
+          // const fetchTimers = async () => {
+          //   const timersCollection = collection(firestore, 'notifications');
+          //   const q = query(timersCollection, where('notificationTime', '>=', new Date()));
+          //   const querySnapshot = await getDocs(q);
 
-            querySnapshot.forEach((doc) => {
-              const timerData = doc.data();
-              timerData.id = doc.id;
-              const notificationTime = timerData.notificationTime.toDate();
-              console.log('Converted notificationTime:', notificationTime);
-            });
+          //   querySnapshot.forEach((doc) => {
+          //     const timerData = doc.data();
+          //     timerData.id = doc.id;
+          //     const notificationTime = timerData.notificationTime.toDate();
+          //     console.log('Converted notificationTime:', notificationTime);
+          //   });
+          // };
+
+          // const fetchTasks = () => {
+          //   const tasksCollection = collection(firestore, "notifications");
+          //   onSnapshot(tasksCollection, (snapshot) => {
+          //     const tasks = snapshot.docs.map((doc) => doc.data());
+          //     localStorage.setItem("tasks", JSON.stringify(tasks));
+          //   });
+          // };
+
+          // fetchTasks();
+          // fetchTimers();
+
+          // const unsubscribe = onSnapshot(collection(firestore, 'notifications'), (snapshot) => {
+          //   fetchTimers();
+          // });
+
+          // return () => {
+          //   unsubscribe();
+          // };
+
+          const fetchAndStoreNotifications = async () => {
+            try {
+              const timersCollection = collection(firestore, 'notifications');
+              const q = query(timersCollection, where('notificationTime', '>=', new Date()));
+              const querySnapshot = await getDocs(q);
+    
+              const tasks = querySnapshot.docs.map((doc) => ({
+                ...doc.data(),
+                id: doc.id,
+                notificationTime: doc.data().notificationTime.toDate(), // タイムスタンプをDate型に変換
+              }));
+    
+              localStorage.setItem('tasks', JSON.stringify(tasks)); // ローカルストレージに保存
+            } catch (error) {
+              console.error("Error fetching notifications: ", error);
+            }
           };
-
-          const fetchTasks = () => {
-            const tasksCollection = collection(firestore, "notifications");
-            onSnapshot(tasksCollection, (snapshot) => {
-              const tasks = snapshot.docs.map((doc) => doc.data());
-              localStorage.setItem("tasks", JSON.stringify(tasks));
-            });
-          };
-
-          fetchTasks();
-          fetchTimers();
-
+    
+          fetchAndStoreNotifications();
+    
+          // Firestoreのデータ変更を監視し、ローカルストレージを更新
           const unsubscribe = onSnapshot(collection(firestore, 'notifications'), (snapshot) => {
-            fetchTimers();
+            const tasks = snapshot.docs.map((doc) => ({
+              ...doc.data(),
+              id: doc.id,
+              notificationTime: doc.data().notificationTime.toDate(), // タイムスタンプをDate型に変換
+            }));
+    
+            localStorage.setItem('tasks', JSON.stringify(tasks)); // ローカルストレージを更新
           });
-
-          return () => {
-            unsubscribe();
-          };
+    
+          return () => unsubscribe();
         }
       }, [completedDateTimeSetting, shouldHandleNotifications, uid]);
 
 
-  
-      function monitorTimer() {
+      useEffect(() => {
+      const monitorTimer = () => {
         const timerDatas = JSON.parse(localStorage.getItem('tasks'));
         if (timerDatas && timerDatas.length > 0) {
           timerDatas.forEach((timerData) => {
@@ -108,18 +141,16 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         }
       }
 
-      function showNotification(task) {
-        if (Notification.permission === "granted") {
-          new Notification("Reminder", {
-            body: `Task: ${task.title}`,
-          });
-        }
-      }
-
-    useEffect(() => {
       monitorTimer();
     }, []);
 
+    const showNotification = (task) => {
+      if (Notification.permission === "granted") {
+        new Notification("Reminder", {
+          body: `Task: ${task.title}`,
+        });
+      }
+    };
  
   return null;
 };
