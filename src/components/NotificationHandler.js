@@ -144,13 +144,23 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
       monitorTimer();
     }, []);
 
-    const showNotification = (task) => {
-      if (Notification.permission === "granted") {
-        new Notification("Reminder", {
-          body: `Task: ${task.title}`,
-        });
-      }
-    };
+    // const showNotification = (task) => {
+    //   if (Notification.permission === "granted") {
+    //     new Notification("Reminder", {
+    //       body: `Task: ${task.content}`, // タスクの内容を表示
+    //       icon: '/favicon.ico', // アイコンを追加する場合の例
+    //     });
+    //   } else if (Notification.permission !== "denied") {
+    //     Notification.requestPermission().then(permission => {
+    //       if (permission === "granted") {
+    //         new Notification("Reminder", {
+    //           body: `Task: ${task.content}`, // タスクの内容を表示
+    //         });
+    //       }
+    //     });
+    //   }
+    // };
+    
  
   return null;
 };
