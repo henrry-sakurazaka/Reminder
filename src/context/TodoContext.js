@@ -96,7 +96,7 @@ const todoReducer = (todos, action) => {
           : { ..._todo, editingDateTime: false }
       );
     case 'FETCH_TODOS':
-      return  action.payload
+      return  action.payload;
 
     case 'complete2': 
       return todos.map(todo =>
