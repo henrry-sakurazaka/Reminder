@@ -44,16 +44,16 @@
 // const messaging = firebase.messaging();
 
 
-self.addEventListener('push', function(event) {
-  const options = {
-      body: event.data.text(),
-      icon: 'icon.png',
-      badge: 'badge.png'
-  };
-  event.waitUntil(
-      self.registration.showNotification('Notification Title', options)
-  );
-});
+// self.addEventListener('push', function(event) {
+//   const options = {
+//       body: event.data.text(),
+//       icon: 'icon.png',
+//       badge: 'badge.png'
+//   };
+//   event.waitUntil(
+//       self.registration.showNotification('Notification Title', options)
+//   );
+// });
 
 // self.addEventListener('install', function(event) {
 //   event.waitUntil(
@@ -91,6 +91,34 @@ self.addEventListener('notificationclick', function(event) {
       clients.openWindow('https://reminder3-65e84.web.app')
   );
 });
+
+self.addEventListener('install', (event) => {
+  console.log('Service Worker installed');
+  self.skipWaiting(); // サービスワーカーが即座にアクティブになるようにします
+});
+
+self.addEventListener('activate', (event) => {
+  console.log('Service Worker activated');
+});
+
+
+
+function checkLocalStorageForNotifications() {
+  // ローカルストレージをチェックするためのインターバル
+  setInterval(() => {
+    self.clients.matchAll().then(clients => {
+      if (clients.length === 0) {
+        // クライアントが存在しない場合、ローカルストレージをチェックできない
+        return;
+      }
+
+      clients[0].postMessage({ action: 'checkForNotifications' });
+    });
+  }, 60000); // 1分ごとにチェック
+}
+
+checkLocalStorageForNotifications();
+
 
 
 // onBackgroundMessage(messaging,(payload) => {
