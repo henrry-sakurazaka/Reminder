@@ -108,11 +108,11 @@ const AsyncContextProvider = ({ children }) => {
     useEffect(() => {
       const setTodosToFirestore = async () => {
         if (!uid) {
-          console.error('UID is undefined or invalid:', uid);
+          console.log('')
           return;
         }
             try {
-              const todoDocRef = doc(firestore, 'todoList3', uid);
+              const todoDocRef = doc(firestore, 'todoList3', user.uid);
               const convertedData = todosConverter2.toFirestore(todos);
               const dataWithUid = { todoId: user.uid, todos: convertedData };
               await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);

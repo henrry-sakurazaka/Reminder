@@ -87,13 +87,25 @@ function checkForNotificationsAndTrigger() {
   });
 }
 
-function showNotification(task) {
+
+
+const showNotification = (task) => {
   if (Notification.permission === "granted") {
     new Notification("Reminder", {
-      body: `Task: ${task.title}`,
+      body: `Task: ${task.content}`, // タスクの内容を表示
+      icon: '/favicon.ico', // アイコンを追加する場合の例
+    });
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        new Notification("Reminder", {
+          body: `Task: ${task.content}`, // タスクの内容を表示
+        });
+      }
     });
   }
-}
+};
+
 
 // タイマーで定期的にチェックする
 setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェック
