@@ -20,12 +20,13 @@ const AsyncContextProvider = ({ children }) => {
     const [data, setData] = useState();
     const [loading, setLoading] = useState(true);
     const [fetchedData, setFetchedData] = useState([]); 
+    const [todosChanged, setTodosChanged] = useState(false);
     const [convertdedNotificationData, setComvertedNotificationData] = useState();
     const  dispatch  = useDispatchTodos();
     const user = auth.currentUser;
     const [uid, setUid] = useState(); // uidの初期化
     
-    // const todosArray = todos && Object.values(todos);
+    
     const fetchedDataRef = useRef(null);
 
 
@@ -43,9 +44,14 @@ const AsyncContextProvider = ({ children }) => {
       return () => unsubscribe();
     }, []);
     
+    // useEffect(() => {
+    //   setTodosChanged(true);
+    // }, [dispatch]);
     
-     
-    
+   
+   
+    console.log('todoChanged',todosChanged)
+
     const todosConverter2 = useMemo(() => {
       return {
         toFirestore: (todos) => {
@@ -96,15 +102,48 @@ const AsyncContextProvider = ({ children }) => {
         }
       };
     }, []);
-       
+
+ 
+
+    useEffect(() => {
+      const setTodosToFirestore = async () => {
+        if (!uid) {
+          console.log('')
+          return;
+        }
+            try {
+              const todoDocRef = doc(firestore, 'todoList3', user.uid);
+              const convertedData = todosConverter2.toFirestore(todos);
+              const dataWithUid = { todoId: user.uid, todos: convertedData };
+              await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
+            
+            } catch (error) {
+              console.error('Error adding todoList to Firestore:', error);
+            } finally {
+              setLoading(false);
+            }
+      }
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setTodosToFirestore(todos, user.uid);
+        } else {
+          console.log("User signed out or not yet logged in");
+        }
+      });
+  
+    return () => unsubscribe();
+      // return () => setTodosToFirestore();
+    }, [dispatch, todos, firestore, todosConverter2])   
+    
+   
+
+
 
 useEffect(() => {
-  // const auth = getAuth();
-  // const firestore = getFirestore();
-    
+  
   const fetchTodosFromFirestore = async (uid) => {
-
       try {
+        console.log('yes')
           const todoDocRef = doc(firestore, 'todoList3', uid);
           const snapshot =  await getDoc(todoDocRef);
           console.log(snapshot)
@@ -112,8 +151,7 @@ useEffect(() => {
           if (snapshot.exists()) {
             const data2 = snapshot.data();
             const datatodos = data2.todos || []; // todos配列にアクセス
-
-              const getData = GetConverter.fromFirestore(datatodos); 
+            const getData = GetConverter.fromFirestore(datatodos); 
               setData(true)
               // getData がオブジェクトである場合、配列にラップする
               const newFetchedData = Array.isArray(getData) ? getData : [getData];    
@@ -132,21 +170,27 @@ useEffect(() => {
               setLoading(false);
             }  
         }
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (user) {
-            fetchTodosFromFirestore(user.uid);
-          } else {
-            console.log("User signed out");
-          }
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+              if (!todosChanged) {
+                fetchTodosFromFirestore(user.uid);
+              } else {
+                console.log("User signed out");
+              }   
         });
-    
+        
         return () => unsubscribe();
+        
+        // if(uid) {
+        //   fetchTodosFromFirestore(uid);
+        // }
+        // return () => fetchTodosFromFirestore(user.uid);
+        // fetchTodosFromFirestore(user.uid);
     }, [GetConverter, dispatch]);
 
-  
-  
+
+
+
 useEffect(() => {
-  
   const AddTodos = async () => {
 
         try {

@@ -71,35 +71,75 @@ const registerServiceWorkerAndRequestToken = async () => {
   }
 };
 
-onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
-  // 通知の表示コードをここに追加
-  // ブラウザが通知を表示する許可を持っているかを確認
-  if (Notification.permission === 'granted') {
-    // 通知のオプションを設定
-    const notificationOptions = {
-      body: payload.notification.body,
-      icon: payload.notification.icon
-    };
+function checkForNotificationsAndTrigger() {
+  const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
+  
+  tasks.forEach((task) => {
+    const notificationTime = new Date(task.notificationTime).getTime();
+    const currentTime = new Date().getTime();
 
-    // 通知を表示
-    new Notification(payload.notification.title, notificationOptions);
-  } else {
-    // 許可をリクエストする
-    Notification.requestPermission().then((permission) => {
-      if (permission === 'granted') {
-        // 通知のオプションを設定
-        const notificationOptions = {
-          body: payload.notification.body,
-          icon: payload.notification.icon
-        };
+    if (notificationTime <= currentTime) {
+      showNotification(task);
+      // 通知後にタスクをローカルストレージから削除
+      const updatedTasks = tasks.filter(t => t.id !== task.id);
+      localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+    }
+  });
+}
 
-        // 通知を表示
-        new Notification(payload.notification.title, notificationOptions);
+
+
+const showNotification = (task) => {
+  if (Notification.permission === "granted") {
+    new Notification("Reminder", {
+      body: `Task: ${task.content}`, // タスクの内容を表示
+      icon: '/favicon.ico', // アイコンを追加する場合の例
+    });
+  } else if (Notification.permission !== "denied") {
+    Notification.requestPermission().then(permission => {
+      if (permission === "granted") {
+        new Notification("Reminder", {
+          body: `Task: ${task.content}`, // タスクの内容を表示
+        });
       }
     });
   }
-});
+};
+
+
+// タイマーで定期的にチェックする
+setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェック
+
+
+// onMessage(messaging, (payload) => {
+//   console.log('Message received. ', payload);
+//   // 通知の表示コードをここに追加
+//   // ブラウザが通知を表示する許可を持っているかを確認
+//   if (Notification.permission === 'granted') {
+//     // 通知のオプションを設定
+//     const notificationOptions = {
+//       body: payload.notification.body,
+//       icon: payload.notification.icon
+//     };
+
+//     // 通知を表示
+//     new Notification(payload.notification.title, notificationOptions);
+//   } else {
+//     // 許可をリクエストする
+//     Notification.requestPermission().then((permission) => {
+//       if (permission === 'granted') {
+//         // 通知のオプションを設定
+//         const notificationOptions = {
+//           body: payload.notification.body,
+//           icon: payload.notification.icon
+//         };
+
+//         // 通知を表示
+//         new Notification(payload.notification.title, notificationOptions);
+//       }
+//     });
+//   }
+// });
 
 export const requestForToken = () => {
   getToken(messaging, { vapidKey: 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ'}).then((currentToken) => {
