@@ -44,11 +44,14 @@ const AsyncContextProvider = ({ children }) => {
       return () => unsubscribe();
     }, []);
     
-    useEffect(() => {
-      setTodosChanged(true);
-    }, [todos]);
-     
+    // useEffect(() => {
+    //   setTodosChanged(true);
+    // }, [dispatch]);
     
+   
+   
+    console.log('todoChanged',todosChanged)
+
     const todosConverter2 = useMemo(() => {
       return {
         toFirestore: (todos) => {
@@ -99,7 +102,42 @@ const AsyncContextProvider = ({ children }) => {
         }
       };
     }, []);
-       
+
+ 
+
+    useEffect(() => {
+      const setTodosToFirestore = async () => {
+        if (!uid) {
+          console.error('UID is undefined or invalid:', uid);
+          return;
+        }
+            try {
+              const todoDocRef = doc(firestore, 'todoList3', uid);
+              const convertedData = todosConverter2.toFirestore(todos);
+              const dataWithUid = { todoId: user.uid, todos: convertedData };
+              await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
+            
+            } catch (error) {
+              console.error('Error adding todoList to Firestore:', error);
+            } finally {
+              setLoading(false);
+            }
+      }
+      const unsubscribe = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          setTodosToFirestore(todos, user.uid);
+        } else {
+          console.log("User signed out or not yet logged in");
+        }
+      });
+  
+    return () => unsubscribe();
+      // return () => setTodosToFirestore();
+    }, [dispatch, todos, firestore, todosConverter2])   
+    
+   
+
+
 
 useEffect(() => {
   
@@ -111,11 +149,9 @@ useEffect(() => {
           console.log(snapshot)
           // ドキュメントが存在する場合のみ処理を続行
           if (snapshot.exists()) {
-            console.log('yes2')
             const data2 = snapshot.data();
             const datatodos = data2.todos || []; // todos配列にアクセス
-
-              const getData = GetConverter.fromFirestore(datatodos); 
+            const getData = GetConverter.fromFirestore(datatodos); 
               setData(true)
               // getData がオブジェクトである場合、配列にラップする
               const newFetchedData = Array.isArray(getData) ? getData : [getData];    
@@ -134,21 +170,27 @@ useEffect(() => {
               setLoading(false);
             }  
         }
-        const unsubscribe = onAuthStateChanged(auth, (user) => {
-          if (todosChanged || user) {
-            fetchTodosFromFirestore(user.uid);
-          } else {
-            console.log("User signed out");
-          }
+            const unsubscribe = onAuthStateChanged(auth, (user) => {
+              if (!todosChanged) {
+                fetchTodosFromFirestore(user.uid);
+              } else {
+                console.log("User signed out");
+              }   
         });
         
         return () => unsubscribe();
         
-    }, [GetConverter, dispatch, auth, firestore]);
+        // if(uid) {
+        //   fetchTodosFromFirestore(uid);
+        // }
+        // return () => fetchTodosFromFirestore(user.uid);
+        // fetchTodosFromFirestore(user.uid);
+    }, [GetConverter, dispatch]);
+
+
 
 
 useEffect(() => {
-  
   const AddTodos = async () => {
 
         try {
