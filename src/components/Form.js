@@ -2,17 +2,12 @@ import React from "react";
 import { useState, useEffect, useCallback} from "react";
 import { useDispatchTodos , useTodos } from "../context/TodoContext";
 import { doc, updateDoc } from 'firebase/firestore';
-import { firestore, auth } from "../firebase";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
-import { getAuth, onAuthStateChanged } from "firebase/auth";
-import firebase from "firebase/app"; // firebaseモジュールをインポート
-import firebaseConfig from "../firebase";
+import { auth } from "../firebase";
 
-// const firebaseApp = initializeApp(firebaseConfig);
+
     
 
-const Form = ({ firestore }) => {
+const Form = () => {
 
     
     const dispatch = useDispatchTodos();

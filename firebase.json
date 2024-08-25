@@ -7,6 +7,7 @@
       "**/node_modules/**"
     ],
     "site": "reminder3-65e84",
+    
     "headers": [
       {
         "source": "/worker.js",

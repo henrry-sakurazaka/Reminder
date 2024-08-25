@@ -94,55 +94,6 @@ function SignUp() {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
 
-    // const onSubmit = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //         // パスワードの長さが 6 文字未満の場合にエラーを表示する
-    //         if (password.length < 6) {
-    //             throw new Error("Password must be at least 6 characters long.");
-    //         }
-
-    //         // const userCredential = await createUserWithEmailAndPassword(
-    //         //     auth,
-    //         //     email,
-    //         //     password
-    //         // );
-
-    //         await createUserWithEmailAndPassword(
-    //             auth,
-    //             email,
-    //             password
-    //         );
-    //         console.log("User signed up successfully:");
-
-    //         // ユーザーの表示名を設定する
-    //         await updateProfile(auth.currentUser, {
-    //             displayName: name,
-    //         });
-    //         handleSignUp();
-
-            
-    //     } catch (error) {
-    //         // エラーをコンソールにログ出力するだけではなく、ユーザーにエラーを表示することも考慮する
-    //         console.error('error signing up');
-    //         // エラーメッセージを表示するなど、適切なユーザー通知を行う
-    //     }
-    // };
-
-    // const handleSignUp = async (e) => {
-    //     e.preventDefault();
-    //     try {
-    //       const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-    //       const user = userCredential.user;
-    //       const converter = todosConverter2.toFirestore(todoList);
-    //       // サインアップ成功時にtodoListを保存する
-    //       await setDoc(doc(firestore, "todoList3", user.uid), { uid: user.uid, todos: converter});
-    
-    //       navigate('/Example');
-    //     } catch (error) {
-    //       console.error('Error signing up:', error);
-    //     }
-    //   };
       const onSubmit = async (e) => {
         e.preventDefault();
         try {

@@ -29,30 +29,6 @@ setupTests.js
 mockAuth.autoFlush();
 mockAuth.changeAuthState(mockUser);
 
-// Firebase SDKのモックをセットアップ
-// jest.mock('firebase/auth', () => ({
-//   getAuth: jest.fn(() => mockAuth),
-// }));
-
-// test('redirects to /UserAuth if not authenticated', () => {
-//   render(
-//     <BrowserRouter>
-//       <FirstAuth />
-//     </BrowserRouter>
-//   );
-
-//   expect(screen.getByText('Redirecting to /UserAuth')).toBeInTheDocument();
-// });
-
-// test('renders FirstAuth component if authenticated', () => {
-//   render(
-//     <BrowserRouter>
-//       <FirstAuth />
-//     </BrowserRouter>
-//   );
-
-//   expect(screen.getByText('Hello, World!')).toBeInTheDocument();
-// });
 
 jest.mock('./checkAuthentication'); // checkAuthentication関数をモック化
 
