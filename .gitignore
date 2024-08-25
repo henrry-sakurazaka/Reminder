@@ -14,6 +14,7 @@ server.key
 firebaserc
 functions/**/node_modules/
 functions/.firebase
+functions/index.js
 functions/*.json
 functions/reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
 functions/node_modules
