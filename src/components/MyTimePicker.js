@@ -13,23 +13,7 @@ const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime, todo}
       setDisplayDatePicker(false);
     }, [setDisplayTimePicker, setDisplayDatePicker]);
     
-      //   const handleClick = (e) => {
-      //     const { value } = e.target;
-      //     setInputTime(value);
-      //     handleTimeChange(value);
-      // }
-
-    // const handleClick = (e) => {
-    //   if (e && e.target && e.target.value) {
-    //     setInputTime(e.target.value);
-    //     handleTimeChange(e.target.value);
-    //   }
-    // };
-
-    // const handleChange = (e) => {
-    //   setInputTime(e.target.value);
-    //   handleTimeChange(e.target.value);
-    // };
+    
   
 
   return (
