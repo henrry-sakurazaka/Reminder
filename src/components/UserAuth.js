@@ -1,14 +1,12 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from 'firebase/auth';
-import { useTodos } from "../context/TodoContext";
-import { useEffect } from "react";
 import "./UserAu.css";
+
 
 const auth = getAuth();
 
-const UserAuth = () => {
-    
+const UserAuth = () => {   
     const navigate = useNavigate();
 
     const handleClickSignUp = () => {
