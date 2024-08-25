@@ -9,7 +9,7 @@ const path = require("path");
 const cors = require('cors');
 // const cors = require('cors')({ origin: true });
    
-var serviceAccount = require("./reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json"); 
+var serviceAccount = require("./reminder/functions/reminder3-65e84-e172658673bc.json"); 
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
