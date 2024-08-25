@@ -134,7 +134,6 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
             if (notificationTime > currentTime) {
               setTimeout(() => {
                 showNotification(timerData);
-                // 通知後にタスクを削除するなどの処理を追加することも検討してください
               }, notificationTime - currentTime);
             }
           });
