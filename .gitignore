@@ -29,3 +29,4 @@ build/*.json
 src/components/EasyLogin.js
 src/components/SignIn.js
 src/firebase.js
+src/firebaseInit.js
