@@ -42,7 +42,7 @@ const sendTokenToServer = async (token) => {
 };
 
 // サービスワーカーを登録し、トークンを取得する関数
-const registerServiceWorkerAndRequestToken = async () => {
+export const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' , scope: '/'});
@@ -75,8 +75,6 @@ function checkForNotificationsAndTrigger() {
     }
   });
 }
-
-
 
 const showNotification = (task) => {
   if (Notification.permission === "granted") {
