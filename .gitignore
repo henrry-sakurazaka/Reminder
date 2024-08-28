@@ -1,10 +1,8 @@
 node_modules/
 .firebase/
-*.json
 reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
 functions/reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
 node_modules
-*.json
 firebaserc
 firebaserc
 .env
@@ -15,7 +13,6 @@ firebaserc
 functions/**/node_modules/
 functions/.firebase
 functions/index.js
-functions/*.json
 functions/reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
 functions/node_modules
 public/firebase/
@@ -26,7 +23,6 @@ build/firebase/
 build/firebase.js
 build/worker/
 build/worker.js
-build/*.json
 src/components/EasyLogin.js
 src/components/SignIn.js
 src/firebase.js
