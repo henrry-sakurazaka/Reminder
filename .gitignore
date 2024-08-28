@@ -15,15 +15,10 @@ functions/.firebase
 functions/index.js
 functions/reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
 functions/node_modules
-public/firebase/
-public/firebase.js
 public/worker/
 public/worker.js
-build/firebase/
-build/firebase.js
 build/worker/
 build/worker.js
 src/components/EasyLogin.js
 src/components/SignIn.js
-src/firebase.js
 src/firebaseInit.js
