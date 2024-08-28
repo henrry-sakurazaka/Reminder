@@ -48,6 +48,7 @@
   },
   "scripts": {
     "start": "craco start",
+    "prebuild": "node scripts/generate-config.js",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject",
