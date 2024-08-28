@@ -27,7 +27,8 @@ const corsOptions = {
     credentials: true,
     optionsSuccessStatus: 204,
   };
-  const corsHandler = cors(corsOptions);
+const corsHandler = cors(corsOptions);
+
 
 // Express app に CORS ミドルウェアを適用
 
