@@ -21,4 +21,3 @@ build/worker/
 build/worker.js
 src/components/EasyLogin.js
 src/components/SignIn.js
-src/firebaseInit.js
