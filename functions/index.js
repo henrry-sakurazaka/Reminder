@@ -37,6 +37,9 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
+// サービスワーカーを登録し、トークンを取得
+registerServiceWorkerAndRequestToken();
+
 
 // 静的ファイルを正しいMIMEタイプで配信するための設定
 app.use(express.static(path.join(__dirname, 'public'), {

@@ -3,19 +3,8 @@ import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
 import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
+import firebaseConfig from '../firebase-config.js';
 
-
-// Your web app's Firebase configuration
-const firebaseConfig = {
-  apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
-  authDomain: "reminder3-65e84.firebaseapp.com",
-  databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
-  projectId: "reminder3-65e84",
-  storageBucket: "reminder3-65e84.appspot.com",
-  messagingSenderId: "280162142902",
-  appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
-  measurementId: "G-C0NL3GWNWZ"
-};
 
 // Initialize Firebase
 // const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
@@ -155,8 +144,8 @@ export const requestForToken = () => {
   });
 };
 
-// サービスワーカーを登録し、トークンを取得
-registerServiceWorkerAndRequestToken();
+// // サービスワーカーを登録し、トークンを取得
+// registerServiceWorkerAndRequestToken();
 
 
 
