@@ -91,15 +91,15 @@ self.addEventListener('activate', event => {
   event.waitUntil(clients.claim());
 });
 
-// Syncイベントのハンドリング（オプション）
-self.addEventListener('sync', event => {
-    if (event.tag === 'check-notification') {
-        event.waitUntil(checkNotificationTime());
-    }
-});
+// // Syncイベントのハンドリング（オプション）
+// self.addEventListener('sync', event => {
+//     if (event.tag === 'check-notification') {
+//         event.waitUntil(checkNotificationTime());
+//     }
+// });
 
-// 例: 定期的にタイマーをチェック（10秒ごと）
-setInterval(checkNotificationTime, 10000);
+// // 例: 定期的にタイマーをチェック（10秒ごと）
+// setInterval(checkNotificationTime, 10000);
 
 self.addEventListener('notificationclick', function(event) {
   event.notification.close();
@@ -109,15 +109,15 @@ self.addEventListener('notificationclick', function(event) {
 });
 
 
-onBackgroundMessage(messaging,(payload) => {
-  console.log('[firebase-messaging-sw.js] Received background message ', payload);
-  const notificationTitle = 'Background Message Title';
-  const notificationOptions = {
-    body:  payload.notification.body || 'Background Message body.',
-    icon: payload.notification.icon || '/firebase-logo.png'
-  };
+// onBackgroundMessage(messaging,(payload) => {
+//   console.log('[firebase-messaging-sw.js] Received background message ', payload);
+//   const notificationTitle = 'Background Message Title';
+//   const notificationOptions = {
+//     body:  payload.notification.body || 'Background Message body.',
+//     icon: payload.notification.icon || '/firebase-logo.png'
+//   };
 
-  self.registration.showNotification(notificationTitle, notificationOptions);
-});
+//   self.registration.showNotification(notificationTitle, notificationOptions);
+// });
 
 export {};
