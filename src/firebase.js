@@ -6,16 +6,15 @@ import { getDatabase, ref, set } from "firebase/database"; // Realtime Database�
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
 
-// Your web app's Firebase configuration
+// 環境変数を直接参照する
 const firebaseConfig = {
-  apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
-  authDomain: "reminder3-65e84.firebaseapp.com",
-  databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
-  projectId: "reminder3-65e84",
-  storageBucket: "reminder3-65e84.appspot.com",
-  messagingSenderId: "280162142902",
-  appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
-  measurementId: "G-C0NL3GWNWZ"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY || 'default_key',
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN || 'default_auth_domain',
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID || 'default_project_id',
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET || 'default_storage_bucket',
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID || 'default_sender_id',
+  appId: process.env.REACT_APP_FIREBASE_APP_ID || 'default_app_id',
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID || 'default_measurement_id',
 };
 
 // Initialize Firebase
