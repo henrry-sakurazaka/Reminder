@@ -1,3 +1,4 @@
+require('dotenv').config(); // 環境変数を読み込む
 const fs = require('fs');
 const path = require('path');
 
