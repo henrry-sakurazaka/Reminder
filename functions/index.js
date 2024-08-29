@@ -21,13 +21,12 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app'],
+    origin: ['https://reminder3-65e84.web.app', 'http://localhost3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
     optionsSuccessStatus: 204,
   };
-const corsHandler = cors(corsOptions);
 
 
 // Express app に CORS ミドルウェアを適用
@@ -37,18 +36,18 @@ app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-// サービスワーカーを登録し、トークンを取得
-registerServiceWorkerAndRequestToken();
+// // サービスワーカーを登録し、トークンを取得
+// registerServiceWorkerAndRequestToken();
 
 
-// 静的ファイルを正しいMIMEタイプで配信するための設定
-app.use(express.static(path.join(__dirname, 'public'), {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript');
-    }
-  }
-}));
+// // 静的ファイルを正しいMIMEタイプで配信するための設定
+// app.use(express.static(path.join(__dirname, 'public'), {
+//   setHeaders: (res, path) => {
+//     if (path.endsWith('.js')) {
+//       res.setHeader('Content-Type', 'application/javascript');
+//     }
+//   }
+// }));
 
 
 app.get('/', (req, res) => {
@@ -224,86 +223,86 @@ exports.api = functions.https.onRequest(app);
 
 
 
-// exports.registerToken = functions.https.onRequest((req, res) => {
-//   const allowedOrigins = ['https://reminder3-65e84.web.app'];
-
-//   const origin = req.headers.origin;
-
-//   if (allowedOrigins.includes(origin)) {
-//     res.set('Access-Control-Allow-Origin', origin);
-//   } else {
-//     res.set('Access-Control-Allow-Origin', '*');
-//   }
-
-//   if (req.method === 'OPTIONS') {
-//     // Preflightリクエストの処理
-//     res.set('Access-Control-Allow-Methods', 'GET, POST');
-//     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     res.status(204).send('');
-//     return;
-//   }
-
-//   if (req.method !== 'POST') {
-//     return res.status(405).send('Method Not Allowed');
-//   }
-
-//   const token = req.body.token;
-//   if (!token) {
-//     return res.status(400).send('Token is required');
-//   }
-
-//   admin.firestore().collection('tokens').add({ token })
-//     .then(() => {
-//       if (allowedOrigins.includes(origin)) {
-//         res.set('Access-Control-Allow-Origin', origin);
-//       } else {
-//         res.set('Access-Control-Allow-Origin', '*');
-//       }
-//       res.status(200).send('Token registered successfully');
-//     })
-//     .catch((error) => {
-//       console.error('Error registering token:', error);
-//       if (allowedOrigins.includes(origin)) {
-//         res.set('Access-Control-Allow-Origin', origin);
-//       } else {
-//         res.set('Access-Control-Allow-Origin', '*');
-//       }
-//       res.status(500).send('Internal Server Error');
-//     });
-// });
-
-
 exports.registerToken = functions.https.onRequest((req, res) => {
-  cors(corsOptions)(req, res, async () => {
-    if (req.method === 'OPTIONS') {
-      // Preflightリクエストの処理
-      res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
-      res.set('Access-Control-Allow-Methods', 'GET, POST');
-      res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-      res.status(204).send('');
-      return;
-    }
+  const allowedOrigins = ['https://reminder3-65e84.web.app', 'http://localhost3000'];
 
-    if (req.method !== 'POST') {
-      return res.status(405).send('Method Not Allowed');
-    }
+  const origin = req.headers.origin;
 
-    const token = req.body.token;
-    if (!token) {
-      return res.status(400).send('Token is required');
-    }
+  if (allowedOrigins.includes(origin)) {
+    res.set('Access-Control-Allow-Origin', origin);
+  } else {
+    res.set('Access-Control-Allow-Origin', '*');
+  }
 
-    try {
-      await admin.firestore().collection('tokens').add({ token });
-      res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
-      return res.status(200).send('Token registered successfully');
-    } catch (error) {
+  if (req.method === 'OPTIONS') {
+    // Preflightリクエストの処理
+    res.set('Access-Control-Allow-Methods', 'GET, POST');
+    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+    res.status(204).send('');
+    return;
+  }
+
+  if (req.method !== 'POST') {
+    return res.status(405).send('Method Not Allowed');
+  }
+
+  const token = req.body.token;
+  if (!token) {
+    return res.status(400).send('Token is required');
+  }
+
+  admin.firestore().collection('tokens').add({ token })
+    .then(() => {
+      if (allowedOrigins.includes(origin)) {
+        res.set('Access-Control-Allow-Origin', origin);
+      } else {
+        res.set('Access-Control-Allow-Origin', '*');
+      }
+      res.status(200).send('Token registered successfully');
+    })
+    .catch((error) => {
       console.error('Error registering token:', error);
-      res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
-      return res.status(500).send('Internal Server Error');
-    }
-  });
+      if (allowedOrigins.includes(origin)) {
+        res.set('Access-Control-Allow-Origin', origin);
+      } else {
+        res.set('Access-Control-Allow-Origin', '*');
+      }
+      res.status(500).send('Internal Server Error');
+    });
 });
+
+
+// exports.registerToken = functions.https.onRequest((req, res) => {
+//   cors(corsOptions)(req, res, async () => {
+//     if (req.method === 'OPTIONS') {
+//       // Preflightリクエストの処理
+//       res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
+//       res.set('Access-Control-Allow-Methods', 'GET, POST');
+//       res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//       res.status(204).send('');
+//       return;
+//     }
+    
+//     if (req.method !== 'POST') {
+//       return res.status(405).send('Method Not Allowed');
+//     }
+
+//     const token = req.body.token;
+//     if (!token) {
+//       return res.status(400).send('Token is required');
+//     }
+
+//     try {
+//       await admin.firestore().collection('tokens').add({ token });
+//       res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
+//       return res.status(200).send('Token registered successfully');
+//     } catch (error) {
+//       console.error('Error registering token:', error);
+//       res.set('Access-Control-Allow-Origin', 'https://reminder3-65e84.web.app');
+//       return res.status(500).send('Internal Server Error');
+//     }
+//   });
+// });
 
 // データベースの特定の場所を監視するトリガー関数を定義する
 exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
@@ -410,7 +409,7 @@ exports.sendNotification = functions.https.onRequest((req, res) => {
 });
 
 exports.saveTokens = functions.https.onRequest((req, res) => {
-    corsHandler(req, res, () => {
+    cors(corsOptions)(req, res, () => {
         if (req.method !== 'POST') {
             return res.status(405).send({ message: 'Only POST requests are allowed' });
             }
