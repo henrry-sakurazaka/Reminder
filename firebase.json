@@ -38,8 +38,9 @@
             "value": "no-cache, no-store, must-revalidate"
           }
         ]
-      }
+      }   
     ],
+    
     "rewrites": [
       {
         "source": "/worker.js",
@@ -48,6 +49,10 @@
       {
         "source": "/firebase-messaging-sw.js",
         "destination": "/worker.js"
+      },
+      {
+        "source": "/firebase-config.js",
+        "destination": "/firebase-config.js"
       },
       {
         "source": "/api/**",
