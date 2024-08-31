@@ -29,8 +29,6 @@ const sendTokenToServer = async (token) => {
   try {
     const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
     
-    // const response = await fetch('https://reminder3-65e84.web.app/registerToken', {
-    
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -100,42 +98,10 @@ const showNotification = (task) => {
     });
   }
 };
-
-
 // タイマーで定期的にチェックする
 setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェック
 
 
-// onMessage(messaging, (payload) => {
-//   console.log('Message received. ', payload);
-//   // 通知の表示コードをここに追加
-//   // ブラウザが通知を表示する許可を持っているかを確認
-//   if (Notification.permission === 'granted') {
-//     // 通知のオプションを設定
-//     const notificationOptions = {
-//       body: payload.notification.body,n
-
-//       icon: payload.notification.icon
-//     };
-
-//     // 通知を表示
-//     new Notification(payload.notification.title, notificationOptions);
-//   } else {
-//     // 許可をリクエストする
-//     Notification.requestPermission().then((permission) => {
-//       if (permission === 'granted') {
-//         // 通知のオプションを設定
-//         const notificationOptions = {
-//           body: payload.notification.body,
-//           icon: payload.notification.icon
-//         };
-
-//         // 通知を表示
-//         new Notification(payload.notification.title, notificationOptions);
-//       }
-//     });
-//   }
-// });
 
 export const requestForToken = () => {
   getToken(messaging, { vapidKey: 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ'}).then((currentToken) => {
