@@ -4,7 +4,10 @@ server.key
 functions/**/node_modules/
 functions/.firebase
 functions/node_modules
-public/firebase
+public/firebase.js
+public/config.js
+build/firebase.js
+build/config.js
 functions/serviceAccoutKey.json
 serviceAccoutKey.json
 firebaseInit.js
