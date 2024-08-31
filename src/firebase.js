@@ -52,6 +52,12 @@ const sendTokenToServer = async (token) => {
 const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
+      // 古いService Workerの解除
+      const registrations = await navigator.serviceWorker.getRegistrations();
+      for (let registration of registrations) {
+        await registration.unregister();
+        console.log('Old Service Worker unregistered');
+      }
       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/' });
       console.log('Service Worker registration successful with scope: ', registration.scope);
       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
