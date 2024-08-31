@@ -1,15 +1,15 @@
 node_modules/
-firebase-messaging-sw.js.template
-server.key
-functions/**/node_modules/
-functions/.firebase
-functions/node_modules
-public/firebase.js
-public/firebase-config.js
-build/firebase.js
-build/config.js
-functions/serviceAccoutKey.json
-serviceAccoutKey.json
-firebaseInit.js
-envgi
+# firebase-messaging-sw.js.template
+# server.key
+# functions/**/node_modules/
+# functions/.firebase
+# functions/node_modules
+# public/firebase.js
+# public/firebase-config.js
+# build/firebase.js
+# build/config.js
+# functions/serviceAccoutKey.json
+# serviceAccoutKey.json
+# firebaseInit.js
+# .env
 
