@@ -22,7 +22,8 @@ const db = getDatabase(app); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
-const vapidKey = 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ';
+const vapidKey = process.env.REACT_APP_VAPID_KEY;
+
 
 // トークンをサーバーに送信する関数
 const sendTokenToServer = async (token) => {
@@ -104,7 +105,7 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 
 
 export const requestForToken = () => {
-  getToken(messaging, { vapidKey: 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ'}).then((currentToken) => {
+  getToken(messaging, { vapidKey: vapidKey}).then((currentToken) => {
     if (currentToken) {
       console.log('FCM Token:', currentToken);
       sendTokenToServer(currentToken);

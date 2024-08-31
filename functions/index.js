@@ -10,7 +10,7 @@ const cors = require('cors');
 require('dotenv').config();
 // const cors = require('cors')({ origin: true });
    
-var serviceAccount = require("./reminder3-65e84-83beecfbbee4.json"); 
+var serviceAccount = require("./serveiceAccountKey.json"); 
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
