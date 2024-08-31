@@ -5,19 +5,15 @@ import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
 
-
-// Your web app's Firebase configuration
 const firebaseConfig = {
-  apiKey: "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
-  authDomain: "reminder3-65e84.firebaseapp.com",
-  databaseURL: "https://reminder3-65e84-default-rtdb.firebaseio.com",
-  projectId: "reminder3-65e84",
-  storageBucket: "reminder3-65e84.appspot.com",
-  messagingSenderId: "280162142902",
-  appId: "1:280162142902:web:4fed1bc9d4b35e75963417",
-  measurementId: "G-C0NL3GWNWZ"
+  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
+  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
+  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
+  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
+  messagingSenderId: process.env.REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  appId: process.env.REACT_APP_FIREBASE_APP_ID,
+  measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
-
 // Initialize Firebase
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
@@ -71,35 +67,35 @@ const registerServiceWorkerAndRequestToken = async () => {
 };
 
 
-onMessage(messaging, (payload) => {
-  console.log('Message received. ', payload);
-  // 通知の表示コードをここに追加
-  // ブラウザが通知を表示する許可を持っているかを確認
-  if (Notification.permission === 'granted') {
-    // 通知のオプションを設定
-    const notificationOptions = {
-      body: payload.notification.body,
-      icon: payload.notification.icon
-    };
+// onMessage(messaging, (payload) => {
+//   console.log('Message received. ', payload);
+//   // 通知の表示コードをここに追加
+//   // ブラウザが通知を表示する許可を持っているかを確認
+//   if (Notification.permission === 'granted') {
+//     // 通知のオプションを設定
+//     const notificationOptions = {
+//       body: payload.notification.body,
+//       icon: payload.notification.icon
+//     };
 
-    // 通知を表示
-    new Notification(payload.notification.title, notificationOptions);
-  } else {
-    // 許可をリクエストする
-    Notification.requestPermission().then((permission) => {
-      if (permission === 'granted') {
-        // 通知のオプションを設定
-        const notificationOptions = {
-          body: payload.notification.body,
-          icon: payload.notification.icon
-        };
+//     // 通知を表示
+//     new Notification(payload.notification.title, notificationOptions);
+//   } else {
+//     // 許可をリクエストする
+//     Notification.requestPermission().then((permission) => {
+//       if (permission === 'granted') {
+//         // 通知のオプションを設定
+//         const notificationOptions = {
+//           body: payload.notification.body,
+//           icon: payload.notification.icon
+//         };
 
-        // 通知を表示
-        new Notification(payload.notification.title, notificationOptions);
-      }
-    });
-  }
-});
+//         // 通知を表示
+//         new Notification(payload.notification.title, notificationOptions);
+//       }
+//     });
+//   }
+// });
 
 // トークンを取得する関数（手動トリガー用）
 export const requestForToken = () => {
