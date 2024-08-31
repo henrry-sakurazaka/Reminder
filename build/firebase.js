@@ -22,7 +22,7 @@ const db = getDatabase(app); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
-const vapidKey = process.env.REACT_APP_VAPID_KEY;
+const vapidKey = "BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ";
 
 
 // トークンをサーバーに送信する関数
