@@ -1,0 +1,85 @@
+{
+  "hosting": {
+    "public": "build",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "site": "reminder3-65e84",
+    
+    "headers": [
+      {
+        "source": "/worker.js",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          },
+          {
+            "key": "Access-Control-Allow-Origin",
+            "value": "https://reminder3-65e84.web.app"
+          }
+        ]
+      },
+      {
+        "source": "/firebase-messaging-sw.js",
+        "headers": [
+          {
+            "key": "Content-Type",
+            "value": "application/javascript"
+          },
+          {
+            "key": "Cache-Control",
+            "value": "no-cache, no-store, must-revalidate"
+          }
+        ]
+      }   
+    ],
+    
+    "rewrites": [
+      {
+        "source": "/worker.js",
+        "destination": "/worker.js"
+      },
+      {
+        "source": "/firebase-messaging-sw.js",
+        "destination": "/worker.js"
+      },
+      {
+        "source": "/firebase-config.js",
+        "destination": "/firebase-config.js"
+      },
+      {
+        "source": "/api/**",
+        "function": "app"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
+      }
+    ],
+    "cleanUrls": true
+  },
+  "functions": [
+    {
+      "source": "functions",
+      "runtime": "nodejs16",
+      "ignore": [
+        "node_modules/**"
+      ],
+      "codebase": "default"
+    }
+  ],
+  "firestore": {
+    "rules": "firestore.rules",
+    "indexes": "firestore.indexes.json"
+  },
+  "database": {
+    "rules": "/database.rules.json"
+  }
+}
