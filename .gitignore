@@ -1,15 +1,11 @@
-# node_modules/
-# .firebase/
-# reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
-# functions/reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
-# node_modules
-# reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
-# firebase-messaging-sw.js.template
-# server.key
-# functions/**/node_modules/
-# functions/.firebase
-# functions/index.js
-# functions/reminder3-65e84-firebase-adminsdk-chjy7-0ab9b48339.json
-# functions/node_modules
+node_modules/
+firebase-messaging-sw.js.template
+server.key
+functions/**/node_modules/
+functions/.firebase
+functions/node_modules
+public/firebase
+functions/serviceAccoutKey.json
+serviceAccoutKey.json
+firebaseInit.js
 
-node_modules
