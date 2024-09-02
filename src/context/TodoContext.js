@@ -148,6 +148,7 @@ const todoReducer = (todos, action) => {
       const [todoContent, setTodoContent] = useState();
       const [Todo, setTodo] = useState();
       const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
+      
 
     return (
         <TodoContext.Provider value=

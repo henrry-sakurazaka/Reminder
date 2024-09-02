@@ -5,7 +5,7 @@ import { getMessaging, getToken } from 'firebase/messaging';
 import { onMessage } from 'firebase/messaging/sw';
 import { useTodos } from '../context/TodoContext';
 import { getFirestore, collection, query, where, getDocs, getDoc, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore';
-import { app, firestore, db } from '../firebase'
+import { app, firestore, db } from '../firebase';
 import useFCMToken from './useFCMtoken';
 import firebaseConfig from '../firebase';
 
@@ -17,10 +17,9 @@ if (!getApps().length) {
 const auth = getAuth();
 const user = auth.currentUser;
 
-
 const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting , todo}) => {
   const [uid, setUid] = useState(); 
-  const { notificationDocId, isDocRef } = useTodos();
+  const { notificationDocId, isDocRef, setIsSubmitting2, isSubmitting } = useTodos();
   
       onAuthStateChanged(auth, (user) => {
         if (user) {
@@ -108,24 +107,22 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
       monitorTimer();
     }, []);
 
-    // const showNotification = (task) => {
-    //   if (Notification.permission === "granted") {
-    //     new Notification("Reminder", {
-    //       body: `Task: ${task.content}`, // タスクの内容を表示
-    //       icon: '/favicon.ico', // アイコンを追加する場合の例
-    //     });
-    //   } else if (Notification.permission !== "denied") {
-    //     Notification.requestPermission().then(permission => {
-    //       if (permission === "granted") {
-    //         new Notification("Reminder", {
-    //           body: `Task: ${task.content}`, // タスクの内容を表示
-    //         });
-    //       }
-    //     });
-    //   }
-    // };
+    const notificationComplete = () => {
+      setIsSubmitting2(false);
+    }
     
- 
+    useEffect(() => {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.addEventListener('message', event => {
+          console.log('yeah')
+          if (event.data.type === 'NOTIFICATION_DISPLAYED') {
+            notificationComplete();
+          }
+        });
+      }
+    }, []);
+    
+    
   return null;
 };
 
