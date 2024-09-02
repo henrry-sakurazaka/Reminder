@@ -106,21 +106,21 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
 
       monitorTimer();
     }, []);
-
-    const notificationComplete = () => {
-      setIsSubmitting2(false);
-    }
+  //タイマーセットが完了した時にiマークを点灯させる
+    // const notificationComplete = () => {
+    //   setIsSubmitting2(false);
+    // }
     
-    useEffect(() => {
-      if ('serviceWorker' in navigator) {
-        navigator.serviceWorker.addEventListener('message', event => {
-          console.log('yeah')
-          if (event.data.type === 'NOTIFICATION_DISPLAYED') {
-            notificationComplete();
-          }
-        });
-      }
-    }, []);
+    // useEffect(() => {
+    //   if ('serviceWorker' in navigator) {
+    //     navigator.serviceWorker.addEventListener('message', event => {
+    //       console.log('yeah')
+    //       if (event.data.type === 'NOTIFICATION_DISPLAYED') {
+    //         notificationComplete();
+    //       }
+    //     });
+    //   }
+    // }, []);
     
     
   return null;

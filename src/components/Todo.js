@@ -13,16 +13,9 @@ import FirstAddTodos, { FirstAddTodosProvider } from "./FirstAddLogic";
 const Todo = () => {
    
     return (
-        <>
-            <TodoProvider> 
-                    <AsyncContextProvider>
-                        <NotificationHandler/>
-                        <TodoList/>
-                        <Form/>         
-                    </AsyncContextProvider>              
-            </TodoProvider>
-                    
-               
+        <>  
+          <TodoList/>
+            <Form/>               
         </>
     )
 };
