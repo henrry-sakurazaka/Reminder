@@ -101,7 +101,8 @@ const Modal = ( {todo} ) => {
        console.log(todo.content)
         if (isSubmitting) return ; // 重複防止
            setIsSubmitting(true);
-        if (isDate && isTime && todo.content && todo.id) {
+        
+        if (isDate && isTime && timeCheck && todo.content && todo.id) {
           const dateTime = new Date(isDate);
           dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
       
@@ -293,9 +294,12 @@ const Modal = ( {todo} ) => {
             )        
         } 
             <div className="btn-container">
+
                 <button className="set-btn" onClick={() => setTimer(todo)} 
-                   style={{color : shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)" :  "rgb(40, 147, 247, 0.772)", }} 
-                >SET</button>
+                   style={{color : shouldHandleNotifications && timeCheck ? 
+                    "rgb(8, 232, 158)" :  "rgb(40, 147, 247, 0.772)", }} 
+                >{!shouldHandleNotifications ? 'SET': 'DONE'}</button>
+                
                 {completedDateTimeSetting && shouldHandleNotifications && (
                 <NotificationHandler shouldHandleNotifications={shouldHandleNotifications} 
                 completedDateTimeSetting = {completedDateTimeSetting} 
