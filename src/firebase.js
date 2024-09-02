@@ -4,6 +4,7 @@ import { getAuth , GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
 import { getMessaging, getToken, onMessage } from "firebase/messaging";
+import { notificationComplete } from "./components/Edit";
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
@@ -89,6 +90,7 @@ export const requestForToken = () => {
     console.log('An error occurred while retrieving token. ', err);
   });
 };
+
 
 // サービスワーカーを登録し、トークンを取得
 registerServiceWorkerAndRequestToken();
