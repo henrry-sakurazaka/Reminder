@@ -2,10 +2,11 @@
 import React, { useEffect } from 'react';
 import { useTodos } from '../context/TodoContext';
 
-const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime, todo}) => {
+const MyTimePicker = ({ isTime, handleTimeChange, inputTime, shouldHandleNotifications, timeCheck }) => {
   
   const { selectedTime, 
           setDisplayTimePicker, setDisplayDatePicker,
+          completeDateTimeSetting
         } = useTodos();
         
     useEffect(() => {
@@ -17,8 +18,8 @@ const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime, todo}
   
 
   return (
-    <div className="time-picker-container" style={{ border: "1px solid #ccc", padding: "8px", borderRadius: "4px" }}>
-      <h2 style={{ color: " rgb(48, 48, 219)" }}>Time Picker</h2>
+    <div className="time-picker-container" style={{ border: shouldHandleNotifications && timeCheck ? "1px solid rgb(8, 232, 158)" :"1px solid #ccc", padding: "8px", borderRadius: "4px" }}>
+      <h2 style={{ color: shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)" : "rgb(48, 48, 219)" }}>Time Picker</h2>
       <input 
           className="MyTimePicker"
           onChange={handleTimeChange}
@@ -32,7 +33,7 @@ const MyTimePicker = ({ isTime, handleTimeChange, inputTime, setInputTime, todo}
        }} 
       />
      
-      <p style={{ color: " rgb(48, 48, 219)" }}>Selected time: {inputTime}</p>
+      <p style={{ color: shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)" : " rgb(48, 48, 219)" }}>Selected time: {inputTime}</p>
     </div>
   );
 }
