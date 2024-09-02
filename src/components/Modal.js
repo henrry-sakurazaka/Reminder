@@ -136,6 +136,7 @@ const Modal = ( {todo} ) => {
             setIsDocRef(docRef);
             setCompletedDateTimeSetting(true);
             setShouldHandleNotifications(true);
+            setIsSubmitting2(true);
 
             console.log('Notification data has been written to Firestore successfully');
           } catch (error) {

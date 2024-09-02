@@ -4,9 +4,6 @@ import { useDispatchTodos, useTodos } from "../context/TodoContext";
 import Modal from "./Modal";
 
 
-// import Todo2 from "../api/Todo2";
-
-
 const Edit= ({todo}) => {
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
@@ -23,7 +20,7 @@ const Edit= ({todo}) => {
         completedDateTimeSetting,  setCompletedDateTimeSetting,
         setNotificationDocId, isSubmitting, setIsSubmitting,
         setIsDocRef, reseveModeTodo, reserveModeId, Todo, setTodo,
-        setShouldHandleNotifications
+        setShouldHandleNotifications, isSubmitting2, setIsSubmitting2
 
       } = useTodos();
     const [editingContent, setEditingContent] = useState(todo.content);
@@ -80,11 +77,12 @@ const Edit= ({todo}) => {
         !modalOpen && setContainerTimeCheck(false); 
         !modalOpen && setShouldHandleNotifications(false);  
     }
-   
+
+    
      return (
          <div key={todo.id} className="modalParent">
                 <span className="circleI" onClick={() => toggleReseveMode(todo)}
-                style={{color: modalOpen && todo.editingColor && todo.editingDateTime && todo.editingLock ? 'yellow' :  !modalOpen && 'grey' }} >i</span> 
+                style={{color: isSubmitting2 && todo.editingColor && todo.editingDateTime && todo.editingLock ? 'yellow' :  !modalOpen && 'grey' }} >i</span> 
                 
                 <button className="compBtn" onClick={() => complete2(todo)} onDoubleClick={() => complete(todo)} style={{ color: todo.completed ? 'rgb(8, 232, 158)' : 'none' }}>
                     {todo.completed ? 'Completed' : 'Complete'}
