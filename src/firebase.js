@@ -52,12 +52,6 @@ const sendTokenToServer = async (token) => {
 const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
-      // 古いService Workerの解除
-      const registrations = await navigator.serviceWorker.getRegistrations();
-      for (let registration of registrations) {
-        await registration.unregister();
-        console.log('Old Service Worker unregistered');
-      }
       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/' });
       console.log('Service Worker registration successful with scope: ', registration.scope);
       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
@@ -73,36 +67,13 @@ const registerServiceWorkerAndRequestToken = async () => {
   }
 };
 
+//  // 古いService Workerの解除
+//        const registrations = await navigator.serviceWorker.getRegistrations();
+//        for (let registration of registrations) {
+//          await registration.unregister();
+//          console.log('Old Service Worker unregistered');
+//        }
 
-// onMessage(messaging, (payload) => {
-//   console.log('Message received. ', payload);
-//   // 通知の表示コードをここに追加
-//   // ブラウザが通知を表示する許可を持っているかを確認
-//   if (Notification.permission === 'granted') {
-//     // 通知のオプションを設定
-//     const notificationOptions = {
-//       body: payload.notification.body,
-//       icon: payload.notification.icon
-//     };
-
-//     // 通知を表示
-//     new Notification(payload.notification.title, notificationOptions);
-//   } else {
-//     // 許可をリクエストする
-//     Notification.requestPermission().then((permission) => {
-//       if (permission === 'granted') {
-//         // 通知のオプションを設定
-//         const notificationOptions = {
-//           body: payload.notification.body,
-//           icon: payload.notification.icon
-//         };
-
-//         // 通知を表示
-//         new Notification(payload.notification.title, notificationOptions);
-//       }
-//     });
-//   }
-// });
 
 // トークンを取得する関数（手動トリガー用）
 export const requestForToken = () => {

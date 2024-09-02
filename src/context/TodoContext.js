@@ -25,7 +25,8 @@ const todoList = [
     editingLock: false,
     editingColor: false,
     editingDateTime: false,
-    notification: false
+    notification: false,
+    shouldHandleNotifications: false
   },
   { 
     title: "send a letter",
@@ -39,7 +40,8 @@ const todoList = [
     editingLock: false,
     editingColor: false,
     editingDateTime: false,
-    notification: false
+    notification: false,
+    shouldHandleNotifications: false
 
   },
   {
@@ -54,7 +56,8 @@ const todoList = [
     editingLock: false,
     editingColor: false,
     editingDateTime: false,
-    notification: false
+    notification: false,
+    shouldHandleNotifications: false
   }
 ]
 
@@ -108,7 +111,7 @@ const todoReducer = (todos, action) => {
     case 'todo/notification':
       return todos.map(_todo =>
         _todo.id === action.todo.id
-          ? { ..._todo, notification: true }
+          ? { ..._todo, notification: true, shouldHandleNotifications: true }
           : { ..._todo }
       );  
     default: 
@@ -137,12 +140,14 @@ const todoReducer = (todos, action) => {
       const [AddTodosExecuted, setAddTodosExecuted] = useState(false);
       const [notificationDocId, setNotificationDocId] = useState();
       const [isSubmitting, setIsSubmitting] = useState();
+      const [isSubmitting2, setIsSubmitting2] = useState();
       const [isDocRef, setIsDocRef] = useState();
       const [reserveModeTodo, setReserveModeTodo] = useState();
       const [reserveModeId, setReserveModeId] = useState();
       const [todoId, setTodoId] = useState();
       const [todoContent, setTodoContent] = useState();
       const [Todo, setTodo] = useState();
+      const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
 
     return (
         <TodoContext.Provider value=
@@ -160,7 +165,8 @@ const todoReducer = (todos, action) => {
             notificationDocId, setNotificationDocId, isSubmitting, setIsSubmitting,
             isDocRef, setIsDocRef, reserveModeTodo, setReserveModeTodo,
             reserveModeId, setReserveModeId, todoId, setTodoId, todoContent,
-            setTodoContent, Todo, setTodo
+            setTodoContent, Todo, setTodo, shouldHandleNotifications, setShouldHandleNotifications,
+            isSubmitting2, setIsSubmitting2
             }}>
               
           <TodoDispatchContext.Provider value={dispatch}>    

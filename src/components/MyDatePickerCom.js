@@ -5,10 +5,10 @@ import { useEffect } from "react";
 
 
 
-const MyDatePickerCom = ({isDate, handleDateChange, todo}) => {
+const MyDatePickerCom = ({isDate, handleDateChange, shouldHandleNotifications, timeCheck}) => {
 
   const {selectedDate, 
-        setDisplayDatePicker,setDisplayTimePicker,
+        setDisplayDatePicker,setDisplayTimePicker
         } = useTodos();
         
         useEffect(() => {
@@ -18,8 +18,8 @@ const MyDatePickerCom = ({isDate, handleDateChange, todo}) => {
        
    
     return (
-      <div className="date-picker-container" style={{ border: "1px solid #ccc", padding: "8px", borderRadius: "4px" }}>
-        <h2 style={{ color: " rgb(48, 48, 219)" }}>Date Picker</h2>
+      <div className="date-picker-container" style={{ border: shouldHandleNotifications && timeCheck ? "1px solid rgb(8, 232, 158)" :"1px solid #ccc", padding: "8px", borderRadius: "4px" }}>
+        <h2 style={{ color: shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)": "rgb(48, 48, 219)" }}>Date Picker</h2>
 
           <MyDatePicker
             className="DateTimePicker custom"
@@ -32,7 +32,7 @@ const MyDatePickerCom = ({isDate, handleDateChange, todo}) => {
             autoOk
           />
         {selectedDate && isDate &&  (
-        <p style={{ color: " rgb(48, 48, 219)"  }}>Selected Date: {isDate.toLocaleDateString()}</p>
+        <p style={{ color: shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)" : " rgb(48, 48, 219)"  }}>Selected Date: {isDate.toLocaleDateString()}</p>
       )}   
       </div>
     );
