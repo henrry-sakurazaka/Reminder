@@ -48,7 +48,7 @@ const sendTokenToServer = async (token) => {
   }
 };
 
-// サービスワーカーを登録し、トークンを取得する関数
+
 export const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
@@ -64,16 +64,16 @@ export const registerServiceWorkerAndRequestToken = async () => {
     } catch (err) {
       console.log('An error occurred while retrieving token. ', err);
     }
-    navigator.serviceWorker.getRegistrations().then(function(registrations) {
-      for(let registration of registrations) {
-        registration.unregister().then(function() {
-          console.log('Old Service Worker unregistered');
-          navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
-            console.log('New Service Worker registered');
-          });
-        });
-      }
-    });
+    // navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    //   for(let registration of registrations) {
+    //     registration.unregister().then(function() {
+    //       console.log('Old Service Worker unregistered');
+    //       navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
+    //         console.log('New Service Worker registered');
+    //       });
+    //     });
+    //   }
+    // });
   }
 };
 
