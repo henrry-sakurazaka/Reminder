@@ -22,7 +22,9 @@ const Edit= ({todo}) => {
         setSelectedDate, setSelectedTime,
         completedDateTimeSetting,  setCompletedDateTimeSetting,
         setNotificationDocId, isSubmitting, setIsSubmitting,
-        setIsDocRef, reseveModeTodo, reserveModeId, Todo, setTodo
+        setIsDocRef, reseveModeTodo, reserveModeId, Todo, setTodo,
+        setShouldHandleNotifications
+
       } = useTodos();
     const [editingContent, setEditingContent] = useState(todo.content);
     const dispatch = useDispatchTodos();
@@ -75,7 +77,8 @@ const Edit= ({todo}) => {
         !modalOpen && setIsDateChecked(false);
         !modalOpen && setIsTimeChecked(false);
         !modalOpen && setContainerDateCheck(false); 
-        !modalOpen && setContainerTimeCheck(false);   
+        !modalOpen && setContainerTimeCheck(false); 
+        !modalOpen && setShouldHandleNotifications(false);  
     }
    
      return (
@@ -97,7 +100,7 @@ const Edit= ({todo}) => {
                         </span>}
                 </form> 
 
-                {modalOpen ?(
+                {modalOpen && todo.id == Todo.id ?(
                 <div key={todo.id}>
                     <Modal todo={Todo} /> 
                 </div>    

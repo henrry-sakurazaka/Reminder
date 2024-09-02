@@ -64,7 +64,6 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
                 id: doc.id,
                 notificationTime: doc.data().notificationTime.toDate(), // タイムスタンプをDate型に変換
               }));
-    
               localStorage.setItem('tasks', JSON.stringify(tasks)); // ローカルストレージに保存
             } catch (error) {
               console.error("Error fetching notifications: ", error);
