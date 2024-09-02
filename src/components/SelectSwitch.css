@@ -47,11 +47,11 @@
   }
   
   input:checked + .slider {
-    background-color: rgb(48, 48, 219);
+    background-color: rgb(4, 47, 112);
   }
   
   input:focus + .slider {
-    box-shadow: 0 0 1px rgb(48, 48, 219);
+    box-shadow: 0 0 1px  rgb(4, 47, 112);
   }
   
   input:checked + .slider:before {
@@ -70,5 +70,5 @@
   }
 
   h4 {
-    color: rgb(48, 48, 219);
+    color: rgba(40, 147, 247, 0.772);
   }

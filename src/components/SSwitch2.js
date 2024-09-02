@@ -3,7 +3,7 @@ import "./SSwitch2.css";
 import { useTodos } from "../context/TodoContext";
 
 
-const SSwitch2 = ({handleTimeCheckboxChange}) => {
+const SSwitch2 = ({ handleTimeCheckboxChange, shouldHandleNotifications, timeCheck }) => {
 
     const {isTimeChecked, setIsTimeChecked } = useTodos();
 
@@ -16,14 +16,14 @@ const SSwitch2 = ({handleTimeCheckboxChange}) => {
     return (
         <>
             <div className="inner-container">  
-                <h4 className="time">TIME</h4>
+                <h4 className="time" style={{color: shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)" : "rgb(48, 48, 219)"}}>TIME</h4>
                 <label className="switch2">
                 <input type="checkbox"
                 checked={isTimeChecked}
                 onChange={handleTimeCheckboxChange}
                 />
                  
-                <span className="slider round"></span>
+                <span className="slider round" style={{color: shouldHandleNotifications ? "rgb(8, 232, 158)" : "rgb(48, 48, 219)"}}></span>
                 </label>
             </div>
         </>

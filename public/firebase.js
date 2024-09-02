@@ -52,12 +52,6 @@ const sendTokenToServer = async (token) => {
 export const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
-       // 古いService Workerの解除
-       const registrations = await navigator.serviceWorker.getRegistrations();
-       for (let registration of registrations) {
-         await registration.unregister();
-         console.log('Old Service Worker unregistered');
-       }
       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' , scope: '/'});
       console.log('Service Worker registration successful with scope: ', registration.scope);
       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
@@ -70,6 +64,16 @@ export const registerServiceWorkerAndRequestToken = async () => {
     } catch (err) {
       console.log('An error occurred while retrieving token. ', err);
     }
+    // navigator.serviceWorker.getRegistrations().then(function(registrations) {
+    //   for(let registration of registrations) {
+    //     registration.unregister().then(function() {
+    //       console.log('Old Service Worker unregistered');
+    //       navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
+    //         console.log('New Service Worker registered');
+    //       });
+    //     });
+    //   }
+    // });
   }
 };
 
@@ -94,12 +98,14 @@ const showNotification = (task) => {
     new Notification("Reminder", {
       body: `Task: ${task.content}`, // タスクの内容を表示
       icon: '/favicon.ico', // アイコンを追加する場合の例
+      tag: 'unique-notification-id', // 一意のタグを設定
     });
   } else if (Notification.permission !== "denied") {
     Notification.requestPermission().then(permission => {
       if (permission === "granted") {
         new Notification("Reminder", {
           body: `Task: ${task.content}`, // タスクの内容を表示
+          tag: 'unique-notification-id', // 一意のタグを設定
         });
       }
     });
