@@ -21,8 +21,8 @@ const Modal = ( {todo} ) => {
     const [isTime, setIsTime] = useState(new Date());
     const [inputTime, setInputTime] = useState('');
     const [prevIsDate, setPrevIsDate] = useState(isDate);
-    const [prevIsTime, setPrevIsTime] = useState(isTime);
-    const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
+    const [prevIsTime, setPrevIsTime] = useState(isTime); 
+    const [timeCheck, setTimeCheck] = useState(false); 
     const user = auth.currentUser;
     const [uid, setUid] = useState(); // uidの初期化
     
@@ -39,7 +39,9 @@ const Modal = ( {todo} ) => {
         completedDateTimeSetting,  setCompletedDateTimeSetting,
         setNotificationDocId, isSubmitting, setIsSubmitting,
         setIsDocRef, reserveModeTodo, reserveModeId,
-        setReserveModeId, todoId, setTodoId, Todo, setTodo
+        setReserveModeId, todoId, setTodoId, Todo, setTodo,
+        shouldHandleNotifications, setShouldHandleNotifications,
+        isSubmitting2, setIsSubmitting2
     } = useTodos();
 
     useEffect(() => {
@@ -91,28 +93,29 @@ const Modal = ( {todo} ) => {
         setIsTime(newTime);
         setInputTime(value)
         setIsTimeSet(true);
+        setTimeCheck(true);
     };
    
     
-    const setTimer = async () => {
+    const setTimer = async (todo) => {
        console.log(todo.content)
-        if (isSubmitting) return; // 重複防止
-      
-        setIsSubmitting(true);
+        if (isSubmitting) return ; // 重複防止
+           setIsSubmitting(true);
         if (isDate && isTime && todo.content && todo.id) {
           const dateTime = new Date(isDate);
           dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
       
           try {
             const notificationData = {
-              title: 'Reminder',
-              description: 'Time is approaching, receive to push notification..',
-              type: 'string',
-              notificationTime: dateTime,
-              todoId: uid,
-              content: todo.content,
-              id: todo.id
+                title: 'Reminder',
+                description: 'Time is approaching, receive to push notification..',
+                type: 'string',
+                notificationTime: dateTime,
+                todoId: uid,
+                content: todo.content,
+                id: todo.id,
             };
+            
             
             // 一意のIDを生成
             const docId = uuidv4();
@@ -125,15 +128,15 @@ const Modal = ( {todo} ) => {
             console.log('Generated docId:', docId);
             const newTodo = {
                 ...todo,
-                notification: true
+                notification: true,
+
             }
             dispatch({ type: "todo/notification", todo: newTodo });
             setNotificationDocId(docId);
             setIsDocRef(docRef);
             setCompletedDateTimeSetting(true);
             setShouldHandleNotifications(true);
-           
-      
+
             console.log('Notification data has been written to Firestore successfully');
           } catch (error) {
             console.error('Error writing notification data to Firestore: ', error);
@@ -143,7 +146,7 @@ const Modal = ( {todo} ) => {
         } else {
           setIsSubmitting(false);
         }
-
+    
         try {
             const permission = await Notification.requestPermission();
             if (permission === 'granted') {
@@ -174,20 +177,27 @@ const Modal = ( {todo} ) => {
         }   
     }, [ isDate, isTime ]);
 
-  
+  console.log('timeCheck',timeCheck)
     return (  
         modalOpen ? (
-        <div key={todo.id} className="modal">
+        <div key={todo.id} className="modal" 
+        style={{backgroundColor: shouldHandleNotifications && completedDateTimeSetting && timeCheck ? 'transparent' : 'rgba(40, 147, 247, 0.772)', border: shouldHandleNotifications && completedDateTimeSetting && timeCheck ? "1px solid rgb(8, 232, 158)" :  "1px solid rgb(48, 48, 219)"}}>
             <div className="switch-container" onClick={() => switchFunction()}>
                 <SelectSwitch
                     isChecked={isDateChecked} 
                     handleCheckboxChange={handleDateCheckboxChange}
+                    shouldHandleNotifications={shouldHandleNotifications}
+                    inputTime={inputTime}
+                    timeCheck={timeCheck}
                 />
             </div>
             <div className="switch-container2" onClick={() => switchFunction2()}>
                 <SSwitch2
                     isChecked={isTimeChecked}
                     handleCheckboxChange={handleTimeCheckboxChange}
+                    shouldHandleNotifications={shouldHandleNotifications}
+                    inputTime={inputTime}
+                    timeCheck={timeCheck}
                 />
             </div>
 
@@ -205,6 +215,8 @@ const Modal = ( {todo} ) => {
                     inputTime={inputTime}
                     setInputTime={setInputTime}
                     handleTimeChange={handleTimeChange}
+                    shouldHandleNotifications={shouldHandleNotifications} 
+                    timeCheck={timeCheck}  
                 />
             ) : isDateChecked && isTimeChecked && isContainerDateCheck ? (
                 <MyDatePickerCom
@@ -213,6 +225,9 @@ const Modal = ( {todo} ) => {
                     isDate={isDate}
                     inputVariant="outlined"
                     handleDateChange={handleDateChange}
+                    shouldHandleNotifications={shouldHandleNotifications}
+                    inputTime={inputTime}
+                    timeCheck={timeCheck}
                 />  
             ) : isDateChecked && isTimeChecked ? (
                 <MyTimePicker
@@ -264,19 +279,26 @@ const Modal = ( {todo} ) => {
                 />
             ) : (
                 <>
-                    <div className="message-container">
+                    <div className="message-container" style={{backgroundColor: 
+                        !isContainerDateCheck && !isContainerTimeCheck && shouldHandleNotifications 
+                        && completedDateTimeSetting && timeCheck
+                        ? "rgb(8, 232, 158)" : "rgb(48, 48, 219)"}}>
+                        
                         <h2 className="message">Please Select</h2> 
                         <h2 className="message"> Setting</h2> 
                         <h2 className="message"> Date & Time</h2>
                     </div>
                 </>
-            )          
+            )        
         } 
-            <div  className="btn-container">
-                <button className="set-btn" onClick={() => setTimer()}>SET</button>
+            <div className="btn-container">
+                <button className="set-btn" onClick={() => setTimer(todo)} 
+                   style={{color : shouldHandleNotifications && timeCheck ? "rgb(8, 232, 158)" :  "rgb(40, 147, 247, 0.772)", }} 
+                >SET</button>
                 {completedDateTimeSetting && shouldHandleNotifications && (
                 <NotificationHandler shouldHandleNotifications={shouldHandleNotifications} 
-                completedDateTimeSetting = {completedDateTimeSetting} todo={todo}/>
+                completedDateTimeSetting = {completedDateTimeSetting} 
+                todo={todo}/>
                 )}
             </div>
          </div>
