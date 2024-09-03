@@ -5,19 +5,29 @@ import { useTodos } from "../context/TodoContext";
 
 
 const Example = () => {
-
-  
     const { modalOpen, timeCheck } = useTodos();
+    const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
+
+    const getColor = () => {
+        return timeCheck && modalOpen 
+            ? "rgb(8, 232, 158)" 
+            : modalOpen 
+            ? "rgba(40, 147, 247, 0.772)" 
+            : "rgb(8, 232, 158)";
+    };
+
     
     return (
         <>
          <div className="triangle"></div>
             <div className="decoration">
-                <span className="slash"></span>
-                <span className="slash"></span>
-                <span className="slash"></span>
-                <span className="slash"></span>
-                <span className="slash"></span>
+                {spans.map((_, index) => (
+                <span 
+                    key={index} 
+                    className="slash" 
+                    style={{ backgroundColor: getColor() }}
+                ></span>
+                ))}
             </div>
       
         <div className="container">

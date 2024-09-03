@@ -102,30 +102,30 @@ self.addEventListener('activate', event => {
 // setInterval(checkNotificationTime, 10000);
 
 
-self.addEventListener('push', event => {
-  const data = event.data.json();
+// self.addEventListener('push', event => {
+//   const data = event.data.json();
 
-   // メインスクリプトからオプションを受け取る
-   const options = { 
-    body: data.body, 
-    icon: data.icon, 
-    tag: data.tag 
-  };
+//    // メインスクリプトからオプションを受け取る
+//    const options = { 
+//     body: data.body, 
+//     icon: data.icon, 
+//     tag: data.tag 
+//   };
 
-  event.waitUntil(
-    self.registration.showNotification(data.title, options).then(() => {
-      // Reactコンポーネントに通知が表示されたことを知らせる
-      self.clients.matchAll().then(clients => {
-        clients.forEach(client => {
-          client.postMessage({
-            type: 'NOTIFICATION_DISPLAYED',
-            payload: { title: data.title, body: data.body }
-          });
-        });
-      });
-    })
-  );
-});
+//   event.waitUntil(
+//     self.registration.showNotification(data.title, options).then(() => {
+//       // Reactコンポーネントに通知が表示されたことを知らせる
+//       self.clients.matchAll().then(clients => {
+//         clients.forEach(client => {
+//           client.postMessage({
+//             type: 'NOTIFICATION_DISPLAYED',
+//             payload: { title: data.title, body: data.body }
+//           });
+//         });
+//       });
+//     })
+//   );
+// });
 
 
 self.addEventListener('notificationclick', function(event) {
