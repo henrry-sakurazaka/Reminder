@@ -52,6 +52,16 @@ const sendTokenToServer = async (token) => {
 export const registerServiceWorkerAndRequestToken = async () => {
   if ('serviceWorker' in navigator) {
     try {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+          registration.unregister().then(function() {
+            console.log('Old Service Worker unregistered');
+            navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
+              console.log('New Service Worker registered');
+            });
+          });
+        }
+    });
       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' , scope: '/'});
       console.log('Service Worker registration successful with scope: ', registration.scope);
       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
@@ -64,16 +74,6 @@ export const registerServiceWorkerAndRequestToken = async () => {
     } catch (err) {
       console.log('An error occurred while retrieving token. ', err);
     }
-    // navigator.serviceWorker.getRegistrations().then(function(registrations) {
-    //   for(let registration of registrations) {
-    //     registration.unregister().then(function() {
-    //       console.log('Old Service Worker unregistered');
-    //       navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
-    //         console.log('New Service Worker registered');
-    //       });
-    //     });
-    //   }
-    // });
   }
 };
 

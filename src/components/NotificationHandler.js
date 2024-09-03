@@ -34,8 +34,6 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
         }
       });
 
-      
-
       useEffect(() => {
         const unsubscribe = onAuthStateChanged(auth, (user) => {
           if (user) {
