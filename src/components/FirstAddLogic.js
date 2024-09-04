@@ -3,9 +3,8 @@ import { useEffect, useState, useMemo} from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkAuthentication } from './checkAuthentication';
 import { createContext, useContext} from "react";
-import { useDispatchTodos, useTodos } from "../context/TodoContext";
 import { firestore} from "../firebase";
-import { collection, doc, setDoc, getDoc, addDoc} from 'firebase/firestore';
+import { collection, doc, addDoc} from 'firebase/firestore';
 
 
 
@@ -108,11 +107,8 @@ const FirstAddTodosProvider = ({ childeren }) => {
       }
     });
   }, [navigate]);
-console.log(savedToDatabase)
-  // データベースにtodosを保存する関数
-  
-    // データベースへの保存処理をここに実装する
 
+  // データベースにtodosを保存する関数
        const saveNewDataToFirestore =  async () => {
           console.log('yes')
               try {    
@@ -133,29 +129,6 @@ console.log(savedToDatabase)
             { childeren }
         </FirstAddTodosProvider>
     )
-    
-//   // アプリのメインコンテンツを返す
-//   return (
-//     <>
-//       {authenticated ? (
-//         <div>
-//           <PrivateRoute>
-//             <TodoProvider>
-//               <Example />
-//             </TodoProvider> 
-//           </PrivateRoute>
-//         </div>
-//       ) : (
-//         <div>
-//           <PrivateRoute>
-//             <TodoProvider>
-//               <UserAuth/>
-//             </TodoProvider>
-//           </PrivateRoute>
-//         </div>
-//       )}
-//     </>
-//   );
 }
 
 const useFirstAddLogic = () => useContext(FirstAddLogic);
