@@ -4,10 +4,7 @@ import { BrowserRouter } from 'react-router-dom';
 import { render, screen } from '@testing-library/react';
 import FirstAuth from './FirstAuth';
 import { mockAuth } from '../firebase'; // Firebase.js をインポート
-import { getAuth } from 'firebase/auth'; // FirebaseのgetAuth関数をインポート
 import { checkAuthentication } from './checkAuthentication'; // checkAuthentication関数をインポート
-// import { auth, db, mockAuth } from '../firebase'; // Firebase.js をインポート
-import { app, auth } from '../firebase'; // パスは適切な場所に変更してください
 
 
 // Firebaseのモックを作成

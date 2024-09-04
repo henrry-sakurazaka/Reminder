@@ -3,8 +3,8 @@ import { initializeApp, getApps, getApp} from "firebase/app";
 import { getAuth , GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
-import { getMessaging, getToken, onMessage } from "firebase/messaging";
-import { notificationComplete } from "./components/Edit";
+import { getMessaging, getToken } from "firebase/messaging";
+
 
 const firebaseConfig = {
   apiKey: process.env.REACT_APP_FIREBASE_API_KEY,

@@ -1,5 +1,4 @@
 'use strict';
-import { notificationComplete } from "./components/Edit";
 
 
 self.addEventListener('push', function(event) {
