@@ -8,6 +8,7 @@ import "./SignIn.css";
 
 // Firebase Messagingの初期化
 const messaging = getMessaging(app);
+const vapidKey = process.env.REACT_APP_VAPID_KEY;
 
 const urlBase64ToUint8Array = (base64String) => {
   const padding = '='.repeat((4 - base64String.length % 4) % 4);
@@ -38,17 +39,15 @@ function SignIn() {
       // PushManagerでのサブスクリプション
       const subscription = await registration.pushManager.subscribe({
         userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array('BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ')
+        applicationServerKey: urlBase64ToUint8Array(vapidKey)
       });
       const pushManagerToken = subscription.endpoint;
       console.log('PushManager Subscription Token:', pushManagerToken);
   
       // Firebase Cloud Messagingのトークン取得
-      const currentToken = await getToken(messaging, { vapidKey: 'BGQ-lpzb0CU-TJkFizvdjn5rOCioZIi7cC571P27IFlU9JFU73O1l0zP_U3jF84An2y3kD1GWZgtSCns6-4LZiQ' });
+      const currentToken = await getToken(messaging, { vapidKey: vapidKey });
       console.log("FCM Token:", currentToken);
       
-
-       
           return currentToken;
         } catch (error) {
           console.error('Error getting device token:', error);
@@ -56,7 +55,6 @@ function SignIn() {
         }
       };
     
-
 
   // サーバーにトークンを送信する関数
   const sendTokensToServer = async (idToken, deviceToken) => {
