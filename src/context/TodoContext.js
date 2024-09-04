@@ -1,16 +1,9 @@
 import React from "react";
-import { createContext, useContext, useReducer, useState, useCallback } from "react";
-import { useAsyncContext } from "./AsyncContext";
-import { initializeApp } from "firebase/app";
-import { getFirestore } from 'firebase/firestore';
-import { getDoc, updateDoc} from 'firebase/firestore';
-import firebaseConfig from "../firebase";
-
+import { createContext, useContext, useReducer, useState } from "react";
+import { getDoc } from 'firebase/firestore';
 
  const TodoContext = createContext();
  const TodoDispatchContext = createContext();
-//  const firebaseApp = initializeApp(firebaseConfig);
-//  const firestore = getFirestore(firebaseApp);
 
 const todoList = [
   {

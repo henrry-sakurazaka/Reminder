@@ -1,16 +1,11 @@
 
 import React from "react";
-import { useCallback } from "react";
-import { getAuth, onAuthStateChanged } from "firebase/auth";
+import { onAuthStateChanged } from "firebase/auth";
 import { createContext , useState, useRef, useEffect, useContext, useMemo} from "react";
 import { useDispatchTodos, useTodos } from "./TodoContext";
 import { firestore, auth } from "../firebase";
-// import { initializeApp } from "firebase/app";
-// import firebaseConfig from "../firebase";
-import { doc, setDoc, getDoc, updateDoc, getFirestore } from 'firebase/firestore';
+import { doc, setDoc, getDoc } from 'firebase/firestore';
 
-
-// const firebaseApp = initializeApp(firebaseConfig);
 const AsyncLogic = createContext();
 
 
@@ -44,11 +39,6 @@ const AsyncContextProvider = ({ children }) => {
       return () => unsubscribe();
     }, []);
     
-    // useEffect(() => {
-    //   setTodosChanged(true);
-    // }, [dispatch]);
-    
-   
    
     console.log('todoChanged',todosChanged)
 
@@ -130,20 +120,16 @@ const AsyncContextProvider = ({ children }) => {
           console.log("User signed out or not yet logged in");
         }
       });
-  
+
     return () => unsubscribe();
-      // return () => setTodosToFirestore();
     }, [dispatch, todos, firestore, todosConverter2])   
     
    
-
-
 
 useEffect(() => {
   
   const fetchTodosFromFirestore = async (uid) => {
       try {
-        console.log('yes')
           const todoDocRef = doc(firestore, 'todoList3', uid);
           const snapshot =  await getDoc(todoDocRef);
           console.log(snapshot)
@@ -179,12 +165,7 @@ useEffect(() => {
         });
         
         return () => unsubscribe();
-        
-        // if(uid) {
-        //   fetchTodosFromFirestore(uid);
-        // }
-        // return () => fetchTodosFromFirestore(user.uid);
-        // fetchTodosFromFirestore(user.uid);
+  
     }, [GetConverter, dispatch]);
 
 

@@ -1,12 +1,8 @@
-import { useEffect, useMemo, useState} from 'react';
+import { useEffect, useState } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged  } from 'firebase/auth';
-import { getMessaging, getToken } from 'firebase/messaging'; 
-import { onMessage } from 'firebase/messaging/sw';
-import { useTodos } from '../context/TodoContext';
-import { getFirestore, collection, query, where, getDocs, getDoc, onSnapshot, doc, setDoc, updateDoc } from 'firebase/firestore';
-import { app, firestore, db } from '../firebase';
-import useFCMToken from './useFCMtoken';
+import { collection, query, where, getDocs, onSnapshot } from 'firebase/firestore';
+import { firestore } from '../firebase';
 import firebaseConfig from '../firebase';
 
 
@@ -19,7 +15,6 @@ const user = auth.currentUser;
 
 const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetting , todo}) => {
   const [uid, setUid] = useState(); 
-  const { notificationDocId, isDocRef, setIsSubmitting2, isSubmitting } = useTodos();
   
       onAuthStateChanged(auth, (user) => {
         if (user) {

@@ -2,12 +2,9 @@
 import React, { useEffect } from 'react';
 import { useTodos } from '../context/TodoContext';
 
-const MyTimePicker = ({ isTime, handleTimeChange, inputTime, shouldHandleNotifications, timeCheck }) => {
+const MyTimePicker = ({ handleTimeChange, inputTime, shouldHandleNotifications, timeCheck }) => {
   
-  const { selectedTime, 
-          setDisplayTimePicker, setDisplayDatePicker,
-          completeDateTimeSetting
-        } = useTodos();
+  const { setDisplayTimePicker, setDisplayDatePicker } = useTodos();
         
     useEffect(() => {
       setDisplayTimePicker(true);

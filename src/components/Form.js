@@ -8,17 +8,12 @@ import { auth } from "../firebase";
     
 
 const Form = () => {
-
-    
-    const dispatch = useDispatchTodos();
-    
-    const { todos, task,
-            enteredTodo, setEnteredTodo,
-            setAddTodosExecuted
-            
+    const dispatch = useDispatchTodos(); 
+    const { enteredTodo, setEnteredTodo,
+            setAddTodosExecuted       
     } = useTodos();
-    const user = auth.currentUser;
-    const [uid, setUid] = useState(); // uidの初期化
+    // const user = auth.currentUser;
+    // const [uid, setUid] = useState(); // uidの初期化
     
    
     const addTodo = () => {
@@ -47,30 +42,29 @@ const Form = () => {
     }
 
     
-// gitにプッシュ
-   // Custom hook to manage todos
-const UseMidleTodos = (todoList, uid, firestore) => {
 
-    // Function to handle reset todos
-    const handleResetTodos = useCallback(async () => {
-      try {
-        const todoDocRef = doc(firestore, 'todoList3', uid);
-        await updateDoc(todoDocRef, { todos: [] });
-        console.log('Todos successfully reset');
-      } catch (error) {
-        console.error('Error resetting todos:', error);
-      }
-    }, [firestore, uid]);
+// const UseMidleTodos = (todoList, uid, firestore) => {
+
+    
+//     const handleResetTodos = useCallback(async () => {
+//       try {
+//         const todoDocRef = doc(firestore, 'todoList3', uid);
+//         await updateDoc(todoDocRef, { todos: [] });
+//         console.log('Todos successfully reset');
+//       } catch (error) {
+//         console.error('Error resetting todos:', error);
+//       }
+//     }, [firestore, uid]);
   
-    // Effect to watch for reset action
-    useEffect(() => {
-      if (todos.length === 0) {
-        handleResetTodos();
-      }
-    }, [todos, handleResetTodos]);
+//     // Effect to watch for reset action
+//     useEffect(() => {
+//       if (todos.length === 0) {
+//         handleResetTodos();
+//       }
+//     }, [todos, handleResetTodos]);
   
-    return [todos, dispatch];
-  };
+//     return [todos, dispatch];
+//   };
    
     
     return(
@@ -92,9 +86,7 @@ const UseMidleTodos = (todoList, uid, firestore) => {
                     </button>
                 </div>       
         </div>
-
-    );
-       
+    );     
 }
 
 export default Form;
