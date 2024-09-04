@@ -33,8 +33,6 @@ const Example = () => {
         <div className="container">
             <section>
                 <div className="big-title">
-                    {/* <h1 className="big-text" style={{color: modalOpen && " rgba(40, 147, 247, 0.772)" , color: timeCheck && modalOpen && "rgb(8, 232, 158)"}}  >REMINDER</h1>
-                     */}
                      <h1 className="big-text" 
                         style={{ 
                             color: timeCheck && modalOpen ? "rgb(8, 232, 158)" 

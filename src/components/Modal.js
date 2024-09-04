@@ -2,7 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useTodos, useDispatchTodos } from "../context/TodoContext";
 import { onAuthStateChanged } from "firebase/auth";
 import { firestore, auth } from "../firebase";
-import { collection, addDoc, setDoc, doc} from 'firebase/firestore';
+import { collection, setDoc, doc } from 'firebase/firestore';
 import SSwitch2 from "./SSwitch2";
 import MyTimePicker from "./MyTimePicker";
 import MyDatePickerCom from "./MyDatePickerCom";
@@ -11,7 +11,6 @@ import NotificationHandler from "./NotificationHandler";
 import 'firebase/firestore'; // Firestoreを使用する場合
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
-import { useAsyncContext } from "../context/AsyncContext";
 import { v4 as uuidv4 } from 'uuid';
 
 
@@ -26,22 +25,18 @@ const Modal = ( {todo} ) => {
     const user = auth.currentUser;
     const [uid, setUid] = useState(); // uidの初期化
     
-    const { convertedNotificationData } = useAsyncContext();
     const { 
         isDateChecked, isTimeChecked, 
         setIsDateChecked, setIsTimeChecked,
         isContainerDateCheck, setContainerDateCheck,
         isContainerTimeCheck, setContainerTimeCheck,
-        modalOpen,
-        displayDatePicker, displayTimePicker, 
-        isTimeSet, isDateSet, setIsTimeSet, setIsDateSet,
+        modalOpen, setIsTimeSet, setIsDateSet,
         setSelectedDate, setSelectedTime,
-        completedDateTimeSetting,  setCompletedDateTimeSetting,
+        completedDateTimeSetting, setCompletedDateTimeSetting,
         setNotificationDocId, isSubmitting, setIsSubmitting,
-        setIsDocRef, reserveModeTodo, reserveModeId,
-        setReserveModeId, todoId, setTodoId, Todo, setTodo,
-        shouldHandleNotifications, setShouldHandleNotifications,
-        isSubmitting2, setIsSubmitting2
+        setIsDocRef, 
+        shouldHandleNotifications, setShouldHandleNotifications
+
     } = useTodos();
 
     useEffect(() => {
@@ -54,9 +49,6 @@ const Modal = ( {todo} ) => {
         return () => unsubscribe();
       }, []);
 
-    // useEffect(() => {
-    //     console.log(todo)
-    // }, [todo]); 
    
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
@@ -294,7 +286,6 @@ const Modal = ( {todo} ) => {
             )        
         } 
             <div className="btn-container">
-
                 <button className="set-btn" onClick={() => setTimer(todo)} 
                    style={{color : shouldHandleNotifications && timeCheck ? 
                     "rgb(8, 232, 158)" :  "rgb(40, 147, 247, 0.772)", }} 
@@ -307,9 +298,7 @@ const Modal = ( {todo} ) => {
                 )}
             </div>
          </div>
-        ) : null
-               
+        ) : null          
     );     
- 
 };
 export default Modal;

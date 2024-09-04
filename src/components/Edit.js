@@ -5,28 +5,19 @@ import Modal from "./Modal";
 
 
 const Edit= ({todo}) => {
-    const [isDate, setIsDate] = useState(new Date());
-    const [isTime, setIsTime] = useState(new Date());
+    // const [isDate, setIsDate] = useState(new Date());
+    // const [isTime, setIsTime] = useState(new Date());
     const { setModalOpen,
         setReserveModeTodo, setReserveModeId,
-        isDateChecked, isTimeChecked, 
         setIsDateChecked, setIsTimeChecked,
-        isContainerDateCheck, setContainerDateCheck,
-        isContainerTimeCheck, setContainerTimeCheck,
-        modalOpen,
-        displayDatePicker, displayTimePicker, 
-        isTimeSet, isDateSet, setIsTimeSet, setIsDateSet,
-        setSelectedDate, setSelectedTime,
-        completedDateTimeSetting,  setCompletedDateTimeSetting,
-        setNotificationDocId, isSubmitting, setIsSubmitting,
-        setIsDocRef, reseveModeTodo, reserveModeId, Todo, setTodo,
-        setShouldHandleNotifications, isSubmitting2, setIsSubmitting2
+        setContainerDateCheck, setContainerTimeCheck,
+        modalOpen, Todo, setTodo,
+        setShouldHandleNotifications, isSubmitting2
 
       } = useTodos();
     const [editingContent, setEditingContent] = useState(todo.content);
     const dispatch = useDispatchTodos();
-    // const { isTimeCheck, setIsTimeCheck, isDateCheck, setIsDateCheck} = useTodos();
-    
+   
         
     const changeContent = (e) => {
         setEditingContent(e.target.value);

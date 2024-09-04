@@ -10,8 +10,7 @@ const TodoList = () => {
   console.log('data',data)
   
     return ( 
-        <> 
-           
+        <>      
           {loading ? ( 
                 <div>Loading...</div>
             ) : ( 
@@ -22,10 +21,8 @@ const TodoList = () => {
                             <Edit key={todo.id} todo={todo} />
                         ) : null     
                     ))}
-
                 </div>
-              
-            )}       
+             )}       
         </>    
     );
 }
