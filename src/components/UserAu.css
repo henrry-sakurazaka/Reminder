@@ -11,23 +11,43 @@ body {
     width: 100vw;
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;   
+}
+
+.circle2 {
+    width: 336px;
+    height: 336px;
+    border:  1px solid yellowgreen; 
+    border-radius: 50%;
+    
 }
 
 .inner9-container {
-    width: 320px;
-    height: 320px;
+    width: 336px;
+    height: 336px;
+    position: relative;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    border:  1px solid rgb(8, 232, 158); 
+}
+.decoration-container {
+    width: 336px;
+    height: 336px;
+    position: absolute;
+    border:  1px solid rgb(8, 232, 158); 
 }
 
 .select-auth {
     width: 240px;
     height: 64px;
-    color: rgb(8, 232, 158);
+    /* color: rgba(40, 147, 247, 0.772); */
+    color: rgb(245, 245, 144);
     text-align: center;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     cursor: pointer;
     font-size: 24px;
 }
@@ -42,3 +62,31 @@ body {
 .select-auth:hover {
     text-decoration: underline;
 }
+.slash2 {
+    width: 16px;
+    height: 1px;
+    display: flex;
+    flex-direction: column;
+    background-color: yellowgreen;
+    transform-origin: left;
+    transform: rotate(-45deg);
+    overflow: hidden;
+    margin-bottom: 4px;
+    overflow: hidden;
+  }
+  .slash2:nth-child(1) {
+    margin-top: 8px;
+    width: 10px;
+  }
+  .slash2:nth-child(2) {
+    width: 20px;
+  }
+  .slash2:nth-child(3) {
+    width: 27px;
+  }
+  .slash2:nth-child(4) {
+    width: 32px;
+  }
+  .slash2:nth-child(5) {
+    width: 40px;
+  }
