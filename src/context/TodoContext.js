@@ -1,6 +1,7 @@
 import React from "react";
 import { createContext, useContext, useReducer, useState } from "react";
 import { getDoc } from 'firebase/firestore';
+import { set } from "date-fns";
 
  const TodoContext = createContext();
  const TodoDispatchContext = createContext();
@@ -141,6 +142,7 @@ const todoReducer = (todos, action) => {
       const [todoContent, setTodoContent] = useState();
       const [Todo, setTodo] = useState();
       const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
+      const [agree, setAgree] = useState();
       
 
     return (
@@ -160,7 +162,7 @@ const todoReducer = (todos, action) => {
             isDocRef, setIsDocRef, reserveModeTodo, setReserveModeTodo,
             reserveModeId, setReserveModeId, todoId, setTodoId, todoContent,
             setTodoContent, Todo, setTodo, shouldHandleNotifications, setShouldHandleNotifications,
-            isSubmitting2, setIsSubmitting2
+            isSubmitting2, setIsSubmitting2, agree, setAgree
             }}>
               
           <TodoDispatchContext.Provider value={dispatch}>    
