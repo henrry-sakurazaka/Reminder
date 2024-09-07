@@ -1,4 +1,4 @@
-
+import React from "react";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
 import { updateProfile, createUserWithEmailAndPassword } from "firebase/auth";
@@ -54,7 +54,7 @@ const todoList = [
 
  
 function SignUp() {
-
+    const [ agree, setAgree ] = useState();
     const todosConverter2 = useMemo(() => {
         return {
           toFirestore: (todos) => {
@@ -90,9 +90,29 @@ function SignUp() {
     const { name, email, password } = formData;
     const navigate = useNavigate();
 
+    const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
+
+    const getColor = () => "rgba(40, 147, 247, 0.772)" 
+  
+
+
     const onChange = (e) => {
         setFormData({ ...formData, [e.target.id]: e.target.value });
     };
+    const agreement = () => {
+      setAgree(true);
+    }
+    const navigateTerms = () => {
+      navigate('/Terms')
+
+    }
+    const navigatePolicy = () => {
+      navigate('/PrivacyPolicy');
+    }
+
+    const navigationHandler = () => {
+      navigate('/UserAuth')
+  }
 
       const onSubmit = async (e) => {
         e.preventDefault();
@@ -101,22 +121,30 @@ function SignUp() {
           if (password.length < 6) {
             throw new Error("Password must be at least 6 characters long.");
           }
-    
-          const userCredential = await createUserWithEmailAndPassword(auth, email, password);
-          const user = userCredential.user;
-          console.log("User signed up successfully:", user);
-    
-          // ユーザーの表示名を設定する
-          await updateProfile(auth.currentUser, {
-            displayName: name,
-          });
-          const convertedData = todosConverter2.toFirestore(todoList);
-          const dataWithUid = { todoId: user.uid, todos: convertedData };
+          if (agree) {
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const user = userCredential.user;
+            console.log("User signed up successfully:", user);
+            // ユーザーの表示名を設定する
+            await updateProfile(auth.currentUser, {
+              displayName: name,
+            });
+            const convertedData = todosConverter2.toFirestore(todoList);
+            const dataWithUid = { todoId: user.uid, todos: convertedData, agreement: agree };
+  
+            // サインアップ成功時にtodoListを保存する
+            await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
+      
+            navigate('/Example');
 
-          // サインアップ成功時にtodoListを保存する
-          await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
-    
-          navigate('/Example');
+          } else {
+            return (
+              <div>
+                <h2>Agreement Required 利用規約に同意が必要です。</h2>
+              </div>
+            )
+          }
+         
         } catch (error) {
           // エラーをコンソールにログ出力するだけではなく、ユーザーにエラーを表示することも考慮する
           console.error('Error signing up:', error.message);
@@ -126,6 +154,18 @@ function SignUp() {
       };
 
     return (
+      <>
+       <div className="triangle"></div>
+            <div className="decoration">
+                {spans.map((_, index) => (
+                <span 
+                    key={index} 
+                    className="slash" 
+                    style={{ backgroundColor: getColor() }}
+                ></span>
+                ))}
+            </div>
+        <span className="back-to-auth" onClick={navigationHandler}>Back To Auth</span>
         <div className="auth-container">
             <div className="outline-container">
                 <form onSubmit={onSubmit}>
@@ -159,12 +199,33 @@ function SignUp() {
                         className="form-input"
                         autoComplete="current-password"
                     />
+
+                    <ul className="agreement-resource">
+                      <li className="terms" onClick={() => navigateTerms()} >Terms of Service</li>
+                      <li className="policy" onClick={() => navigatePolicy()} >PrivacyPolicy</li>
+                      <p className="request">Request Agreement for Terms of Service</p>
+                    </ul>
+                
+                    <div className="inner-container2">
+                      
+                       <input type="checkbox"  className="agree-check" 
+                        onClick={() => agreement()}
+                       />
+                       <div className="agree-container">
+                            <span className="important" style={{color: agree ? "rgb(8, 232, 158)" : "rgba(40, 147, 247, 0.772)"}} >
+                             { agree ? 'Agreed' : 'Agree' }
+                            </span>
+                       </div>   
+                    </div>
+                      
                     <button type="submit" className="form-button">
                         Submit
                     </button>
                 </form>
             </div>
         </div>
+      </>
+      
     );
 }
 
