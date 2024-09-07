@@ -11,8 +11,9 @@ function SignOut() {
     const handleSignOut = async () => {
       try {
         await signOut(auth);
-        navigate('/UserAuth'); // ログアウト後にリダイレクトする場所を指定します
-      } catch (error) {
+        setTimeout(() => navigate('/UserAuth'), 10000);
+
+       } catch (error) {
         console.error('ログアウトエラー:', error);
       }
     };
@@ -21,8 +22,9 @@ function SignOut() {
     localStorage.clear();
 
   }, [navigate]);
-
-  return null; // ログアウトの間は何も表示しないためnullを返します
+  return (
+     <div>Signed Out successfully</div>
+  )
 }
 
 export default SignOut;
