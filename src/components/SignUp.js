@@ -106,6 +106,10 @@ function SignUp() {
       navigate('/Terms')
 
     }
+    const navigateTerms2 = () => {
+      navigate('/Terms2')
+
+    }
     const navigatePolicy = () => {
       navigate('/PrivacyPolicy');
     }
@@ -131,10 +135,15 @@ function SignUp() {
             });
             const convertedData = todosConverter2.toFirestore(todoList);
             const dataWithUid = { todoId: user.uid, todos: convertedData, agreement: agree };
-  
-            // サインアップ成功時にtodoListを保存する
-            await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
+               // サインアップ成功時にtodoListを保存する
+          
+            if(auth.currentUser) {
+              await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
       
+            } else {
+              throw new Error( "User is not authenticated.");
+            }
+         
             navigate('/Example');
 
           } else {
@@ -145,11 +154,14 @@ function SignUp() {
             )
           }
          
-        } catch (error) {
-          // エラーをコンソールにログ出力するだけではなく、ユーザーにエラーを表示することも考慮する
-          console.error('Error signing up:', error.message);
-          // エラーメッセージを表示するなど、適切なユーザー通知を行う
+        } catch (error) {  
           alert(error.message);
+          if (error.code === 'auth/email-already-in-use') {
+            alert('This email is already in use. Please use a different email.');
+          } else {
+            console.error('Error signing up:', error.message);
+            alert(error.message);
+          }
         }
       };
 
@@ -201,7 +213,8 @@ function SignUp() {
                     />
 
                     <ul className="agreement-resource">
-                      <li className="terms" onClick={() => navigateTerms()} >Terms of Service</li>
+                      <li className="terms" onClick={() => navigateTerms()} >Terms of Service Japanese</li>
+                      <li className="terms" onClick={() => navigateTerms2()} >Terms of Service English</li>
                       <li className="policy" onClick={() => navigatePolicy()} >PrivacyPolicy</li>
                       <p className="request">Request Agreement for Terms of Service</p>
                     </ul>
