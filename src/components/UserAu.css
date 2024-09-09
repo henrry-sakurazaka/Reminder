@@ -17,7 +17,8 @@ body {
 .circle2 {
     width: 336px;
     height: 336px;
-    border:  1px solid yellowgreen; 
+    /* border:  1px solid rgb(245, 245, 167);  */
+    border:  1px solid rgba(40, 147, 247, 0.772); 
     border-radius: 50%;
     
 }
@@ -30,20 +31,20 @@ body {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    border:  1px solid rgb(8, 232, 158); 
+    border:  0.5px solid rgb(244, 232, 164); 
 }
 .decoration-container {
     width: 336px;
     height: 336px;
     position: absolute;
-    border:  1px solid rgb(8, 232, 158); 
+    border:  0.5px solid rgb(244, 232, 164); 
 }
 
 .select-auth {
     width: 240px;
     height: 64px;
-    /* color: rgba(40, 147, 247, 0.772); */
-    color: rgb(245, 245, 144);
+    color: #ccc;
+    /* color: rgb(245, 245, 144); */
     text-align: center;
     display: flex;
     justify-content: center;
