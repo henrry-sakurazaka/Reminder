@@ -13,7 +13,8 @@ const UserAuth = () => {
 
     // const getColor = () => "rgb(8, 232, 158)";
     const getColor = () => "rgba(40, 147, 247, 0.772)";
-    const getColor2 = () => "yellowGreen";
+    // const getColor2 = () => "rgb(245, 245, 167)";
+    const getColor2 = () => "rgba(40, 147, 247, 0.772)";
 
   
 
@@ -46,6 +47,15 @@ const UserAuth = () => {
 
     return (
         <> 
+         <div className="decoration">
+                    {spans.map((_, index) => (
+                    <span 
+                        key={index} 
+                        className="slash" 
+                        style={{ backgroundColor: getColor() }}
+                    ></span>
+                    ))}
+                </div>
             <div className="container">
             <div className="decoration-container">
                 <div className="decoration2">

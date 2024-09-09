@@ -92,6 +92,7 @@ function SignIn() {
         email,
         password
       );
+  
 
       if (userCredential.user) {
         const idToken = await userCredential.user.getIdToken();
@@ -108,36 +109,59 @@ function SignIn() {
      
   };
 
+  const getColor = () => "rgba(40, 147, 247, 0.772)";
+  const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
+  
+  const navigationHandler = () => {
+    navigate('/UserAuth')
+}
+  
+
   return (
-    <div className="auth-container">
-      <div className="outline-container">
-        <form onSubmit={onSubmit}>
-          <input
-            type="email"
-            placeholder="Email"
-            id="email"
-            value={email}
-            required
-            onChange={onChange}
-            className="form-input"
-            autoComplete="email"
-          />
-          <input
-            type="password"
-            placeholder="Password"
-            id="password"
-            value={password}
-            required
-            onChange={onChange}
-            className="form-input"
-            autoComplete="current-password"
-          />
-          <button type="submit" className="form-button">
-            Submit
-          </button>
-        </form>
+    <>
+      
+      <div className="decoration">
+          {spans.map((_, index) => (
+          <span 
+              key={index} 
+              className="slash2" 
+              style={{ backgroundColor: getColor() }}
+          ></span>
+          ))}
       </div>
-    </div>
+      <span className="back-to-auth" onClick={navigationHandler}>Back To Auth</span>
+  
+      <div className="auth-container">
+        <div className="outline-container">
+          <form onSubmit={onSubmit}>
+            <input
+              type="email"
+              placeholder="Email"
+              id="email"
+              value={email}
+              required
+              onChange={onChange}
+              className="form-input"
+              autoComplete="email"
+            />
+            <input
+              type="password"
+              placeholder="Password"
+              id="password"
+              value={password}
+              required
+              onChange={onChange}
+              className="form-input"
+              autoComplete="current-password"
+            />
+            <button type="submit" className="form-button">
+              Submit
+            </button>
+          </form>
+        </div>
+      </div>
+    </>
+    
   );
 }
 
