@@ -22,6 +22,7 @@ const Modal = ( {todo} ) => {
     const [prevIsDate, setPrevIsDate] = useState(isDate);
     const [prevIsTime, setPrevIsTime] = useState(isTime); 
     const [timeCheck, setTimeCheck] = useState(false); 
+    const [isSupported, setIsSupported] = useState(true);
     const user = auth.currentUser;
     const [uid, setUid] = useState(); // uidの初期化
     
@@ -48,8 +49,21 @@ const Modal = ( {todo} ) => {
       
         return () => unsubscribe();
       }, []);
-
-   
+    useEffect(() => {
+        if(!('Notificaion' in window )) {
+            setIsSupported(false);
+        }
+    })
+    const warningMessage = () => {
+        if(!isSupported) {
+            return (
+                <div className="warning-message">
+                    <p className="warning">This browser does not supported notifications</p>
+                </div>
+            )
+        }
+       
+    }
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
     };
@@ -172,10 +186,11 @@ const Modal = ( {todo} ) => {
     }, [ isDate, isTime ]);
 
   console.log('timeCheck',timeCheck)
-    return (  
+    return ( 
         modalOpen ? (
         <div key={todo.id} className="modal" 
         style={{backgroundColor: shouldHandleNotifications && completedDateTimeSetting && timeCheck ? 'transparent' : 'rgba(40, 147, 247, 0.772)', border: shouldHandleNotifications && completedDateTimeSetting && timeCheck ? "1px solid rgb(8, 232, 158)" :  "1px solid rgb(48, 48, 219)"}}>
+            {warningMessage()}
             <div className="switch-container" onClick={() => switchFunction()}>
                 <SelectSwitch
                     isChecked={isDateChecked} 
@@ -283,7 +298,7 @@ const Modal = ( {todo} ) => {
                         <h2 className="message"> Date & Time</h2>
                     </div>
                 </>
-            )        
+            ) 
         } 
             <div className="btn-container">
                 <button className="set-btn" onClick={() => setTimer(todo)} 
@@ -298,7 +313,7 @@ const Modal = ( {todo} ) => {
                 )}
             </div>
          </div>
-        ) : null          
+        ) : null 
     );     
 };
 export default Modal;
