@@ -6,15 +6,18 @@ import "./UserAu.css";
 
 const auth = getAuth();
 
+
 const UserAuth = () => {   
     const navigate = useNavigate();
+    let num = 5;
+    let spans = [];
 
-    const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
+    for(let i = 0; i < num; i++) {
+        spans.push(i);
+    }
+    // const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成
     const [ isSignOut , setIsSignOut ] = useState(false);
-
-    // const getColor = () => "rgb(8, 232, 158)";
     const getColor = () => "rgba(40, 147, 247, 0.772)";
-    // const getColor2 = () => "rgb(245, 245, 167)";
     const getColor2 = () => "rgba(40, 147, 247, 0.772)";
 
   
@@ -25,6 +28,7 @@ const UserAuth = () => {
     const handleClickSignIn = () => {
         navigate('/SignIn');
     }
+
     const handleClickSignOut = () => {
         signOut(auth).then(() => {
             console.log('ログアウトしました');
@@ -34,8 +38,9 @@ const UserAuth = () => {
         }).catch((error) => {
             // エラー発生時の処理
             console.error('ログアウトエラー:', error);
-        }); 
+        });
     }
+
     const message = () => {
         if(isSignOut) {
             return (
