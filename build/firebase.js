@@ -97,7 +97,7 @@ const showNotification = (task) => {
   if (Notification.permission === "granted") {
     new Notification("Reminder", {
       body: `Task: ${task.content}`, // タスクの内容を表示
-      icon: '/favicon.ico', // アイコンを追加する場合の例
+      icon: '/favicon.png', // アイコンを追加する場合の例
       tag: 'unique-notification-id', // 一意のタグを設定
     });
   } else if (Notification.permission !== "denied") {
