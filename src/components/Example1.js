@@ -20,7 +20,7 @@ const Example1 = () => {
     
     return (
         <>
-          <span className="logout" onClick={navigationHandler}>Sign Out</span>
+          <span className="logout" onClick={navigationHandler}>Back to Auth</span>
             
                 <AsyncContextProvider>
                     <NotificationHandler/>

@@ -22,8 +22,11 @@ function SignOut() {
     localStorage.clear();
 
   }, [navigate]);
+
   return (
-     <div>Signed Out successfully</div>
+     <div className='sign-out'>
+       <h2>Signed Out successfully</h2>
+     </div>
   )
 }
 
