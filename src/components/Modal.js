@@ -49,11 +49,13 @@ const Modal = ( {todo} ) => {
       
         return () => unsubscribe();
       }, []);
+
     useEffect(() => {
-        if(!('Notificaion' in window )) {
+        if(!('Notification' in window )) {
             setIsSupported(false);
         }
-    })
+    }, []);
+
     const warningMessage = () => {
         if(!isSupported) {
             return (
@@ -61,8 +63,7 @@ const Modal = ( {todo} ) => {
                     <p className="warning">This browser does not supported notifications</p>
                 </div>
             )
-        }
-       
+        }  
     }
     const handleDateCheckboxChange = (isDateChecked) => {
         setIsDateChecked(isDateChecked ? false : true);  
@@ -184,6 +185,16 @@ const Modal = ( {todo} ) => {
             }   
         }   
     }, [ isDate, isTime ]);
+
+    const message = () => {
+        if(shouldHandleNotifications) {
+            return (
+                <div className="successful">
+                    <h3 className="set-message">Completed Setting</h3>
+                </div>
+            )
+        }
+    }
 
   console.log('timeCheck',timeCheck)
     return ( 
@@ -312,6 +323,7 @@ const Modal = ( {todo} ) => {
                 todo={todo}/>
                 )}
             </div>
+            { message()}
          </div>
         ) : null 
     );     
