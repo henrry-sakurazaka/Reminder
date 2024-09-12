@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from 'firebase/auth';
 import "./UserAu.css";
@@ -10,6 +10,7 @@ const UserAuth = () => {
     const navigate = useNavigate();
 
     const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
+    const [ isSignOut , setIsSignOut ] = useState(false);
 
     // const getColor = () => "rgb(8, 232, 158)";
     const getColor = () => "rgba(40, 147, 247, 0.772)";
@@ -25,16 +26,24 @@ const UserAuth = () => {
         navigate('/SignIn');
     }
     const handleClickSignOut = () => {
-        // ログアウト処理を行う
         signOut(auth).then(() => {
-            // ログアウト成功時の処理
             console.log('ログアウトしました');
-            // ログアウト後にリダイレクトする
-            navigate('/UserAuth');
+            setIsSignOut(true);
+            localStorage.clear();
+
         }).catch((error) => {
             // エラー発生時の処理
             console.error('ログアウトエラー:', error);
-        });
+        }); 
+    }
+    const message = () => {
+        if(isSignOut) {
+            return (
+                <div className='sign-out'>
+                  <h3>Signed Out successfully</h3>
+                </div>
+             )
+        }   
     }
     
     const handleClickEasyLogin = () => {
@@ -57,17 +66,17 @@ const UserAuth = () => {
                     ))}
                 </div>
             <div className="container">
-            <div className="decoration-container">
-                <div className="decoration2">
-                    {spans.map((_, index) => (
-                    <span 
-                        key={index} 
-                        className="slash2" 
-                        style={{ backgroundColor: getColor2() }}
-                    ></span>
-                    ))}
+                <div className="decoration-container">
+                    <div className="decoration2">
+                        {spans.map((_, index) => (
+                        <span 
+                            key={index} 
+                            className="slash2" 
+                            style={{ backgroundColor: getColor2() }}
+                        ></span>
+                        ))}
+                    </div>
                 </div>
-            </div>
                 <div className="circle2">
                     <div className="inner9-container">
                         <span className="select-auth" onClick={() => handleClickSignUp()}>Sign Up</span>
@@ -77,7 +86,9 @@ const UserAuth = () => {
                         <span className="select-auth" onClick={() => handleDeleteAccount()}>Delete Account</span>
                     </div>
                 </div> 
+                { message() }
             </div>
+            
         </>
         
     )

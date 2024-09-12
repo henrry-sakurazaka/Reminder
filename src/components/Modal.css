@@ -72,3 +72,13 @@
     outline: none;
 }
 
+.warning-message {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 1000;
+}
+.warning {
+    color: rgb(246, 246, 137)
+}

@@ -91,3 +91,9 @@ body {
   .slash2:nth-child(5) {
     width: 40px;
   }
+  .sign-out {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+  }
