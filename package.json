@@ -58,6 +58,7 @@
   "devDependencies": {
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@craco/craco": "^5.9.0",
+    "@playwright/test": "^1.47.0",
     "firebase-admin": "^12.2.0",
     "firebase-functions": "^5.0.1",
     "firebase-mock": "^2.2.4",
