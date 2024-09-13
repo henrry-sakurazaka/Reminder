@@ -89,8 +89,21 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
             const notificationTime = new Date(timerData.notificationTime).getTime();
 
             if (notificationTime > currentTime) {
-              setTimeout(() => {
+              setTimeout(async () => {
                 showNotification(timerData);
+
+                // 通知が表示された後にFirestoreから削除
+              try {
+                await deleteDoc(doc(firestore, 'notifications', timerData.id));
+                console.log(`Notification with ID ${timerData.id} deleted from Firestore.`);
+              } catch (error) {
+                console.error("Error deleting notification: ", error);
+              }
+
+              // ローカルストレージからも削除
+              const updatedTasks = timerDatas.filter(task => task.id !== timerData.id);
+              localStorage.setItem('tasks', JSON.stringify(updatedTasks));
+
               }, notificationTime - currentTime);
             }
           });
