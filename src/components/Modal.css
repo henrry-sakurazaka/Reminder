@@ -83,6 +83,10 @@
     color: rgb(246, 246, 137)
 }
 
+.successful {
+    z-index: 1000;
+    position: absolute;
+}
 .set-message {
-    color: rgb(67, 98, 6);
+    color:  rgb(40, 147, 247, 0.772);
 }
