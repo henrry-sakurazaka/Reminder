@@ -56,10 +56,8 @@ const NotificationHandler = ({ shouldHandleNotifications, completedDateTimeSetti
                 notificationTime: doc.data().notificationTime.toDate(), // タイムスタンプをDate型に変換 
               }));
               localStorage.setItem('tasks', JSON.stringify(tasks)); // ローカルストレージに保存
-              const ids = querySnapshot.docs.map(doc => doc.id);
-              setUsedId(ids);
-              console.log('usedId', usedId)
-
+              // const ids = querySnapshot.docs.map(doc => doc.id);
+              // setUsedId(ids);
             } catch (error) {
               console.error("Error fetching notifications: ", error);
             }
