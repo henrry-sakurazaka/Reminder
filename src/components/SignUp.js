@@ -54,7 +54,7 @@ const todoList = [
 
  
 function SignUp() {
-    const [ agree, setAgree ] = useState();
+    const [ agree, setAgree ] = useState(false);
     const todosConverter2 = useMemo(() => {
         return {
           toFirestore: (todos) => {
@@ -134,7 +134,7 @@ function SignUp() {
               displayName: name,
             });
             const convertedData = todosConverter2.toFirestore(todoList);
-            const dataWithUid = { todoId: user.uid, todos: convertedData, agreement: agree };
+            const dataWithUid = { todoId: user.uid, agreement: agree, todos: convertedData };
                // サインアップ成功時にtodoListを保存する
           
             if(auth.currentUser) {
