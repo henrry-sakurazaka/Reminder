@@ -67,6 +67,10 @@
     "node-gyp": "^10.1.0",
     "text-encoding": "^0.7.0"
   },
+  "jest": {
+    "setupFilesAfterEnv": ["<rootDir>/jest.setup.js"],
+    "testEnvironment": "jsdom"
+  },
   "moduleNameMapper": {
     "^firebase$": "firebase"
   },
