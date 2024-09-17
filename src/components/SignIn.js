@@ -3,8 +3,10 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, app } from "../firebase"; 
 import { getMessaging, getToken } from "firebase/messaging";
-import axios from "axios";
+// import axios from "axios";
 import "./SignIn.css";
+
+const axios = require("axios");
 
 // Firebase Messagingの初期化
 const messaging = getMessaging(app);
