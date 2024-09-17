@@ -1,4 +1,4 @@
-import { useEffect } from "react";
+import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Example from "./components/Example";
 import FirstAuth from "./components/FirstAuth";
@@ -11,43 +11,10 @@ import DeleteAccount from "./components/DeleteAccount";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import Terms2 from "./components/Terms2";
-import { getMessaging, getToken, onMessage } from "firebase/messaging"; // Firebase関連のインポートを追加
+
 
 export default function App() {
-  // useEffect(() => {
-  //   const messaging = getMessaging(); // メッセージングインスタンスを取得
-
-  //   // 通知の許可を求める
-  //   Notification.requestPermission().then((permission) => {
-  //     if (permission === 'granted') {
-  //       console.log('Notification permission granted.');
-  //     } else {
-  //       console.log('Unable to get permission to notify.');
-  //     }
-  //   });
-
-  //   onMessage(messaging, (payload) => {
-  //     console.log('Message received. ', payload);
-  //     // 通知の表示コードをここに追加
-  //     if (Notification.permission === 'granted') {
-  //       const notificationOptions = {
-  //         body: payload.notification.body,
-  //         icon: payload.notification.icon
-  //       };
-  //       new Notification(payload.notification.title, notificationOptions);
-  //     } else {
-  //       Notification.requestPermission().then((permission) => {
-  //         if (permission === 'granted') {
-  //           const notificationOptions = {
-  //             body: payload.notification.body,
-  //             icon: payload.notification.icon
-  //           };
-  //           new Notification(payload.notification.title, notificationOptions);
-  //         }
-  //       });
-  //     }
-  //   });
-  // }, []);
+  
 
   return (
     <div className="App">
