@@ -92,10 +92,8 @@ const UserAuth = () => {
                     </div>
                 </div> 
                 { message() }
-            </div>
-            
-        </>
-        
+            </div> 
+        </> 
     )
 }
 
