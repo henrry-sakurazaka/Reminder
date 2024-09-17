@@ -6,9 +6,11 @@ import { firestore } from '../firebase';
 import firebaseConfig from '../firebase';
 
 
-if (!getApps().length) {
-  initializeApp(firebaseConfig);
-}
+// if (!getApps().length) {
+//   initializeApp(firebaseConfig);
+// }
+
+initializeApp(firebaseConfig);
 
 const auth = getAuth();
 const user = auth.currentUser;
