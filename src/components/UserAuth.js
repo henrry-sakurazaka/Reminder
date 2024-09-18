@@ -44,7 +44,7 @@ const UserAuth = () => {
     const message = () => {
         if(isSignOut) {
             return (
-                <div className='sign-out'>
+                <div className='sign-out2'>
                   <h3>Signed Out successfully</h3>
                 </div>
              )

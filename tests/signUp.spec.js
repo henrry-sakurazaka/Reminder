@@ -1,12 +1,15 @@
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
+test.setTimeout(60000);
+
 test('サインアップ機能のテスト', async ({ page }) => {
     await page.goto('https://reminder3-65e84.web.app/SignUp'); 
 
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
 
+    await page.fill('#name', 'Crala')
     await page.fill('#email', email); 
     await page.fill('#password', password); 
 
