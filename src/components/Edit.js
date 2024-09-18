@@ -12,9 +12,10 @@ const Edit= ({todo}) => {
         setIsDateChecked, setIsTimeChecked,
         setContainerDateCheck, setContainerTimeCheck,
         modalOpen, Todo, setTodo,
-        setShouldHandleNotifications, isSubmitting2
-
+        setShouldHandleNotifications, isSubmitting2,
+        isSet
       } = useTodos();
+
     const [editingContent, setEditingContent] = useState(todo.content);
     const dispatch = useDispatchTodos();
    
@@ -73,7 +74,7 @@ const Edit= ({todo}) => {
      return (
          <div key={todo.id} className="modalParent">
                 <span className="circleI" onClick={() => toggleReseveMode(todo)}
-                style={{color: isSubmitting2 && todo.editingColor && todo.editingDateTime && todo.editingLock ? 'yellow' :  !modalOpen && 'grey' }} >i</span> 
+                style={{color: isSet && todo.editingColor && todo.editingDateTime && todo.editingLock ? 'yellow' : 'grey' }} >i</span> 
                 
                 <button className="compBtn" onClick={() => complete2(todo)} onDoubleClick={() => complete(todo)} style={{ color: todo.completed ? 'rgb(8, 232, 158)' : 'none' }}>
                     {todo.completed ? 'Completed' : 'Complete'}
@@ -90,7 +91,7 @@ const Edit= ({todo}) => {
                 </form> 
 
                 {modalOpen && todo.id == Todo.id ?(
-                <div key={todo.id}>
+                <div className='modal' key={todo.id}>
                     <Modal todo={Todo} /> 
                 </div>    
                    

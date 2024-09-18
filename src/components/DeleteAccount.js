@@ -79,7 +79,7 @@ const DeleteAccount = () => {
         <div className='auth-container'>
             <div className='outline-container'>
                 <h2>アカウント削除中...</h2>
-                <p>{message}</p>
+                <p className='message'>{message}</p>
             </div>
         </div>
       )}
