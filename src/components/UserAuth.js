@@ -84,11 +84,11 @@ const UserAuth = () => {
                 </div>
                 <div className="circle2">
                     <div className="inner9-container">
-                        <span className="select-auth" onClick={() => handleClickSignUp()}>Sign Up</span>
-                        <span className="select-auth" onClick={() => handleClickSignIn()}>Sign In</span>
-                        <span className="select-auth" onClick={() => handleClickSignOut()}>Sign Out</span>
-                        <span className="select-auth" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
-                        <span className="select-auth" onClick={() => handleDeleteAccount()}>Delete Account</span>
+                        <span className="select-auth sign-up" onClick={() => handleClickSignUp()}>Sign Up</span>
+                        <span className="select-auth sign-in" onClick={() => handleClickSignIn()}>Sign In</span>
+                        <span className="select-auth sign-out" onClick={() => handleClickSignOut()}>Sign Out</span>
+                        <span className="select-auth easy-login" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
+                        <span className="select-auth delete-account" onClick={() => handleDeleteAccount()}>Delete Account</span>
                     </div>
                 </div> 
                 { message() }

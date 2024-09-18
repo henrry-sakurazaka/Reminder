@@ -124,6 +124,10 @@
     text-decoration: underline;
     cursor: pointer;
   }
+  .terms2:hover {
+    text-decoration: underline;
+    cursor: pointer;
+  }
 
   .back-to-auth {
     position: absolute;

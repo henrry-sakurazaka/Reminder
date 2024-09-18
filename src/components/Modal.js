@@ -36,7 +36,8 @@ const Modal = ( {todo} ) => {
         completedDateTimeSetting, setCompletedDateTimeSetting,
         setNotificationDocId, isSubmitting, setIsSubmitting,
         setIsDocRef, 
-        shouldHandleNotifications, setShouldHandleNotifications
+        shouldHandleNotifications, setShouldHandleNotifications,
+        setIsSet
 
     } = useTodos();
 
@@ -144,6 +145,7 @@ const Modal = ( {todo} ) => {
             setIsDocRef(docRef);
             setCompletedDateTimeSetting(true);
             setShouldHandleNotifications(true);
+            // setIsSet(true);
             // setIsSubmitting2(true);
 
             console.log('Notification data has been written to Firestore successfully');
