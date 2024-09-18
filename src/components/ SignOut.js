@@ -24,7 +24,7 @@ function SignOut() {
   }, [navigate]);
 
   return (
-     <div className='sign-out'>
+     <div className='sign-out2'>
        <h2>Signed Out successfully</h2>
      </div>
   )
