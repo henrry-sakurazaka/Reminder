@@ -4,7 +4,7 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
 
     await page.goto('https://reminder3-65e84.web.app/Edit');
 
-    await page.fill('input','test');
+    await page.fill('input#task','test');
     await expect(page.locator('span')).toHaveText('test');
 
     await page.click('button.add');
@@ -15,7 +15,7 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
     await expect(page.locator('button.compBtn')).toHaveCSS('color', 'rgb(8, 232, 158)');
     await expect(page.locator('span')).toHaveCSS('text-decoration', 'line-through');
     await expect(page.locator('span')).toHaveCSS('color', 'rgb(8, 232, 158)');
-    
+
     await page.click('span.circleI');
     await expect(page.locator('div')).toBeVisible('div .modal')   
 });

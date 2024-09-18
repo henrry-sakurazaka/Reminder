@@ -7,8 +7,8 @@ test('アカウント削除のテスト', async ({ page }) => {
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
 
-    await page.fill('#email', email);
-    await page.fill('#password', password);
+    // await page.fill('#email', email);
+    // await page.fill('#password', password);
     await page.click('span.delete-account'); 
 
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/DeleteAccount'); 
