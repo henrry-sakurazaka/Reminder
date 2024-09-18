@@ -1,3 +1,5 @@
+const { test, expect } = require('@playwright/test');
+
 test('ログインテスト', async ({ page }) => {
     await page.goto('https://reminder3-65e84.web.app/SignIn');  
     
