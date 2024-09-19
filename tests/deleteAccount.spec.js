@@ -2,6 +2,13 @@ const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
 test('アカウント削除のテスト', async ({ page }) => {
+
+    await page.route('**/deleteAccount', (route) => {
+        route.fulfill({
+            status: 200,
+            body: JSON.stringify({ success: true }),
+        });
+    });
     await page.goto('https://reminder3-65e84.web.app/SignIn'); 
 
     const email = process.env.REACT_APP_TEST_EMAIL
@@ -16,7 +23,7 @@ test('アカウント削除のテスト', async ({ page }) => {
     await page.click('span.logout');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
 
-    await page.click('span.select-auth.delete-account'); 
+    await page.click('span#SO'); 
     await expect(page.locator('h2')).toHaveText('アカウント削除中...');
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
@@ -26,6 +33,6 @@ test('アカウント削除のテスト', async ({ page }) => {
     // 削除後、同じアカウントでログインを試み、エラーメッセージが表示されるか確認
     await page.fill('#email', email);
     await page.fill('#password', password);
-    await page.click('span.sign-in');
+    await page.click('span#SI');
     await expect(page.locator('.message')).toHaveText('サインインしているユーザーがいません');
 });
