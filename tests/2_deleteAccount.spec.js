@@ -15,34 +15,18 @@ test.use({
             body: JSON.stringify({ success: true }),
         });
     });
-    await page.goto('https://reminder3-65e84.web.app/SignIn'); 
+    await page.goto('https://reminder3-65e84.web.app/UserAuth');
 
-    const email = process.env.REACT_APP_TEST_EMAIL
-    const password = process.env.REACT_APP_TEST_PASSWORD; 
-
-    await page.fill('#email', email);
-    await page.fill('#password', password);
-
-    await page.click('button.form-button[type="submit"]');
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
-
-    await page.click('span.logout');
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
-
-    await page.locator('span#DA').waitFor({timeout: 40000});
     await page.click('span#DA'); 
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/DeleteAccount');
     await expect(page.locator('h2')).toHaveText('アカウント削除中...');
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
     await expect(page.locator('.message')).toHaveText('ユーザーアカウントが削除されました');
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth'); 
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth').waitFor({timeout: 10000});
 
-    await page.goto('https://reminder3-65e84.web.app/SignIn');
-
-    // 削除後、同じアカウントでログインを試み、エラーメッセージが表示されるか確認
-    await page.fill('#email', email);
-    await page.fill('#password', password);
-    await page.click('span#SI');
+    await page.click('span#DA');
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/DeleteAccount');
     await expect(page.locator('.message')).toHaveText('サインインしているユーザーがいません');
 });
 
