@@ -10,7 +10,7 @@ test.use({
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
      
-      await page.goto('https://reminder3-65e84.web.app/Todo');
+      await page.goto('https://reminder3-65e84.web.app/Example');
       await page.waitForTimeout(40000);
       await page.fill('input#task','test');
       await page.click('button.add');
