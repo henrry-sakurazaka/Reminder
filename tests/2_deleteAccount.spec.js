@@ -29,13 +29,13 @@ test.use({
     await page.click('span.logout');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
 
-    await page.locator('span#SO').waitFor({timeout: 40000});
-    await page.click('span#SO'); 
+    await page.locator('span#DA').waitFor({timeout: 40000});
+    await page.click('span#DA'); 
     await expect(page.locator('h2')).toHaveText('アカウント削除中...');
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth'); 
     await expect(page.locator('.message')).toHaveText('ユーザーアカウントが削除されました');
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth'); 
 
     await page.goto('https://reminder3-65e84.web.app/SignIn');
 
