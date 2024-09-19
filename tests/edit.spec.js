@@ -1,6 +1,7 @@
 
 const { test, expect } = require('@playwright/test');
 
+test.setTimeout(10000);
 
 test('タスクをフォームを入力して出力を確認', async ({ page }) => {
    
