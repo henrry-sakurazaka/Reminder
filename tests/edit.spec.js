@@ -5,17 +5,17 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
     await page.goto('https://reminder3-65e84.web.app/Todo');
 
     await page.fill('input#task','test');
-    await expect(page.locator('span')).toHaveText('test');
-
+    const lastSpan = page.locator('span').last(); 
     await page.click('button.add');
-    await expect(page.locator('span')).toHaveText('test');
+    await expect(lastSpan).toHaveText('test');
+    const lastBtn = page.locator('button.compBtn').last();
+    await page.click(lastBtn);
+    await expect(page.locator(lastBtn)).toHaveText('Completed');
+    await expect(page.locator(lastBtn)).toHaveCSS('color', 'rgb(8, 232, 158)');
+    await expect(page.locator(lastSpan)).toHaveCSS('text-decoration', 'line-through');
+    await expect(page.locator(lastSpan)).toHaveCSS('color', 'rgb(8, 232, 158)');
 
-    await page.click('button.compBtn');
-    await expect(page.locator('button.compBtn')).toHaveText('Completed');
-    await expect(page.locator('button.compBtn')).toHaveCSS('color', 'rgb(8, 232, 158)');
-    await expect(page.locator('span')).toHaveCSS('text-decoration', 'line-through');
-    await expect(page.locator('span')).toHaveCSS('color', 'rgb(8, 232, 158)');
-
-    await page.click('span.circleI');
+    const lastCircle = page.locator('span.circleI').last();
+    await page.click(lastCircle);
     await expect(page.locator('div')).toBeVisible('div .modal')   
 });
