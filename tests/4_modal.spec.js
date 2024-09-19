@@ -7,7 +7,7 @@ test.use({
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
 
-    await page.goto('https://reminder3-65e84.web.app/Example');
+    await page.goto('https://reminder3-65e84.web.app/Edit');
 
     const lastCircle = page.locator('span.circleI').last();
     await lastCircle.waitFor({timeout: 40000});
