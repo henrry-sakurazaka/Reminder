@@ -10,12 +10,12 @@ test.use({
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
      
-      await page.goto('https://reminder3-65e84.web.app/Example');
+      await page.goto('https://reminder3-65e84.web.app/Todo');
       await page.waitForTimeout(40000);
       await page.fill('input#task','test');
-      const lastSpan = page.locator('span').last(); 
-      await lastSpan.waitFor({timeout: 40000});
       await page.click('button.add');
+      const lastSpan = page.locator('span').last(); 
+      await lastSpan.waitFor({timeout: 40000});  
       await page.waitForSelector(lastSpan, {timeout: 40000});
       await expect(lastSpan).toHaveText('test');
       const lastBtn = page.locator('button.compBtn').last();
