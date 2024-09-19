@@ -1,8 +1,10 @@
+
 const { test, expect } = require('@playwright/test');
 
-test('タスクをフォームを入力して出力を確認', async ({ page }) => {
 
-    await page.goto('https://reminder3-65e84.web.app/Todo');
+test('タスクをフォームを入力して出力を確認', async ({ page }) => {
+   
+    await page.goto('https://reminder3-65e84.web.app/Example');
 
     await page.fill('input#task','test');
     const lastSpan = page.locator('span').last(); 

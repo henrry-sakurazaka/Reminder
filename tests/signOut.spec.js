@@ -11,7 +11,7 @@ test('ログアウトテスト', async ({page}) => {
     await page.fill('#password', password);
     
     await page.goto('https://reminder3-65e84.web.app/UserAuth')
-    await page.click('li.sign-out');
+    await page.click('span.sign-out');
 
     const messageSelector = '.sign-out2 h2';
     await expect(page.locator(messageSelector)).toHaveText('Signed Out successfully'); //メッセージが表示されたか確認
