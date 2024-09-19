@@ -19,7 +19,7 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
     await expect(page.locator(lastSpan)).toHaveCSS('text-decoration', 'line-through');
     await expect(page.locator(lastSpan)).toHaveCSS('color', 'rgb(8, 232, 158)');
 
-    const lastCircle = page.locator('span.circleI').last();
-    await page.click(lastCircle);
+    // const lastCircle = page.locator('span.circleI').last();
+    await page.click('span.circleI');
     await expect(page.locator('div')).toBeVisible('div .modal')   
 });
