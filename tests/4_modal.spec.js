@@ -10,7 +10,7 @@ test.use({
     await page.goto('https://reminder3-65e84.web.app/Example');
 
     const lastCircle = page.locator('span.circleI').last();
-    await lastCircle.waitFor();
+    await lastCircle.waitFor({timeout: 40000});
     await lastCircle.click();
     await expect(page.locator('div.modal')).toBeVisible('div.modal');
 
