@@ -4,6 +4,10 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
 
     await page.goto('https://reminder3-65e84.web.app/Example');
 
+    const lastCircle = page.locator('span.circleI');
+    await page.click(lastCircle);
+    await expect(page.locator('div.modal')).toBeVisible('div.modal');
+    
     await page.click('input.switch-date');
     await expect(page.locator('div.date-picker-container')).toBeVisible('.date-picker-container');
 
