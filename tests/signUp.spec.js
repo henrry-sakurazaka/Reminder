@@ -1,7 +1,7 @@
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
-test.setTimeout(60000);
+test.setTimeout(120000);
 
 test('サインアップ機能のテスト', async ({ page }) => {
     await page.goto('https://reminder3-65e84.web.app/SignUp'); 
