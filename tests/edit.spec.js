@@ -10,6 +10,7 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
     await page.fill('input#task','test');
     const lastSpan = page.locator('span').last(); 
     await page.click('button.add');
+    await page.waitForSelector(lastSpan, {timeout: 20000});
     await expect(lastSpan).toHaveText('test');
     const lastBtn = page.locator('button.compBtn').last();
     await page.click(lastBtn);

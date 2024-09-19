@@ -15,7 +15,7 @@ test('ログアウトテスト', async ({page}) => {
     await page.click('span.logout');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
 
-    await page.click('span.sign-out');
+    await page.click('span.select-auth.sign-out');
 
     const messageSelector = '.sign-out2 h2';
     await expect(page.locator(messageSelector)).toHaveText('Signed Out successfully'); //メッセージが表示されたか確認
