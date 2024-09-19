@@ -1,6 +1,12 @@
 const { test, expect } = require('@playwright/test');
 
-test('ログインテスト', async ({ page }) => {
+
+test.use({
+  browserName: 'chromium',
+  channel: 'chrome' // PlaywrightでChromeを使用するように指定
+});
+
+  test('ログインテスト', async ({ page }) => {
     await page.goto('https://reminder3-65e84.web.app/SignIn');  
     
     const email = process.env.REACT_APP_TEST_EMAIL
@@ -13,3 +19,6 @@ test('ログインテスト', async ({ page }) => {
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
   });
   
+  
+
+
