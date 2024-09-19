@@ -23,12 +23,15 @@ test('アカウント削除のテスト', async ({ page }) => {
     await page.click('span.logout');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
 
+    await page.locator('span#SO').waitFor({timeout: 20000});
     await page.click('span#SO'); 
     await expect(page.locator('h2')).toHaveText('アカウント削除中...');
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth'); 
     await expect(page.locator('.message')).toHaveText('ユーザーアカウントが削除されました');
+
+    await page.goto('https://reminder3-65e84.web.app/SignIn');
 
     // 削除後、同じアカウントでログインを試み、エラーメッセージが表示されるか確認
     await page.fill('#email', email);

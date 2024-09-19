@@ -5,7 +5,8 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
     await page.goto('https://reminder3-65e84.web.app/Example');
 
     const lastCircle = page.locator('span.circleI').last();
-    await page.click(lastCircle);
+    await lastCircle.waitFor();
+    await lastCircle.click();
     await expect(page.locator('div.modal')).toBeVisible('div.modal');
 
     await page.click('input.switch-date');
