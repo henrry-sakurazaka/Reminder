@@ -1,7 +1,14 @@
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
-test('ログアウトテスト', async ({page}) => {
+test.use({
+    browserName: 'chromium',
+    channel: 'chrome' // PlaywrightでChromeを使用するように指定
+});
+
+
+
+  test('ログアウトテスト', async ({page}) => {
     await page.goto('https://reminder3-65e84.web.app/SignIn');
 
     const email = process.env.REACT_APP_TEST_EMAIL
@@ -23,3 +30,7 @@ test('ログアウトテスト', async ({page}) => {
 
 
 });
+
+
+
+

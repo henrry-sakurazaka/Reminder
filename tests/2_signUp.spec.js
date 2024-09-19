@@ -1,8 +1,12 @@
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
+test.use({
+    browserName: 'chromium',
+    channel: 'chrome' // PlaywrightでChromeを使用するように指定
+  });
 
-test('サインアップ機能のテスト', async ({ page }) => {
+  test('サインアップ機能のテスト', async ({ page }) => {
     await page.goto('https://reminder3-65e84.web.app/SignUp'); 
 
     const email = process.env.REACT_APP_TEST_EMAIL
@@ -37,4 +41,9 @@ test('サインアップ機能のテスト', async ({ page }) => {
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example'); 
     
 });
+
+
+
+
+
 

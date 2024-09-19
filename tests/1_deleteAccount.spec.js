@@ -1,7 +1,13 @@
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
-test('アカウント削除のテスト', async ({ page }) => {
+test.use({
+    browserName: 'chromium',
+    channel: 'chrome' // PlaywrightでChromeを使用するように指定
+  });
+
+
+  test('アカウント削除のテスト', async ({ page }) => {
 
     await page.route('**/deleteAccount', (route) => {
         route.fulfill({
@@ -39,3 +45,7 @@ test('アカウント削除のテスト', async ({ page }) => {
     await page.click('span#SI');
     await expect(page.locator('.message')).toHaveText('サインインしているユーザーがいません');
 });
+
+
+
+
