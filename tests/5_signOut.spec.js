@@ -15,6 +15,7 @@ test('ログアウトテスト', async ({page}) => {
     await page.click('span.logout');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
 
+    await page.locator('span#SO').waitFor({timeout: 20000});
     await page.click('span#SO');
 
     const messageSelector = '.sign-out2 h2';
