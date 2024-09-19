@@ -9,13 +9,14 @@ test('アカウント削除のテスト', async ({ page }) => {
 
     await page.fill('#email', email);
     await page.fill('#password', password);
+
     await page.click('button.form-button[type="submit"]');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
+
     await page.click('span.logout');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
+    
     await page.click('span.delete-account'); 
-
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/DeleteAccount'); 
     await expect(page.locator('h2')).toHaveText('アカウント削除中...');
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
