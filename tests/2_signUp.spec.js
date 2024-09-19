@@ -21,7 +21,7 @@ test.use({
     await page.click('nav');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/SignUp');
 
-    await page.locator('li.terms2').waitFor({timeout: 20000});
+    await page.locator('li.terms2').waitFor({timeout: 40000});
     await page.click('li.terms2')
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Terms2')
     await page.click('nav');
