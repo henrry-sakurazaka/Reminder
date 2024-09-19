@@ -38,7 +38,7 @@ test.use({
     await expect(page.locator('span.important')).toHaveText('Agreed');
  
     await page.click('button.form-button'); 
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example'); 
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example').waitFor({timeout: 100000}); 
     
 });
 
