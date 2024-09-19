@@ -9,7 +9,9 @@ test('アカウント削除のテスト', async ({ page }) => {
 
     await page.fill('#email', email);
     await page.fill('#password', password);
-    await page.goto('https://reminder3-65e84.web.app/UserAuth');
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
+    await page.click('span.logout');
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth');
     await page.click('span.delete-account'); 
 
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/DeleteAccount'); 

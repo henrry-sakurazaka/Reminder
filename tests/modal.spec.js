@@ -4,10 +4,10 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
 
     await page.goto('https://reminder3-65e84.web.app/Modal');
 
-    await page.click('label.switch');
+    await page.click('input.switch-date');
     await expect(page.locator('div.date-picker-container')).toBeVisible('.date-picker-container');
 
-    await page.click('label.switch2');
+    await page.click('input.switch-time');
     await expect(page.locator('div.time-picker-container')).toHaveText('.time-picker-container');
 
     await page.click('button.set-btn');

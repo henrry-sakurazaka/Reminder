@@ -65,11 +65,6 @@
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
     "babel-jest": "^29.7.0",
-
-    "@playwright/test": "^1.47.0", 
-
-    
-
     "firebase-admin": "^12.2.0",
     "firebase-functions": "^5.0.1",
     "firebase-mock": "^2.2.4",
