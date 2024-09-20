@@ -12,6 +12,14 @@ test.use({
     
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
+   
+
+    await page.fill('#email', email); 
+    await page.fill('#password', password); 
+    await page.click('button.form-button[type="submit"]');
+  
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
+
     const color = await page.locator('h1.big-text').evaluate(el => getComputedStyle(el).color);
     // 取得した色と期待する値を比較する (許容誤差を設定)
     const expectedColor = 'rgba(40, 147, 247)';
@@ -21,13 +29,6 @@ test.use({
     // elはpage.locator('h1.big-text')で取得した要素を指します。
     // getComputedStyle(el)は、指定した要素のスタイル（特にCSSによる最終的なスタイル）を取得するためのブラウザの組み込み関数です。
     // .colorはそのスタイルのうち、文字色（colorプロパティ）を取得します。
-
-
-    await page.fill('#email', email); 
-    await page.fill('#password', password); 
-    await page.click('button.form-button[type="submit"]');
-  
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
 
     const lastCircle = page.locator('span.circleI').last();
     await lastCircle.waitFor({timeout: 40000});
