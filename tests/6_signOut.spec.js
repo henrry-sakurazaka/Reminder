@@ -10,8 +10,8 @@ test.use({
   
     await page.goto('https://reminder3-65e84.web.app/SignIn');  
     
-    const email = process.env.REACT_APP_TEST_EMAIL
-    const password = process.env.REACT_APP_TEST_PASSWORD; 
+    const email = process.env.REACT_APP_TEST2_EMAIL
+    const password = process.env.REACT_APP_TEST2_PASSWORD; 
 
     await page.fill('#email', email); 
     await page.fill('#password', password); 
