@@ -85,13 +85,13 @@ const Edit= ({todo}) => {
                             value={editingContent}
                             onChange={changeContent} />)
                         :
-                        <span onDoubleClick={toggleEditMode} style={{ textDecoration: todo.completed ? 'line-through' : 'none', color: todo.completed ? 'rgb(8, 232, 158)' : 'none' }}>
+                        <span className='content' onDoubleClick={toggleEditMode} style={{ textDecoration: todo.completed ? 'line-through' : 'none', color: todo.completed ? 'rgb(8, 232, 158)' : 'none' }}>
                             {todo.content}
                         </span>}
                 </form> 
 
                 {modalOpen && todo.id == Todo.id ?(
-                <div className='modal' key={todo.id}>
+                <div className='modal-container' key={todo.id}>
                     <Modal todo={Todo} /> 
                 </div>    
                    

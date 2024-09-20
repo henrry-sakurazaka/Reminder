@@ -39,6 +39,7 @@ const UserAuth = () => {
             // エラー発生時の処理
             console.error('ログアウトエラー:', error);
         });
+        
     }
 
     const message = () => {
@@ -48,8 +49,10 @@ const UserAuth = () => {
                   <h3>Signed Out successfully</h3>
                 </div>
              )
-        }   
+        }
+        setTimeout(() => setIsSignOut(false), 5000);     
     }
+  
     
     const handleClickEasyLogin = () => {
         navigate('/EasyLogin');
