@@ -21,13 +21,17 @@ test.use({
     const lastCircle = page.locator('span.circleI').last();
     await lastCircle.waitFor({timeout: 40000});
     await lastCircle.click();
-    await expect(page.locator('div.modal')).toBeVisible();
 
-    await page.click('input.switch-date');
+    await expect(page.locator('div.modal')).toBeVisible();
+    await expect(page.locator('h1.big-text')).toHaveCSS('rgba(40, 147, 247, 0.772)');
+
+    await page.click('label.switch');
     await expect(page.locator('div.date-picker-container')).toBeVisible();
 
-    await page.click('input.switch-time');
+    await page.click('label.switch2');
     await expect(page.locator('div.time-picker-container')).toBeVisible();
+
+    await page.fill('imput.MyTimePicker', '21:30');
 
     await page.click('button.set-btn');
     await expect(page.locator('div.modal')).toHaveCSS('background-color', 'transparent');
