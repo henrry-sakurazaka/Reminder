@@ -35,7 +35,7 @@ test.use({
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
     await expect(page.locator('.message')).toHaveText('ユーザーアカウントが削除されました');
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth').waitFor({timeout: 120000});
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth').waitFor({timeout: 3500});
 
     await page.click('span#DA');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/DeleteAccount');
