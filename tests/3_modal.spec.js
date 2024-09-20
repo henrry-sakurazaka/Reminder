@@ -51,7 +51,7 @@ test.use({
     await page.fill('input.MyTimePicker', '21:30');
 
     await page.click('button.set-btn');
-    await expect(page.locator('div.modal')).toHaveCSS('background-color', 'transparent');
+    await expect(page.locator('div.modal')).toHaveCSS('background-color', "rgba(0, 0, 0, 0)");
     await expect(page.locator('div.message-container')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
     await expect(page.locator('button.set-btn')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
     await expect(page.locator('button.set-btn')).toHaveText('DONE');
