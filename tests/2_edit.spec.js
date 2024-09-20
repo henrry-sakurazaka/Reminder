@@ -1,5 +1,6 @@
 
 const { test, expect } = require('@playwright/test');
+require('dotenv').config();
 
 test.use({
     browserName: 'chromium',
@@ -14,7 +15,7 @@ test.use({
         
       const email = process.env.REACT_APP_TEST_EMAIL
       const password = process.env.REACT_APP_TEST_PASSWORD; 
-
+      
       await page.fill('#email', email); 
       await page.fill('#password', password); 
       await page.click('button.form-button[type="submit"]');
@@ -34,7 +35,7 @@ test.use({
       
       await expect(lastBtn).toHaveText('Completed');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
-      await expect(lastBtn).toHaveCSS('text-decoration', 'line-through');
+      await expect(lastSpan).toHaveCSS('text-decoration', 'line-through');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
   });
