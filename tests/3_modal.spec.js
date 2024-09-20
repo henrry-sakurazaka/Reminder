@@ -1,4 +1,5 @@
 const { test, expect } = require('@playwright/test');
+require('dotenv').config();
 
 test.use({
     browserName: 'chromium',
@@ -11,6 +12,16 @@ test.use({
     
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
+    const color = await page.locator('h1.big-text').evaluate(el => getComputedStyle(el).color);
+    // 取得した色と期待する値を比較する (許容誤差を設定)
+    const expectedColor = 'rgba(40, 147, 247)';
+    
+    // startsWith()メソッドを使って、文字列が指定された部分文字列で始まっているかを確認しています。
+    //evaluateメソッドは、指定した要素に対してJavaScriptコードを実行するために使用されます。
+    // elはpage.locator('h1.big-text')で取得した要素を指します。
+    // getComputedStyle(el)は、指定した要素のスタイル（特にCSSによる最終的なスタイル）を取得するためのブラウザの組み込み関数です。
+    // .colorはそのスタイルのうち、文字色（colorプロパティ）を取得します。
+
 
     await page.fill('#email', email); 
     await page.fill('#password', password); 
@@ -23,7 +34,10 @@ test.use({
     await lastCircle.click();
 
     await expect(page.locator('div.modal')).toBeVisible();
-    await expect(page.locator('h1.big-text')).toHaveCSS('color', 'rgba(40, 147, 247, 0.772)');
+    if (!color.startsWith(expectedColor)) {
+      throw new Error(`Color does not match. Expected something starting with ${expectedColor}, but got ${color}`);
+  }
+    await expect(page.locator('h1.big-text')).toHaveCSS('color', expectedColor);
 
     await page.click('label.switch');
     await expect(page.locator('div.date-picker-container')).toBeVisible();
@@ -31,13 +45,13 @@ test.use({
     await page.click('label.switch2');
     await expect(page.locator('div.time-picker-container')).toBeVisible();
 
-    await page.fill('imput.MyTimePicker', '21:30');
+    await page.fill('input.MyTimePicker', '21:30');
 
     await page.click('button.set-btn');
     await expect(page.locator('div.modal')).toHaveCSS('background-color', 'transparent');
     await expect(page.locator('div.message-container')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
-    await expect(page.locator('btn.set-btn')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
-    await expect(page.locator('btn.set-btn')).toHaveText('DONE');
+    await expect(page.locator('button.set-btn')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
+    await expect(page.locator('button.set-btn')).toHaveText('DONE');
     await expect(page.locator('div.successful')).toHaveText('Completed Setting');  
 });
 

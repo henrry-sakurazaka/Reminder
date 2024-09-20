@@ -1,5 +1,5 @@
 const { test, expect } = require('@playwright/test');
-
+require('dotenv').config();
 
 test.use({
   browserName: 'chromium',
