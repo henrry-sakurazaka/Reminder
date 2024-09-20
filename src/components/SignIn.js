@@ -131,7 +131,7 @@ function SignIn() {
           ></span>
           ))}
       </div>
-      <span className="back-to-auth" onClick={navigationHandler}>Back To Auth</span>
+      <span className="back" onClick={navigationHandler}>Back To Auth</span>
   
       <div className="auth-container">
         <div className="outline-container">
