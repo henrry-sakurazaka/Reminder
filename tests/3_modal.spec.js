@@ -23,7 +23,7 @@ test.use({
     await lastCircle.click();
 
     await expect(page.locator('div.modal')).toBeVisible();
-    await expect(page.locator('h1.big-text')).toHaveCSS('rgba(40, 147, 247, 0.772)');
+    await expect(page.locator('h1.big-text')).toHaveCSS('color', 'rgba(40, 147, 247, 0.772)');
 
     await page.click('label.switch');
     await expect(page.locator('div.date-picker-container')).toBeVisible();
