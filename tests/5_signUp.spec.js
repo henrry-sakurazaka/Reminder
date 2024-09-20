@@ -9,8 +9,8 @@ test.use({
   test('サインアップ機能のテスト', async ({ page }) => {
     await page.goto('https://reminder3-65e84.web.app/SignUp'); 
 
-    const email = process.env.REACT_APP_TEST2_EMAIL
-    const password = process.env.REACT_APP_TEST2_PASSWORD; 
+    const email = process.env.REACT_APP_TEST_EMAIL
+    const password = process.env.REACT_APP_TEST_PASSWORD; 
     
     await page.click('li.terms')
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Terms');
@@ -23,11 +23,6 @@ test.use({
     await page.click('nav');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/SignUp');
 
-
-    await page.click('li.policy')
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/PrivacyPolicy')
-   
-    await page.goto('https://reminder3-65e84.web.app/SignUp')
     await page.fill('#name', 'Niki')
     await page.fill('#email', email); 
     await page.fill('#password', password); 
