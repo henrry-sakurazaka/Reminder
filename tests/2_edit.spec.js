@@ -35,7 +35,7 @@ test.use({
       
       await expect(lastBtn).toHaveText('Completed');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
-      await expect(lastSpan).toHaveCSS('text-decoration', 'line-through');
+      await expect(lastSpan).toHaveCSS('text-decoration', 'line-through solid rgb(8, 232, 158)');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
   });
