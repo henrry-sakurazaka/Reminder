@@ -20,6 +20,13 @@ test.use({
   
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
 
+    
+    const lastCircle = page.locator('span.circleI').last();
+    await lastCircle.waitFor({timeout: 40000});
+    await lastCircle.click();
+
+    await expect(page.locator('div.modal')).toBeVisible();
+
     const color = await page.locator('h1.big-text').evaluate(el => getComputedStyle(el).color);
     // 取得した色と期待する値を比較する (許容誤差を設定)
     const expectedColor = 'rgba(40, 147, 247)';
@@ -30,11 +37,6 @@ test.use({
     // getComputedStyle(el)は、指定した要素のスタイル（特にCSSによる最終的なスタイル）を取得するためのブラウザの組み込み関数です。
     // .colorはそのスタイルのうち、文字色（colorプロパティ）を取得します。
 
-    const lastCircle = page.locator('span.circleI').last();
-    await lastCircle.waitFor({timeout: 40000});
-    await lastCircle.click();
-
-    await expect(page.locator('div.modal')).toBeVisible();
     if (!color.startsWith(expectedColor)) {
       throw new Error(`Color does not match. Expected something starting with ${expectedColor}, but got ${color}`);
   }
