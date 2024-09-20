@@ -22,8 +22,8 @@ const urlBase64ToUint8Array = (base64String) => {
 };
  // 指定したユーザー情報
  const easyLoginUser = {
-    email: process.env.REACT_APP_TEST_EMAIL,
-    password: process.env.REACT_APP_TEST_PASSWORD
+    email: process.env.REACT_APP_TEST2_EMAIL,
+    password: process.env.REACT_APP_TEST2_PASSWORD
   };
 const vapidKey = process.env.REACT_APP_VAPID_KEY;
 

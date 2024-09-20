@@ -7,18 +7,27 @@ test.use({
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
 
-    await page.goto('https://reminder3-65e84.web.app/Example');
+    await page.goto('https://reminder3-65e84.web.app/SignIn');  
+    
+    const email = process.env.REACT_APP_TEST2_EMAIL
+    const password = process.env.REACT_APP_TEST2_PASSWORD; 
+
+    await page.fill('#email', email); 
+    await page.fill('#password', password); 
+    await page.click('button.form-button[type="submit"]');
+  
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
 
     const lastCircle = page.locator('span.circleI').last();
     await lastCircle.waitFor({timeout: 40000});
     await lastCircle.click();
-    await expect(page.locator('div.modal')).toBeVisible('div.modal');
+    await expect(page.locator('div.modal')).toBeVisible();
 
     await page.click('input.switch-date');
-    await expect(page.locator('div.date-picker-container')).toBeVisible('.date-picker-container');
+    await expect(page.locator('div.date-picker-container')).toBeVisible();
 
     await page.click('input.switch-time');
-    await expect(page.locator('div.time-picker-container')).toHaveText('.time-picker-container');
+    await expect(page.locator('div.time-picker-container')).toBeVisible();
 
     await page.click('button.set-btn');
     await expect(page.locator('div.modal')).toHaveCSS('background-color', 'transparent');
