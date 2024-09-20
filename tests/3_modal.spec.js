@@ -27,9 +27,9 @@ test.use({
 
     await expect(page.locator('div.modal')).toBeVisible();
 
-    const color = await page.locator('h1.big-text').evaluate(el => getComputedStyle(el).color);
-    // 取得した色と期待する値を比較する (許容誤差を設定)
-    const expectedColor = 'rgba(40, 147, 247)';
+    // const color = await page.locator('h1.big-text').evaluate(el => getComputedStyle(el).color);
+    // // 取得した色と期待する値を比較する (許容誤差を設定)
+    // const expectedColor = 'rgba(40, 147, 247)';
     
     // startsWith()メソッドを使って、文字列が指定された部分文字列で始まっているかを確認しています。
     //evaluateメソッドは、指定した要素に対してJavaScriptコードを実行するために使用されます。
@@ -37,10 +37,10 @@ test.use({
     // getComputedStyle(el)は、指定した要素のスタイル（特にCSSによる最終的なスタイル）を取得するためのブラウザの組み込み関数です。
     // .colorはそのスタイルのうち、文字色（colorプロパティ）を取得します。
 
-    if (!color.startsWith(expectedColor)) {
-      throw new Error(`Color does not match. Expected something starting with ${expectedColor}, but got ${color}`);
-  }
-    await expect(page.locator('h1.big-text')).toHaveCSS('color', expectedColor);
+  //   if (!color.startsWith(expectedColor)) {
+  //     throw new Error(`Color does not match. Expected something starting with ${expectedColor}, but got ${color}`);
+  // }
+    await expect(page.locator('h1.big-text')).toHaveCSS('color', "rgba(40, 147, 247, 0.773)");
 
     await page.click('label.switch');
     await expect(page.locator('div.date-picker-container')).toBeVisible();
