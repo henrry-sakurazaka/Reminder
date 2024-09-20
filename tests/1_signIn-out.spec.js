@@ -17,6 +17,13 @@ test.use({
     await page.click('button.form-button[type="submit"]');
   
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
+    await page.click('span.back');
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth')
+
+    await page.click('span#SO'); 
+    const messageSelector = '.sign-out2 h2';
+    await expect(page.locator(messageSelector)).toHaveText('Signed Out successfully'); //メッセージが表示されたか確認
+
     
   });
   
