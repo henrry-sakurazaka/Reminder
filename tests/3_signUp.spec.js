@@ -12,10 +12,6 @@ test.use({
     const email = process.env.REACT_APP_TEST2_EMAIL
     const password = process.env.REACT_APP_TEST2_PASSWORD; 
     
-    await page.fill('#name', 'Niki')
-    await page.fill('#email', email); 
-    await page.fill('#password', password); 
-
     await page.click('li.terms')
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Terms');
     await page.click('nav');
@@ -30,9 +26,11 @@ test.use({
 
     await page.click('li.policy')
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/PrivacyPolicy')
-    await page.click('nav');
-    await expect(page).toHaveURL('https://reminder3-65e84.web.app/SignUp');
-
+   
+    await page.goto('https://reminder3-65e84.web.app/SignUp')
+    await page.fill('#name', 'Niki')
+    await page.fill('#email', email); 
+    await page.fill('#password', password); 
 
     //利用規約に同意した場合の動作のテスト
     await page.click('input.agree-check');
