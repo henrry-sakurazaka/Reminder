@@ -30,13 +30,12 @@ test.use({
       await expect(lastSpan).toHaveText('test');
       const lastBtn = page.locator('button.compBtn').last();
       await lastBtn.waitFor({timeout: 40000});
-
       await lastBtn.click();
       
-      await expect(page.locator(lastBtn)).toHaveText('Completed');
-      await expect(page.locator(lastBtn)).toHaveCSS('color', 'rgb(8, 232, 158)');
-      await expect(page.locator(lastSpan)).toHaveCSS('text-decoration', 'line-through');
-      await expect(page.locator(lastSpan)).toHaveCSS('color', 'rgb(8, 232, 158)');
+      await expect(lastBtn).toHaveText('Completed');
+      await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
+      await expect(lastBtn).toHaveCSS('text-decoration', 'line-through');
+      await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
   });
 
