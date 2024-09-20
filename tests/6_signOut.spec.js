@@ -7,7 +7,19 @@ test.use({
 });
 
   test('ログアウトテスト', async ({page}) => {
-    await page.goto('https://reminder3-65e84.web.app/UserAuth');
+  
+    await page.goto('https://reminder3-65e84.web.app/SignIn');  
+    
+    const email = process.env.REACT_APP_TEST_EMAIL
+    const password = process.env.REACT_APP_TEST_PASSWORD; 
+
+    await page.fill('#email', email); 
+    await page.fill('#password', password); 
+    await page.click('button.form-button[type="submit"]');
+  
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
+    await page.click('span.back');
+    await expect(page).toHaveURL('https://reminder3-65e84.web.app/UserAuth')
 
     await page.locator('span#SO.select-auth.sign-out').waitFor({timeout: 40000});
     await page.click('span#SO');

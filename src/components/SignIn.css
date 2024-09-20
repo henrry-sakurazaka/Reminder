@@ -43,3 +43,14 @@
     background-color: #0056b3;
   }
   
+  .back {
+    position: absolute;
+    top: 0;
+    right: 0;
+    margin-right: 8px;
+    /* color:  rgb(8, 232, 158);
+    color: rgba(40, 147, 247, 0.772); */
+    color: black;
+    z-index: 999;
+    cursor: pointer;
+  }
