@@ -86,8 +86,8 @@ const UserAuth = () => {
                     <div className="inner9-container">
                         <span id="SU" className="select-auth sign-up" onClick={() => handleClickSignUp()}>Sign Up</span>
                         <span id="SI" className="select-auth sign-in" onClick={() => handleClickSignIn()}>Sign In</span>
-                        <span className="select-auth sign-out"  onClick={() => handleClickSignOut()}>Sign Out</span>
-                        <span id="SO" className="select-auth easy-login" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
+                        <span id="SO" className="select-auth sign-out"  onClick={() => handleClickSignOut()}>Sign Out</span>
+                        <span className="select-auth easy-login" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
                         <span id="DA" className="select-auth delete-account" onClick={() => handleDeleteAccount()}>Delete Account</span>
                     </div>
                 </div> 
