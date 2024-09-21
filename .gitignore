@@ -7,11 +7,12 @@ functions/node_modules
 public/firebase.js
 public/firebase-config.js
 build/firebase.js
+build/firebase.js
 build/config.js
 functions/serviceAccoutKey.json
 serviceAccoutKey.json
 firebaseInit.js
 function/.env
 .env
-serviceAccoutKey.json
+serviceAccountKey.json
 

@@ -1,17 +1,17 @@
-# # ci.yml
-# on:
-#   push:
-#     branches:
-#       - master
-#   pull_request:
-#     branches:
-#       - master
+# ci.yml
+on:
+  push:
+    branches:
+      - master
+  pull_request:
+    branches:
+      - master
 
-# # playwright.yml
-# on:
-#   pull_request:
-#     branches:
-#       - master
+# playwright.yml
+on:
+  pull_request:
+    branches:
+      - master
 
 # ci.yml
 # on:
