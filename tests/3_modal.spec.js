@@ -52,8 +52,8 @@ test.use({
 
     await page.click('button.set-btn');
     await expect(page.locator('div.modal')).toHaveCSS('background-color', "rgba(0, 0, 0, 0)");
-    await expect(page.locator('div.message-container')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
-    await expect(page.locator('button.set-btn')).toHaveCSS('background-color', 'rgb(8, 232, 158)');
+    await expect(page.locator('div.time-picker-container')).toHaveCSS('border', '1px solid rgb(8, 232, 158)');
+    await expect(page.locator('button.set-btn')).toHaveCSS('color', 'rgb(8, 232, 158)');
     await expect(page.locator('button.set-btn')).toHaveText('DONE');
     await expect(page.locator('div.successful')).toHaveText('Completed Setting');  
 });
