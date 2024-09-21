@@ -23,7 +23,7 @@ test.use({
     await page.click('nav');
     await expect(page).toHaveURL('https://reminder3-65e84.web.app/SignUp');
 
-    await page.fill('#name', 'Niki')
+    await page.fill('#name', 'Clara')
     await page.fill('#email', email); 
     await page.fill('#password', password); 
 
