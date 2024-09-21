@@ -30,7 +30,7 @@ const DeleteAccount = () => {
       try {
         await user.delete();
         setMessage('ユーザーアカウントが削除されました');
-        setTimeout(() => navigate('/UserAuth'), 10000);
+        setTimeout(() => navigate('/UserAuth'), 3000);
 
       } catch (error) {
         if (error.code === 'auth/requires-recent-login') {
@@ -79,7 +79,7 @@ const DeleteAccount = () => {
         <div className='auth-container'>
             <div className='outline-container'>
                 <h2>アカウント削除中...</h2>
-                <p>{message}</p>
+                <p className='message'>{message}</p>
             </div>
         </div>
       )}

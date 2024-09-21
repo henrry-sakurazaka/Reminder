@@ -49,7 +49,7 @@ body {
   .slash:nth-child(5) {
     width: 64px;
   }
-  .logout {
+  .back {
     position: absolute;
     top: 0;
     right: 0;

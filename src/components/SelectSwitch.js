@@ -21,7 +21,7 @@ const SelectSwitch = ({ handleDateCheckboxChange, shouldHandleNotifications, tim
                     >DATE
                 </h4>
                 <label className="switch">
-                    <input type="checkbox"
+                    <input className="switch-date" type="checkbox"
                     checked={isDateChecked}
                     onChange={handleDateCheckboxChange}
                     />

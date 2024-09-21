@@ -143,6 +143,7 @@ const todoReducer = (todos, action) => {
       const [Todo, setTodo] = useState();
       const [shouldHandleNotifications, setShouldHandleNotifications] = useState(false);
       const [agree, setAgree] = useState();
+      const [isSet, setIsSet] = useState(false);
       
 
     return (
@@ -162,7 +163,7 @@ const todoReducer = (todos, action) => {
             isDocRef, setIsDocRef, reserveModeTodo, setReserveModeTodo,
             reserveModeId, setReserveModeId, todoId, setTodoId, todoContent,
             setTodoContent, Todo, setTodo, shouldHandleNotifications, setShouldHandleNotifications,
-            isSubmitting2, setIsSubmitting2, agree, setAgree
+            isSubmitting2, setIsSubmitting2, agree, setAgree, isSet, setIsSet
             }}>
               
           <TodoDispatchContext.Provider value={dispatch}>    

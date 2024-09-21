@@ -177,7 +177,7 @@ function SignUp() {
                 ></span>
                 ))}
             </div>
-        <span className="back-to-auth" onClick={navigationHandler}>Back To Auth</span>
+        <span className="back" onClick={navigationHandler}>Back To Auth</span>
         <div className="auth-container">
             <div className="outline-container">
                 <form onSubmit={onSubmit}>
@@ -214,7 +214,7 @@ function SignUp() {
 
                     <ul className="agreement-resource">
                       <li className="terms" onClick={() => navigateTerms()} >Terms of Service Japanese</li>
-                      <li className="terms" onClick={() => navigateTerms2()} >Terms of Service English</li>
+                      <li className="terms2" onClick={() => navigateTerms2()} >Terms of Service English</li>
                       <li className="policy" onClick={() => navigatePolicy()} >PrivacyPolicy</li>
                       <p className="request">Request Agreement for Terms of Service</p>
                     </ul>

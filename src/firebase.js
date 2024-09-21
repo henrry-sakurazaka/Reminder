@@ -16,8 +16,8 @@ const firebaseConfig = {
   measurementId: process.env.REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 // Initialize Firebase
-// const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
@@ -49,24 +49,24 @@ const sendTokenToServer = async (token) => {
   }
 };
 
-// サービスワーカーを登録し、トークンを取得する関数
-const registerServiceWorkerAndRequestToken = async () => {
-  if ('serviceWorker' in navigator) {
-    try {
-      const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/' });
-      console.log('Service Worker registration successful with scope: ', registration.scope);
-      const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
-      if (currentToken) {
-        console.log('FCM Token:', currentToken);
-        await sendTokenToServer(currentToken);
-      } else {
-        console.log('No registration token available. Request permission to generate one.');
-      }
-    } catch (err) {
-      console.log('An error occurred while retrieving token. ', err);
-    }
-  }
-};
+// // サービスワーカーを登録し、トークンを取得する関数
+// const registerServiceWorkerAndRequestToken = async () => {
+//   if ('serviceWorker' in navigator) {
+//     try {
+//       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/' });
+//       console.log('Service Worker registration successful with scope: ', registration.scope);
+//       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
+//       if (currentToken) {
+//         console.log('FCM Token:', currentToken);
+//         await sendTokenToServer(currentToken);
+//       } else {
+//         console.log('No registration token available. Request permission to generate one.');
+//       }
+//     } catch (err) {
+//       console.log('An error occurred while retrieving token. ', err);
+//     }
+//   }
+// };
 
 //  // 古いService Workerの解除
 //        const registrations = await navigator.serviceWorker.getRegistrations();
@@ -92,8 +92,8 @@ export const requestForToken = () => {
 };
 
 
-// サービスワーカーを登録し、トークンを取得
-registerServiceWorkerAndRequestToken();
+// // サービスワーカーを登録し、トークンを取得
+// registerServiceWorkerAndRequestToken();
 
 
 

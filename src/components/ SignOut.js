@@ -22,12 +22,6 @@ function SignOut() {
     localStorage.clear();
 
   }, [navigate]);
-
-  return (
-     <div className='sign-out'>
-       <h2>Signed Out successfully</h2>
-     </div>
-  )
 }
 
 export default SignOut;

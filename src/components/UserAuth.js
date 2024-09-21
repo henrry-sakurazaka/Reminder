@@ -39,17 +39,20 @@ const UserAuth = () => {
             // エラー発生時の処理
             console.error('ログアウトエラー:', error);
         });
+        
     }
 
     const message = () => {
         if(isSignOut) {
             return (
-                <div className='sign-out'>
+                <div className='sign-out2'>
                   <h3>Signed Out successfully</h3>
                 </div>
              )
-        }   
+        }
+        setTimeout(() => setIsSignOut(false), 5000);     
     }
+  
     
     const handleClickEasyLogin = () => {
         navigate('/EasyLogin');
@@ -84,11 +87,11 @@ const UserAuth = () => {
                 </div>
                 <div className="circle2">
                     <div className="inner9-container">
-                        <span className="select-auth" onClick={() => handleClickSignUp()}>Sign Up</span>
-                        <span className="select-auth" onClick={() => handleClickSignIn()}>Sign In</span>
-                        <span className="select-auth" onClick={() => handleClickSignOut()}>Sign Out</span>
-                        <span className="select-auth" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
-                        <span className="select-auth" onClick={() => handleDeleteAccount()}>Delete Account</span>
+                        <span id="SU" className="select-auth sign-up" onClick={() => handleClickSignUp()}>Sign Up</span>
+                        <span id="SI" className="select-auth sign-in" onClick={() => handleClickSignIn()}>Sign In</span>
+                        <span id="SO" className="select-auth sign-out"  onClick={() => handleClickSignOut()}>Sign Out</span>
+                        <span className="select-auth easy-login" onClick={() => handleClickEasyLogin()}>お試しログイン</span>
+                        <span id="DA" className="select-auth delete-account" onClick={() => handleDeleteAccount()}>Delete Account</span>
                     </div>
                 </div> 
                 { message() }
