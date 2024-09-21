@@ -11,5 +11,6 @@ build/config.js
 functions/serviceAccoutKey.json
 serviceAccoutKey.json
 firebaseInit.js
+function/.env
 .env
 
