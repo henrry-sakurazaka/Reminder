@@ -9,10 +9,11 @@ public/firebase-config.js
 build/firebase.js
 build/firebase.js
 build/config.js
-functions/serviceAccoutKey.json
-serviceAccoutKey.json
+functions/serviceAccoutnKey.json
 firebaseInit.js
 function/.env
 .env
 serviceAccountKey.json
+bfg-repo-cleaner/
+
 
