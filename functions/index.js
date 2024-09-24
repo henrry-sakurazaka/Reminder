@@ -41,14 +41,14 @@ app.use(cors(corsOptions));
 // registerServiceWorkerAndRequestToken();
 
 
-// // 静的ファイルを正しいMIMEタイプで配信するための設定
-// app.use(express.static(path.join(__dirname, 'public'), {
-//   setHeaders: (res, path) => {
-//     if (path.endsWith('.js')) {
-//       res.setHeader('Content-Type', 'application/javascript');
-//     }
-//   }
-// }));
+// 静的ファイルを正しいMIMEタイプで配信するための設定
+app.use(express.static(path.join(__dirname, 'public'), {
+  setHeaders: (res, path) => {
+    if (path.endsWith('.js')) {
+      res.setHeader('Content-Type', 'application/javascript');
+    }
+  }
+}));
 
 
 app.get('/', (req, res) => {
