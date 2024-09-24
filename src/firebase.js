@@ -3,7 +3,7 @@ import { initializeApp, getApps, getApp} from "firebase/app";
 import { getAuth , GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { getDatabase, ref, set } from "firebase/database"; // Realtime Databaseをインポート
-import { getMessaging, getToken } from "firebase/messaging";
+// import { getMessaging, getToken } from "firebase/messaging";
 
 
 const firebaseConfig = {
@@ -21,33 +21,33 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 const db = getDatabase(app); // Realtime Databaseのインスタンスを取得
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
-const messaging = getMessaging(app);
+// const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
 
 
 const vapidKey = process.env.REACT_APP_VAPID_KEY;
 ;
 
-// トークンをサーバーに送信する関数
-const sendTokenToServer = async (token) => {
-  try {
-    const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify({ token }),
-      mode: 'cors'
-    });
-    if (response.ok) {
-      console.log('トークンがサーバーに送信されました');
-    } else {
-      console.error('トークンの送信に失敗しました');
-    }
-  } catch (error) {
-    console.error('トークンの送信中にエラーが発生しました:', error);
-  }
-};
+// // トークンをサーバーに送信する関数
+// const sendTokenToServer = async (token) => {
+//   try {
+//     const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
+//       method: 'POST',
+//       headers: {
+//         'Content-Type': 'application/json',
+//       },
+//       body: JSON.stringify({ token }),
+//       mode: 'cors'
+//     });
+//     if (response.ok) {
+//       console.log('トークンがサーバーに送信されました');
+//     } else {
+//       console.error('トークンの送信に失敗しました');
+//     }
+//   } catch (error) {
+//     console.error('トークンの送信中にエラーが発生しました:', error);
+//   }
+// };
 
 // // サービスワーカーを登録し、トークンを取得する関数
 // const registerServiceWorkerAndRequestToken = async () => {
@@ -76,20 +76,20 @@ const sendTokenToServer = async (token) => {
 //        }
 
 
-// トークンを取得する関数（手動トリガー用）
-export const requestForToken = () => {
-  getToken(messaging, { vapidKey: vapidKey}).then((currentToken) => {
-    if (currentToken) {
-      console.log('FCM Token:', currentToken);
-      // ここでトークンをサーバーに送信するなどの処理を行う
-      sendTokenToServer(currentToken);
-    } else {
-      console.log('No registration token available. Request permission to generate one.');
-    }
-  }).catch((err) => {
-    console.log('An error occurred while retrieving token. ', err);
-  });
-};
+// // トークンを取得する関数（手動トリガー用）
+// export const requestForToken = () => {
+//   getToken(messaging, { vapidKey: vapidKey}).then((currentToken) => {
+//     if (currentToken) {
+//       console.log('FCM Token:', currentToken);
+//       // ここでトークンをサーバーに送信するなどの処理を行う
+//       sendTokenToServer(currentToken);
+//     } else {
+//       console.log('No registration token available. Request permission to generate one.');
+//     }
+//   }).catch((err) => {
+//     console.log('An error occurred while retrieving token. ', err);
+//   });
+// };
 
 
 // // サービスワーカーを登録し、トークンを取得
@@ -97,5 +97,5 @@ export const requestForToken = () => {
 
 
 
-export { app, auth, db, firestore, messaging, ref, set, provider }; // dbもエクスポートする
+export { app, auth, db, firestore, ref, set, provider }; // dbもエクスポートする
 export default firebaseConfig;

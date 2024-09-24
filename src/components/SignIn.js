@@ -3,25 +3,50 @@ import { useNavigate } from "react-router-dom";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { auth, app } from "../firebase"; 
 import { getMessaging, getToken } from "firebase/messaging";
-// import axios from "axios";
 import "./SignIn.css";
 
-const axios = require("axios");
+// const axios = require("axios");
 
 // Firebase Messagingの初期化
-const messaging = getMessaging(app);
-const vapidKey = process.env.REACT_APP_VAPID_KEY;
+// const messaging = getMessaging(app);
+// const vapidKey = process.env.REACT_APP_VAPID_KEY;
 
-const urlBase64ToUint8Array = (base64String) => {
-  const padding = '='.repeat((4 - base64String.length % 4) % 4);
-  const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
-  const rawData = atob(base64);
-  const outputArray = new Uint8Array(rawData.length);
-  for (let i = 0; i < rawData.length; ++i) {
-    outputArray[i] = rawData.charCodeAt(i);
-  }
-  return outputArray;
-};
+// const urlBase64ToUint8Array = (base64String) => {
+//   const padding = '='.repeat((4 - base64String.length % 4) % 4);
+//   const base64 = (base64String + padding).replace(/-/g, '+').replace(/_/g, '/');
+//   const rawData = atob(base64);
+//   const outputArray = new Uint8Array(rawData.length);
+//   for (let i = 0; i < rawData.length; ++i) {
+//     outputArray[i] = rawData.charCodeAt(i);
+//   }
+//   return outputArray;
+// };
+
+// // ユーザーのブラウザがSafariかどうかを判定する関数
+// function isSafari() {
+//   const userAgent = navigator.userAgent.toLowerCase();
+//   return userAgent.includes('safari') && !userAgent.includes('chrome');
+// }
+
+// // Safari以外のブラウザでのみFCMを初期化
+// if (!isSafari()) {
+//   // Firebase Messagingを初期化するコード
+//   const messaging = getMessaging();
+//   getToken(messaging, { vapidKey: vapidKey })
+//     .then((currentToken) => {
+//       if (currentToken) {
+//         console.log('FCM token:', currentToken);
+//       } else {
+//         console.log('No registration token available.');
+//       }
+//     })
+//     .catch((err) => {
+//       console.log('An error occurred while retrieving token.', err);
+//     });
+// } else {
+//   console.log('Safari detected. FCM is not supported.');
+// }
+
 
 function SignIn() {
   const [formData, setFormData] = useState({
@@ -32,51 +57,51 @@ function SignIn() {
   const navigate = useNavigate();
 
   // デバイストークンを取得する関数
-  const getDeviceToken = async () => {
+  // const getDeviceToken = async () => {
 
-    try {
-      // Service Workerの準備ができるまで待つ
-      const registration = await navigator.serviceWorker.ready;
+  //   try {
+  //     // Service Workerの準備ができるまで待つ
+  //     const registration = await navigator.serviceWorker.ready;
   
-      // PushManagerでのサブスクリプション
-      const subscription = await registration.pushManager.subscribe({
-        userVisibleOnly: true,
-        applicationServerKey: urlBase64ToUint8Array(vapidKey)
-      });
-      const pushManagerToken = subscription.endpoint;
-      console.log('PushManager Subscription Token:', pushManagerToken);
+  //     // // PushManagerでのサブスクリプション
+  //     // const subscription = await registration.pushManager.subscribe({
+  //     //   userVisibleOnly: true,
+  //     //   applicationServerKey: urlBase64ToUint8Array(vapidKey)
+  //     // });
+  //     const pushManagerToken = subscription.endpoint;
+  //     console.log('PushManager Subscription Token:', pushManagerToken);
   
-      // Firebase Cloud Messagingのトークン取得
-      const currentToken = await getToken(messaging, { vapidKey: vapidKey });
-      console.log("FCM Token:", currentToken);
+  //     // Firebase Cloud Messagingのトークン取得
+  //     const currentToken = await getToken(messaging, { vapidKey: vapidKey });
+  //     console.log("FCM Token:", currentToken);
       
-          return currentToken;
-        } catch (error) {
-          console.error('Error getting device token:', error);
-          return null;
-        }
-      };
+  //         return currentToken;
+  //       } catch (error) {
+  //         console.error('Error getting device token:', error);
+  //         return null;
+  //       }
+  //     };
     
 
-  // サーバーにトークンを送信する関数
-  const sendTokensToServer = async (idToken, deviceToken) => {
-    try {
-      const response = await axios.post("https://us-central1-reminder-b4527.cloudfunctions.net/saveTokens", {
-        idToken: idToken,
-        deviceToken: deviceToken
-      }, {
-        headers: {
-            'Content-Type': 'application/json',
-            'Authorization': `Bearer ${idToken}`,
-            'Access-Control-Allow-Origin': 'https://reminder-b4527.web.app',
-        //     'Access-Control-Allow-Methods': "PUT, POST, GET, DELETE, HEAD, PATCH, OPTIONS"
-        },
-    });
-      console.log("Server response:", response.data);
-    } catch (error) {
-      console.log("Error sending tokens to server:", error);
-    }
-  };
+  // // サーバーにトークンを送信する関数
+  // const sendTokensToServer = async (idToken, deviceToken) => {
+  //   try {
+  //     const response = await axios.post("https://us-central1-reminder-b4527.cloudfunctions.net/saveTokens", {
+  //       idToken: idToken,
+  //       deviceToken: deviceToken
+  //     }, {
+  //       headers: {
+  //           'Content-Type': 'application/json',
+  //           'Authorization': `Bearer ${idToken}`,
+  //           'Access-Control-Allow-Origin': 'https://reminder-b4527.web.app',
+  //       //     'Access-Control-Allow-Methods': "PUT, POST, GET, DELETE, HEAD, PATCH, OPTIONS"
+  //       },
+  //   });
+  //     console.log("Server response:", response.data);
+  //   } catch (error) {
+  //     console.log("Error sending tokens to server:", error);
+  //   }
+  // };
 
   const onChange = (e) => {
     setFormData({
@@ -94,16 +119,18 @@ function SignIn() {
         email,
         password
       );
-  
-
-      if (userCredential.user) {
-        const idToken = await userCredential.user.getIdToken();
-        const deviceToken = await getDeviceToken(); // デバイストークンを取得
-        if (deviceToken) {
-          await sendTokensToServer(idToken, deviceToken); // トークンをサーバーに送信
-        }
-        navigate("/Example");
+      if(userCredential) {
+        navigate('/Example');
       }
+
+      // if (userCredential.user) {
+      //   const idToken = await userCredential.user.getIdToken();
+      //   const deviceToken = await getDeviceToken(); // デバイストークンを取得
+      //   if (deviceToken) {
+      //     await sendTokensToServer(idToken, deviceToken); // トークンをサーバーに送信
+      //   }
+      //   navigate("/Example");
+      // }
      
     } catch (error) {
       console.log(error);
