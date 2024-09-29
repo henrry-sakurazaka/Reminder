@@ -38,13 +38,14 @@ test.use({
       await expect(lastSpan).toHaveCSS('text-decoration', 'line-through solid rgb(8, 232, 158)');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
-      await lastBtn.dblclick();
+      const lastSpanBeforeDelete = page.locator('span').last();
+      await lastSpanBeforeDelete.dblclick();
       await expect(lastSpan).toHaveCount(0);
 
       const refresh = page.locator('button.reset2');
       await refresh.click();
       const content = page.locator('span.content');
-      await expect(content).toBeHidden();
+      await expect(content).toHaveCount(0);
 
   });
 
