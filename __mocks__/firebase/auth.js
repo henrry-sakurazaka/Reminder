@@ -1,12 +1,17 @@
 // __mocks__/firebase/auth.js
+/* eslint-disable no-console */
+
 
 // Firebase Authentication モックを作成
 export const initializeAuth = jest.fn(() => {
   return {
     signInWithEmailAndPassword: jest.fn((email, password) => {
+      console.log(`Email: ${email}, Password: ${password}`);
       return Promise.resolve({ user: { email } }); // メールアドレスを返す
+     
     }),
     createUserWithEmailAndPassword: jest.fn((email, password) => {
+      console.log(`Email: ${email}, Password: ${password}`);
       return Promise.resolve({ user: { email } }); // メールアドレスを返す
     }),
   };
@@ -20,5 +25,6 @@ export const onAuthStateChanged = jest.fn((auth, callback) => {
 
 // Firebase AuthのsignInWithEmailAndPasswordをモック
 export const signInWithEmailAndPassword = jest.fn((auth, email, password) => {
+  console.log(`Email: ${email}, Password: ${password}`);
   return Promise.resolve({ user: { uid: 'mocked-user-id', email } });
 });

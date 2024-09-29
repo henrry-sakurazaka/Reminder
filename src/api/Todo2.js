@@ -5,7 +5,6 @@ const ENDPOINT_URL = 'http://localhost:3001/example';
 const todoApi = {
    async getAll() {
         const result = await axios.get(ENDPOINT_URL);
-        console.log(result);
         return result.data;
     },
    async post(todo) {

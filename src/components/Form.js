@@ -1,19 +1,13 @@
-import React from "react";
-import { useState, useEffect, useCallback} from "react";
-import { useDispatchTodos , useTodos } from "../context/TodoContext";
-import { doc, updateDoc } from 'firebase/firestore';
-import { auth } from "../firebase";
 
+
+import React from "react";
+import { useDispatchTodos , useTodos } from "../context/TodoContext";
 
     
 
 const Form = () => {
     const dispatch = useDispatchTodos(); 
-    const { enteredTodo, setEnteredTodo,
-            setAddTodosExecuted       
-    } = useTodos();
-    // const user = auth.currentUser;
-    // const [uid, setUid] = useState(); // uidの初期化
+    const {enteredTodo, setEnteredTodo, setAddTodosExecuted} = useTodos();
     
    
     const addTodo = () => {
@@ -41,37 +35,12 @@ const Form = () => {
         dispatch({type: "todo/reset", todo: neoTodo });   
     }
 
-    
-
-// const UseMidleTodos = (todoList, uid, firestore) => {
-
-    
-//     const handleResetTodos = useCallback(async () => {
-//       try {
-//         const todoDocRef = doc(firestore, 'todoList3', uid);
-//         await updateDoc(todoDocRef, { todos: [] });
-//         console.log('Todos successfully reset');
-//       } catch (error) {
-//         console.error('Error resetting todos:', error);
-//       }
-//     }, [firestore, uid]);
-  
-//     // Effect to watch for reset action
-//     useEffect(() => {
-//       if (todos.length === 0) {
-//         handleResetTodos();
-//       }
-//     }, [todos, handleResetTodos]);
-  
-//     return [todos, dispatch];
-//   };
-   
-    
+      
     return(
         <div>  
             <input type="text" value={enteredTodo} id="task" name="task" 
-            onChange={(e) => {
-                setEnteredTodo(e.target.value)}}/>
+             onChange={(e) => {
+               setEnteredTodo(e.target.value)}}/>
                 <div className="flex-box">
                     <button className="add" onClick={() => addTodo()}>
                         <div className="plus">
