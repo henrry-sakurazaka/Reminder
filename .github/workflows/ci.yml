@@ -13,15 +13,4 @@ on:
     branches:
       - master
 
-# ci.yml
-# on:
-#   push:
-#     branches:
-#       - master
-#     paths:
-#       - 'src/**'        # ここで指定したディレクトリが変更されたときにのみ実行
-#       - 'tests/**'
-#   pull_request:
-#     branches:
-#       - master
 
