@@ -31,6 +31,7 @@
     "os-browserify": "^0.3.0",
     "path-browserify": "^1.0.1",
     "process": "^0.11.10",
+    "prop-types": "^15.8.1",
     "querystring-es3": "^0.2.1",
     "react": "^18.3.1",
     "react-datepicker": "^6.6.0",
@@ -52,23 +53,28 @@
     "test": "craco test",
     "eject": "react-scripts eject",
     "start:api": "npx json-server **/../db/db.json -p 3001",
-    "start:client": "npx cross-env PORT=3003 react-scripts start"
+    "start:client": "npx cross-env PORT=3003 react-scripts start",
+    "lint": "eslint -c .config.mjs ."
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
-
     "@babel/preset-env": "^7.25.4",
     "@babel/preset-react": "^7.24.7",
     "@craco/craco": "^7.1.0",
+    "@eslint/js": "^9.11.1",
     "@playwright/test": "^1.47.0",
     "@testing-library/jest-dom": "^6.5.0",
     "@testing-library/react": "^16.0.1",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
     "babel-jest": "^29.7.0",
+    "eslint": "^8.57.1",
+    "eslint-plugin-react": "^7.37.0",
     "firebase-admin": "^12.2.0",
     "firebase-functions": "^5.0.1",
     "firebase-mock": "^2.2.4",
-    "globals": "^15.3.0",
+    "globals": "^15.9.0",
     "jest": "^27.5.1",
     "jsdom": "^24.0.0",
     "json-server": "^1.0.0-alpha.23",
@@ -114,6 +120,19 @@
     ],
     "moduleNameMapper": {
       "^src/(.*)$": "<rootDir>/src/$1"
+    }
+  },
+  "settings": {
+    "react": {
+      "version": "detect"
+    },
+    "rules": {
+      "no-console": "off"
+    },
+    "env": {
+      "browser": true,
+      "node": true,
+      "es6": true
     }
   }
 }

@@ -45,7 +45,7 @@ const Example = () => {
                     <div className="clone-big-title"><h1 className="clone-text">REMINDER</h1></div>
                     <div className="discription">
                         <p>Manage your tasks and make your lifestyle meaningful 
-                        with the Reminder App. Let's get started. You can input 
+                        with the Reminder App. Let&apos;s get started. You can input 
                         your requirements and add them by pressing the plus
                         button. Once your tasks are successfully executed and completed, 
                         press the complete button. You can delete a task by double-clicking it.

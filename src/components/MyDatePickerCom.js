@@ -1,12 +1,19 @@
+import React from "react";
 import { useTodos } from "../context/TodoContext";
 import MyDatePicker from "react-datepicker";
 import "./MDP.css";
 import { useEffect } from "react";
+import PropTypes from 'prop-types';
 
 
-
-const MyDatePickerCom = ({isDate, handleDateChange, shouldHandleNotifications, timeCheck}) => {
-
+const MyDatePickerCom = ({isDate, handleDateChange, shouldHandleNotifications, timeCheck }) => {
+ 
+  MyDatePickerCom.propTypes = {
+    isDate: PropTypes.instanceOf(Date).isRequired,                  // Date型の値
+    handleDateChange: PropTypes.func.isRequired,                    // 関数
+    shouldHandleNotifications: PropTypes.bool,           // ブール型
+    timeCheck: PropTypes.bool,                           // ブール型
+  };
   const {selectedDate, 
         setDisplayDatePicker,setDisplayTimePicker
         } = useTodos();

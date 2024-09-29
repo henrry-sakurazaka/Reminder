@@ -1,10 +1,12 @@
 
+
 import React from "react";
 import { onAuthStateChanged } from "firebase/auth";
 import { createContext , useState, useRef, useEffect, useContext, useMemo} from "react";
 import { useDispatchTodos, useTodos } from "./TodoContext";
 import { firestore, auth } from "../firebase";
 import { doc, setDoc, getDoc } from 'firebase/firestore';
+import PropTypes from "prop-types";
 
 const AsyncLogic = createContext();
 
@@ -28,8 +30,6 @@ const AsyncContextProvider = ({ children }) => {
     useEffect(() => {
       const unsubscribe = onAuthStateChanged(auth, (user) => {
         if (user) {
-          console.log('User is signed in:', user);
-          console.log('uid:', user.uid);
           setUid(user.uid); 
         } else {
           console.log('No user is signed in');
@@ -39,8 +39,6 @@ const AsyncContextProvider = ({ children }) => {
       return () => unsubscribe();
     }, []);
     
-   
-    console.log('todoChanged',todosChanged)
 
     const todosConverter2 = useMemo(() => {
       return {
@@ -71,7 +69,7 @@ const AsyncContextProvider = ({ children }) => {
 
     const GetConverter = useMemo(() => {
       return {
-        fromFirestore: (snapshot, options) => {
+        fromFirestore: (snapshot) => {
           const data = snapshot;
           const dataArray = Object.values(data).map(item => ({
             title: item.title,
@@ -102,7 +100,6 @@ const AsyncContextProvider = ({ children }) => {
           return;
         }
             try {
-              const todoDocRef = doc(firestore, 'todoList3', user.uid);
               const convertedData = todosConverter2.toFirestore(todos);
               const dataWithUid = { todoId: user.uid, todos: convertedData };
               await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
@@ -132,7 +129,7 @@ useEffect(() => {
       try {
           const todoDocRef = doc(firestore, 'todoList3', uid);
           const snapshot =  await getDoc(todoDocRef);
-          console.log(snapshot)
+          
           // ドキュメントが存在する場合のみ処理を続行
           if (snapshot.exists()) {
             const data2 = snapshot.data();
@@ -142,7 +139,7 @@ useEffect(() => {
               // getData がオブジェクトである場合、配列にラップする
               const newFetchedData = Array.isArray(getData) ? getData : [getData];    
               // fetchedData が null でないことを確認してから処理を続行
-                console.log('newFetchedData:',newFetchedData)
+
                 if (newFetchedData !== null && newFetchedData.length > 0) {
                     setFetchedData(newFetchedData);
                     setData(true);
@@ -175,12 +172,9 @@ useEffect(() => {
   const AddTodos = async () => {
 
         try {
-          const todoDocRef = doc(firestore, 'todoList3', user.uid);
           const convertedData = todosConverter2.toFirestore(todos);
           const dataWithUid = { todoId: user.uid, todos: convertedData };
           await setDoc(doc(firestore, "todoList3", user.uid), dataWithUid);
-          console.log('add')
-          console.log('Todos added to Firestore successfully');
         
         } catch (error) {
           console.error('Error adding todoList to Firestore:', error);
@@ -189,26 +183,25 @@ useEffect(() => {
         }
     }
       if (AddTodosExecuted) {
-        console.log('addTodo')
         AddTodos();  
       }
 },[AddTodosExecuted, dispatch, todos, GetConverter, todosConverter2])    
     
-    console.log('fetchedData:', fetchedData)
-    console.log('todos:', todos)
-    console.log('data:',data)
-    console.log('loading:' , loading)
+   
  
     return (
         <AsyncLogic.Provider value={{data, setData, loading, setLoading,
           fetchedData, setFetchedData, todoList, user, uid, firestore,
-          convertdedNotificationData
+          convertdedNotificationData, setComvertedNotificationData, setTodosChanged
         }} >
             {children}
         </AsyncLogic.Provider>
     )
 }
 
+AsyncContextProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
 const useAsyncContext = () => useContext(AsyncLogic);
 export { useAsyncContext , AsyncContextProvider } 

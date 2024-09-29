@@ -39,13 +39,13 @@ self.addEventListener('push', function(event) {
 //     })
 //   );
 // });
-self.addEventListener('install', event => {
-  self.skipWaiting();
-});
+// self.addEventListener('install', event => {
+//   self.skipWaiting();
+// });
 
-self.addEventListener('activate', event => {
-  event.waitUntil(clients.claim());
-});
+// self.addEventListener('activate', event => {
+//   event.waitUntil(clients.claim());
+// });
 
 
 
@@ -75,12 +75,12 @@ self.addEventListener('activate', event => {
 // });
 
 
-self.addEventListener('notificationclick', function(event) {
-  event.notification.close();
-  event.waitUntil(
-      clients.openWindow('https://reminder3-65e84.web.app')
-  );
-});
+// self.addEventListener('notificationclick', function(event) {
+//   event.notification.close();
+//   event.waitUntil(
+//       clients.openWindow('https://reminder3-65e84.web.app')
+//   );
+// });
 
 
 // onBackgroundMessage(messaging,(payload) => {

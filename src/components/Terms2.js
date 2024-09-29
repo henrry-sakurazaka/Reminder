@@ -1,6 +1,5 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
-// import './privacy.css'
 
 const Terms2 = () => {
 
