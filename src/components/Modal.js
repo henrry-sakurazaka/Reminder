@@ -1,3 +1,5 @@
+
+
 import React, { useEffect, useState } from "react";
 import { useTodos, useDispatchTodos } from "../context/TodoContext";
 import { onAuthStateChanged } from "firebase/auth";
@@ -8,13 +10,28 @@ import MyTimePicker from "./MyTimePicker";
 import MyDatePickerCom from "./MyDatePickerCom";
 import SelectSwitch from "./SelectSwitch";
 import NotificationHandler from "./NotificationHandler";
-import 'firebase/firestore'; // Firestoreを使用する場合
+import 'firebase/firestore'; 
 import "react-datepicker/dist/react-datepicker.css";
 import './Modal.css';
 import { v4 as uuidv4 } from 'uuid';
+import PropTypes from 'prop-types';
 
 
 const Modal = ( {todo} ) => {
+
+    Modal.propTypes = {
+          todo: PropTypes.shape({
+          id: PropTypes.number,
+          content: PropTypes.string,
+          editing: PropTypes.bool,
+          editingColor: PropTypes.bool,
+          completed: PropTypes.bool,
+          editingDateTime: PropTypes.bool,
+          editingLock: PropTypes.bool,
+        }).isRequired,
+        children: PropTypes.node,
+      };
+
     const dispatch = useDispatchTodos();
     const [isDate, setIsDate] = useState(new Date());
     const [isTime, setIsTime] = useState(new Date());
@@ -23,8 +40,8 @@ const Modal = ( {todo} ) => {
     const [prevIsTime, setPrevIsTime] = useState(isTime); 
     const [timeCheck, setTimeCheck] = useState(false); 
     const [isSupported, setIsSupported] = useState(true);
-    const user = auth.currentUser;
-    const [uid, setUid] = useState(); // uidの初期化
+    // const user = auth.currentUser;
+    const [uid, setUid] = useState(); 
     
     const { 
         isDateChecked, isTimeChecked, 
@@ -37,7 +54,6 @@ const Modal = ( {todo} ) => {
         setNotificationDocId, isSubmitting, setIsSubmitting,
         setIsDocRef, 
         shouldHandleNotifications, setShouldHandleNotifications,
-        setIsSet
 
     } = useTodos();
 
@@ -106,7 +122,6 @@ const Modal = ( {todo} ) => {
    
     
     const setTimer = async (todo) => {
-       console.log(todo.content)
         if (isSubmitting) return ; // 重複防止
            setIsSubmitting(true);
         
@@ -123,6 +138,7 @@ const Modal = ( {todo} ) => {
                 todoId: uid,
                 content: todo.content,
                 id: todo.id,
+                isNotified: false
             };
             
             
@@ -132,9 +148,6 @@ const Modal = ( {todo} ) => {
             const docRef = doc(collection(firestore, 'notifications'), docId);
             await setDoc(docRef, notificationData);
             // 非同期でドキュメントを追加し、その結果を待機
-            // const docRef = await addDoc(collection(firestore, 'notifications'), notificationData);
-            // const docId = docRef.id;
-            console.log('Generated docId:', docId);
             const newTodo = {
                 ...todo,
                 notification: true,
@@ -145,10 +158,7 @@ const Modal = ( {todo} ) => {
             setIsDocRef(docRef);
             setCompletedDateTimeSetting(true);
             setShouldHandleNotifications(true);
-            // setIsSet(true);
-            // setIsSubmitting2(true);
-
-            console.log('Notification data has been written to Firestore successfully');
+           
           } catch (error) {
             console.error('Error writing notification data to Firestore: ', error);
           } finally {
@@ -161,8 +171,7 @@ const Modal = ( {todo} ) => {
         try {
             const permission = await Notification.requestPermission();
             if (permission === 'granted') {
-              console.log('Notification permission granted!');
-              // ここで通知の送信を設定する
+              console.log('');
             } else if (permission === 'denied') {
               console.warn('Notification permission denied');
               // 通知の許可が拒否された場合の処理
@@ -198,7 +207,6 @@ const Modal = ( {todo} ) => {
         }
     }
 
-  console.log('timeCheck',timeCheck)
     return ( 
         modalOpen ? (
         <div key={todo.id} className="modal" 
@@ -206,8 +214,9 @@ const Modal = ( {todo} ) => {
             {warningMessage()}
             <div className="switch-container" onClick={() => switchFunction()}>
                 <SelectSwitch
+                    handleDateCheckboxChange={handleDateCheckboxChange}
                     isChecked={isDateChecked} 
-                    handleCheckboxChange={handleDateCheckboxChange}
+                    // handleCheckboxChange={handleDateCheckboxChange}
                     shouldHandleNotifications={shouldHandleNotifications}
                     inputTime={inputTime}
                     timeCheck={timeCheck}
@@ -215,8 +224,9 @@ const Modal = ( {todo} ) => {
             </div>
             <div className="switch-container2" onClick={() => switchFunction2()}>
                 <SSwitch2
+                    handleTimeCheckboxChange={handleTimeCheckboxChange}
                     isChecked={isTimeChecked}
-                    handleCheckboxChange={handleTimeCheckboxChange}
+                    // handleCheckboxChange={handleTimeCheckboxChange}
                     shouldHandleNotifications={shouldHandleNotifications}
                     inputTime={inputTime}
                     timeCheck={timeCheck}

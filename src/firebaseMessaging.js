@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 import { getMessaging } from "firebase/messaging";
 
 const messaging = getMessaging();

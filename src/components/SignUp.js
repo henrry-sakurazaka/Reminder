@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { useState, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
@@ -90,7 +92,7 @@ function SignUp() {
     const { name, email, password } = formData;
     const navigate = useNavigate();
 
-    const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
+    const spans = [1, 2, 3, 4, 5]; 
 
     const getColor = () => "rgba(40, 147, 247, 0.772)" 
   
@@ -128,8 +130,7 @@ function SignUp() {
           if (agree) {
             const userCredential = await createUserWithEmailAndPassword(auth, email, password);
             const user = userCredential.user;
-            console.log("User signed up successfully:", user);
-            // ユーザーの表示名を設定する
+        
             await updateProfile(auth.currentUser, {
               displayName: name,
             });

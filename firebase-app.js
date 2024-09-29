@@ -1,3 +1,4 @@
+/* eslint-disable no-console */
 /**
  * @license
  * Copyright 2017 Google LLC
@@ -898,11 +899,11 @@ class Provider {
         await Promise.all([
             ...services
                 .filter(service => 'INTERNAL' in service) // legacy services
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+        
                 .map(service => service.INTERNAL.delete()),
             ...services
                 .filter(service => '_delete' in service) // modularized services
-                // eslint-disable-next-line @typescript-eslint/no-explicit-any
+                
                 .map(service => service._delete())
         ]);
     }
@@ -1782,7 +1783,6 @@ const _serverApps = new Map();
  *
  * @internal
  */
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const _components = new Map();
 /**
  * @param component - the component being added to this app's container

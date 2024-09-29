@@ -1,4 +1,4 @@
-// 'use strict';
+'use strict';
 
 // self.addEventListener('push', function(event) {
 //   const options = {
@@ -94,4 +94,4 @@
 //   self.registration.showNotification(notificationTitle, notificationOptions);
 // });
 
-// export {};
+export {};

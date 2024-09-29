@@ -1,3 +1,5 @@
+
+
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { getAuth, signOut } from 'firebase/auth';
@@ -15,7 +17,7 @@ const UserAuth = () => {
     for(let i = 0; i < num; i++) {
         spans.push(i);
     }
-    // const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成
+    
     const [ isSignOut , setIsSignOut ] = useState(false);
     const getColor = () => "rgba(40, 147, 247, 0.772)";
     const getColor2 = () => "rgba(40, 147, 247, 0.772)";
@@ -31,12 +33,10 @@ const UserAuth = () => {
 
     const handleClickSignOut = () => {
         signOut(auth).then(() => {
-            console.log('ログアウトしました');
             setIsSignOut(true);
             localStorage.clear();
 
         }).catch((error) => {
-            // エラー発生時の処理
             console.error('ログアウトエラー:', error);
         });
         

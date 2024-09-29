@@ -8,7 +8,7 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require('cors');
 require('dotenv').config();
-// const cors = require('cors')({ origin: true });
+
    
 var serviceAccount = require("./serviceAccountKey.json"); 
                             
@@ -73,7 +73,7 @@ app.get('/get-token', cors(corsOptions), async (req, res) => {
       const deviceToken = tokenSnapshot.val().deviceToken;
       res.status(200).json({ token: deviceToken });
     } catch (error) {
-      console.error('Error fetching token:', error);
+  
       res.status(500).send(`Error fetching token: ${error.message}`);
     }
   });
@@ -97,8 +97,8 @@ app.post('/handleEasyLogin', (req, res) => {
 
 app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 const { idToken, deviceToken } = req.body;
-console.log('Received idToken:', idToken);
-console.log('Received deviceToken:', deviceToken);
+
+
 // トークンを保存する処理を実装する
 res.status(200).send('Tokens saved successfully');
 
@@ -106,17 +106,16 @@ try {
     // idToken を検証し、ユーザーを認証
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
-    console.log('Decoded UID:', uid);
 
     // トークンをデータベースに保存
     await admin.database().ref('tokens').child(uid).set({
       deviceToken: deviceToken,
     });
-    console.log('Token saved for UID:', uid);
+  
 
     res.status(200).send('Tokens saved successfully');
   } catch (error) {
-    console.error('Error saving tokens:', error);
+  
     res.status(500).send(`Error saving tokens: ${error.message}`);
   }
 });
@@ -135,7 +134,7 @@ app.post('/registerToken', cors(corsOptions), async (req, res) => {
 
     return res.status(200).send('Token registered successfully');
   } catch (error) {
-    console.error('Error registering token:', error);
+    console.log(error);
     return res.status(500).send('Internal Server Error');
   }
 });
@@ -150,7 +149,7 @@ if (!idToken) {
 try {
     const decodedToken = await admin.auth().verifyIdToken(idToken);
     const uid = decodedToken.uid;
-    const { token, message, deviceToken } = req.body;
+    const { deviceToken } = req.body;
 
     if (!deviceToken) {
         return res.status(400).json({ error: 'Device token missing' });
@@ -159,25 +158,19 @@ try {
     await admin.database().ref('tokens').child(uid).set({
         deviceToken: deviceToken,
     });
-    // プッシュ通知の送信
-    const payload = {
-        notification: {
-            title: message.title,
-            body: message.body,
-        },
-    };
-    const response = await admin.messaging().sendToDevice(deviceToken, payload);
-    // const response = await admin.messaging().send({
-    //     token: token,
+    // // プッシュ通知の送信
+    // const payload = {
     //     notification: {
-    //     title: message.title,
-    //     body: message.body,
+    //         title: message.title,
+    //         body: message.body,
     //     },
-    // });
-    console.log('Successfully sent message:', response);
+    // };
+    
+  
+    
     res.status(200).send('Notification sent successfully');
 } catch (error) {
-    console.error('Error sending message:', error);
+    console.error(error); // エラーをログに出力
     res.status(500).send(`Error sending notification: ${error.message}`);
 }
 });
@@ -214,42 +207,33 @@ exports.registerToken = functions.https.onRequest((req, res) => {
   }
 
   admin.firestore().collection('tokens').add({ token })
-    .then(() => {
+
       if (allowedOrigins.includes(origin)) {
         res.set('Access-Control-Allow-Origin', origin);
       } else {
         res.set('Access-Control-Allow-Origin', '*');
       }
       res.status(200).send('Token registered successfully');
-    })
-    .catch((error) => {
-      console.error('Error registering token:', error);
-      if (allowedOrigins.includes(origin)) {
-        res.set('Access-Control-Allow-Origin', origin);
-      } else {
-        res.set('Access-Control-Allow-Origin', '*');
-      }
-      res.status(500).send('Internal Server Error');
-    });
+  
+   
 });
 
 
-// データベースの特定の場所を監視するトリガー関数を定義する
-exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
-    .onWrite((change, context) => {
-        // 変更を取得する
-        const beforeData = change.before.val();
-        const afterData = change.after.val();
+// // データベースの特定の場所を監視するトリガー関数を定義する
+// exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
+//     .onWrite((change) => {
+//         // 変更を取得する
+//         // const beforeData = change.before.val();
+//         // const afterData = change.after.val();
 
-        // 変更を処理する
-        // ここにプッシュ通知の送信などの処理を追加します
+//         // 変更を処理する
+//         // ここにプッシュ通知の送信などの処理を追加します
 
-        // 変更をログに記録する
-        console.log("Database change detected:", context.params.todoId, beforeData, "->", afterData);
-        
-        // 処理が完了したことを示すPromiseを返す
-        return Promise.resolve();
-    });
+    
+      
+//         // 処理が完了したことを示すPromiseを返す
+//         return Promise.resolve();
+//     });
 
     const firestore = admin.firestore();
 
@@ -257,7 +241,10 @@ exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{
     .onUpdate(async (change, context) => {
         const beforeData = change.before.data(); // 変更前のデータ
         const afterData = change.after.data(); // 変更後のデータ
-
+        if (beforeData.someField !== afterData.someField) {
+          console.log('Field has changed:', beforeData.someField, 'to', afterData.someField);
+        }
+        
         // データの変更をチェック
         if (beforeData.notificationTime !== afterData.notificationTime) {
             const payload = {
@@ -274,7 +261,7 @@ exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{
 
                 if (deviceTokens.length > 0) {
                     const response = await admin.messaging().send(deviceTokens, payload);
-                    console.log('Notifications sent successfully:', response);
+                    console.log('response', response);
                 }
             } catch (error) {
                 console.error('Error sending notifications:', error);
@@ -297,10 +284,9 @@ exports.sendNotification = functions.https.onRequest((req, res) => {
                 }
           
                 // Firebase Auth トークンを検証
-                const decodedToken = await admin.auth().verifyIdToken(idToken);
-                const uid = decodedToken.uid; // デコードされたトークンから UID を取得
+                // const decodedToken = await admin.auth().verifyIdToken(idToken);
+                // const uid = decodedToken.uid; // デコードされたトークンから UID を取得
 
-               
                 const topic = 'valid-topic_123';
                 const title = String(req.body.title); // title を文字列型に変換
                 const body = String(req.body.body);
@@ -357,7 +343,6 @@ exports.saveTokens = functions.https.onRequest((req, res) => {
         return res.status(200).send({ success: true });
       })
       .catch(error => {
-        console.error('Error saving tokens: ', error);
         return res.status(500).send({ success: false, error: error.message });
       });
     });
