@@ -40,7 +40,7 @@ test.use({
 
       const lastSpanBeforeDelete = page.locator('span').last();
       await lastSpanBeforeDelete.dblclick();
-      await expect(lastSpan).toHaveCount(0);
+      await expect(lastSpanBeforeDelete).toHaveCount(0);
 
       const refresh = page.locator('button.reset2');
       await refresh.click();
