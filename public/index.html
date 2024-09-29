@@ -26,6 +26,8 @@
       work correctly both with client-side routing and a non-root public URL.
       Learn how to configure a non-root public URL by running `npm run build`.
     -->
+    <script src="https://apis.google.com/js/api.js"></script>
+   
     <title>React App</title>
     <!-- <script src="/firebase-messaging-sw.js"></script> -->
   </head>
@@ -35,17 +37,18 @@
     <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js"></script> -->
    
     <div id="root"></div>
-<!-- Service Worker registration script -->
-<script>
-  if ('serviceWorker' in navigator) {
-      navigator.serviceWorker.register('/worker.js', { type: 'module' })
-      .then((registration) => {
-          console.log('Service Worker registered with scope:', registration.scope);
-      }).catch((err) => {
-          console.log('Service Worker registration failed:', err);
-      });
-  }
-</script>
+  
+  <!-- Service Worker registration script -->
+  <script>
+    if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.register('/worker.js', { type: 'module' })
+        .then((registration) => {
+            console.log('Service Worker registered with scope:', registration.scope);
+        }).catch((err) => {
+            console.log('Service Worker registration failed:', err);
+        });
+    }
+  </script>
    
 <script type="module" src="./firebase.js"></script>
    <!-- 正しいパスでファイルを読み込む

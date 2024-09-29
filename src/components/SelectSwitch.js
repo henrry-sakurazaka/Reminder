@@ -1,11 +1,16 @@
 import React from "react";
 import { useTodos } from "../context/TodoContext";
 import "./SelectSwitch.css";
-
+import PropTypes from "prop-types";
 
 
 const SelectSwitch = ({ handleDateCheckboxChange, shouldHandleNotifications, timeCheck }) => {
 
+    SelectSwitch.propTypes = {
+        handleDateCheckboxChange: PropTypes.func.isRequired,
+        shouldHandleNotifications: PropTypes.bool.isRequired,
+        timeCheck: PropTypes.bool.isRequired,
+    }
     const { isDateChecked, setIsDateChecked } = useTodos();
 
 

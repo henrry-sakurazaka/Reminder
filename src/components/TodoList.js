@@ -6,8 +6,7 @@ import Edit from "./Edit";
 const TodoList = () => {
 
   const { todos } = useTodos();
-  const { data, loading , setData} = useAsyncContext();
-  console.log('data',data)
+  const { data, loading } = useAsyncContext();
   
     return ( 
         <>      

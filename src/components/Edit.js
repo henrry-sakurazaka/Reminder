@@ -2,17 +2,31 @@ import React from "react";
 import { useState } from "react";
 import { useDispatchTodos, useTodos } from "../context/TodoContext";
 import Modal from "./Modal";
+import PropTypes from 'prop-types';
+
 
 
 const Edit= ({todo}) => {
-    // const [isDate, setIsDate] = useState(new Date());
-    // const [isTime, setIsTime] = useState(new Date());
+
+    Edit.propTypes = {
+        todo: PropTypes.shape({
+          id: PropTypes.number.isRequired,
+          content: PropTypes.string.isRequired,
+          editing: PropTypes.bool.isRequired,
+          editingColor: PropTypes.bool,
+          completed: PropTypes.bool,
+          editingDateTime: PropTypes.bool,
+          editingLock: PropTypes.bool,
+        }).isRequired,
+        children: PropTypes.node,
+      };
+
     const { setModalOpen,
         setReserveModeTodo, setReserveModeId,
         setIsDateChecked, setIsTimeChecked,
         setContainerDateCheck, setContainerTimeCheck,
         modalOpen, Todo, setTodo,
-        setShouldHandleNotifications, isSubmitting2,
+        setShouldHandleNotifications,
         isSet
       } = useTodos();
 
@@ -42,11 +56,7 @@ const Edit= ({todo}) => {
         dispatch({type: "complete2", todo: neoTodo2 });
      }
     const toggleReseveMode = (todo) => {  
-      console.log(todo.content)
-        //   modalOpen ?  setModalOpen(false): setModalOpen(true); 
-        //   const newEditingLock = !todo.editingLock; // editingLock をトグル 
-        //   const newEditingDateTime = !todo.editingDateTime;
-        const newEditingColor = !todo.editingColor; // editingColor をトグル 
+        const newEditingColor = !todo.editingColor; 
         const neoTodo7 = {
             ...todo, 
             editingDateTime: true,

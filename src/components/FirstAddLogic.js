@@ -1,3 +1,5 @@
+
+
 import React from "react";
 import { useEffect, useState, useMemo} from 'react';
 import { useNavigate } from 'react-router-dom';
@@ -5,6 +7,7 @@ import { checkAuthentication } from './checkAuthentication';
 import { createContext, useContext} from "react";
 import { firestore} from "../firebase";
 import { collection, doc, addDoc} from 'firebase/firestore';
+import PropTypes from 'prop-types';
 
 
 
@@ -52,15 +55,13 @@ const todoList = [
 
 const FirstAddLogic = createContext();
 
-const FirstAddTodosProvider = ({ childeren }) => {
+const FirstAddTodosProvider = ({ children }) => {
 
   const navigate = useNavigate(); 
   const [authenticated, setAuthenticated] = useState(false); // authenticatedを状態として宣言
   const [savedToDatabase, setSavedToDatabase] = useState(false); // 初回保存フラグ
   
   
-  
-
   const todosConverter2 = useMemo(() => {
     return {
       toFirestore: (todoList) => {
@@ -86,7 +87,8 @@ const FirstAddTodosProvider = ({ childeren }) => {
     };
   }, []);
   
- 
+ console.log('authenticated', authenticated);
+
   useEffect(() => {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
@@ -124,12 +126,18 @@ const FirstAddTodosProvider = ({ childeren }) => {
               console.error('Error saving First data to Firestore:', error);
             }
         };
+
+    FirstAddTodosProvider.propTypes = {
+      children: PropTypes.node.isRequired,
+    };
+
     return (
         <FirstAddTodosProvider value= { todoList }>
-            { childeren }
+            { children }
         </FirstAddTodosProvider>
     )
 }
+
 
 const useFirstAddLogic = () => useContext(FirstAddLogic);
 

@@ -9,13 +9,9 @@ function SignOut() {
 
   useEffect(() => {
     const handleSignOut = async () => {
-      try {
+  
         await signOut(auth);
-        setTimeout(() => navigate('/UserAuth'), 10000);
-
-       } catch (error) {
-        console.error('ログアウトエラー:', error);
-      }
+        setTimeout(() => navigate('/UserAuth'), 10000); 
     };
 
     handleSignOut();

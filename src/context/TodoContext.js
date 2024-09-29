@@ -1,7 +1,8 @@
 import React from "react";
 import { createContext, useContext, useReducer, useState } from "react";
 import { getDoc } from 'firebase/firestore';
-import { set } from "date-fns";
+import PropTypes from 'prop-types';
+
 
  const TodoContext = createContext();
  const TodoDispatchContext = createContext();
@@ -156,8 +157,7 @@ const todoReducer = (todos, action) => {
             isDateSet, setIsDateSet, isTimeSet, setIsTimeSet,
             enteredTodo, setEnteredTodo, fireTodo, setFireTodo,
             todosData, setTodosData, todoList, selectedDate, setSelectedDate,
-            selectedTime, setSelectedTime, completedDateTimeSetting,
-            setCompletedDateTimeSetting, AddTodosExecuted, setAddTodosExecuted,
+            selectedTime, setSelectedTime,  AddTodosExecuted, setAddTodosExecuted,
             completedDateTimeSetting, setCompletedDateTimeSetting,
             notificationDocId, setNotificationDocId, isSubmitting, setIsSubmitting,
             isDocRef, setIsDocRef, reserveModeTodo, setReserveModeTodo,
@@ -171,8 +171,11 @@ const todoReducer = (todos, action) => {
           </TodoDispatchContext.Provider>
        </TodoContext.Provider>
     )
-
  }
+
+TodoProvider.propTypes = {
+  children: PropTypes.node.isRequired,
+};
 
  const useTodos = () => useContext(TodoContext);
  const useDispatchTodos = () => useContext(TodoDispatchContext);
