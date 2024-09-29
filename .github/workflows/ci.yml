@@ -1,4 +1,3 @@
-# ci.yml
 on:
   push:
     branches:
@@ -7,21 +6,35 @@ on:
     branches:
       - master
 
-# playwright.yml
-on:
-  pull_request:
-    branches:
-      - master
+jobs:
+  lint:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+      
+      - name: Install dependencies
+        run: npm install
+      
+      - name: Run ESLint
+        run: npx eslint -c eslint.config.mjs .
 
-# ci.yml
-# on:
-#   push:
-#     branches:
-#       - master
-#     paths:
-#       - 'src/**'        # ここで指定したディレクトリが変更されたときにのみ実行
-#       - 'tests/**'
-#   pull_request:
-#     branches:
-#       - master
+  e2e:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
+      - name: Install dependencies
+        run: npm install
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Run E2E tests
+        run: npm run test:e2e
+        env:
+          REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
+          REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
+          REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
