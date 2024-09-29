@@ -39,7 +39,7 @@ test.use({
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
       await lastBtn.dblclick();
-      await expect(lastSpan).toHaveText('send a letter');
+      await expect(lastSpan).toBeHidden();
 
       const refresh = page.locator('button.reset2');
       await refresh.click();
