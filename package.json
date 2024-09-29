@@ -54,7 +54,7 @@
     "eject": "react-scripts eject",
     "start:api": "npx json-server **/../db/db.json -p 3001",
     "start:client": "npx cross-env PORT=3003 react-scripts start",
-     "lint": "eslint -c .config.mjs ."
+     "lint": "eslint -c eslint.config.mjs ."
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
