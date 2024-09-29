@@ -39,7 +39,7 @@ test.use({
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
       await lastBtn.dblclick();
-      await expect(lastSpan).toBeHidden();
+      await expect(lastSpan).toHaveCount(0);
 
       const refresh = page.locator('button.reset2');
       await refresh.click();
