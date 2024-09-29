@@ -27,11 +27,14 @@ jobs:
 
       - name: Install dependencies
         run: npm install
-      
-      - name: Set environment variables
-        env:
-          REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
       - name: Run E2E tests
         run: npm run test:e2e
+        env:
+          REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
+          REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
+          REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
