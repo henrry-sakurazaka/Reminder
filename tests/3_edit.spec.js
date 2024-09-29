@@ -38,9 +38,9 @@ test.use({
       await expect(lastSpan).toHaveCSS('text-decoration', 'line-through solid rgb(8, 232, 158)');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
-      const lastSpanBeforeDelete = page.locator('span').last();
-      await lastSpanBeforeDelete.dblclick();
-      await expect(lastSpanBeforeDelete).toHaveCount(0);
+      const thirdSpan = page.locator('span').nth(3);
+      await thirdSpan.dblclick();
+      await expect(thirdSpan).toHaveCount(0);
 
       const refresh = page.locator('button.reset2');
       await refresh.click();
