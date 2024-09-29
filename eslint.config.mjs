@@ -49,6 +49,10 @@ export default {
     'react/react-in-jsx-scope': 'off',
     'no-console': 'off',
     "no-undef": "off",
+    "indent": "off", // インデントのルールを無効にする
+    "space-in-parens": "off", // 括弧内の空白を無視する
+    "no-multi-spaces": "off", // 複数の空白を許可する
+    // 必要に応じて他の空白関連のルールを無効にする
   },
 
   // ESLintの推奨設定をここに直接追加
