@@ -1,6 +1,11 @@
 import globals from "globals";
 import pluginJs from "@eslint/js";
 import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
+import pluginReact from 'eslint-plugin-react'; // Reactプラグイン
+import pluginPrettier from "eslint-plugin-prettier";
+import eslintConfigPrettier from "eslint-config-prettier";
+
+
 
 export default {
   ignores: [
@@ -44,6 +49,12 @@ export default {
       version: "detect",
     },
   },
+
+  plugins: {
+    react: pluginReact,
+    prettier: pluginPrettier,
+  },
+
   rules: {
     '@typescript-eslint/no-explicit-any': 'off',
     'react/react-in-jsx-scope': 'off',
@@ -52,7 +63,7 @@ export default {
     "indent": "off", // インデントのルールを無効にする
     "space-in-parens": "off", // 括弧内の空白を無視する
     "no-multi-spaces": "off", // 複数の空白を許可する
-    // 必要に応じて他の空白関連のルールを無効にする
+    'prettier/prettier': 'error', // Prettierのルールをエラーとして表示
   },
 
   // ESLintの推奨設定をここに直接追加

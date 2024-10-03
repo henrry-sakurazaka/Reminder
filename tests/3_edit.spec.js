@@ -38,9 +38,9 @@ test.use({
       await expect(lastSpan).toHaveCSS('text-decoration', 'line-through solid rgb(8, 232, 158)');
       await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
-      const thiredCompBtn = page.locator('button.compBtn').nth(3);
-      await thiredCompBtn.dblclick();
-      await expect(thiredCompBtn).toHaveCount(0);
+      const thirdCompBtn = page.locator('button.compBtn').nth(3);
+      await thirdCompBtn.dblclick();
+      await expect(thirdCompBtn).toHaveCount(0);
 
       const refresh = page.locator('button.reset2');
       await refresh.click();
