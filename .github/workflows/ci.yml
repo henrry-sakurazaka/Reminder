@@ -41,13 +41,13 @@ jobs:
 
       - name: Start Firebase Emulators
         run: docker-compose exec firebase npx firebase emulators:start --only hosting --debug &
-        # Give the emulator a moment to start up
+
         sleep 10
 
       - name: Run E2E tests
         run: docker-compose exec app npm run test:e2e
         env:
-          REACT_APP_API_URL: "http://localhost:3000"
+          REACT_APP_API_URL: "http://app:3000"
           REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
           REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
@@ -69,8 +69,4 @@ jobs:
       - name: Deploy Functions to Firebase
         run: |
           echo "${{ secrets.FIREBASE_TOKEN }}" | firebase login:ci --token "${{ secrets.FIREBASE_TOKEN }}"
-          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
-
-      - name: Deploy Hosting to Firebase
-        run: |
-          firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN 
