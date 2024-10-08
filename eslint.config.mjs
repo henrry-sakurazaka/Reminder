@@ -3,7 +3,7 @@ import pluginJs from "@eslint/js";
 import pluginReactConfig from "eslint-plugin-react/configs/recommended.js";
 import pluginReact from 'eslint-plugin-react'; // Reactプラグイン
 import pluginPrettier from "eslint-plugin-prettier";
-import eslintConfigPrettier from "eslint-config-prettier";
+
 
 
 

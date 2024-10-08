@@ -13,11 +13,14 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
       
+      - name: Set up Docker
+        run: docker-compose up -d
+
       - name: Install dependencies
-        run: npm install
+        run: docker-compose exec app npm install
       
       - name: Run ESLint
-        run: npx eslint -c eslint.config.mjs .
+        run: docker-compose exec app npx eslint -c eslint.config.mjs .
 
   e2e:
     runs-on: ubuntu-latest
@@ -25,16 +28,47 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
+      - name: Set up Docker
+        run: docker-compose up -d
+
       - name: Install dependencies
-        run: npm install
+        run: docker-compose exec app npm install
 
       - name: Install Playwright browsers
-        run: npx playwright install --with-deps
+        run: docker-compose exec app npx playwright install --with-deps
+
+      - name: Start Firebase Emulators
+        run: docker-compose exec firebase npx firebase emulators:start --only hosting --debug &
+        # Give the emulator a moment to start up
+        sleep 10
 
       - name: Run E2E tests
-        run: npm run test:e2e
+        run: docker-compose exec app npm run test:e2e
         env:
           REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
           REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
           REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
+          FIREBASE_EMULATOR_HOST: "localhost:8080"
+    
+  deploy:
+  runs-on: ubuntu-latest
+  needs: 
+    - lint  # Lintが成功した場合のみ実行
+    - e2e   # E2Eテストが成功した場合のみ実行
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Deploy Functions to Firebase
+      run: |
+        echo "${{ secrets.FIREBASE_TOKEN }}" | firebase login:ci --token "${{ secrets.FIREBASE_TOKEN }}"
+        firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+
+    - name: Deploy Hosting to Firebase
+      run: |
+        firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+  
