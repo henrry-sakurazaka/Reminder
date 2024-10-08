@@ -9,6 +9,8 @@ services:
       - "3000:3000" # Reactアプリのポート
     volumes:
       - .:/app
+    env_file:
+      - .env
 
   firebase:
     image: firebase/firebase-tools
