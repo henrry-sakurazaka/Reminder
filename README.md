@@ -1,71 +1,83 @@
-# Getting Started with Create React App
+## Docker Hub
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+このプロジェクトのDockerイメージは、[Docker Hub](https://hub.docker.com/repositories/henrry301)で公開されています。ここでは、以下の情報を確認できます：
 
-## Available Scripts
+- **リポジトリ名**: `henrry301/reminder-image`
+- **タグ**: `latest` タグを含む各イメージのバージョン。
+- **イメージの履歴**: イメージのビルド履歴や変更履歴を確認できます。
+- **ダウンロード回数**: このイメージがどれだけダウンロードされたかを確認できます。
 
-In the project directory, you can run:
+Docker Hubを訪れて、プロジェクトに関連するイメージやその詳細を確認してください。
+
+
+# Create React App でのプロジェクトの始め方
+
+このプロジェクトは [Create React App](https://github.com/facebook/create-react-app) を使って作成されました。
+
+## 利用可能なスクリプト
+
+プロジェクトディレクトリ内で、以下のコマンドを実行できます。
 
 ### `npm start`
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in your browser.
+アプリを開発モードで実行します。\
+ブラウザで [http://localhost:3000](http://localhost:3000) を開いて確認してください。
 
-The page will reload when you make changes.\
-You may also see any lint errors in the console.
+変更を加えるとページがリロードされます。\
+コンソールにリントエラーが表示されることがあります。
 
 ### `npm test`
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+インタラクティブなウォッチモードでテストランナーを起動します。\
+テストの実行方法についての詳細は、[テストを実行する](https://facebook.github.io/create-react-app/docs/running-tests) セクションを参照してください。
 
 ### `npm run build`
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+アプリを本番用に `build` フォルダにビルドします。\
+React を本番モードで正しくバンドルし、最適なパフォーマンスのためにビルドを最適化します。
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+ビルドはミニファイされ、ファイル名にはハッシュが含まれます。\
+アプリはデプロイの準備が整いました！
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+デプロイに関する詳細は、[デプロイ](https://facebook.github.io/create-react-app/docs/deployment) セクションを参照してください。
 
 ### `npm run eject`
 
-**Note: this is a one-way operation. Once you `eject`, you can't go back!**
+**注意: これは一方向の操作です。一度 `eject` すると元に戻すことはできません！**
 
-If you aren't satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+ビルドツールと構成の選択に満足できない場合、いつでも `eject` できます。このコマンドはプロジェクトから単一のビルド依存関係を削除します。
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you're on your own.
+その代わりに、すべての構成ファイルと遷移依存関係（webpack、Babel、ESLint など）がプロジェクト内にコピーされ、完全に制御できるようになります。 `eject` 以外のすべてのコマンドは機能しますが、コピーされたスクリプトを指し示すので、調整できます。この時点で、あなたは独自のものです。
 
-You don't have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn't feel obligated to use this feature. However we understand that this tool wouldn't be useful if you couldn't customize it when you are ready for it.
+`eject` を使用する必要はありません。キュレーションされた機能セットは小規模および中規模のデプロイメントに適しており、この機能を使用することを強制されることはありません。ただし、このツールが必要なときにカスタマイズできないのであれば、意味がないことは理解しています。
 
-## Learn More
+## 詳細情報
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+[Create React App のドキュメント](https://facebook.github.io/create-react-app/docs/getting-started)でさらに学ぶことができます。
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Reactについて学ぶには、[React のドキュメント](https://reactjs.org/)を参照してください。
 
-### Code Splitting
+### コード分割
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
+このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/code-splitting](https://facebook.github.io/create-react-app/docs/code-splitting)
 
-### Analyzing the Bundle Size
+### バンドルサイズの分析
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
+このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size](https://facebook.github.io/create-react-app/docs/analyzing-the-bundle-size)
 
-### Making a Progressive Web App
+### プログレッシブウェブアプリの作成
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
+このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app](https://facebook.github.io/create-react-app/docs/making-a-progressive-web-app)
 
-### Advanced Configuration
+### 高度な構成
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
+このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/advanced-configuration](https://facebook.github.io/create-react-app/docs/advanced-configuration)
 
-### Deployment
+### デプロイ
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
+このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/deployment](https://facebook.github.io/create-react-app/docs/deployment)
 
-### `npm run build` fails to minify
+### `npm run build` がミニファイに失敗する
 
-This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-# Reminder
+このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+

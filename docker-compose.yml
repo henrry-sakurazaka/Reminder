@@ -1,0 +1,20 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Reactアプリのポート
+    volumes:
+      - .:/app
+
+  firebase:
+    image: firebase/firebase-tools
+    volumes:
+      - ./firebase:/firebase
+    ports:
+      - "4000:4000"
+      - "8080:8080"
+    command: ["emulators:start", "--only", "firestore,functions"]
