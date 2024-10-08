@@ -11,7 +11,7 @@ test.use({
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
 
-      await page.goto('https://reminder3-65e84.web.app/SignIn');  
+      await page.goto(`${process.env.REACT_APP_API_URL}/SignIn`);  
         
       const email = process.env.REACT_APP_TEST_EMAIL
       const password = process.env.REACT_APP_TEST_PASSWORD; 
@@ -20,7 +20,7 @@ test.use({
       await page.fill('#password', password); 
       await page.click('button.form-button[type="submit"]');
     
-     await expect(page).toHaveURL('https://reminder3-65e84.web.app/Example');
+     await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Example`);
         
         
       await page.waitForTimeout(40000);
