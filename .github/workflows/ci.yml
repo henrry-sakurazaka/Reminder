@@ -1,3 +1,5 @@
+name: CI/CD Workflow
+
 on:
   push:
     branches:
@@ -7,66 +9,69 @@ on:
       - master
 
 jobs:
-  lint:
+  build:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
       
-      - name: Set up Docker
+      # Dockerイメージをビルド
+      - name: Build Docker image
         run: |
-          docker-compose up -d
+          docker build -t my-app:latest .
 
-      - name: Install dependencies
-        run: docker-compose exec app npm install
+      # Dockerイメージをアップロードする場合（DockerHubなど）
+      - name: Log in to Docker Hub
+        run: |
+          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+          docker tag my-app:latest ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+          docker push ${{ secrets.DOCKER_USERNAME }}/my-app:latest
+
+  lint:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
       
+      # Dockerイメージを使用してESLintを実行
       - name: Run ESLint
-        run: docker-compose exec app npx eslint -c eslint.config.mjs .
+        run: |
+          docker run --rm my-app:latest npx eslint -c eslint.config.mjs .
 
   e2e:
     runs-on: ubuntu-latest
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Set up Docker
-        run: |
-          docker-compose up -d
-
-      - name: Install dependencies
-        run: docker-compose exec app npm install
-
-      - name: Install Playwright browsers
-        run: docker-compose exec app npx playwright install --with-deps
-
-      - name: Start Firebase Emulators
-        run: docker-compose exec firebase npx firebase emulators:start --only hosting --debug &
-
-        sleep 10
-
+      # Dockerイメージを使用してE2Eテストを実行
       - name: Run E2E tests
-        run: docker-compose exec app npm run test:e2e
-        env:
-          REACT_APP_API_URL: "http://localhost:3000"
-          REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
-          REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
-          FIREBASE_EMULATOR_HOST: "localhost:8080"
-    
-  deploy:
-    runs-on: ubuntu-latest
-    needs: 
-      - lint  # Lintが成功した場合のみ実行
-      - e2e   # E2Eテストが成功した場合のみ実行
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-
-      - name: Install Firebase CLI
-        run: npm install -g firebase-tools
-
-      - name: Deploy Functions to Firebase
         run: |
-          echo "${{ secrets.FIREBASE_TOKEN }}" | firebase login:ci --token "${{ secrets.FIREBASE_TOKEN }}"
-          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN 
+          docker run --rm -e REACT_APP_API_URL=http://localhost:3000 \
+            -e REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }} \
+            -e REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }} \
+            my-app:latest npm run test:e2e
+
+  deploy:
+  runs-on: ubuntu-latest
+  needs: 
+    - lint  # Lintが成功した場合のみ実行
+    - e2e   # E2Eテストが成功した場合のみ実行
+  steps:
+    - name: Checkout code
+      uses: actions/checkout@v2
+
+    - name: Install Firebase CLI
+      run: npm install -g firebase-tools
+
+    - name: Deploy Functions to Firebase
+      run: |
+        echo "${{ secrets.FIREBASE_TOKEN }}" | firebase login:ci --token "${{ secrets.FIREBASE_TOKEN }}"
+        firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+
+    - name: Deploy Hosting to Firebase
+      run: |
+        firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
