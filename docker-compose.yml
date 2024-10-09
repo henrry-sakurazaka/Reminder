@@ -1,0 +1,23 @@
+version: '3'
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000" # Reactアプリのポート
+    dehcommand: npm start # ここでアプリケーションを自動的に起動
+    volumes:
+      - .:/app
+    env_file:
+      - .env
+
+  firebase:
+    image: firebase/firebase-tools
+    volumes:
+      - ./firebase:/firebase
+    ports:
+      - "4000:4000"
+      - "8080:8080"
+    command: ["emulators:start", "--only", "firestore,functions"]
