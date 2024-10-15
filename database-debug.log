@@ -1,0 +1,8 @@
+19:49:14.619 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO akka.event.slf4j.Slf4jLogger - Slf4jLogger started
+19:49:15.269 [main] INFO com.firebase.server.forge.App$ - Listening at 127.0.0.1:9000
+19:49:38.566 [NamespaceSystem-akka.actor.default-dispatcher-4] INFO com.firebase.core.namespace.NamespaceActor - reminder3-65e84-default-rtdb successfully activated FBKV (SurveyIdle(0)) wait: 262ms, init: 0ms
+19:49:38.688 [NamespaceSystem-blocking-namespace-operation-dispatcher-6] INFO com.firebase.core.namespace.StateManager - Namespace reminder3-65e84-default-rtdb status Active to Active
+19:51:51.508 [Thread-0] INFO com.firebase.server.forge.App$ - Attempting graceful shutdown.
+19:51:51.568 [NamespaceSystem-akka.actor.default-dispatcher-5] INFO com.firebase.core.namespace.Terminator$Terminator - 1 actors left to terminate: reminder3-65e84-default-rtdb
+19:51:51.590 [NamespaceSystem-akka.actor.default-dispatcher-10] INFO com.firebase.core.namespace.NamespaceActor - stopped namespace actor for reminder3-65e84-default-rtdb
+19:51:51.682 [Thread-0] INFO com.firebase.server.forge.App$ - Graceful shutdown complete.
