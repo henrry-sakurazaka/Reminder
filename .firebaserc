@@ -18,6 +18,10 @@
       }
     }
   },
-  "etags": {},
+  "etags": {
+    "reminder3-65e84": {
+      "extensionInstances": {}
+    }
+  },
   "dataconnectEmulatorConfig": {}
 }
