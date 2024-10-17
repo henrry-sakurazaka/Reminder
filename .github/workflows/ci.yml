@@ -36,7 +36,7 @@ jobs:
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker tag app ${{ secrets.DOCKER_USERNAME }}/app
           docker push ${{ secrets.DOCKER_USERNAME }}/app
-          
+
         # Docker Hubからイメージをプル
       - name: Pull Docker image from Docker Hub
         run: docker pull ${{ secrets.DOCKER_USERNAME }}/app:latest
@@ -92,37 +92,37 @@ jobs:
         run: |
           firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
 
-# Docker Composeでアプリを起動する際にシークレットを環境変数として渡す
-run_app:
-  runs-on: ubuntu-latest
+  # Docker Composeでアプリを起動する際にシークレットを環境変数として渡す
+  run_app:
+    runs-on: ubuntu-latest
 
-  steps:
-    - name: Checkout code
-      uses: actions/checkout@v3
-    
-    - name: Install Docker Compose
-      run: |
-        sudo apt-get update
-        sudo apt-get install -y docker-compose
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+      
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
 
-    # Docker Composeを使ってアプリを起動
-    - name: Run app
-      run: docker-compose up
-      env:
-        REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}  # シークレットから環境変数を読み込む
-        DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
-        DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  
-        FIREBASE_EMULATOR_HOST: ${{ secrets.FIREBASE_EMULATOR_HOST }}  
-        FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}  
-        GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}  
-        REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}  
-        REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}  
-        REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}  
-        REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}  
-        REACT_APP_FIREBASE_MESSAGING_SENDER_I: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}  
-        REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}  
-        REACT_APP_FIREBASE_STORAGE_BUCKE: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}  
-        REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }} 
-        REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}  
+      # Docker Composeを使ってアプリを起動
+      - name: Run app
+        run: docker-compose up
+        env:
+          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}  # シークレットから環境変数を読み込む
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}  
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}  
+          FIREBASE_EMULATOR_HOST: ${{ secrets.FIREBASE_EMULATOR_HOST }}  
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}  
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}  
+          REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}  
+          REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}  
+          REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}  
+          REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}  
+          REACT_APP_FIREBASE_MESSAGING_SENDER_I: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}  
+          REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}  
+          REACT_APP_FIREBASE_STORAGE_BUCKE: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}  
+          REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }} 
+          REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}  
 
-       
+        
