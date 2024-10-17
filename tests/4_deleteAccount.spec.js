@@ -8,7 +8,7 @@ test.use({
 
 
   test('アカウント削除のテスト', async ({ page }) => {
-
+    await page.waitForTimeout(5000); 
     await page.route('**/deleteAccount', (route) => {
         route.fulfill({
             status: 200,

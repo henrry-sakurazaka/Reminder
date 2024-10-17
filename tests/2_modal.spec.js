@@ -7,7 +7,7 @@ test.use({
   });
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
-
+    await page.waitForTimeout(5000); 
     await page.goto(`${process.env.REACT_APP_API_URL}/SignIn`);  
     
     const email = process.env.REACT_APP_TEST_EMAIL

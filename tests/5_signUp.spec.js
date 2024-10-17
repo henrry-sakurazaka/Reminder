@@ -7,6 +7,7 @@ test.use({
   });
 
   test('サインアップ機能のテスト', async ({ page }) => {
+    await page.waitForTimeout(5000); 
     await page.goto(`${process.env.REACT_APP_API_URL}/SignUp`); 
 
     const email = process.env.REACT_APP_TEST_EMAIL
