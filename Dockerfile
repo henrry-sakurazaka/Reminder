@@ -1,6 +1,10 @@
 # OpenJDKを含むDebianベースの軽量イメージを使用
 FROM openjdk:11-jdk-slim
 
+# # Firebase CLIとJavaのインストール
+# RUN apt-get update && apt-get install -y openjdk-11-jre-headless && \
+#     npm install -g firebase-tools
+
 # Node.jsのインストール用にNodeSourceを追加
 RUN apt-get update && apt-get install -y curl \
     && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
@@ -25,7 +29,7 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
 
 # Firebaseエミュレーター用の環境変数を設定し、コンテナ起動時にスクリプトを実行
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/firebase/entrypoint.sh"]
 
 # Firebaseエミュレーターを使用するためのポートを指定
 EXPOSE 8080
