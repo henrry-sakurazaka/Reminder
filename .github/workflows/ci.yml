@@ -70,8 +70,10 @@ jobs:
 
   lint:
     runs-on: ubuntu-latest
-    timeout-minutes: 10
     needs: run-app
+    timeout-minutes: 10  # タイムアウトを10分に設定
+
+   
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
