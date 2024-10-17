@@ -101,9 +101,9 @@ jobs:
           echo "REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
 
       # Dockerイメージを使用してESLintを実行
-      - name: Run ESLint
-        run: |
-          docker-compose run --rm app npx eslint -c eslint.config.mjs . || true
+      # ESLintを特定のディレクトリで実行
+      - name: Run ESLint with auto-fix
+        run: npx eslint -c eslint.config.mjs src/ --fix
 
   e2e:
     runs-on: ubuntu-latest
@@ -118,7 +118,9 @@ jobs:
           docker run --rm -e REACT_APP_API_URL=http://app:3000 \
             -e REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }} \
             -e REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }} \
-            ${{ secrets.DOCKER_USERNAME }}/app npm run test:e2e
+            ${{ secrets.DOCKER_USERNAME }}/app:app2 npm run test:e2e
+            ${{ secrets.DOCKER_USERNAME }}/app:app3 npm run test:e2e
+            ${{ secrets.DOCKER_USERNAME }}/app:app4 npm run test:e2e
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
