@@ -30,7 +30,7 @@ jobs:
       - name: Run E2E Tests
         run: npm run test:e2e # Playwright E2Eテストを実行
         env:
-          REACT_APP_API_URL: "http://localhost:3000"
+          REACT_APP_API_URL: "http://app:3000"
           REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
           REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
