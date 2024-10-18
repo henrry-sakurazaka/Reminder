@@ -19,7 +19,7 @@ COPY ../firebase.json ./
 COPY . .
 
 # entrypoint.shを実行するように設定
-ENTRYPOINT ["/bin/bash", "/firebase/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
 # Firebaseエミュレーターを起動するコマンドをデフォルトで設定
 CMD ["firebase", "emulators:start", "--only", "firestore,functions"]
