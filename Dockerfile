@@ -29,7 +29,7 @@ COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
 RUN chmod +x /usr/src/app/entrypoint.sh
 
 # Firebaseエミュレーター用の環境変数を設定し、コンテナ起動時にスクリプトを実行
-ENTRYPOINT ["/bin/bash", "/firebase/entrypoint.sh"]
+ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
 # Firebaseエミュレーターを使用するためのポートを指定
 EXPOSE 8080
