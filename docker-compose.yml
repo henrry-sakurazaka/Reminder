@@ -1,0 +1,41 @@
+
+services:
+  app:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "3000:3000"  # Reactアプリのポート
+    volumes:
+      - .:/app  
+    env_file:
+      - .env
+    entrypoint: /usr/src/app/entrypoint.sh  # entrypoint.shを使う
+    
+
+  nginx:
+    image: nginx
+    ports:
+      - "80:80"  # ホストのポート80をコンテナのポート80にマッピング
+    volumes:
+      - ./nginx.conf:/etc/nginx/conf.d/default.conf  # Nginx設定ファイルをマウント
+    depends_on:
+      - app  # appが起動してからnginxが起動
+
+  firebase:
+    build:
+      context: .  
+      dockerfile: ./firebase/Dockerfile  
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS="app/serviceAccountKey.json"
+    ports:
+      - "8080:8080"
+      - "5001:5001"
+      - "5000:5000"
+      - "9000:9000"
+    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+    command: firebase emulators:start --only firestore,functions  # Firebaseエミュレーターを起動するコマンド
+    # deploy:
+    #   resources:
+    #     limits:
+    #       memory: 2G  # 必要に応じてメモリ制限を設定

@@ -55,28 +55,28 @@ app.get('/', (req, res) => {
 res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
-// トークンを返すエンドポイントを追加
-app.get('/get-token', cors(corsOptions), async (req, res) => {
+// // トークンを返すエンドポイントを追加
+// app.get('/get-token', cors(corsOptions), async (req, res) => {
 
-    const { uid } = req.query;
-    if (!uid) {
-      return res.status(400).send('UID is required');
-    }
-    try {
+//     const { uid } = req.query;
+//     if (!uid) {
+//       return res.status(400).send('UID is required');
+//     }
+//     try {
       
-      const tokenSnapshot = await admin.database().ref('tokens').child(uid).get();
+//       const tokenSnapshot = await admin.database().ref('tokens').child(uid).get();
   
-      if (!tokenSnapshot.exists()) {
-        return res.status(404).send('Token not found');
-      }
+//       if (!tokenSnapshot.exists()) {
+//         return res.status(404).send('Token not found');
+//       }
   
-      const deviceToken = tokenSnapshot.val().deviceToken;
-      res.status(200).json({ token: deviceToken });
-    } catch (error) {
+//       const deviceToken = tokenSnapshot.val().deviceToken;
+//       res.status(200).json({ token: deviceToken });
+//     } catch (error) {
   
-      res.status(500).send(`Error fetching token: ${error.message}`);
-    }
-  });
+//       res.status(500).send(`Error fetching token: ${error.message}`);
+//     }
+//   });
 
   
   
@@ -95,128 +95,128 @@ app.post('/handleEasyLogin', (req, res) => {
 
 
 
-app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
-const { idToken, deviceToken } = req.body;
+// app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
+// const { idToken, deviceToken } = req.body;
 
 
-// トークンを保存する処理を実装する
-res.status(200).send('Tokens saved successfully');
+// // トークンを保存する処理を実装する
+// res.status(200).send('Tokens saved successfully');
 
-try {
-    // idToken を検証し、ユーザーを認証
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
+// try {
+//     // idToken を検証し、ユーザーを認証
+//     const decodedToken = await admin.auth().verifyIdToken(idToken);
+//     const uid = decodedToken.uid;
 
-    // トークンをデータベースに保存
-    await admin.database().ref('tokens').child(uid).set({
-      deviceToken: deviceToken,
-    });
+//     // トークンをデータベースに保存
+//     await admin.database().ref('tokens').child(uid).set({
+//       deviceToken: deviceToken,
+//     });
   
 
-    res.status(200).send('Tokens saved successfully');
-  } catch (error) {
+//     res.status(200).send('Tokens saved successfully');
+//   } catch (error) {
   
-    res.status(500).send(`Error saving tokens: ${error.message}`);
-  }
-});
+//     res.status(500).send(`Error saving tokens: ${error.message}`);
+//   }
+// });
 
- // トークンを受け取るエンドポイント
-app.post('/registerToken', cors(corsOptions), async (req, res) => {
-  const token = req.body.token;
-  if (!token) {
-    return res.status(400).send('Invalid request: Token is missing');
-  }
+//  // トークンを受け取るエンドポイント
+// app.post('/registerToken', cors(corsOptions), async (req, res) => {
+//   const token = req.body.token;
+//   if (!token) {
+//     return res.status(400).send('Invalid request: Token is missing');
+//   }
 
-  try {
-    // トークンをデータベースに保存する処理をここに追加します
-    // 例:
-    await admin.firestore().collection('tokens').add({ token });
+//   try {
+//     // トークンをデータベースに保存する処理をここに追加します
+//     // 例:
+//     await admin.firestore().collection('tokens').add({ token });
 
-    return res.status(200).send('Token registered successfully');
-  } catch (error) {
-    console.log(error);
-    return res.status(500).send('Internal Server Error');
-  }
-});
+//     return res.status(200).send('Token registered successfully');
+//   } catch (error) {
+//     console.log(error);
+//     return res.status(500).send('Internal Server Error');
+//   }
+// });
 
 
-app.post('/send-notification', cors(corsOptions), async (req, res) => {
-const idToken = req.headers.authorization?.split('Bearer ')[1]; // Authorizationヘッダーからトークンを取得
-if (!idToken) {
-    return res.status(403).json({ error: 'Authorization header missing' });
-    }
+// app.post('/send-notification', cors(corsOptions), async (req, res) => {
+// const idToken = req.headers.authorization?.split('Bearer ')[1]; // Authorizationヘッダーからトークンを取得
+// if (!idToken) {
+//     return res.status(403).json({ error: 'Authorization header missing' });
+//     }
 
-try {
-    const decodedToken = await admin.auth().verifyIdToken(idToken);
-    const uid = decodedToken.uid;
-    const { deviceToken } = req.body;
+// try {
+//     const decodedToken = await admin.auth().verifyIdToken(idToken);
+//     const uid = decodedToken.uid;
+//     const { deviceToken } = req.body;
 
-    if (!deviceToken) {
-        return res.status(400).json({ error: 'Device token missing' });
-        }
-    // デバイストークンをデータベースに保存
-    await admin.database().ref('tokens').child(uid).set({
-        deviceToken: deviceToken,
-    });
-    // // プッシュ通知の送信
-    // const payload = {
-    //     notification: {
-    //         title: message.title,
-    //         body: message.body,
-    //     },
-    // };
+//     if (!deviceToken) {
+//         return res.status(400).json({ error: 'Device token missing' });
+//         }
+//     // デバイストークンをデータベースに保存
+//     await admin.database().ref('tokens').child(uid).set({
+//         deviceToken: deviceToken,
+//     });
+//     // // プッシュ通知の送信
+//     // const payload = {
+//     //     notification: {
+//     //         title: message.title,
+//     //         body: message.body,
+//     //     },
+//     // };
     
   
     
-    res.status(200).send('Notification sent successfully');
-} catch (error) {
-    console.error(error); // エラーをログに出力
-    res.status(500).send(`Error sending notification: ${error.message}`);
-}
-});
+//     res.status(200).send('Notification sent successfully');
+// } catch (error) {
+//     console.error(error); // エラーをログに出力
+//     res.status(500).send(`Error sending notification: ${error.message}`);
+// }
+// });
 
 
-exports.api = functions.https.onRequest(app);
+// exports.api = functions.https.onRequest(app);
 
-exports.registerToken = functions.https.onRequest((req, res) => {
-  const allowedOrigins = ['https://reminder3-65e84.web.app', 'http://localhost3000'];
+// exports.registerToken = functions.https.onRequest((req, res) => {
+//   const allowedOrigins = ['https://reminder3-65e84.web.app', 'http://localhost3000'];
 
-  const origin = req.headers.origin;
+//   const origin = req.headers.origin;
 
-  if (allowedOrigins.includes(origin)) {
-    res.set('Access-Control-Allow-Origin', origin);
-  } else {
-    res.set('Access-Control-Allow-Origin', '*');
-  }
+//   if (allowedOrigins.includes(origin)) {
+//     res.set('Access-Control-Allow-Origin', origin);
+//   } else {
+//     res.set('Access-Control-Allow-Origin', '*');
+//   }
 
-  if (req.method === 'OPTIONS') {
-    // Preflightリクエストの処理
-    res.set('Access-Control-Allow-Methods', 'GET, POST');
-    res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-    res.status(204).send('');
-    return;
-  }
+//   if (req.method === 'OPTIONS') {
+//     // Preflightリクエストの処理
+//     res.set('Access-Control-Allow-Methods', 'GET, POST');
+//     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
+//     res.status(204).send('');
+//     return;
+//   }
 
-  if (req.method !== 'POST') {
-    return res.status(405).send('Method Not Allowed');
-  }
+//   if (req.method !== 'POST') {
+//     return res.status(405).send('Method Not Allowed');
+//   }
 
-  const token = req.body.token;
-  if (!token) {
-    return res.status(400).send('Token is required');
-  }
+//   const token = req.body.token;
+//   if (!token) {
+//     return res.status(400).send('Token is required');
+//   }
 
-  admin.firestore().collection('tokens').add({ token })
+//   admin.firestore().collection('tokens').add({ token })
 
-      if (allowedOrigins.includes(origin)) {
-        res.set('Access-Control-Allow-Origin', origin);
-      } else {
-        res.set('Access-Control-Allow-Origin', '*');
-      }
-      res.status(200).send('Token registered successfully');
+//       if (allowedOrigins.includes(origin)) {
+//         res.set('Access-Control-Allow-Origin', origin);
+//       } else {
+//         res.set('Access-Control-Allow-Origin', '*');
+//       }
+//       res.status(200).send('Token registered successfully');
   
    
-});
+// });
 
 
 // // データベースの特定の場所を監視するトリガー関数を定義する
@@ -235,159 +235,159 @@ exports.registerToken = functions.https.onRequest((req, res) => {
 //         return Promise.resolve();
 //     });
 
-    const firestore = admin.firestore();
+    // const firestore = admin.firestore();
 
-exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{todoId}')
-    .onUpdate(async (change, context) => {
-        const beforeData = change.before.data(); // 変更前のデータ
-        const afterData = change.after.data(); // 変更後のデータ
-        if (beforeData.someField !== afterData.someField) {
-          console.log('Field has changed:', beforeData.someField, 'to', afterData.someField);
-        }
+// exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{todoId}')
+//     .onUpdate(async (change, context) => {
+//         const beforeData = change.before.data(); // 変更前のデータ
+//         const afterData = change.after.data(); // 変更後のデータ
+//         if (beforeData.someField !== afterData.someField) {
+//           console.log('Field has changed:', beforeData.someField, 'to', afterData.someField);
+//         }
         
-        // データの変更をチェック
-        if (beforeData.notificationTime !== afterData.notificationTime) {
-            const payload = {
-                notification: {
-                    title: 'Todo Updated',
-                    body: `Todo with ID: ${context.params.todoId} has been updated.`,
-                }
-            };
+//         // データの変更をチェック
+//         if (beforeData.notificationTime !== afterData.notificationTime) {
+//             const payload = {
+//                 notification: {
+//                     title: 'Todo Updated',
+//                     body: `Todo with ID: ${context.params.todoId} has been updated.`,
+//                 }
+//             };
 
-            // ユーザーのトークンを取得して通知を送信
-            try {
-                const tokensSnapshot = await firestore.collection('tokens').get();
-                const deviceTokens = tokensSnapshot.docs.map(doc => doc.data().deviceToken);
+//             // ユーザーのトークンを取得して通知を送信
+//             try {
+//                 const tokensSnapshot = await firestore.collection('tokens').get();
+//                 const deviceTokens = tokensSnapshot.docs.map(doc => doc.data().deviceToken);
 
-                if (deviceTokens.length > 0) {
-                    const response = await admin.messaging().send(deviceTokens, payload);
-                    console.log('response', response);
-                }
-            } catch (error) {
-                console.error('Error sending notifications:', error);
-            }
-        }
+//                 if (deviceTokens.length > 0) {
+//                     const response = await admin.messaging().send(deviceTokens, payload);
+//                     console.log('response', response);
+//                 }
+//             } catch (error) {
+//                 console.error('Error sending notifications:', error);
+//             }
+//         }
 
-        return null;
-    });
+//         return null;
+//     });
 
 
-// 通知を送信する関数
-exports.sendNotification = functions.https.onRequest((req, res) => {
-        cors(corsOptions)(req, res, async  () => {
-            try {  
+// // 通知を送信する関数
+// exports.sendNotification = functions.https.onRequest((req, res) => {
+//         cors(corsOptions)(req, res, async  () => {
+//             try {  
                
-                const idToken = req.headers.authorization?.split('Bearer ')[1];
+//                 const idToken = req.headers.authorization?.split('Bearer ')[1];
 
-                if (!idToken) {
-                  return res.status(403).json({ error: 'Authorization header missing' });
-                }
+//                 if (!idToken) {
+//                   return res.status(403).json({ error: 'Authorization header missing' });
+//                 }
           
-                // Firebase Auth トークンを検証
-                // const decodedToken = await admin.auth().verifyIdToken(idToken);
-                // const uid = decodedToken.uid; // デコードされたトークンから UID を取得
+//                 // Firebase Auth トークンを検証
+//                 // const decodedToken = await admin.auth().verifyIdToken(idToken);
+//                 // const uid = decodedToken.uid; // デコードされたトークンから UID を取得
 
-                const topic = 'valid-topic_123';
-                const title = String(req.body.title); // title を文字列型に変換
-                const body = String(req.body.body);
-                const payload = {
-                notification: {
-                    title: title,
-                    body: body
-                }
-                };
-               // Preflightリクエストの処理
+//                 const topic = 'valid-topic_123';
+//                 const title = String(req.body.title); // title を文字列型に変換
+//                 const body = String(req.body.body);
+//                 const payload = {
+//                 notification: {
+//                     title: title,
+//                     body: body
+//                 }
+//                 };
+//                // Preflightリクエストの処理
       
-                if (req.method === 'OPTIONS') {
-                    res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
-                    res.set('Access-Control-Allow-Methods', 'GET, POST');
-                    res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
+//                 if (req.method === 'OPTIONS') {
+//                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
+//                     res.set('Access-Control-Allow-Methods', 'GET, POST');
+//                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
-                    res.status(204).send('');
+//                     res.status(204).send('');
                     
-                } else {
-                cors(req, res, () => {
-                    res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
-                    res.set('Access-Control-Allow-Methods', 'GET, POST');
-                    res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
-                    res.status(204).send('');
-                });
-                }
+//                 } else {
+//                 cors(req, res, () => {
+//                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
+//                     res.set('Access-Control-Allow-Methods', 'GET, POST');
+//                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
+//                     res.status(204).send('');
+//                 });
+//                 }
        
-                const response = await admin.messaging().sendToTopic(topic, payload);
+//                 const response = await admin.messaging().sendToTopic(topic, payload);
 
                 
-                return res.status(200).json({ message: "Successfully sent message", response: response });
-            } catch (error) {
-            res.status(500).json({error:`Error sending notification2: ${error.message}`});
-        }
-    });
-});
+//                 return res.status(200).json({ message: "Successfully sent message", response: response });
+//             } catch (error) {
+//             res.status(500).json({error:`Error sending notification2: ${error.message}`});
+//         }
+//     });
+// });
 
-exports.saveTokens = functions.https.onRequest((req, res) => {
-    cors(corsOptions)(req, res, () => {
-        if (req.method !== 'POST') {
-            return res.status(405).send({ message: 'Only POST requests are allowed' });
-            }
-      // ここにトークンを保存するロジックを記述
-      const idToken = req.body.idToken;
-      const deviceToken = req.body.deviceToken;
+// exports.saveTokens = functions.https.onRequest((req, res) => {
+//     cors(corsOptions)(req, res, () => {
+//         if (req.method !== 'POST') {
+//             return res.status(405).send({ message: 'Only POST requests are allowed' });
+//             }
+//       // ここにトークンを保存するロジックを記述
+//       const idToken = req.body.idToken;
+//       const deviceToken = req.body.deviceToken;
 
-      // トークンを保存する処理（例）
-      admin.firestore().collection('tokens').add({
-        idToken: idToken,
-        deviceToken: deviceToken,
-        createdAt: admin.firestore.FieldValue.serverTimestamp()
-      })
-      .then(() => {
-        return res.status(200).send({ success: true });
-      })
-      .catch(error => {
-        return res.status(500).send({ success: false, error: error.message });
-      });
-    });
-  });
+//       // トークンを保存する処理（例）
+//       admin.firestore().collection('tokens').add({
+//         idToken: idToken,
+//         deviceToken: deviceToken,
+//         createdAt: admin.firestore.FieldValue.serverTimestamp()
+//       })
+//       .then(() => {
+//         return res.status(200).send({ success: true });
+//       })
+//       .catch(error => {
+//         return res.status(500).send({ success: false, error: error.message });
+//       });
+//     });
+//   });
 
-// データを取得する関数
-exports.getTodoList = functions.https.onRequest((req, res) => {
-    const db = admin.firestore();
-    db.collection('todoList3').get()
-        .then(snapshot => {
-            let data = [];
-            snapshot.forEach(doc => {
-                data.push(doc.data());
-            });
-            res.status(200).send(data);
-        })
-        .catch(error => {
-            console.error("Error accessing Firestore: ", error);
-            res.status(500).send("Error accessing Firestore");
-        });
-});
+// // データを取得する関数
+// exports.getTodoList = functions.https.onRequest((req, res) => {
+//     const db = admin.firestore();
+//     db.collection('todoList3').get()
+//         .then(snapshot => {
+//             let data = [];
+//             snapshot.forEach(doc => {
+//                 data.push(doc.data());
+//             });
+//             res.status(200).send(data);
+//         })
+//         .catch(error => {
+//             console.error("Error accessing Firestore: ", error);
+//             res.status(500).send("Error accessing Firestore");
+//         });
+// });
 
-// データを取得する関数
-exports.myFunction = functions.https.onRequest((req, res) => {
-    const db = admin.firestore();
-    db.collection('todoList3').get()
-        .then(snapshot => {
-            let data = [];
-            snapshot.forEach(doc => {
-                data.push(doc.data());
-            });
-            res.status(200).send(data);
-        })
-        .catch(error => {
-            console.error("Error accessing Firestore: ", error);
-            res.status(500).send("Error accessing Firestore");
-        });
-});
+// // データを取得する関数
+// exports.myFunction = functions.https.onRequest((req, res) => {
+//     const db = admin.firestore();
+//     db.collection('todoList3').get()
+//         .then(snapshot => {
+//             let data = [];
+//             snapshot.forEach(doc => {
+//                 data.push(doc.data());
+//             });
+//             res.status(200).send(data);
+//         })
+//         .catch(error => {
+//             console.error("Error accessing Firestore: ", error);
+//             res.status(500).send("Error accessing Firestore");
+//         });
+// });
 
 
-// Hello World 関数
-exports.helloWorld = onRequest((request, response) => {
-    logger.info("Hello logs!", {structuredData: true});
-    response.send("Hello from Firebase!");
-});
+// // Hello World 関数
+// exports.helloWorld = onRequest((request, response) => {
+//     logger.info("Hello logs!", {structuredData: true});
+//     response.send("Hello from Firebase!");
+// });
 
-// Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
+// // Firebase Functionsとしてエクスポート
+// exports.api = functions.https.onRequest(app);
