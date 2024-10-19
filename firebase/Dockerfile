@@ -18,28 +18,14 @@ COPY ../firebase.json ./
 # Firebaseの設定ファイルとスクリプトをコピー
 COPY . .
 
+# entrypoint.shをプロジェクトのルートディレクトリからコピー
+COPY ../entrypoint.sh /firebase/entrypoint.sh
+
+# スクリプトを実行可能にする
+RUN chmod +x /firebase/entrypoint.sh
+
 # entrypoint.shを実行するように設定
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+ENTRYPOINT ["/firebase/entrypoint.sh"]
 
 # Firebaseエミュレーターを起動するコマンドをデフォルトで設定
 CMD ["firebase", "emulators:start", "--only", "firestore,functions"]
-
-
-# # 基本のイメージとして Node.js を使用
-# FROM node:18-slim
-
-# #Firebase CLIのインストール
-# RUN apt-get update && apt-get install -y npm && \
-#     npm install -g firebase-tools
-
-# # 作業ディレクトリを設定
-# WORKDIR /firebase
-
-# # プロジェクトのルートディレクトリからfirebase.jsonをコピー
-# COPY ../firebase.json ./  
-
-# # Firebaseの設定ファイルをコピー
-# COPY . .
-
-# # エミュレーターを起動するコマンドを設定
-# CMD ["firebase", "emulators:start", "--only", "${GOOGLE_APPLICATION_CREDENTIALS}", "firestore,functions"]
