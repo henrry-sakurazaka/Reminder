@@ -118,7 +118,7 @@ jobs:
       # Dockerイメージを使用してE2Eテストを実行
       - name: Run E2E tests
         run: |
-          docker run --rm -e REACT_APP_API_URL=http://app:3000 \
+          docker run --rm -e REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
             -e REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }} \
             -e REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }} \
             ${{ secrets.DOCKER_USERNAME }}/app:app2 npm run test:e2e
