@@ -10,7 +10,7 @@ services:
       - .:/app  
     env_file:
       - .env
-    entrypoint: /usr/src/app/entrypoint.sh  # entrypoint.shを使う
+    entrypoint: ./entrypoint.sh /entrypoint.sh # entrypoint.shを使う
     
 
   nginx:
@@ -33,7 +33,7 @@ services:
       - "5001:5001"
       - "5000:5000"
       - "9000:9000"
-    entrypoint: ["/bin/bash", "/entrypoint.sh"]
+    entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
     command: firebase emulators:start --only firestore,functions  # Firebaseエミュレーターを起動するコマンド
     # deploy:
     #   resources:
