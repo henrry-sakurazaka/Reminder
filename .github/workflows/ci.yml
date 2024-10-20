@@ -36,7 +36,7 @@ jobs:
           echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
-          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}" >> .env
+          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}" >> .env
           echo "REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
           echo "REACT_APP_FIREBASE_STORAGE_BUCKE=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}" >> .env
           echo "REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
@@ -72,6 +72,7 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10  # タイムアウトを10分に設定
 
+   
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -96,7 +97,7 @@ jobs:
           echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
-          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}" >> .env
+          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}" >> .env
           echo "REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
           echo "REACT_APP_FIREBASE_STORAGE_BUCKE=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}" >> .env
           echo "REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
@@ -138,39 +139,38 @@ jobs:
           echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
-          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}" >> .env
+          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}" >> .env
           echo "REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
           echo "REACT_APP_FIREBASE_STORAGE_BUCKE=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}" >> .env
           echo "REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
-      
-      
-        - name: Run app in background
-          run: docker-compose up -d  # アプリを起動し、バックグラウンドで実行
+  
+      - name: Run app in background
+        run: docker-compose up -d  # アプリを起動し、バックグラウンドで実行
 
         # 必要に応じて待機する (アプリが起動するのを待つ)
-        - name: Wait for the app to be ready
-          run: |
-            for i in {1..30}; do  # 30回試行
-              if curl -s -f http://app:3000; then  # アプリが起動しているか確認
-                echo "App is ready!"
-                break
-              fi
-              echo "Waiting for app to be ready..."
-              sleep 5  # 5秒待機
-            done
+      - name: Wait for the app to be ready
+        run: |
+          for i in {1..30}; do  # 30回試行
+            if curl -s -f http://:3000; then  # アプリが起動しているか確認
+              echo "App is ready!"
+              break
+            fi
+            echo "Waiting for app to be ready..."
+            sleep 5  # 5秒待機
+          done
 
-        # Dockerイメージを使用してE2Eテストを実行
-        - name: Run E2E tests
-          run: |
-            docker run --rm -e REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
-              -e REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }} \
-              -e REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }} \
-              ${{ secrets.DOCKER_USERNAME }}/app:app2 npm run test:e2e
-          env:
-            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+      # Dockerイメージを使用してE2Eテストを実行
+      - name: Run E2E tests
+        run: |
+          docker run --rm -e REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }} \
+            -e REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }} \
+            -e REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }} \
+            ${{ secrets.DOCKER_USERNAME }}/app:app2 npm run test:e2e
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
-  
+
   deploy:
     runs-on: ubuntu-latest
 
@@ -218,7 +218,7 @@ jobs:
           echo "REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
-          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}" >> .env
+          echo "REACT_APP_FIREBASE_MESSAGING_SENDER_I=${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}" >> .env
           echo "REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
           echo "REACT_APP_FIREBASE_STORAGE_BUCKE=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}" >> .env
           echo "REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
@@ -238,7 +238,7 @@ jobs:
           REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}  
           REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}  
           REACT_APP_FIREBASE_MEASUREMENT_ID: ${{ secrets.REACT_APP_FIREBASE_MEASUREMENT_ID }}  
-          REACT_APP_FIREBASE_MESSAGING_SENDER_I: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_I }}  
+          REACT_APP_FIREBASE_MESSAGING_SENDER_I: ${{ secrets.REACT_APP_FIREBASE_MESSAGING_SENDER_ID }}  
           REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}  
           REACT_APP_FIREBASE_STORAGE_BUCKE: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKE }}  
           REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }} 
