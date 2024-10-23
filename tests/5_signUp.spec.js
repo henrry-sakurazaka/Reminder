@@ -8,7 +8,7 @@ test.use({
 
   test('サインアップ機能のテスト', async ({ page }) => {
     await page.waitForTimeout(5000); 
-    await page.goto(`${process.env.REACT_APP_API_URL}/SignUp`); 
+    await page.goto(`http://localhost:3000/SignUp`); 
 
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
@@ -33,7 +33,7 @@ test.use({
     await expect(page.locator('span.important')).toHaveText('Agreed');
  
     await page.click('button.form-button'); 
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Example`); 
+    await expect(page).toHaveURL(`http://localhost:3000/Example`); 
     
 });
 

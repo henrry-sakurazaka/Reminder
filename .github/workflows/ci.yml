@@ -68,6 +68,13 @@ jobs:
           docker pull ${{ secrets.DOCKER_USERNAME }}/app:app3
           docker pull ${{ secrets.DOCKER_USERNAME }}/app:app4
 
+      - name: Build Docker Image with Retry
+        run: |
+          for i in {1..5}; do
+            docker-compose build && break || sleep 10;
+          done
+      
+
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10  # タイムアウトを10分に設定
@@ -166,7 +173,7 @@ jobs:
           done
 
       - name: Run E2E Tests
-        run: npx playwright test --verbose
+        run: npx playwright test 
 
 
   deploy:
