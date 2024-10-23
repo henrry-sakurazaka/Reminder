@@ -57,12 +57,7 @@ jobs:
           done
 
       - name: Run E2E Tests
-        run: |
-          docker-compose up -d
-          docker run --rm -e REACT_APP_API_URL=http://localhost:3000 \
-            -e REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }} \
-            -e REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }} \
-            ${{ secrets.DOCKER_USERNAME }}/app:app2 npm run test:e2e --fix
+        run: npx playwright test 
         env:
           REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
