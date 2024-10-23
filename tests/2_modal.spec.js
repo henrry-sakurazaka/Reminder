@@ -8,7 +8,7 @@ test.use({
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
     await page.waitForTimeout(5000); 
-    await page.goto(`${process.env.REACT_APP_API_URL}/SignIn`);  
+    await page.goto(`http://localhost:3000/SignIn`);  
     
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
@@ -18,7 +18,7 @@ test.use({
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
   
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Example`);
+    await expect(page).toHaveURL(`http://localhost:3000/Example`);
 
     
     const lastCircle = page.locator('span.circleI').last();
