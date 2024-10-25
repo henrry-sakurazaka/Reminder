@@ -27,7 +27,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
       
-      # Docker Composeを手動でインストール
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -43,18 +42,22 @@ jobs:
           echo "REACT_APP_TEST2_PASSWORD=${{ secrets.REACT_APP_TEST2_PASSWORD }}" >> .env
 
       - name: Start app using Docker Compose
-        run: docker-compose up -d
+        run: docker-compose up --build -d
 
       - name: Wait for app to be ready
         run: |
           for i in {1..10}; do
-            if curl -s -f http://localhost:3000; then
+            if curl -s -f http://app:3000; then
               echo "App is ready!"
               break
             fi
             echo "Waiting for app to be ready..."
             sleep 10
           done
+          if ! curl -s -f http://app:3000; then
+            echo "App did not start correctly."
+            exit 1
+          fi
 
       - name: Run E2E Tests
         run: npx playwright test 

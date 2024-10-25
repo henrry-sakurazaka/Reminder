@@ -14,6 +14,7 @@ RUN apt-get update && apt-get install -y curl \
 # Javaが正しくインストールされているか確認
 RUN java -version
 
+
 # アプリケーションディレクトリを作成
 WORKDIR /usr/src/app
 
@@ -23,6 +24,8 @@ RUN npm install
 
 # アプリケーションのソースコードをコピー
 COPY . .
+
+RUN npm install -g @craco/craco
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh

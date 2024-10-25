@@ -21,6 +21,25 @@ module.exports = {
 module.exports = {
   webpack: {
     configure: (webpackConfig) => {
+      webpackConfig.devServer = {
+        ...webpackConfig.devServer,
+        server: {
+          type: 'https', // 必要に応じて SSL の設定を行う
+          options: {
+            key: '/Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/server.key',   // 必要に応じてパスを設定
+            cert: '/Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/server.cert', // 必要に応じてパスを設定
+          },
+        },
+        setupMiddlewares: (middlewares, devServer) => {
+          // カスタムミドルウェアをここに追加
+          middlewares.push((req, res, next) => {
+            console.log('Custom middleware in action!');
+            next();
+          });
+          return middlewares;
+        },
+        hot: false, // HMRを無効にする
+      };
       webpackConfig.resolve.fallback = {
         ...webpackConfig.resolve.fallback,
         process: require.resolve('process/browser'),
@@ -83,4 +102,17 @@ module.exports = {
       '@babel/plugin-transform-runtime',
     ],
   },
+
+    // webpack.config.js など
+  devServer: {
+    // 非推奨のオプションを削除または更新
+    server: {
+      type: 'https', // 必要に応じて
+    },
+    setupMiddlewares: (middlewares, devServer) => {
+      // カスタムミドルウェアをここに追加
+      return middlewares;
+    },
+  },
+
 };

@@ -44,29 +44,25 @@ jobs:
 
       # Dockerイメージをビルド
       - name: Build Docker image
-        run: |
-          docker-compose build
+        run: docker-compose build
     
       # Docker Hubにログイン
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker tag app ${{ secrets.DOCKER_USERNAME }}/app:app2
-          docker push ${{ secrets.DOCKER_USERNAME }}/app:app2
-
-          docker tag app ${{ secrets.DOCKER_USERNAME }}/app:app3
-          docker push ${{ secrets.DOCKER_USERNAME }}/app:app3
-
-          docker tag app ${{ secrets.DOCKER_USERNAME }}/app:app4
-          docker push ${{ secrets.DOCKER_USERNAME }}/app:app4
+          # ここでタグ付けとプッシュを一括で行います。
+          for tag in app2 app3 app4; do
+            docker tag app ${{ secrets.DOCKER_USERNAME }}/app:$tag
+            docker push ${{ secrets.DOCKER_USERNAME }}/app:$tag
+          done
 
       # Docker Hubからイメージをプル
       - name: Pull Docker image from Docker Hub
         run: |
-          docker pull ${{ secrets.DOCKER_USERNAME }}/app:app2
-          docker pull ${{ secrets.DOCKER_USERNAME }}/app:app3
-          docker pull ${{ secrets.DOCKER_USERNAME }}/app:app4
+          for tag in app2 app3 app4; do
+            docker pull ${{ secrets.DOCKER_USERNAME }}/app:$tag
+          done
 
       - name: Build Docker Image with Retry
         run: |
@@ -79,7 +75,6 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 10  # タイムアウトを10分に設定
 
-   
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -111,13 +106,12 @@ jobs:
           echo "REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
 
       # Dockerイメージを使用してESLintを実行
-      # ESLintを特定のディレクトリで実行
       - name: Run ESLint with auto-fix
         run: npx eslint -c eslint.config.mjs src/ --fix
 
-
   e2e:
     runs-on: ubuntu-latest
+    needs: build  # ビルドが成功した場合のみ実行
 
     steps:
       - name: Checkout code
@@ -130,6 +124,9 @@ jobs:
     
       - name: Install dependencies
         run: npm ci
+      
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
 
       - name: Install Playwright
         run: npm install @playwright/test
@@ -164,16 +161,20 @@ jobs:
       - name: Wait for app to be ready
         run: |
           for i in {1..10}; do
-            if curl -s -f http://localhost:3000; then
-              echo "App is ready!"
+            if curl -s http://app:3000; then
+              echo "App is up and running!"
               break
             fi
             echo "Waiting for app to be ready..."
-            sleep 10
+            sleep 5
           done
 
-      - name: Run E2E Tests
-        run: npx playwright test 
+      # Playwrightを使ってE2Eテストを実行
+      - name: Run Playwright tests
+        run: npx playwright test
+
+      - name: Stop Docker containers
+        run: docker-compose down
 
 
   deploy:
