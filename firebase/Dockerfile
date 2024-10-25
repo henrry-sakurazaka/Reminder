@@ -9,6 +9,8 @@ RUN apt-get update && apt-get install -y default-jre && \
 ENV JAVA_HOME="/usr/lib/jvm/default-java"
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
+RUN npm install -g @craco/craco
+
 # 作業ディレクトリを設定
 WORKDIR /firebase
 

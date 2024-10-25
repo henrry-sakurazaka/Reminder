@@ -47,7 +47,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "start": "craco start",
+    "start": "HTTPS=true craco start",
     "build": "craco build",
     "test:e2e": "playwright test",
     "test": "craco test",

@@ -1,14 +1,14 @@
 const { test, expect } = require('@playwright/test');
 require('dotenv').config();
 
-test.use({
-    browserName: 'chromium',
-    channel: 'chrome' // PlaywrightでChromeを使用するように指定
-  });
+// test.use({
+//     browserName: 'chromium',
+//     channel: 'chrome' // PlaywrightでChromeを使用するように指定
+//   });
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
     await page.waitForTimeout(5000); 
-    await page.goto(`http://localhost:3000/SignIn`);  
+    await page.goto(`${process.env.REACT_APP_API_URL}/SignIn`);  
     
     const email = process.env.REACT_APP_TEST_EMAIL
     const password = process.env.REACT_APP_TEST_PASSWORD; 
@@ -18,7 +18,7 @@ test.use({
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
   
-    await expect(page).toHaveURL(`http://localhost:3000/Example`);
+    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Example`);
 
     
     const lastCircle = page.locator('span.circleI').last();
