@@ -156,7 +156,7 @@ jobs:
           echo "REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
   
       - name: Clean previous test results
-          run: rm -f test-results/.last-run.json
+        run: rm -f test-results/.last-run.json
         
       - name: Run app in background
         run: docker-compose up -d  # アプリを起動し、バックグラウンドで実行
