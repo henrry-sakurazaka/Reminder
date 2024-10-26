@@ -155,19 +155,20 @@ jobs:
           echo "REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
   
-      - name: Clean previous test results
-        run: rm -f test-results/.last-run.json
         
       - name: Run app in background
         run: docker-compose up -d  # アプリを起動し、バックグラウンドで実行
 
       - name: Set permissions for test-results directory
         run: chmod -R 777 test-results
+
+      - name: Clean previous test results
+        run: rm -f test-results/.last-run.json
       
       - name: Wait for app to be ready
         run: |
           for i in {1..20}; do
-            if curl -s https://localhost:3000; then
+            if curl -s https://app:3000; then
               echo "App is up and running!"
               break
             fi
