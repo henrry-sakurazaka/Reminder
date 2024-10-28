@@ -124,7 +124,7 @@ jobs:
     
       - name: Install dependencies
         run: npm ci
-      
+    
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
@@ -168,12 +168,12 @@ jobs:
       - name: Wait for app to be ready
         run: |
           for i in {1..20}; do
-            if curl -s https://app:3000; then
-              echo "App is up and running!"
+            if curl -s https://localhost:3000 > /dev/null; then
+              echo "App is ready!"
               break
             fi
             echo "Waiting for app to be ready..."
-            sleep 20
+            sleep 5
           done
           
 
