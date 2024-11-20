@@ -25,10 +25,9 @@ RUN npm install --global vite
 COPY package*.json ./
 RUN npm install
 
-# RUN npm install -g firebase-tools
+RUN npm install -g firebase-tools
 
-# entrypoint.shをプロジェクトのルートディレクトリからコピー
-COPY ../entrypoint.sh /firebase/entrypoint.sh
+COPY ./firebase/entrypoint.sh /firebase/entrypoint.sh
 
 # スクリプトを実行可能にする
 RUN chmod +x /firebase/entrypoint.sh
@@ -36,5 +35,8 @@ RUN chmod +x /firebase/entrypoint.sh
 # entrypoint.shを実行するように設定
 ENTRYPOINT ["/firebase/entrypoint.sh"]
 
+# Firebaseエミュレーターを使用するためのポートを指定
+EXPOSE 8080 5001 5000 8090 9199 8091 8085
+
 # Firebaseエミュレーターを起動するコマンドをデフォルトで設定
-CMD ["firebase", "emulators:start", "--only", "firestore,functions"]
+CMD ["firebase", "emulators:start", "--only","firestore,functions,auth,database,storege"]

@@ -4,19 +4,28 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    deploy:
+      resources:
+        limits:
+          cpus: "0.5"
+          memory: 512M
     ports:
       - "3000:3000"  # Reactアプリのポート
     volumes:
-      - .:/app  
+      - .:/app  # 開発環境ではローカルのソースをマウント
     env_file:
-      - .env
-    entrypoint: ./entrypoint.sh /entrypoint.sh # entrypoint.shを使う
+      - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
+    entrypoint: ./entrypoint.sh   # entrypoint.shを使う
+    
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://localhost:3000"]
-      interval: 30s
-      timeout: 10s
+      test: ["CMD", "curl", "-k", "https://localhost:3000"]
+      interval: 90s
+      timeout: 60s
       retries: 5
       start_period: 30s
+
+    environment:
+      NODE_ENV: ${NODE_ENV}  # 環境に応じた設定（開発・本番）
 
   nginx:
     image: nginx:latest
@@ -27,25 +36,32 @@ services:
       - ./nginx.conf:/nginx/nginx.conf  # Nginx設定ファイルをマウント
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem  # PEM形式の証明書をマウント
       - ./server.key.pem:/etc/ssl/private/server.key.pem  # PEM形式の秘密鍵をマウント
-      # - ./server.cert:/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/server.cert  # 証明書をマウント
-      # - ./server.key:/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/server.key
-    # キーをマウント
     depends_on:
       - app  # appが起動してからnginxが起動
+    environment:
+      NODE_ENV: ${NODE_ENV}  # 本番環境用のNginx設定（開発用にも使える）
 
   firebase:
     build:
       context: .  
       dockerfile: ./firebase/Dockerfile  
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS="app/serviceAccountKey.json"
+      - GOOGLE_APPLICATION_CREDENTIALS="/firebase/serviceAccountKey.json"
+      - FIREBASE_TOKEN=${VITE_FIREBASE_TOKEN}
+     
     ports:
       - "8080:8080"
       - "5001:5001"
       - "5000:5000"
-      - "9000:9000"
+      - "8090:8090"
+      - "9199:9199"
+      - "8091:8091"
+      - "8085:8085"
+
     entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
-    command: firebase emulators:start --only firestore,functions  # Firebaseエミュレーターを起動するコマンド
+    command: firebase emulators:start --only firestore,functions,firestore,auth,storage # Firebaseエミュレーターを起動するコマンド
+    volumes:
+      - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/storage.rules
 
   playwright:
     image: mcr.microsoft.com/playwright:v1.48.1-focal
@@ -61,6 +77,6 @@ services:
     depends_on:
       app:
         condition: service_healthy
+        # condition: service_completed_successfully 
+        # condition: service_started
     command: npx playwright test
-
- 

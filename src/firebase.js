@@ -4,7 +4,7 @@ import { initializeApp, getApps, getApp} from "firebase/app";
 import { getAuth , GoogleAuthProvider} from "firebase/auth";
 import { getFirestore } from "firebase/firestore";
 import { ref, set } from "firebase/database"; // Realtime Databaseをインポート
-import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
+// import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,

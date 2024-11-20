@@ -1,6 +1,6 @@
 import React from "react";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
-import Example0 from "./components/Example0";
+import Example from "./components/Example";
 import FirstAuth from "./components/FirstAuth";
 import UserAuth from "./components/UserAuth";
 import SignOut from "./components/ SignOut";
@@ -23,7 +23,7 @@ export default function App() {
         <BrowserRouter>
           <Routes>
             <Route path="/" element={<FirstAuth/>} />
-            <Route path="/Example0" element={<Example0/>} />
+            <Route path="/Example" element={<Example/>} />
             <Route path="/UserAuth" element={<UserAuth/>} />
             <Route path="/SignOut" element={<SignOut/>} />
             <Route path="/SignUp" element={<SignUp/>} />
