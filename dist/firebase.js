@@ -1,43 +1,26 @@
-/* eslint-disable no-console */
-
-import { initializeApp, getApps, getApp} from "firebase/app";
-import { getAuth , GoogleAuthProvider} from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { ref, set } from "firebase/database"; // Realtime Databaseをインポート
-import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
+import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+// import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
 const firebaseConfig = {
-  apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
-  authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
-  projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
-  appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
-  measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
+  "apiKey": "AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",
+  "authDomain": "reminder3-65e84.firebaseapp.com",
+  "projectId": "reminder3-65e84",
+  "storageBucket": "reminder3-65e84.appspot.com",
+  "messagingSenderId": "280162142902",
+  "appId": "1:280162142902:web:4fed1bc9d4b35e75963417",
+  "measurementId": "G-C0NL3GWNWZ"
 };
 
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-// const app = initializeApp(firebaseConfig);
+// const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const firestore = getFirestore(app); // Firestoreのインスタンスを取得
-// const messaging = getMessaging(app);
+const db = getDatabase(app); 
+const firestore = getFirestore(app); 
 const provider = new GoogleAuthProvider();
-
-// Analyticsの初期化
-// isSupported().then((supported) => {
-//   if (supported) {
-//     const analytics = getAnalytics(app);
-//      // イベントを記録する例
-//      logEvent(analytics, 'notification_received', {
-//       item: 'Welcome Notification',
-//     });
-//   } else {
-//     console.warn("Firebase Analytics is not supported in this environment.");
-//   }
-// }).catch((error) => {
-//   console.error("Error checking analytics support: ", error);
-// });
 
 
 function checkForNotificationsAndTrigger() {
@@ -101,33 +84,33 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // };
 
 
-// export const registerServiceWorkerAndRequestToken = async () => {
-//   if ('serviceWorker' in navigator) {
-//     try {
-//       navigator.serviceWorker.getRegistrations().then(function(registrations) {
-//         for(let registration of registrations) {
-//           registration.unregister().then(function() {
-//             console.log('Old Service Worker unregistered');
-//             navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
-//               console.log('New Service Worker registered');
-//             });
-//           });
-//         }
-//     });
-//       const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' , scope: '/'});
-//       console.log('Service Worker registration successful with scope: ', registration.scope);
-//       const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
-//       if (currentToken) {
-//         console.log('FCM Token:', currentToken);
-//         await sendTokenToServer(currentToken);
-//       } else {
-//         console.log('No registration token available. Request permission to generate one.');
-//       }
-//     } catch (err) {
-//       console.log('An error occurred while retrieving token. ', err);
-//     }
-//   }
-// };
+export const registerServiceWorkerAndRequestToken = async () => {
+  if ('serviceWorker' in navigator) {
+    try {
+      navigator.serviceWorker.getRegistrations().then(function(registrations) {
+        for(let registration of registrations) {
+          registration.unregister().then(function() {
+            console.log('Old Service Worker unregistered');
+            navigator.serviceWorker.register('/worker.js', { type: 'module', scope: '/'}).then(function() {
+              console.log('New Service Worker registered');
+            });
+          });
+        }
+    });
+//   //     const registration = await navigator.serviceWorker.register('/worker.js', { type: 'module' , scope: '/'});
+//   //     console.log('Service Worker registration successful with scope: ', registration.scope);
+//   //     const currentToken = await getToken(messaging, { serviceWorkerRegistration: registration, vapidKey });
+//   //     if (currentToken) {
+//   //       console.log('FCM Token:', currentToken);
+//   //       await sendTokenToServer(currentToken);
+//   //     } else {
+//   //       console.log('No registration token available. Request permission to generate one.');
+//   //     }
+    } catch (err) {
+      console.log('An error occurred while retrieving token. ', err);
+    }
+  }
+};
 
 
 // export const requestForToken = () => {
@@ -149,6 +132,5 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 
 
 
-export { app, auth, firestore, provider, ref, set}; // dbもエクスポートする
+export { app, auth, db, firestore, provider }; // dbもエクスポートする
 export default firebaseConfig;
-
