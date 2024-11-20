@@ -1,7 +1,7 @@
 node_modules/
 firebase-messaging-sw.js.template
-server.key
-server.cert
+server.key.pem
+server.cert.pem
 functions/**/node_modules/
 functions/.firebase
 functions/node_modules

@@ -12,10 +12,8 @@ fi
 npm run build
 
 # Viteアプリケーションの起動
-npm run dev 
+npm run dev &
 
-# &
-
-# firebase use --token "$VITE_FIREBASE_TOKEN"
-# # Firebaseエミュレーターを起動する
-# exec firebase emulators:start --only firestore,functions,firestore,auth,storage
+firebase use --token "$VITE_FIREBASE_TOKEN"
+# Firebaseエミュレーターを起動する
+exec firebase emulators:start --only firestore,functions,firestore,auth,storage

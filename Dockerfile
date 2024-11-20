@@ -28,19 +28,19 @@ COPY . .
 # Viteをインストール（プロジェクトの依存関係に追加）
 RUN npm install --global vite
 
-RUN npm install -g firebase-tools
+# RUN npm install -g firebase-tools
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# Firebaseエミュレーター用の環境変数を設定し、コンテナ起動時にスクリプトを実行
+# エントリーポイントを指定
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
-# Firebaseエミュレーターを使用するためのポートを指定
-EXPOSE 8080
+# # Firebaseエミュレーターを使用するためのポートを指定
+# EXPOSE 8080 5001 5000 8090 9199 8091 8085
 
-# Firebaseエミュレーター用の設定
-CMD ["firebase", "emulators:start", "--only", "firestore, functions"]
+# # Firebaseエミュレーター用の設定
+# CMD ["firebase", "emulators:start", "--only","firestore,functions,firestore,auth,storege"]
 
 
