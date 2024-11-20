@@ -11,12 +11,12 @@ services:
     env_file:
       - .env
     entrypoint: ./entrypoint.sh /entrypoint.sh # entrypoint.shを使う
-    # healthcheck:
-    #   test: ["CMD", "curl", "-f", "https://app:3000"]
-    #   interval: 30s
-    #   timeout: 10s
-    #   retries: 5
-    #   start_period: 30s
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://localhost:3000"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+      start_period: 30s
 
   nginx:
     image: nginx:latest
@@ -25,8 +25,10 @@ services:
       - "80:80"
     volumes:
       - ./nginx.conf:/nginx/nginx.conf  # Nginx設定ファイルをマウント
-      - ./server.cert:/Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/server.cert  # 証明書をマウント
-      - ./server.key:/Users/Tsp33786/Desktop/trial html/MY_WEB_SIGHT/reminder/server.key
+      - ./server.cert.pem:/etc/ssl/certs/server.cert.pem  # PEM形式の証明書をマウント
+      - ./server.key.pem:/etc/ssl/private/server.key.pem  # PEM形式の秘密鍵をマウント
+      # - ./server.cert:/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/server.cert  # 証明書をマウント
+      # - ./server.key:/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/server.key
     # キーをマウント
     depends_on:
       - app  # appが起動してからnginxが起動
@@ -48,18 +50,17 @@ services:
   playwright:
     image: mcr.microsoft.com/playwright:v1.48.1-focal
     environment:
-      - REACT_APP_API_URL=${REACT_APP_API_URL}
-      - REACT_APP_TEST_EMAIL=${REACT_APP_TEST_EMAIL}
-      - REACT_APP_TEST_PASSWORD=${REACT_APP_TEST_PASSWORD}
-      - REACT_APP_TEST2_EMAIL=${REACT_APP_TEST2_EMAIL}
-      - REACT_APP_TEST2_PASSWORD=${REACT_APP_TEST2_PASSWORD}
+      REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
+      REACT_APP_TEST_EMAIL: ${VITE_REACT_APP_TEST_EMAIL}
+      REACT_APP_TEST_PASSWORD: ${VITE_REACT_APP_TEST_PASSWORD}
+      REACT_APP_TEST2_EMAIL: ${VITE_REACT_APP_TEST2_EMAIL}
+      REACT_APP_TEST2_PASSWORD: ${VITE_REACT_APP_TEST2_PASSWORD}
     volumes:
       - .:/app
     working_dir: /app
     depends_on:
-    
-      - app
-      # app:
-      #   condition: service_healthy
+      app:
+        condition: service_healthy
     command: npx playwright test
+
  

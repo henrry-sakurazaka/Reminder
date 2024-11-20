@@ -25,7 +25,10 @@ RUN npm install
 # アプリケーションのソースコードをコピー
 COPY . .
 
-RUN npm install -g @craco/craco
+# Viteをインストール（プロジェクトの依存関係に追加）
+RUN npm install --global vite
+
+RUN npm install -g firebase-tools
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
