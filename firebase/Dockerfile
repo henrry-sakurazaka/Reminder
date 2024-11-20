@@ -9,8 +9,6 @@ RUN apt-get update && apt-get install -y default-jre && \
 ENV JAVA_HOME="/usr/lib/jvm/default-java"
 ENV PATH="$JAVA_HOME/bin:$PATH"
 
-RUN npm install -g @craco/craco
-
 # 作業ディレクトリを設定
 WORKDIR /firebase
 
@@ -19,6 +17,15 @@ COPY ../firebase.json ./
 
 # Firebaseの設定ファイルとスクリプトをコピー
 COPY . .
+
+# Viteをインストール（プロジェクトの依存関係に追加）
+RUN npm install --global vite
+
+# package.json と package-lock.json をコピーして依存関係をインストール
+COPY package*.json ./
+RUN npm install
+
+# RUN npm install -g firebase-tools
 
 # entrypoint.shをプロジェクトのルートディレクトリからコピー
 COPY ../entrypoint.sh /firebase/entrypoint.sh

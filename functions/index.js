@@ -14,7 +14,7 @@ var serviceAccount = require("./serviceAccountKey.json");
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.MYAPP_DATABASE_URL
+    databaseURL: process.env.VITE_MYAPP_DATABASE_URL
 });
 
 const app = express();
@@ -348,22 +348,22 @@ app.post('/handleEasyLogin', (req, res) => {
 //     });
 //   });
 
-// // データを取得する関数
-// exports.getTodoList = functions.https.onRequest((req, res) => {
-//     const db = admin.firestore();
-//     db.collection('todoList3').get()
-//         .then(snapshot => {
-//             let data = [];
-//             snapshot.forEach(doc => {
-//                 data.push(doc.data());
-//             });
-//             res.status(200).send(data);
-//         })
-//         .catch(error => {
-//             console.error("Error accessing Firestore: ", error);
-//             res.status(500).send("Error accessing Firestore");
-//         });
-// });
+// データを取得する関数
+exports.getTodoList = functions.https.onRequest((req, res) => {
+    const db = admin.firestore();
+    db.collection('todoList3').get()
+        .then(snapshot => {
+            let data = [];
+            snapshot.forEach(doc => {
+                data.push(doc.data());
+            });
+            res.status(200).send(data);
+        })
+        .catch(error => {
+            console.error("Error accessing Firestore: ", error);
+            res.status(500).send("Error accessing Firestore");
+        });
+});
 
 // // データを取得する関数
 // exports.myFunction = functions.https.onRequest((req, res) => {

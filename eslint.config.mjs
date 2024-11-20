@@ -17,11 +17,12 @@ export default {
     '**/build.*js',
     '**/src/firebase*.js',
     '**/src/firebaseMessaging.js',
-    '**/__mocks__/**/*',  
+    '**/__mocks__/**/*',
+    '**/dist/**/*'  
   ],
 
   languageOptions: {
-    ecmaVersion: 2021,
+    ecmaVersion: 2022,
     sourceType: 'module',
     globals: {
       ...globals.browser,
