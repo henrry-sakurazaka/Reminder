@@ -165,8 +165,13 @@ jobs:
       - name: Wait for app to be ready
         run: |
           for i in {1..20}; do
+<<<<<<< HEAD
             if curl -s https://localhost:3000 > /dev/null; then
               echo "App is ready!"
+=======
+            if curl -s -k https://localhost:3000; then
+              echo "App is up and running!"
+>>>>>>> c105115 (ヘルスチェック通過)
               break
             fi
             echo "Waiting for app to be ready..."
@@ -195,6 +200,12 @@ jobs:
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
+
+      - name: Set up Google Cloud credentials
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
+          export GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
+
 
       - name: Deploy Functions to Firebase
         run: |
