@@ -18,7 +18,7 @@ services:
     entrypoint: ./entrypoint.sh   # entrypoint.shを使う
     
     healthcheck:
-      test: ["CMD", "curl", "-k", "https://localhost:3000"]
+      test: ["CMD", "curl", "-k", "https://app:3000"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -30,8 +30,8 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "0:443"
-      - "0:80"
+      - "443:443"
+      - "80:80"
     volumes:
       - ./nginx.conf:/nginx/nginx.conf  # Nginx設定ファイルをマウント
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem  # PEM形式の証明書をマウント
