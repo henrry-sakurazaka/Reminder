@@ -35,11 +35,11 @@ jobs:
 
       - name: Create .env file
         run: |
-          echo "REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-          echo "REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
-          echo "REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
-          echo "REACT_APP_TEST2_EMAIL=${{ secrets.REACT_APP_TEST2_EMAIL }}" >> .env
-          echo "REACT_APP_TEST2_PASSWORD=${{ secrets.REACT_APP_TEST2_PASSWORD }}" >> .env
+          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
+          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
+          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
+          echo "VITE_REACT_APP_TEST2_EMAIL=${{ secrets.REACT_APP_TEST2_EMAIL }}" >> .env
+          echo "VITE_REACT_APP_TEST2_PASSWORD=${{ secrets.REACT_APP_TEST2_PASSWORD }}" >> .env
 
       - name: Prepare Docker Compose
         run: docker-compose down
@@ -57,7 +57,7 @@ jobs:
       - name: Wait for app to be ready
         run: |
           for i in {1..20}; do
-            if curl -s https://localhost:3000 > /dev/null; then
+            if curl -k -s https://app:3000 > /dev/null; then
               echo "App is ready!"
               break
             fi
@@ -69,8 +69,8 @@ jobs:
         run: npx playwright test
         if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }} # CI/CDのみに制限
         env:
-          REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
-          REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
+          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          VITE_REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
