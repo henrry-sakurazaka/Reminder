@@ -18,7 +18,7 @@ services:
     entrypoint: ./entrypoint.sh   # entrypoint.shを使う
     
     healthcheck:
-      test: ["CMD", "curl", "-k", "https://localhost:3000/health"]
+      test: ["CMD", "curl", "-k", "https://localhost:3000"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -30,8 +30,8 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "443:443"
-      - "80:80"
+      - "0:443"
+      - "0:80"
     volumes:
       - ./nginx.conf:/nginx/nginx.conf  # Nginx設定ファイルをマウント
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem  # PEM形式の証明書をマウント
@@ -50,18 +50,20 @@ services:
       - FIREBASE_TOKEN=${VITE_FIREBASE_TOKEN}
      
     ports:
-      - "8080:8080"
-      - "5001:5001"
-      - "5000:5000"
-      - "8090:8090"
-      - "9199:9199"
-      - "8091:8091"
-      - "8085:8085"
+      - "0:8080"
+      - "0:5001"
+      - "0:5000"
+      - "0:8090"
+      - "0:9199"
+      - "0:8091"
+      - "0:8085"
 
     entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
     command: firebase emulators:start --only firestore,functions,firestore,auth,storage # Firebaseエミュレーターを起動するコマンド
     volumes:
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/storage.rules
+    depends_on:
+      - app  # appが起動してからfirebaseが起動
 
   playwright:
     image: mcr.microsoft.com/playwright:v1.48.1-focal
