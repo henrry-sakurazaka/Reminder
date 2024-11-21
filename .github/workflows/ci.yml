@@ -109,8 +109,11 @@ jobs:
           echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
 
       - name: Run Docker Compose for app
-        run: docker-compose up -d
+        run: docker-compose up --build -d
 
+      - name: Docker Compose Logs app 
+        run: docker-compose logs app
+        
       - name: Wait for app readiness
         run: |
           for i in {1..10}; do
