@@ -4,21 +4,21 @@ require('dotenv').config();
 
   test('サインアップ機能のテスト', async ({ page }) => {
     await page.waitForTimeout(5000); 
-    await page.goto(`${process.env.REACT_APP_API_URL}/SignUp`); 
+    await page.goto(`${process.env.VITE_REACT_APP_API_URL}/SignUp`); 
 
-    const email = process.env.REACT_APP_TEST_EMAIL
-    const password = process.env.REACT_APP_TEST_PASSWORD; 
+    const email = process.env.VITE_REACT_APP_TEST_EMAIL
+    const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
     
     await page.click('li.terms')
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Terms`);
+    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/Terms`);
     await page.click('nav');
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/SignUp`);
+    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/SignUp`);
 
     await page.locator('li.terms2').waitFor({timeout: 100000});
     await page.click('li.terms2')
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Terms2`)
+    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/Terms2`)
     await page.click('nav');
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/SignUp`);
+    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/SignUp`);
 
     await page.fill('#name', 'Clara')
     await page.fill('#email', email); 
@@ -29,7 +29,7 @@ require('dotenv').config();
     await expect(page.locator('span.important')).toHaveText('Agreed');
  
     await page.click('button.form-button'); 
-    await expect(page).toHaveURL(`${process.env.REACT_APP_API_URL}/Example`); 
+    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/Example`); 
     
 });
 
