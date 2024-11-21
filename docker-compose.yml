@@ -22,7 +22,7 @@ services:
       interval: 90s
       timeout: 60s
       retries: 5
-      start_period: 30s
+      start_period: 240s
 
     environment:
       NODE_ENV: ${NODE_ENV}  # 環境に応じた設定（開発・本番）
