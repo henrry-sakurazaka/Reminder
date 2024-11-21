@@ -40,6 +40,17 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
 
+      - name: Create Firebase Service Account Key
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./firebase/serviceAccountKey.json
+    
+      - name: Create Service Account Key
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
+    
+      - name: Create SSL Certificates
+        run: |
+          echo "${{ secrets.SERVER_CERT }}" > ./app/certs/server.cert.pem
+          echo "${{ secrets.SERVER_KEY }}" > ./app/certs/server.key.pem
+      
       - name: Build Docker image
         run: docker-compose build
 
@@ -113,7 +124,7 @@ jobs:
 
       - name: Docker Compose Logs app 
         run: docker-compose logs app
-        
+
       - name: Wait for app readiness
         run: |
           for i in {1..10}; do
