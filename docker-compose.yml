@@ -30,8 +30,8 @@ services:
   nginx:
     image: nginx:latest
     ports:
-      - "443:443"
-      - "80:80"
+      - "0:443"
+      - "0:80"
     volumes:
       - ./nginx.conf:/nginx/nginx.conf  # Nginx設定ファイルをマウント
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem  # PEM形式の証明書をマウント
