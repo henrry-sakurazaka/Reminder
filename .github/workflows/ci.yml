@@ -48,8 +48,8 @@ jobs:
     
       - name: Create SSL Certificates
         run: |
-          echo "${{ secrets.SERVER_CERT }}" > ./app/certs/server.cert.pem
-          echo "${{ secrets.SERVER_KEY }}" > ./app/certs/server.key.pem
+          echo "${{ secrets.SERVER_CERT }}" > ./app/server.cert.pem
+          echo "${{ secrets.SERVER_KEY }}" > ./app/server.key.pem
       
       - name: Build Docker image
         run: docker-compose build
