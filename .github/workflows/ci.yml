@@ -123,7 +123,7 @@ jobs:
         run: docker-compose down
 
       - name: Run Docker Compose for app
-        run: docker-compose up -d
+        run: docker-compose up --build -d
         # run: docker-compose up --build -d
 
       - name: Docker Compose Logs app 
