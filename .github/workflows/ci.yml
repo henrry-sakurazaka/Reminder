@@ -119,8 +119,11 @@ jobs:
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
 
+      - name: Prepare Docker Compose
+        run: docker-compose down
+
       - name: Run Docker Compose for app
-        run: docker-compose down docker-compose up -d
+        run: docker-compose up -d
         # run: docker-compose up --build -d
 
       - name: Docker Compose Logs app 
