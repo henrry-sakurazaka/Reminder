@@ -10,7 +10,7 @@ services:
           cpus: "0.5"
           memory: 512M
     ports:
-      - "3000:3000"  # Reactアプリのポート
+      - "0:3000"  # Reactアプリのポート
     volumes:
       - .:/app  # 開発環境ではローカルのソースをマウント
     env_file:
