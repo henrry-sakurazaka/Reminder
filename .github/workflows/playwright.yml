@@ -28,14 +28,14 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
   
-      - name: Run app in background
-        run: docker-compose up -d
-
       - name: Build Docker image
         run: |
           docker build -t ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }} .
           docker tag ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }} ${{ secrets.DOCKER_USERNAME }}/my-app:latest
 
+      - name: Run app in background
+        run: docker-compose up -d
+  
       - name: Push Docker image to Docker Hub
         run: |
           docker push ${{ secrets.DOCKER_USERNAME }}/my-app:${{ github.sha }}
