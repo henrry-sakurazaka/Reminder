@@ -46,6 +46,9 @@ jobs:
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
     
+      - name: Create Service Account Key
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > .fucntions/serviceAccountKey.json
+    
       - name: Create SSL Certificates
         run: |
           echo "${{ secrets.SERVER_CERT }}" > ../server.cert.pem
@@ -53,6 +56,10 @@ jobs:
       
       - name: Build Docker image
         run: docker-compose build
+
+      - name: Debug app container
+        run: docker-compose logs app
+      
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'

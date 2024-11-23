@@ -10,7 +10,7 @@ services:
           cpus: "0.5"
           memory: 512M
     ports:
-      - "0:3000"  # Reactアプリのポート
+      - "3000:3000"  # Reactアプリのポート
     volumes:
       - .:/app  # 開発環境ではローカルのソースをマウント
     env_file:
@@ -21,7 +21,7 @@ services:
       - firebase
     
     healthcheck:
-      test: ["CMD", "curl", "-k", "https://app:3000"]
+      test: ["CMD", "curl", "-k", "https://localhost:3000"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -49,8 +49,8 @@ services:
       context: .  
       dockerfile: ./firebase/Dockerfile  
     environment:
-      - GOOGLE_APPLICATION_CREDENTIALS="/firebase/serviceAccountKey.json"
-      - FIREBASE_TOKEN=${VITE_FIREBASE_TOKEN}
+      - VITE_GOOGLE_APPLICATION_CREDENTIALS="/firebase/serviceAccountKey.json"
+      # - FIREBASE_TOKEN=${VITE_FIREBASE_TOKEN}
      
     ports:
       - "8080:8080"
