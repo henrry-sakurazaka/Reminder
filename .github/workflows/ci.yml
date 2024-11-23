@@ -50,12 +50,7 @@ jobs:
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
    
-      - name: Link Service Account Key to Functions
-        run: ln -s ./serviceAccountKey.json ./functions/serviceAccountKey.json
-
-      - name: Link Service Account Key to Firebase
-        run: ln -s ./serviceAccountKey.json ./firebase/serviceAccountKey.json
-
+      
       - name: Create SSL Certificates
         run: |
           echo "${{ secrets.SERVER_CERT }}" > ../server.cert.pem
