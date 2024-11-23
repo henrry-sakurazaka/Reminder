@@ -15,6 +15,7 @@ firebaseInit.js
 function/.env
 .env
 serviceAccountKey.json
+function/serviceAccountKey.json
 bfg-repo-cleaner/
 
 
