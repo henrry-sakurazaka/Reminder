@@ -40,15 +40,22 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
 
-      - name: Create Firebase Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./firebase/serviceAccountKey.json
     
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
-    
-      - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./fucntions/serviceAccountKey.json
-    
+      
+      - name: Copy Service Account Key to Functions
+        run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
+   
+      - name: Copy Service Account Key to Firebase
+        run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
+   
+      - name: Link Service Account Key to Functions
+        run: ln -s ./serviceAccountKey.json ./functions/serviceAccountKey.json
+
+      - name: Link Service Account Key to Firebase
+        run: ln -s ./serviceAccountKey.json ./firebase/serviceAccountKey.json
+
       - name: Create SSL Certificates
         run: |
           echo "${{ secrets.SERVER_CERT }}" > ../server.cert.pem
