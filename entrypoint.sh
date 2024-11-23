@@ -1,10 +1,10 @@
 #!/bin/bash
 
 # Firebaseエミュレーター用の環境変数を設定
-export GOOGLE_APPLICATION_CREDENTIALS="./serviceAccountKey.json"
+export VITE_GOOGLE_APPLICATION_CREDENTIALS="./serviceAccountKey.json"
 
 if [ "$ENV" != "production" ]; then
-  unset GOOGLE_APPLICATION_CREDENTIALS
+  unset VITE_GOOGLE_APPLICATION_CREDENTIALS
 fi
 
 

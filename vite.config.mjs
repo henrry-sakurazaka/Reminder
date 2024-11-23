@@ -12,7 +12,7 @@ export default defineConfig({
     outDir: resolve(__dirname, 'dist'),
     define: {
       // 環境変数をコード内で使えるように設定
-      'process.env.VITE_FIREBASE_TOKEN': JSON.stringify(process.env.VITE_FIREBASE_TOKEN),
+      // 'process.env.VITE_FIREBASE_TOKEN': JSON.stringify(process.env.VITE_FIREBASE_TOKEN),
       'process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS),
     },
     emptyOutDir: true,
@@ -21,21 +21,37 @@ export default defineConfig({
         manualChunks(id) {
           if (id.includes('node_modules')) {
             const moduleName = id.toString().split('node_modules/')[1].split('/')[0].toString();
+            
+            // Firebase関連を一つのチャンクにまとめる
             if (moduleName === 'firebase') {
-              // Firebase関連は1つのチャンクにまとめる
               return 'firebase';
             }
+
+            // React関連をVendorチャンクにまとめる
             if (['react', 'react-dom'].includes(moduleName)) {
-              // React関連はVendorチャンクにまとめる
               return 'vendor';
             }
-            return moduleName; // 他のモジュールは個別チャンクに分割
+
+            // date-fnsなどの大型モジュールを個別チャンク化
+            if (moduleName === 'date-fns') {
+              return 'date-fns';
+            }
+
+            // それ以外のモジュールも個別チャンクに
+            return moduleName;
           }
         },
       },
-      external: ['@firebase/app'], // 外部ライブラリの指定
-    },  
+    },
+    terserOptions: {
+      compress: {
+        drop_console: true, // consoleログを削除
+      },
+    },
+    external: ['@firebase/app'], // 外部ライブラリとして扱うモジュールを指定
+    chunkSizeWarningLimit: 700, // サイズ警告の上限を調整
   },
+  
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),  
