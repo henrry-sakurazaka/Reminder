@@ -22,7 +22,7 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app', 'https://localhost3000'],
+    origin: ['https://reminder3-65e84.web.app', 'https://app:3000'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
@@ -365,22 +365,22 @@ exports.getTodoList = functions.https.onRequest((req, res) => {
         });
 });
 
-// データを取得する関数
-exports.myFunction = functions.https.onRequest((req, res) => {
-    const db = admin.firestore();
-    db.collection('todoList3').get()
-        .then(snapshot => {
-            let data = [];
-            snapshot.forEach(doc => {
-                data.push(doc.data());
-            });
-            res.status(200).send(data);
-        })
-        .catch(error => {
-            console.error("Error accessing Firestore: ", error);
-            res.status(500).send("Error accessing Firestore");
-        });
-});
+// // データを取得する関数
+// exports.myFunction = functions.https.onRequest((req, res) => {
+//     const db = admin.firestore();
+//     db.collection('todoList3').get()
+//         .then(snapshot => {
+//             let data = [];
+//             snapshot.forEach(doc => {
+//                 data.push(doc.data());
+//             });
+//             res.status(200).send(data);
+//         })
+//         .catch(error => {
+//             console.error("Error accessing Firestore: ", error);
+//             res.status(500).send("Error accessing Firestore");
+//         });
+// });
 
 
 // Hello World 関数

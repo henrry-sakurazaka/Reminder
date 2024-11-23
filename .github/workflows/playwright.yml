@@ -46,8 +46,7 @@ jobs:
 
       - name: Start app using Docker Compose
         run: docker-compose up --build -d
-        # run: docker-compose up --build -d
-
+        
       - name: Clean previous test results
         run: rm -f test-results/.last-run.json
 
