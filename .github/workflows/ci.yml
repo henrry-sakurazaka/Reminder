@@ -126,15 +126,15 @@ jobs:
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
 
-      - name: Set up test results directory
-        run: |
-          mkdir -p test-results
-          chmod -R 777 test-results
+      # - name: Set up test results directory
+      #   run: |
+      #     mkdir -p test-results
+      #     chmod -R 777 test-results
 
-      - name: Set up report directory with permissions
-        run: |
-          mkdir -p playwright-report
-          chmod -R 777 playwright-report
+      # - name: Set up report directory with permissions
+      #   run: |
+      #     mkdir -p playwright-report
+      #     chmod -R 777 playwright-report
 
       - name: Prepare Docker Compose
         run: docker-compose down
