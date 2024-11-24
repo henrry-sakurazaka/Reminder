@@ -139,6 +139,11 @@ jobs:
       - name: Ensure Playwright log directory
         run: mkdir -p playwright-report
 
+      - name: Set up test results directory
+        run: |
+          mkdir -p test-results
+          chmod -R 777 test-results
+
       - name: Check app health
         run: |
           docker inspect -f '{{json .State.Health.Status}}' reminder-app-1 | grep -q "healthy" || exit 1
