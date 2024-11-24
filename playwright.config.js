@@ -9,7 +9,7 @@ export default defineConfig({
     headless: true,  // ヘッドレスモードで実行（表示なし）
     viewport: { width: 1280, height: 720 },  // ビューポートの設定
     actionTimeout: 10000,  // アクションごとのタイムアウト
-    baseURL: process.env.VITE_REACT_APP_API_URL || 'http://localhost',
+    baseURL: process.env.VITE_REACT_APP_API_URL || 'https://localhost',
     ignoreHTTPSErrors: true,  // HTTPSエラーを無視
     video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
   },
