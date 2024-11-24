@@ -130,19 +130,21 @@ jobs:
         run: |
           mkdir -p test-results
           chmod -R 777 test-results
-          
+
+      - name: Set up report directory with permissions
+        run: |
+          mkdir -p playwright-report
+          chmod -R 777 playwright-report
+
       - name: Prepare Docker Compose
         run: docker-compose down
 
       - name: Run Docker Compose for app
         run: docker-compose up --build -d
-        # run: docker-compose up --build -d
-
+    
       - name: Docker Compose Logs app 
         run: docker-compose logs app
 
-      - name: Ensure Playwright log directory
-        run: mkdir -p playwright-report
 
       - name: Check app health
         run: |
