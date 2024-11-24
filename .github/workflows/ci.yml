@@ -126,6 +126,11 @@ jobs:
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
 
+      - name: Set up test results directory
+        run: |
+          mkdir -p test-results
+          chmod -R 777 test-results
+          
       - name: Prepare Docker Compose
         run: docker-compose down
 
@@ -138,11 +143,6 @@ jobs:
 
       - name: Ensure Playwright log directory
         run: mkdir -p playwright-report
-
-      - name: Set up test results directory
-        run: |
-          mkdir -p test-results
-          chmod -R 777 test-results
 
       - name: Check app health
         run: |
