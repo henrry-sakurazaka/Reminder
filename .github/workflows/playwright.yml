@@ -11,6 +11,7 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
+    timeout-minutes: 30  # 30分まで延長
 
     steps:
       - name: Checkout code
@@ -73,3 +74,7 @@ jobs:
           VITE_REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
           VITE_REACT_APP_TEST2_PASSWORD: ${{ secrets.REACT_APP_TEST2_PASSWORD }}
+      
+      - name: Playwright Test Logs
+        if: failure()
+        run: cat playwright-report/output.log

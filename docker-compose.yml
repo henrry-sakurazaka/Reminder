@@ -21,7 +21,7 @@ services:
       - firebase
     
     healthcheck:
-      test: ["CMD", "curl", "-k", "https://localhost:443"]
+      test: ["CMD-SHELL", "curl -k -v https://localhost:443 || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -81,6 +81,7 @@ services:
     working_dir: /app
     depends_on:
       app:
-        condition: service_healthy
-       
-    command: npx playwright test
+        condition: service_healthy  
+    command: DEBUG=pw:api npx playwright test
+
+    # command: npx playwright test
