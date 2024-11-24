@@ -50,7 +50,6 @@ jobs:
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
    
-      
       - name: Create SSL Certificates
         run: |
           echo "${{ secrets.SERVER_CERT }}" > ../server.cert.pem
@@ -62,13 +61,11 @@ jobs:
       - name: Debug app container
         run: docker-compose logs app
       
-
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
          
-
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
