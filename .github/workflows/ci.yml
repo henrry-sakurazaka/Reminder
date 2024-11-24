@@ -136,10 +136,17 @@ jobs:
       - name: Docker Compose Logs app 
         run: docker-compose logs app
 
+      - name: Ensure Playwright log directory
+        run: mkdir -p playwright-report
+
+      - name: Check app health
+        run: |
+          docker inspect -f '{{json .State.Health.Status}}' reminder-app-1 | grep -q "healthy" || exit 1
+
       - name: Wait for app readiness
         run: |
           for i in {1..30}; do
-            curl -k -s -o /dev/null -w "%{http_code}" https://localhost:443 | grep -q "200" && break || echo "Waiting for app..." && sleep 10;
+            curl -k -s -o /dev/null -w "%{http_code}" https://localhost:3000 | grep -q "200" && break || echo "Waiting for app..." && sleep 10;
           done
 
       - name: Run Playwright tests
