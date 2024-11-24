@@ -57,7 +57,7 @@ jobs:
       - name: Wait for app to be ready
         run: |
           for i in {1..20}; do
-            if curl -k -s https://app:3000 > /dev/null; then
+            if curl -k -s https://localhost:443 > /dev/null; then
               echo "App is ready!"
               break
             fi
@@ -78,3 +78,6 @@ jobs:
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
+      
+      - name: Teardown
+        run: docker-compose down
