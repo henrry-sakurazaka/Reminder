@@ -163,6 +163,9 @@ jobs:
         if: failure()
         run: cat playwright-report/output.log
 
+      - name: Clean previous test results
+        run: rm -f test-results/.last-run.json
+
       - name: Teardown
         run: docker-compose down
 
