@@ -105,6 +105,7 @@ jobs:
   e2e:
     runs-on: ubuntu-latest
     needs: build
+    timeout-minutes: 30  # 30分まで延長
 
     steps:
       - name: Checkout code
@@ -150,12 +151,15 @@ jobs:
       - name: Teardown
         run: docker-compose down
 
+      - name: Playwright Test Logs
+        if: failure()
+        run: cat playwright-report/output.log
 
   deploy:
     runs-on: ubuntu-latest
     needs:
       - lint
-      - e2e
+      - e2eitgit
 
     steps:
       - name: Checkout code
