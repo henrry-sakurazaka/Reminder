@@ -22,7 +22,7 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app', 'https://localhost:443'],
+    origin: ['https://reminder3-65e84.web.app', 'https://localhost'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
