@@ -48,13 +48,17 @@ jobs:
           docker-compose version
 
       - name: Create .env file
+        env:
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" >> .env
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+
 
       - name: Prepare Docker Compose
         run: docker-compose down
@@ -63,7 +67,7 @@ jobs:
         run: docker-compose build
       
       - name: Run app and tests
-        run: docker-compose up --abort-on-container-exit playwright
+        run: docker-compose up 
 
       # - name: Start app using Docker Compose
       #   run: docker-compose up --build -d
