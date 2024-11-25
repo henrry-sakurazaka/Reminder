@@ -48,6 +48,8 @@ services:
     build:
       context: .  
       dockerfile: ./firebase/Dockerfile  
+    env_file:
+      - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
     environment:
       - VITE_GOOGLE_APPLICATION_CREDENTIALS="/firebase/serviceAccountKey.json"
       # - FIREBASE_TOKEN=${VITE_FIREBASE_TOKEN}
@@ -70,6 +72,8 @@ services:
 
   playwright:
     image: mcr.microsoft.com/playwright:v1.48.1-focal
+    env_file:
+      - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
     environment:
       VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
       VITE_REACT_APP_TEST_EMAIL: ${VITE_REACT_APP_TEST_EMAIL}

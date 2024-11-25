@@ -10,27 +10,27 @@ require('dotenv').config();
             body: JSON.stringify({ success: true }),
         });
     });
-    
-    await page.goto(`${process.env.VITE_REACT_APP_API_URL}/SignIn`);  
-    
+    const baseUrl = process.env.VITE_REACT_APP_API_URL
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
+    await page.goto(`${baseUrl}/SignIn`);  
+    
     await page.fill('#email', email); 
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
   
-    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/Example`);
+    await expect(page).toHaveURL(`${baseUrl}/Example`);
     await page.click('span.back');
-    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/UserAuth`)
+    await expect(page).toHaveURL(`${baseUrl}/UserAuth`)
 
     await page.click('span#DA'); 
-    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/DeleteAccount`);
+    await expect(page).toHaveURL(`${baseUrl}/DeleteAccount`);
     await expect(page.locator('h2')).toHaveText('アカウント削除中...');
 
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
     await expect(page.locator('.message')).toHaveText('ユーザーアカウントが削除されました');
-    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/UserAuth`);
+    await expect(page).toHaveURL(`${baseUrl}/UserAuth`);
 
 });
 

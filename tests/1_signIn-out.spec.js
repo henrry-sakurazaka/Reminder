@@ -7,19 +7,20 @@ require('dotenv').config();
 // });
 
   test('ログインテスト', async ({ page }) => {
-    await page.waitForTimeout(5000); 
-    await page.goto(`${process.env.VITE_REACT_APP_API_URL}/SignIn`);  
-    
+    const baseUrl = process.env.VITE_REACT_APP_API_URL
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
+    await page.waitForTimeout(5000); 
+    await page.goto(`${baseUrl}/SignIn`);  
+    
     await page.fill('#email', email); 
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
   
-    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/Example`);
+    await expect(page).toHaveURL(`${baseUrl}/Example`);
     await page.click('span.back');
-    await expect(page).toHaveURL(`${process.env.VITE_REACT_APP_API_URL}/UserAuth`)
+    await expect(page).toHaveURL(`${baseUrl}/UserAuth`)
 
     await page.click('span#SO'); 
     const messageSelector = 'div.sign-out2';
