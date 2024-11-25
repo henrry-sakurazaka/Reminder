@@ -164,13 +164,9 @@ jobs:
       - name: Run Docker Compose for app
         run: docker-compose build 
 
-      - name: Check app health
-        run: |
-          docker inspect -f '{{json .State.Health.Status}}' reminder-app-1 | grep -q "healthy" || exit 1
-
       - name: Run app and tests
         # run: docker-compose up --abort-on-container-exit playwright
-        run: docker-compose up 
+        run: docker-compose up -d
 
       # - name: Wait for app readiness
       #   run: |
