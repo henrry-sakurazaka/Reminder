@@ -28,7 +28,7 @@ services:
       start_period: 300s
 
     environment:
-      NODE_ENV: ${NODE_ENV}  # 環境に応じた設定（開発・本番）
+      VITE_NODE_ENV: ${VITE_NODE_ENV}  # 環境に応じた設定（開発・本番）
 
     working_dir: /app
     command: |
@@ -46,7 +46,7 @@ services:
     # depends_on:
     #   - app  # appが起動してからnginxが起動
     environment:
-      NODE_ENV: ${NODE_ENV}  # 本番環境用のNginx設定（開発用にも使える）
+      VITE_NODE_ENV: ${VITE_NODE_ENV}  # 本番環境用のNginx設定（開発用にも使える）
 
   firebase:
     build:
@@ -76,8 +76,8 @@ services:
 
   playwright:
     build:
-    context: .
-    dockerfile: Dockerfile
+      context: .
+      dockerfile: Dockerfile
     image: mcr.microsoft.com/playwright:v1.48.1-focal
     env_file:
       - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
@@ -85,9 +85,8 @@ services:
       VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
       VITE_REACT_APP_TEST_EMAIL: ${VITE_REACT_APP_TEST_EMAIL}
       VITE_REACT_APP_TEST_PASSWORD: ${VITE_REACT_APP_TEST_PASSWORD}
-      VITE_REACT_APP_TEST2_EMAIL: ${VITE_REACT_APP_TEST2_EMAIL}
-      VITE_REACT_APP_TEST2_PASSWORD: ${VITE_REACT_APP_TEST2_PASSWORD}
       DEBUG: pw:api  # デバッグログを有効化
+      VITE_NODE_ENV: production
     volumes:
       - .:/app
     working_dir: /app
