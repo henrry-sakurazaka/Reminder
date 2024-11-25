@@ -12,6 +12,8 @@ jobs:
   e2e-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30  # 30分まで延長
+    env_file:
+      - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
 
     steps:
       - name: Checkout code
