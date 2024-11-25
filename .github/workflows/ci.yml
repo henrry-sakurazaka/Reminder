@@ -151,7 +151,7 @@ jobs:
         run: docker-compose down
 
       - name: Run Docker Compose for app
-        run: docker-compose --build 
+        run: docker-compose build 
 
       - name: Run app and tests
         run: docker-compose up --abort-on-container-exit --build
