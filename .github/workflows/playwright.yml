@@ -58,8 +58,14 @@ jobs:
       - name: Prepare Docker Compose
         run: docker-compose down
 
-      - name: Start app using Docker Compose
-        run: docker-compose up --build -d
+      - name: Set up Docker Compose
+        run: docker-compose build
+      
+      - name: Run app and tests
+        run: docker-compose up --abort-on-container-exit --build
+
+      # - name: Start app using Docker Compose
+      #   run: docker-compose up --build -d
         
       # - name: Wait for app to be ready
       #   run: |
