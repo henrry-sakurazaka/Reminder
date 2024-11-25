@@ -1,5 +1,7 @@
 import { defineConfig } from '@playwright/test';
-require('dotenv').config();
+import {config as dotenvConfig } from 'dotenv';
+
+dotenvConfig();
 
 export default defineConfig({
   testDir: './tests',  // テストファイルのディレクトリ
