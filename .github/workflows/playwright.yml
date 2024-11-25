@@ -28,6 +28,19 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      - name: Clean test results directory
+        run: rm -rf test-results
+
+      - name: Set up test results directory
+        run: |
+          mkdir -p test-results
+          chmod -R 777 test-results
+    
+      - name: Set up report directory with permissions
+        run: |
+          mkdir -p playwright-report
+          chmod -R 777 playwright-report
+
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -42,26 +55,12 @@ jobs:
           echo "VITE_REACT_APP_TEST2_EMAIL=${{ secrets.REACT_APP_TEST2_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST2_PASSWORD=${{ secrets.REACT_APP_TEST2_PASSWORD }}" >> .env
 
-      - name: Set up test results directory
-        run: |
-          mkdir -p test-results
-          chmod -R 777 test-results
-    
-      - name: Set up report directory with permissions
-        run: |
-          mkdir -p playwright-report
-          chmod -R 777 playwright-report
-
       - name: Prepare Docker Compose
         run: docker-compose down
 
       - name: Start app using Docker Compose
         run: docker-compose up --build -d
         
-      # - name: Clean previous test results
-      #   run: rm -f test-results/.last-run.json
-
-
       # - name: Wait for app to be ready
       #   run: |
       #     for i in {1..20}; do
