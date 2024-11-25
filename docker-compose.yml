@@ -89,6 +89,8 @@ services:
       VITE_NODE_ENV: production
     volumes:
       - .:/app
+      - ./server.key.pem:/app/server.key.pem
+      - ./server.cert.pem:/app/server.cert.pem
     working_dir: /app
 
     depends_on:
