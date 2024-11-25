@@ -28,18 +28,18 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Clean test results directory
-        run: rm -rf test-results
+      # - name: Clean test results directory
+      #   run: rm -rf test-results
 
-      - name: Set up test results directory
-        run: |
-          mkdir -p test-results
-          chmod -R 777 test-results
+      # - name: Set up test results directory
+      #   run: |
+      #     mkdir -p test-results
+      #     chmod -R 777 test-results
     
-      - name: Set up report directory with permissions
-        run: |
-          mkdir -p playwright-report
-          chmod -R 777 playwright-report
+      # - name: Set up report directory with permissions
+      #   run: |
+      #     mkdir -p playwright-report
+      #     chmod -R 777 playwright-report
 
       - name: Install Docker Compose
         run: |
