@@ -45,6 +45,8 @@ services:
       - ./server.key.pem:/etc/ssl/private/server.key.pem  # PEM形式の秘密鍵をマウント
     # depends_on:
     #   - app  # appが起動してからnginxが起動
+    env_file:
+      - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}  # 本番環境用のNginx設定（開発用にも使える）
 
