@@ -75,6 +75,9 @@ services:
     #   - app  # appが起動してからfirebaseが起動
 
   playwright:
+    build:
+    context: .
+    dockerfile: Dockerfile
     image: mcr.microsoft.com/playwright:v1.48.1-focal
     env_file:
       - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
@@ -89,10 +92,6 @@ services:
       - .:/app
     working_dir: /app
 
-    build:
-      context: .
-      dockerfile: Dockerfile
-      
     depends_on:
       app:
         condition: service_healthy
