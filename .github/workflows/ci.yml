@@ -120,9 +120,7 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
-      - name: Clean test results directory
-        run: rm -rf test-results
-
+    
       # - name: Set up test results directory
       #   run: |
       #     mkdir -p test-results
@@ -153,11 +151,10 @@ jobs:
         run: docker-compose down
 
       - name: Run Docker Compose for app
-        run: docker-compose up --build -d
-    
-      - name: Docker Compose Logs app 
-        run: docker-compose logs app
+        run: docker-compose --build 
 
+      - name: Run app and tests
+        run: docker-compose up --abort-on-container-exit --build
 
       - name: Check app health
         run: |
