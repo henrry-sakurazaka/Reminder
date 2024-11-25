@@ -25,6 +25,9 @@ jobs:
           sudo apt-get install -y docker-compose
 
       - name: Create .env file
+        env:
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
@@ -40,8 +43,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" >> .env
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.key.pem
+          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.cert.pem
 
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
@@ -134,6 +137,9 @@ jobs:
       #     chmod -R 777 playwright-report    
 
       - name: Create .env file
+        env:
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
@@ -149,8 +155,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" >> .env
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
 
       - name: Prepare Docker Compose
         run: docker-compose down
