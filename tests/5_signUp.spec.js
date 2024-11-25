@@ -3,7 +3,7 @@ require('dotenv').config();
 
 
   test('サインアップ機能のテスト', async ({ page }) => {
-    const baseUrl = process.env.VITE_REACT_APP_API_URL
+    const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
     

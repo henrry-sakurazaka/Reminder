@@ -10,7 +10,7 @@ require('dotenv').config();
   test.setTimeout(1200000);
 
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
-      const baseUrl =process.env.VITE_REACT_APP_API_URL
+      const baseUrl =process.env.VITE_REACT_APP_API_URL || 'https://localhost';
       const email = process.env.VITE_REACT_APP_TEST_EMAIL
       const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
       
