@@ -119,7 +119,20 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
-  
+
+      - name: Clean test results directory
+        run: rm -rf test-results
+
+      - name: Set up test results directory
+        run: |
+          mkdir -p test-results
+          chmod -R 777 test-results
+        
+      - name: Set up report directory with permissions
+        run: |
+          mkdir -p playwright-report
+          chmod -R 777 playwright-report    
+
       - name: Create .env file
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
@@ -135,16 +148,6 @@ jobs:
           echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
-
-      - name: Set up test results directory
-        run: |
-          mkdir -p test-results
-          chmod -R 777 test-results
-    
-      - name: Set up report directory with permissions
-        run: |
-          mkdir -p playwright-report
-          chmod -R 777 playwright-report    
 
       - name: Prepare Docker Compose
         run: docker-compose down
