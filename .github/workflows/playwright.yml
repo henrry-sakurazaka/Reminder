@@ -53,7 +53,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-
+          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" >> .env
+          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" >> .env
 
       - name: Prepare Docker Compose
         run: docker-compose down
@@ -62,7 +63,7 @@ jobs:
         run: docker-compose build
       
       - name: Run app and tests
-        run: docker-compose up --abort-on-container-exit --build
+        run: docker-compose up --abort-on-container-exit playwright
 
       # - name: Start app using Docker Compose
       #   run: docker-compose up --build -d
@@ -84,8 +85,10 @@ jobs:
         env:
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST2_EMAIL: ${{ secrets.REACT_APP_TEST2_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
 
       - name: Playwright Test Logs
         if: failure()
