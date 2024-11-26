@@ -26,8 +26,22 @@ jobs:
 
       - name: Create .env file
         env:
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
+          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          VITE_FIREBASE_EMULATOR_HOST: ${{ secrets.FIREBASE_EMULATOR_HOST }}
+          VITE_FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          VITE_REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
+          VITE_REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
+          ITE_REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          VITE_REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
+          VITE_REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
           VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
@@ -137,26 +151,13 @@ jobs:
       #     chmod -R 777 playwright-report    
 
       - name: Create .env file
-        env:
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
+        
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
-          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "VITE_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.REACT_APP_FIREBASE_API_KEY }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
-          echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "${{ secrets.SERVER_KEY }}" > server.key.pem
 
       - name: Prepare Docker Compose
         run: docker-compose down
@@ -177,29 +178,13 @@ jobs:
       - name: Run Playwright tests
         env: 
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          VITE_FIREBASE_EMULATOR_HOST: ${{ secrets.FIREBASE_EMULATOR_HOST }}
-          VITE_FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          VITE_REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
-          VITE_REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
-          ITE_REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
-          VITE_REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
-          VITE_REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
         run: npx playwright test 
 
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
-
-      # - name: Clean previous test results
-      #   run: rm -f test-results/.last-run.json
 
       - name: Teardown
         run: docker-compose down
