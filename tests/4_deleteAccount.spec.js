@@ -14,7 +14,7 @@ if (process.env.CI !== 'true') {
             body: JSON.stringify({ success: true }),
         });
     });
-    const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost';
+    const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
