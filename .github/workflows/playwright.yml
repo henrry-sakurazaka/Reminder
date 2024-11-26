@@ -11,7 +11,7 @@ on:
 jobs:
   e2e-tests:
     runs-on: ubuntu-latest
-    timeout-minutes: 30  # 30分まで延長
+    timeout-minutes: 30  # タイムアウト設定
 
     steps:
       - name: Checkout code
@@ -28,61 +28,39 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # - name: Clean test results directory
-      #   run: rm -rf test-results
-
-      # - name: Set up test results directory
-      #   run: |
-      #     mkdir -p test-results
-      #     chmod -R 777 test-results
-    
-      # - name: Set up report directory with permissions
-      #   run: |
-      #     mkdir -p playwright-report
-      #     chmod -R 777 playwright-report
-
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
-      - name: Create .env file
+      - name: Create .env file and keys
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "${{ secrets.SERVER_KEY }}" > server.key.pem
 
       - name: Prepare Docker Compose
         run: docker-compose down
 
-      - name: Set up Docker Compose
-        run: docker-compose build
-      
-      - name: Run app and tests
-        run: docker-compose up -d
-
-      # - name: Start app using Docker Compose
-      #   run: docker-compose up --build -d
-        
-      # - name: Wait for app to be ready
-      #   run: |
-      #     for i in {1..20}; do
-      #       if curl -k -s https://localhost:3000 > /dev/null; then
-      #         echo "App is ready!"
-      #         break
-      #       fi
-      #       echo "Waiting for app to be ready..."
-      #       sleep 5
-      #     done
+      - name: Build and Start App
+        run: |
+          docker-compose build
+          docker-compose up -d
+        env: # Docker Composeが.envを読み込む際に必要な環境変数
+          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
 
       - name: Run E2E Tests
         run: npx playwright test
-        if: ${{ github.event_name == 'push' || github.event_name == 'pull_request' }} # CI/CDのみに制限
-        env:
+        env: # テストコード用の環境変数
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
@@ -93,6 +71,6 @@ jobs:
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
-      
+
       - name: Teardown
         run: docker-compose down

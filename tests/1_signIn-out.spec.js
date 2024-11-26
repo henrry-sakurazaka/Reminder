@@ -11,9 +11,9 @@ if (process.env.CI !== 'true') {
 // });
 
   test('ログインテスト', async ({ page }) => {
-    const baseUrl = VITE_REACT_APP_API_URL || 'https://localhost:3000';
-    const email = VITE_REACT_APP_TEST_EMAIL
-    const password = VITE_REACT_APP_TEST_PASSWORD; 
+    const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
+    const email = process.env.VITE_REACT_APP_TEST_EMAIL
+    const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
     await page.waitForTimeout(5000); 
     await page.goto(`${baseUrl}/SignIn`);  
