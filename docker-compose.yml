@@ -29,7 +29,7 @@ services:
 
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}  # 環境に応じた設定（開発・本番）
-
+    
     working_dir: /app
     command: |
       chmod -R 777 /app/test-results /app/playwright-report
@@ -89,6 +89,7 @@ services:
       VITE_REACT_APP_TEST_PASSWORD: ${VITE_REACT_APP_TEST_PASSWORD}
       DEBUG: pw:api  # デバッグログを有効化
       VITE_NODE_ENV: production
+      CI: true 
     volumes:
       - .:/app
       - ./server.key.pem:/app/server.key.pem
