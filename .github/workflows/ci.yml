@@ -176,7 +176,7 @@ jobs:
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-        run: npx playwright test 
+          run: npx playwright test 
 
       - name: Playwright Test Logs
         if: failure()
