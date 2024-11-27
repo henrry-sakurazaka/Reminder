@@ -30,9 +30,9 @@ services:
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}  # 環境に応じた設定（開発・本番）
       VITE_REACT_APP_API_URL: "https://localhost:3000"
-    working_dir: /app
-    command: |
-      ["vite", "--https"]
+      working_dir: /app
+      command: |
+        ["vite", "--https"]
 
   nginx:
     image: nginx:latest
