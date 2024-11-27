@@ -166,14 +166,7 @@ jobs:
         run: docker-compose build 
 
       - name: Run app and tests
-        # run: docker-compose up --abort-on-container-exit playwright
         run: docker-compose up -d
-
-      # - name: Wait for app readiness
-      #   run: |
-      #     for i in {1..30}; do
-      #       curl -k -s -o /dev/null -w "%{http_code}" https://localhost:3000 | grep -q "200" && break || echo "Waiting for app..." && sleep 10;
-      #     done
 
       - name: Run Playwright tests
         env: 
