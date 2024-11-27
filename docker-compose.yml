@@ -84,7 +84,7 @@ services:
     env_file:
       - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
     environment:
-      VITE_REACT_APP_API_URL: https://localhost:3000
+      # VITE_REACT_APP_API_URL: https://localhost:3000
       VITE_REACT_APP_TEST_EMAIL: ${VITE_REACT_APP_TEST_EMAIL}
       VITE_REACT_APP_TEST_PASSWORD: ${VITE_REACT_APP_TEST_PASSWORD}
       DEBUG: pw:api  # デバッグログを有効化
