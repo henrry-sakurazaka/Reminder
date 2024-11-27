@@ -45,7 +45,7 @@ RUN npm install --global vite
 RUN npx playwright install --with-deps
 
 # デフォルトコマンド
-CMD ["npx", "playwright", "test"]
+CMD ["npx", "playwright", "test", "npm", "run", "dev"]
 
 # RUN npm install -g firebase-tools
 
