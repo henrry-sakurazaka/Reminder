@@ -80,19 +80,13 @@ export default defineConfig({
  
   server: {
     // 本番環境と開発環境で HTTPS の設定を分ける
-    https: process.env.NODE_ENV === 'production'
+    https: process.env.NODE_ENV === 'production'|| process.env.VITE_HTTPS === 'true' 
       ? {
           key: fs.readFileSync(path.resolve(__dirname, process.env.VITE_SERVER_KEY)), // 本番用証明書
           cert: fs.readFileSync(path.resolve(__dirname, process.env.VITE_SERVER_CERT)), // 本番用証明書
         }
       : false, // 開発環境では HTTPS を無効化
 
-    https: process.env.VITE_HTTPS === 'true' 
-      ? {
-          key: process.env.VITE_SERVER_KEY,
-          cert: process.env.VITE_SERVER_CERT,
-        } 
-      : false,
     // https: {
     //   // key: process.env.NODE_ENV === 'production' 
     //   //   ? fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')) 
