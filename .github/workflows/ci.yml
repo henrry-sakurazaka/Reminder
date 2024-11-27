@@ -154,6 +154,9 @@ jobs:
           echo "${{ secrets.SERVER_CERT }}" >> .env
           echo "${{ secrets.SERVER_KEY }}" >> .env
 
+      - name: Prepare Docker Compose
+        run: docker-compose down
+
       - name: Run Docker Compose for app
         run: docker-compose build
 
