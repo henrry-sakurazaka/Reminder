@@ -34,7 +34,7 @@ jobs:
           VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
           VITE_REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
           VITE_REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
-          ITE_REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
+          VITE_REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
           VITE_REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
           VITE_REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
@@ -62,32 +62,32 @@ jobs:
 
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
-      
+
       - name: Copy Service Account Key to Functions
         run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
-   
+
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
-   
+
       - name: Create SSL Certificates
         run: |
           echo "${{ secrets.SERVER_CERT }}" > ../server.cert.pem
           echo "${{ secrets.SERVER_KEY }}" > ../server.key.pem
-      
+
       - name: Build Docker image
         run: docker-compose build
 
       - name: Start Vite HTTPS Server
         run: npm run dev -- --https &
-      
+
       - name: Debug app container
         run: docker-compose logs app
-      
+
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-         
+
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -106,6 +106,7 @@ jobs:
     runs-on: ubuntu-latest
     needs: e2e
     if: github.event_name == 'push'
+
     steps:
       - name: Checkout code
         uses: actions/checkout@v3
@@ -120,11 +121,11 @@ jobs:
             docker tag app ${{ secrets.DOCKER_USERNAME }}/app:$tag
             docker push ${{ secrets.DOCKER_USERNAME }}/app:$tag
           done
-    
+
   e2e:
     runs-on: ubuntu-latest
     needs: build
-    timeout-minutes: 30  # 30分まで延長
+    timeout-minutes: 30
 
     steps:
       - name: Checkout code
@@ -142,19 +143,7 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
-    
-      # - name: Set up test results directory
-      #   run: |
-      #     mkdir -p test-results
-      #     chmod -R 777 test-results
-        
-      # - name: Set up report directory with permissions
-      #   run: |
-      #     mkdir -p playwright-report
-      #     chmod -R 777 playwright-report    
-
       - name: Create .env file
-        
         run: |
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
@@ -166,17 +155,17 @@ jobs:
         run: docker-compose down
 
       - name: Run Docker Compose for app
-        run: docker-compose build 
+        run: docker-compose build
 
       - name: Run app and tests
         run: docker-compose up -d
 
       - name: Run Playwright tests
-        env: 
+        env:
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          run: npx playwright test 
+        run: npx playwright test
 
       - name: Playwright Test Logs
         if: failure()
@@ -202,5 +191,3 @@ jobs:
         run: |
           echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
           firebase deploy --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
-
-
