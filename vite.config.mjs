@@ -86,7 +86,13 @@ export default defineConfig({
           cert: fs.readFileSync(path.resolve(__dirname, process.env.VITE_SERVER_CERT)), // 本番用証明書
         }
       : false, // 開発環境では HTTPS を無効化
-  
+
+    https: process.env.VITE_HTTPS === 'true' 
+      ? {
+          key: process.env.VITE_SERVER_KEY,
+          cert: process.env.VITE_SERVER_CERT,
+        } 
+      : false,
     // https: {
     //   // key: process.env.NODE_ENV === 'production' 
     //   //   ? fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')) 
