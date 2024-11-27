@@ -43,8 +43,8 @@ services:
       - ./nginx.conf:/nginx/nginx.conf  # Nginx設定ファイルをマウント
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem  # PEM形式の証明書をマウント
       - ./server.key.pem:/etc/ssl/private/server.key.pem  # PEM形式の秘密鍵をマウント
-    # depends_on:
-    #   - app  # appが起動してからnginxが起動
+    depends_on:
+      - app  # appが起動してからnginxが起動
     env_file:
       - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
     environment:
