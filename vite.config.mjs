@@ -82,25 +82,11 @@ export default defineConfig({
     // 本番環境と開発環境で HTTPS の設定を分ける
     https: process.env.NODE_ENV === 'production'|| process.env.VITE_HTTPS === 'true' 
       ? {
-          key: fs.readFileSync(path.resolve(__dirname, process.env.VITE_SERVER_KEY)), // 本番用証明書
-          cert: fs.readFileSync(path.resolve(__dirname, process.env.VITE_SERVER_CERT)), // 本番用証明書
+          key: fs.readFileSync(path.resolve(__dirname, './server.key.pem')), // 本番用証明書
+          cert: fs.readFileSync(path.resolve(__dirname, './server.cert.pem')), // 本番用証明書
         }
       : false, // 開発環境では HTTPS を無効化
 
-    // https: {
-    //   // key: process.env.NODE_ENV === 'production' 
-    //   //   ? fs.readFileSync(path.resolve(__dirname, 'localhost-key.pem')) 
-    //   //   : undefined,
-    //   // cert: process.env.NODE_ENV === 'production' 
-    //   //   ? fs.readFileSync(path.resolve(__dirname, 'localhost-cert.pem')) 
-    //   //   : undefined,
-    //   // key: fs.readFileSync('./localhost-key.pem'),
-    //   // cert: fs.readFileSync('./localhost-cert.pem')
-    //   // key: path.resolve(__dirname, 'server.key.pem'),  // PEM形式に変更したkey
-    //   // cert: path.resolve(__dirname, 'server.cert.pem'),  // PEM形式に変更したcert
-    //   // key: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/server.key',
-    //   // cert: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/server.cert',
-    // },
     hmr: true,
     overlay: false,
     port: 3000,
