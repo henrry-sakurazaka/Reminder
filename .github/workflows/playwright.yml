@@ -49,7 +49,7 @@ jobs:
       - name: Build and Start App
         run: |
           docker-compose build
-          docker-compose up -d
+          docker-compose up 
         env: # Docker Composeが.envを読み込む際に必要な環境変数
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
