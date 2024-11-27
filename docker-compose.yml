@@ -26,10 +26,12 @@ services:
       timeout: 60s
       retries: 5
       start_period: 300s
+      command: ["vite", "--https"]
 
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}  # 環境に応じた設定（開発・本番）
-    
+      VITE_REACT_APP_API_URL: "https://localhost:3000"
+
     working_dir: /app
     command: |
       chmod -R 777 /app/test-results /app/playwright-report
@@ -90,6 +92,7 @@ services:
       DEBUG: pw:api  # デバッグログを有効化
       VITE_NODE_ENV: production
       CI: "true"
+      command: ["vite", "--https"]
     volumes:
       - .:/app
       - ./server.key.pem:/app/server.key.pem
