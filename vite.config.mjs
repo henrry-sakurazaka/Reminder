@@ -82,8 +82,8 @@ export default defineConfig({
     // 本番環境と開発環境で HTTPS の設定を分ける
     https: process.env.NODE_ENV === 'production' 
       ? {
-          key: fs.readFileSync(path.resolve(__dirname, './server.key.pem')), // 本番用証明書
-          cert: fs.readFileSync(path.resolve(__dirname, './server.cert.pem')), // 本番用証明書
+          key: fs.readFileSync(path.resolve(__dirname, '/app/server.key.pem')), // 本番用証明書
+          cert: fs.readFileSync(path.resolve(__dirname, '/app/server.cert.pem')), // 本番用証明書
         }
       : false, // 開発環境では HTTPS を無効化
 
