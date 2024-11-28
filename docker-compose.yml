@@ -21,7 +21,7 @@ services:
     #   - firebase
     
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v https://localhost:3000 || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -29,7 +29,7 @@ services:
      
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}  # 環境に応じた設定（開発・本番）
-      # VITE_REACT_APP_API_URL: "https://localhost:3000"
+      VITE_REACT_APP_API_URL: "https://localhost:3000"
       working_dir: /app
       command: |
         ["vite", "--https"]
