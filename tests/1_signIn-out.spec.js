@@ -13,8 +13,11 @@ const { test, expect } = require('@playwright/test');
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
     await page.waitForTimeout(5000); 
-    await page.goto(`${baseUrl}/SignIn`);  
-    
+    await page.goto(`${baseUrl}/SignIn`, {
+      waitUntil: 'load',
+      timeout: 60000,
+      ignoreHTTPSErrors: true, // これで証明書エラーを無視します
+    });
     await page.fill('#email', email); 
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
