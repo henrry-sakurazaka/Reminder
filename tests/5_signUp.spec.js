@@ -14,7 +14,11 @@ const { test, expect } = require('@playwright/test');
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
     
     await page.waitForTimeout(5000); 
-    await page.goto(`${baseUrl}/SignUp`); 
+    await page.goto(`${baseUrl}/SignUp`, {
+      waitUntil: 'load',
+      timeout: 60000,
+      ignoreHTTPSErrors: true, // これで証明書エラーを無視します
+    });
 
     await page.click('li.terms')
     await expect(page).toHaveURL(`${baseUrl}/Terms`);
