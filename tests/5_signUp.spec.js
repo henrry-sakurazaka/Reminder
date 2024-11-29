@@ -1,9 +1,11 @@
 const { test, expect } = require('@playwright/test');
 
-// 環境がローカルであれば.envを読み込む
-if (process.env.CI !== 'true') {
-  require('dotenv').config();
-}
+require('dotenv').config();
+
+// // 環境がローカルであれば.envを読み込む
+// if (process.env.CI !== 'true') {
+//   require('dotenv').config();
+// }
 
   test('サインアップ機能のテスト', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
