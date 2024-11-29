@@ -48,9 +48,7 @@ services:
     entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
     command: firebase emulators:start --only firestore,functions,auth,storage
     volumes:
-      - ./storage:/firebase/storage.rules
-    networks:
-      - test-network
+      - ./storage.rules:/firebase/storage.rules # ファイルの場合
 
   nginx:
     image: nginx:latest
