@@ -1,11 +1,14 @@
+require('dotenv').config();
+
 const { test, expect } = require('@playwright/test');
-
-  require('dotenv').config();
-
+ 
 // test.use({
 //   browserName: 'chromium',
 //   channel: 'chrome' // PlaywrightでChromeを使用するように指定
 // });
+console.log(process.env.VITE_REACT_APP_API_URL);
+console.log(process.env.VITE_REACT_APP_TEST_EMAIL);
+console.log(process.env.VITE_REACT_APP_TEST_PASSWORD);
 
   test('ログインテスト', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
