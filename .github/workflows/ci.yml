@@ -169,15 +169,51 @@ jobs:
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-        run: npx playwright test
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
 
+  e2e-tests:
+    needs: build-and-start-app  # 依存関係を追加
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '20'
+
+      - name: Install Playwright browsers
+        run: npx playwright install --with-deps
+
+      - name: Install Playwright Test
+        run: npm install --save-dev @playwright/test
+
+      - name: Run E2E Tests
+        run: npx playwright test
+        env:
+          VITE_HTTPS: ${{secrets.VITE_HTTPS}}
+          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
+          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
+          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
+
+      - name: Create .env file and keys
+        run: |
+          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
+    
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
 
       - name: Teardown
         run: docker-compose down
-
+    
   deploy:
     runs-on: ubuntu-latest
     needs:
