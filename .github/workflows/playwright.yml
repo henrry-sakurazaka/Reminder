@@ -82,7 +82,7 @@ jobs:
 
       - name: Create .env file and keys
         run: |
-        echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
+          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
     
       - name: Playwright Test Logs
         if: failure()
