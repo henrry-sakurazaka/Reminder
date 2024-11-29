@@ -158,7 +158,7 @@ jobs:
         run: docker-compose build
 
       - name: Run app and tests
-        run: docker-compose up -d
+        run: docker-compose up 
 
       - name: Run Playwright tests
         env:
