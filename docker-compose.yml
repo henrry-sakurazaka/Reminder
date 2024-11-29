@@ -33,7 +33,8 @@ services:
       working_dir: /app
       command: |
         ["vite", "--https"]
-
+      VITE_HTTPS: "true"  # HTTPS を強制
+      
   nginx:
     image: nginx:latest
     ports:
