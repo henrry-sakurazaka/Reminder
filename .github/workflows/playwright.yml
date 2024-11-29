@@ -23,8 +23,8 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: npm install
-
+        run: npm install 
+      
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -69,6 +69,9 @@ jobs:
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
+
+      - name: Install Playwright Test
+        run: npm install --save-dev @playwright/test
 
       - name: Run E2E Tests
         run: npx playwright test
