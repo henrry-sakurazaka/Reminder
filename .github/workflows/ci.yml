@@ -26,7 +26,7 @@ jobs:
 
       - name: Create .env file
         env:
-          VITE_HTTPS: ${{secrets.VITE_HTTPS}}
+          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -44,7 +44,7 @@ jobs:
           VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
           VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
         run: |
-          echo "VITE_HTTPS= ${{secrets.VITE_HTTPS}}" >> .env
+          echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
@@ -59,8 +59,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "${{ secrets.SERVER_KEY }}" > server.key.pem
 
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
@@ -70,11 +70,6 @@ jobs:
 
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
-
-      - name: Create SSL Certificates
-        run: |
-          echo "${{ secrets.SERVER_CERT }}" > ./server.cert.pem
-          echo "${{ secrets.SERVER_KEY }}" > ./server.key.pem
 
       - name: Build Docker image
         run: docker-compose build
@@ -104,29 +99,9 @@ jobs:
       - name: Run ESLint with auto-fix
         run: npx eslint src/ --fix
 
-  push-to-dockerhub:
-    runs-on: ubuntu-latest
-    needs: e2e
-    if: github.event_name == 'push' || 'pullrequest'
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Log in to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
-      - name: Tag and Push Docker images
-        run: |
-          for tag in app2 app3 app4; do
-            docker tag app ${{ secrets.DOCKER_USERNAME }}/app:$tag
-            docker push ${{ secrets.DOCKER_USERNAME }}/app:$tag
-          done
-
   e2e:
     runs-on: ubuntu-latest
-    needs: build
+    needs: build-and-start-app  # 依存関係を追加
     timeout-minutes: 30
 
     steps:
@@ -139,81 +114,21 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Set up Docker Compose
-        run: |
-          sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-          sudo chmod +x /usr/local/bin/docker-compose
-          docker-compose version
-
       - name: Create .env file
         run: |
-          echo "VITE_HTTPS= ${{secrets.VITE_HTTPS}}" >> .env
+          echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
-          echo "${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "${{ secrets.SERVER_KEY }}" > server.key.pem
-
-      - name: Prepare Docker Compose
-        run: docker-compose down
-
-      - name: Run Docker Compose for app
-        run: docker-compose build
-
-      - name: Run app and tests
-        run: docker-compose up 
 
       - name: Run Playwright tests
         env:
-          VITE_HTTPS: ${{secrets.VITE_HTTPS}}
+          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
-
-  e2e-tests:
-    needs: build-and-start-app  # 依存関係を追加
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
-      - name: Install Playwright browsers
-        run: npx playwright install --with-deps
-
-      - name: Install Playwright Test
-        run: npm install --save-dev @playwright/test
-
-      - name: Run E2E Tests
         run: npx playwright test
-        env:
-          VITE_HTTPS: ${{secrets.VITE_HTTPS}}
-          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
 
-      - name: Create .env file and keys
-        run: |
-          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-    
-      - name: Playwright Test Logs
-        if: failure()
-        run: cat playwright-report/output.log
-
-      - name: Teardown
-        run: docker-compose down
-    
   deploy:
     runs-on: ubuntu-latest
     needs:
