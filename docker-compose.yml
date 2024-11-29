@@ -27,7 +27,7 @@ services:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
       VITE_REACT_APP_API_URL: "https://localhost:3000"
       VITE_HTTPS: "true"
-    command: vite --https
+      command: vite --https
 
   firebase:
     build:
