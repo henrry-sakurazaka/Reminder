@@ -110,7 +110,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v3
         with:
-          node-version: '20'
+        node-version: '20'
 
       - name: Install dependencies
         run: npm install 
@@ -162,7 +162,7 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-        - name: Install Playwright Test
+      - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
 
       - name: Run E2E Tests
