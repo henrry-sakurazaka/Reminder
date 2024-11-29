@@ -11,15 +11,14 @@ services:
           memory: 512M
     ports:
       - "3000:3000"  # Reactアプリのポート
+    networks:
+      - test-network
     volumes:
       - .:/app  # 開発環境ではローカルのソースをマウント
     env_file:
       - .env  # 共通の環境変数ファイル (.envにすべての環境変数を記述)
     entrypoint: ./entrypoint.sh   # entrypoint.shを使う
 
-    # depends_on:
-    #   - firebase
-    
     healthcheck:
       test: ["CMD-SHELL", "curl -k -v https://localhost:3000"]
       interval: 90s
@@ -34,7 +33,18 @@ services:
       command: |
         ["vite", "--https"]
       VITE_HTTPS: "true"  # HTTPS を強制
-      
+
+  tests:
+    image: mcr.microsoft.com/playwright:v1.48.1-focal
+    depends_on:
+      - app
+    networks:
+      - test-network # 同じネットワークに接続
+    working_dir: /app
+    volumes:
+      - .:/app
+    command: npx playwright test
+
   nginx:
     image: nginx:latest
     ports:
@@ -104,3 +114,7 @@ services:
     command: npx playwright test  
 
     # command: npx playwright test
+    
+networks:
+  test-network:
+    driver: bridge # Dockerのデフォルトブリッジネットワークを使用

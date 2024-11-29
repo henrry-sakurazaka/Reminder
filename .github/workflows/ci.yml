@@ -117,7 +117,7 @@ jobs:
         run: |
           docker-compose down
           docker-compose build
-          docker-compose up 
+          docker-compose up -d
 
   e2e-tests:
     needs: build-and-started-app
