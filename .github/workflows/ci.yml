@@ -26,6 +26,7 @@ jobs:
 
       - name: Create .env file
         env:
+          VITE_HTTPS: ${{secrets.VITE_HTTPS}}
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
@@ -43,6 +44,7 @@ jobs:
           VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
           VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
         run: |
+          echo "VITE_HTTPS= ${{secrets.VITE_HTTPS}}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
@@ -145,6 +147,7 @@ jobs:
 
       - name: Create .env file
         run: |
+          echo "VITE_HTTPS= ${{secrets.VITE_HTTPS}}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
@@ -158,10 +161,11 @@ jobs:
         run: docker-compose build
 
       - name: Run app and tests
-        run: docker-compose up 
+        run: docker-compose up -d
 
       - name: Run Playwright tests
         env:
+          VITE_HTTPS: ${{secrets.VITE_HTTPS}}
           VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
