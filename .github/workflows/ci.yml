@@ -25,24 +25,6 @@ jobs:
           sudo apt-get install -y docker-compose
 
       - name: Create .env file
-        env:
-          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          VITE_FIREBASE_EMULATOR_HOST: ${{ secrets.FIREBASE_EMULATOR_HOST }}
-          VITE_FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
-          VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
-          VITE_REACT_APP_FIREBASE_API_KEY: ${{ secrets.REACT_APP_FIREBASE_API_KEY }}
-          VITE_REACT_APP_FIREBASE_APP_ID: ${{ secrets.REACT_APP_FIREBASE_APP_ID }}
-          VITE_REACT_APP_FIREBASE_AUTH_DOMAIN: ${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}
-          VITE_REACT_APP_FIREBASE_PROJECT_ID: ${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}
-          VITE_REACT_APP_FIREBASE_STORAGE_BUCKET: ${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
@@ -123,7 +105,7 @@ jobs:
 
       - name: Create .env file and keys
         run: |
-          echo "VITE_HTTPS: ${{ secrets.VITE_HTTPS }}" >> .env
+          echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
@@ -136,17 +118,9 @@ jobs:
           docker-compose down
           docker-compose build
           docker-compose up -d
-        env:
-          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
 
   e2e-tests:
-    needs: build-and-started-app  # 依存関係を追加
+    needs: build-and-started-app
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -162,9 +136,6 @@ jobs:
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      - name: Install Playwright Test
-        run: npm install --save-dev @playwright/test
-
       - name: Run E2E Tests
         run: npx playwright test
         env:
@@ -175,10 +146,6 @@ jobs:
           VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
           VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
 
-      - name: Create .env file and keys
-        run: |
-          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-    
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
@@ -186,7 +153,6 @@ jobs:
       - name: Teardown
         run: docker-compose down
 
- 
   deploy:
     runs-on: ubuntu-latest
     needs:
@@ -208,4 +174,3 @@ jobs:
       - name: Deploy to Firebase
         run: |
           firebase deploy --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
-  
