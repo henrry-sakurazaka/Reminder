@@ -20,6 +20,16 @@ export default defineConfig({
     baseURL: process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000',
     ignoreHTTPSErrors: true,  // HTTPSエラーを無視
     video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
+
+    // 証明書の設定を追加
+    launchOptions: {
+      args: [
+        '--ignore-certificate-errors', // 証明書エラーを無視
+      ],
+    },
   },
 });
+
+
+
 
