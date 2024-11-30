@@ -3,12 +3,13 @@ import { defineConfig } from 'vite';
 import react from '@vitejs/plugin-react';
 import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import path, { resolve } from 'path';
-import dotenv from 'dotenv';
 import fs from 'fs';
+import * as dotenv from 'dotenv';
 
 if (process.env.CI !== 'true') {
-  require('dotenv').config();
+  dotenv.config();
 }
+
 
 
 export default defineConfig({
