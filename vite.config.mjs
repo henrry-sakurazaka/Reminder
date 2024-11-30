@@ -10,8 +10,6 @@ if (process.env.CI !== 'true') {
   dotenv.config();
 }
 
-
-
 export default defineConfig({
   base: './',  
   root: __dirname,  // ルートをプロジェクトのルートディレクトリに変更
