@@ -5,6 +5,14 @@ if (process.env.CI !== 'true') {
   require('dotenv').config();
 }
 
+// サーバー起動を待機
+await waitOn({
+  resources: [process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000'],
+  timeout: 30000, // 最大30秒待機
+  strictSSL: false, // HTTPSエラーを無視
+});
+
+
 export default defineConfig({
   testDir: './tests',  // テストファイルのディレクトリ
   timeout: 30000,  // テストのタイムアウト時間
