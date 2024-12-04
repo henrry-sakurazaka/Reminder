@@ -10,8 +10,8 @@ services:
           memory: 1G
     ports:
       - "3000:3000" # Reactアプリのポート
-    # networks:
-    #   - test-network
+    networks:
+      - test-network
     volumes:
       - .:/app
       - /app/node_modules # 監視対象から除外
@@ -68,8 +68,8 @@ services:
     depends_on:
       app:
         condition: service_healthy
-    # networks:
-    #   - test-network
+    networks:
+      - test-network
     env_file:
       - .env
 
@@ -78,8 +78,8 @@ services:
     depends_on:
       app:
         condition: service_healthy
-    # networks:
-    #   - test-network
+    networks:
+      - test-network
     working_dir: /app
     volumes:
       - .:/app
@@ -87,6 +87,6 @@ services:
       - .env
     command: npx playwright test
 
-# networks:
-#   test-network:
-#     driver: bridge
+networks:
+  test-network:
+    driver: bridge

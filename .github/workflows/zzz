@@ -38,8 +38,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+          echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" >> server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" >> server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
       - name: Build and Start App
@@ -99,8 +99,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+          echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" >> server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" >> server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
         
