@@ -44,8 +44,13 @@ jobs:
           echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" >> server.cert.pem
           echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" >> server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          
-          
+
+      - name: Load Environment Variables
+        run: |
+          set -a
+          source .env
+          set +a
+                 
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
 
@@ -118,9 +123,15 @@ jobs:
 
       - name: Build and Start App
         run: |
+          VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }} \
+          VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }} \
+          VITE_HTTPS=${{ secrets.VITE_HTTPS}} \
           docker-compose down
           docker-compose build
           docker-compose up 
+
+      - name: Show Logs
+        run: docker-compose logs app
 
   e2e-tests:
     needs: build-and-started-app
