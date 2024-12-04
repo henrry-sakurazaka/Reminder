@@ -40,9 +40,9 @@ jobs:
           echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
-          echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           
           
@@ -111,9 +111,9 @@ jobs:
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
-          echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
       - name: Build and Start App
@@ -152,9 +152,9 @@ jobs:
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
           VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
-          VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
-          VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
+          VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
+          VITE_SERVER_CERT: ${{ secrets.VITE_SERVER_CERT }}
+          VITE_SERVER_KEY: ${{ secrets.VITE_SERVER_KEY }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
 
       - name: Playwright Test Logs
