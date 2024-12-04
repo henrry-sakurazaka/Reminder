@@ -103,8 +103,6 @@ jobs:
           echo "${{ secrets.SERVER_KEY }}" > server.key.pem
           echo "${{ secrets.VITE_HOST }}" >> .env
 
-  e2e-tests:
-
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
