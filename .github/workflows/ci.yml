@@ -131,19 +131,15 @@ jobs:
           docker-compose build
           docker-compose up -d
 
-      # アプリコンテナのログを確認
       - name: Show Logs
         run: docker-compose logs app
 
-      # Playwright ブラウザをインストール
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
-      # Playwright Test をインストール
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
 
-      # E2E テストを実行
       - name: Run E2E Tests
         run: npx playwright test
         env:
