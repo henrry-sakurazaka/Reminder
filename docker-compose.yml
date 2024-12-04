@@ -30,7 +30,7 @@ services:
       start_period: 300s
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
-      VITE_REACT_APP_API_URL: "https://app:3000"
+      VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0
