@@ -87,6 +87,9 @@ services:
       - .env
     command: npx playwright test
 
+# networks:
+#   test-network:
+#     driver: bridge
 networks:
-  test-network:
+  default:
     driver: bridge
