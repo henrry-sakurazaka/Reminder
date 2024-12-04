@@ -16,8 +16,8 @@ services:
       - .:/app
       - /app/node_modules # 監視対象から除外
       - /app/dist # 監視対象から除外
-      - ./server.key.pem:/etc/ssl/private/server.key.pem
-      - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+      - ./server.key.pem:/etc/ssl/private/${VITE_SERVER_KEY}
+      - ./server.cert.pem:/etc/ssl/certs/${VITE_SERVER_CERT}
     env_file:
       - .env
     entrypoint: ./entrypoint.sh
@@ -66,8 +66,8 @@ services:
       - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./ssl:/etc/nginx/ssl:ro
     depends_on:
-      app:
-        condition: service_healthy
+      - app:
+        # condition: service_healthy
     networks:
       - test-network
     env_file:
