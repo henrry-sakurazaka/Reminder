@@ -129,31 +129,21 @@ jobs:
         run: |
           docker-compose down
           docker-compose build
-          docker-compose up 
+          docker-compose up -d
 
+      # アプリコンテナのログを確認
       - name: Show Logs
         run: docker-compose logs app
 
-  e2e-tests:
-    needs: build-and-started-app
-    runs-on: ubuntu-latest
-    timeout-minutes: 30
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Set up Node.js
-        uses: actions/setup-node@v3
-        with:
-          node-version: '20'
-
+      # Playwright ブラウザをインストール
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
 
+      # Playwright Test をインストール
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
 
+      # E2E テストを実行
       - name: Run E2E Tests
         run: npx playwright test
         env:
@@ -164,10 +154,12 @@ jobs:
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
 
+      # Playwright テストログ（失敗した場合のみ）
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
 
+      # テスト終了後にコンテナをダウン
       - name: Teardown
         run: docker-compose down
       
