@@ -6,19 +6,18 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
-          memory: 512M
+          cpus: "1"
+          memory: 1G
     ports:
       - "3000:3000" # Reactアプリのポート
-    networks:
-      - test-network
+    # networks:
+    #   - test-network
     volumes:
       - .:/app
       - /app/node_modules # 監視対象から除外
       - /app/dist # 監視対象から除外
       - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
-
     env_file:
       - .env
     entrypoint: ./entrypoint.sh
@@ -27,10 +26,10 @@ services:
       interval: 90s
       timeout: 60s
       retries: 5
-      start_period: 300s
+      start_period: 600s
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
-      VITE_REACT_APP_API_URL: "https://localhost:3000"
+      VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0
@@ -79,8 +78,8 @@ services:
     depends_on:
       app:
         condition: service_healthy
-    networks:
-      - test-network
+    # networks:
+    #   - test-network
     working_dir: /app
     volumes:
       - .:/app
@@ -88,6 +87,6 @@ services:
       - .env
     command: npx playwright test
 
-networks:
-  test-network:
-    driver: bridge
+# networks:
+#   test-network:
+#     driver: bridge
