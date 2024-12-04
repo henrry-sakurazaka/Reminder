@@ -11,7 +11,7 @@ const { test, expect } = require('@playwright/test');
     const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
-
+    
     await page.waitForTimeout(5000); 
     await page.goto(`${baseUrl}/SignIn`, {
       waitUntil: 'load',
