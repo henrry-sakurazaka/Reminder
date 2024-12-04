@@ -23,7 +23,7 @@ services:
       - .env
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v https://app:3000"]
+      test: ["CMD-SHELL", "curl -k -v https://localhost:3000"]
       interval: 90s
       timeout: 60s
       retries: 5
