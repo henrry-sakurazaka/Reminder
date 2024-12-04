@@ -44,7 +44,6 @@ jobs:
 
       - name: Build and Start App
         run: |
-          docker-compose down
           docker-compose build
           docker-compose up -d
         env:
