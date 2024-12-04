@@ -34,9 +34,9 @@ jobs:
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
-          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
+          echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
+          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
+          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
           echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
           echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
@@ -49,9 +49,9 @@ jobs:
           docker-compose up -d
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
           VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
           VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
@@ -84,9 +84,9 @@ jobs:
         run: npx playwright test
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-          VITE_REACT_APP_API_URL: ${{ secrets.REACT_APP_API_URL }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.REACT_APP_TEST_PASSWORD }}
+          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.NODE_ENV }}
           VITE_SERVER_CERT: ${{ secrets.SERVER_CERT }}
           VITE_SERVER_KEY: ${{ secrets.SERVER_KEY }}
@@ -95,14 +95,15 @@ jobs:
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "VITE_REACT_APP_API_URL=${{ secrets.REACT_APP_API_URL }}" >> .env
-          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
-          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
+          echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
+          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
+          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "${{ secrets.SERVER_KEY }}" > server.key.pem
-          echo "${{ secrets.VITE_HOST }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
+        
       - name: Playwright Test Logs
         if: failure()
         run: cat playwright-report/output.log
