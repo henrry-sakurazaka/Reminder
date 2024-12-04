@@ -32,9 +32,13 @@ ENV CI=true
 
 # package.json と package-lock.json をコピーして依存関係をインストール
 COPY package*.json ./
+# 証明書と秘密鍵をコンテナ内にコピー
+COPY server.cert.pem /etc/ssl/certs/
+COPY server.key.pem /etc/ssl/private/
+COPY nginx.conf /etc/nginx/nginx.conf
+
 RUN npm ci
 RUN npm install
-
 # アプリケーションのソースコードをコピー
 COPY . .
 
@@ -43,6 +47,8 @@ RUN npm install --global vite
 
 # Playwright のブラウザをインストール
 RUN npx playwright install --with-deps
+
+RUN npx playwright install chromium
 
 # デフォルトコマンド
 CMD ["npx", "playwright", "test", "npm", "run", "dev"]
@@ -56,10 +62,4 @@ RUN chmod +x /entrypoint.sh
 # エントリーポイントを指定
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
-# # Firebaseエミュレーターを使用するためのポートを指定
-# EXPOSE 8080 5001 5000 8090 9199 8091 8085
-
-# # Firebaseエミュレーター用の設定
-# CMD ["firebase", "emulators:start", "--only","firestore,functions,firestore,auth,storege"]
-
-
+RUN npm cache clean --force
