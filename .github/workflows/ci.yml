@@ -142,9 +142,6 @@ jobs:
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
 
-      # - name: Wait for server to be ready
-      #   run: npx wait-on https://localhost:3000
-
       - name: Run E2E Tests
         run: npx playwright test
         env:
