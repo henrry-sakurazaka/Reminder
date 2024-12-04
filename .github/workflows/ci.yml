@@ -41,8 +41,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
-          echo ${{ secrets.VITE_SERVER_CERT }}" >> server.cert.pem
-          echo ${{ secrets.VITE_SERVER_KEY }}" >> server.key.pem
+          printf "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+          printf "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
       - name: Load Environment Variables
@@ -117,8 +117,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
-          echo ${{ secrets.VITE_SERVER_CERT }}" >> server.cert.pem
-          echo ${{ secrets.VITE_SERVER_KEY }}" >> server.key.pem
+          printf "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+          printf "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
       - name: Build and Start App
