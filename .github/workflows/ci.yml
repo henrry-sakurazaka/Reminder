@@ -90,7 +90,7 @@ jobs:
       - name: Run ESLint with auto-fix
         run: npx eslint src/ --fix
 
-  build-and-started-app:
+  e2e-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
