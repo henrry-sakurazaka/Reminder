@@ -62,4 +62,4 @@ RUN chmod +x /entrypoint.sh
 # エントリーポイントを指定
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
-RUN npm cache clean --force
+# RUN npm cache clean --force
