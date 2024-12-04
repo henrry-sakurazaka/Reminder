@@ -38,12 +38,13 @@ jobs:
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.NODE_ENV }}" >> .env
-          echo "${{ secrets.SERVER_CERT }}" > server.cert.pem
-          echo "${{ secrets.SERVER_KEY }}" > server.key.pem
-          echo "VITE_HOST ${{ secrets.VITE_HOST }}" >> .env
+          echo "VITE_SERVER_CERT=${{ secrets.SERVER_CERT }}" > server.cert.pem
+          echo "VITE_SERVER_KEY=${{ secrets.SERVER_KEY }}" > server.key.pem
+          echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
 
       - name: Build and Start App
         run: |
+          docker-compose down
           docker-compose build
           docker-compose up -d
         env:
