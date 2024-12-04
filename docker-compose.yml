@@ -23,14 +23,14 @@ services:
       - .env
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v https://localhost:3000"]
+      test: ["CMD-SHELL", "curl -k -v https://app:3000"]
       interval: 90s
       timeout: 60s
       retries: 5
       start_period: 300s
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
-      VITE_REACT_APP_API_URL: "https://localhost:3000"
+      VITE_REACT_APP_API_URL: "https://app:3000"
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0
