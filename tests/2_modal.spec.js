@@ -14,7 +14,7 @@ const { test, expect } = require('@playwright/test');
 //     channel: 'chrome' // PlaywrightでChromeを使用するように指定
 //   });
 
-  test('タスクをフォームを入力して出力を確認', async ({ page }) => {
+  test('タスクをフォームに入力して出力を確認', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
@@ -54,9 +54,11 @@ const { test, expect } = require('@playwright/test');
   // }
     await expect(page.locator('h1.big-text')).toHaveCSS('color', "rgba(40, 147, 247, 0.773)");
 
+    await page.waitForSelector('label.switch', { state: 'visible' });
     await page.click('label.switch');
     await expect(page.locator('div.date-picker-container')).toBeVisible();
 
+    await page.waitForSelector('label.switch2', { state: 'visible' });
     await page.click('label.switch2');
     await expect(page.locator('div.time-picker-container')).toBeVisible();
 
