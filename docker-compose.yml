@@ -27,7 +27,7 @@ services:
       interval: 90s
       timeout: 60s
       retries: 5
-      start_period: 600s
+      start_period: 1200s
     environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
       VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
