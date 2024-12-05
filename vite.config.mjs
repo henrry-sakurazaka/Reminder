@@ -17,6 +17,7 @@ export default defineConfig({
     outDir: resolve(__dirname, 'dist'),
     define: {
       // 環境変数をコード内で使えるように設定
+      // 'process.env.VITE_FIREBASE_TOKEN': JSON.stringify(process.env.VITE_FIREBASE_TOKEN),
       'process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS),
     },
     emptyOutDir: true,
@@ -79,23 +80,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     // 本番環境と開発環境で HTTPS の設定を分ける
-    https: process.env.VITE_NODE_ENV === 'production'
+    https: process.env.VITE_NODE_ENV === 'production' 
       ? {
-            key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
-            cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
-        } 
-      : undefined,
+          key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
+          cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
+      }
+      : undefined, // 開発環境では HTTPS を無効化
 
-    // https: process.env.VITE_NODE_ENV === 'production' && process.env.CI === 'true'
-    //    ? {
-    //       key: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.key.pem')),
-    //       cert: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.cert.pem'))
-    //   }
-    //   : {
-    //       key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
-    //       cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
-    //     },
-  
     hmr: true,
     overlay: false,
     port: 3000,
