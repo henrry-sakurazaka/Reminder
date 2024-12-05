@@ -23,9 +23,10 @@ RUN java -version
 # アプリケーションディレクトリを作成
 WORKDIR /usr/src/app
 
-# 権限を適切に設定
+# テスト結果用のディレクトリを作成し、権限を設定
 RUN mkdir -p /app/test-results /app/playwright-report \
-    && chmod -R 777 /app/test-results /app/playwright-report
+    && chmod -R 755 /app/test-results /app/playwright-report \
+    && chown -R node:node /app/test-results /app/playwright-report
 
 # 必要な環境変数を設定
 ENV CI=true
