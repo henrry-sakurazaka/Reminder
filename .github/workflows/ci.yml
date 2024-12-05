@@ -144,6 +144,9 @@ jobs:
         run: |
           npx playwright test
           chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+          mkdir -p /home/runner/work/Reminder/Reminder/test-results
+          chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
