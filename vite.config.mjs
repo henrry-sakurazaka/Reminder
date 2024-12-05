@@ -81,14 +81,19 @@ export default defineConfig({
     host: '0.0.0.0',
     // 本番環境と開発環境で HTTPS の設定を分ける
     https: process.env.VITE_NODE_ENV === 'production' && process.env.CI === 'true'
+      // ? {
+      //     key: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.key.pem')),
+      //     cert: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.cert.pem'))
+      // }
+      // : {
+      //     key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
+      //     cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
+      // },
       ? {
-          key: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.key.pem')),
-          cert: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.cert.pem'))
-      }
-      : {
-          key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
-          cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
-      },
+            key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
+            cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
+        } 
+      : undefined,
   
     hmr: true,
     overlay: false,
