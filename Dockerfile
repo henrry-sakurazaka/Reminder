@@ -23,9 +23,8 @@ RUN java -version
 # アプリケーションディレクトリを作成
 WORKDIR /usr/src/app
 
-RUN mkdir -p /app/test-results /app/playwright-report
 RUN chmod -R 755 /app/test-results /app/playwright-report
-RUN chown -R node:node /app/test-results /app/playwright-report
+
 
 # 必要な環境変数を設定
 ENV CI=true
