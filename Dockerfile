@@ -24,8 +24,7 @@ RUN java -version
 WORKDIR /usr/src/app
 
 # 権限を適切に設定
-RUN mkdir -p /app/test-results /app/playwright-report \
-    && chmod -R 777 /app/test-results /app/playwright-report
+RUN chmod -R 777 /app/test-results /app/playwright-report
 
 # 必要な環境変数を設定
 ENV CI=true
