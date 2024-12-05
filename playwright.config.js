@@ -18,10 +18,10 @@ export default defineConfig({
   timeout: 30000,  // テストのタイムアウト時間
   retries: 1,  // テストのリトライ回数
   reporter: [
-    ['json', { outputFile: 'playwright-report/output.json' }], // JSON形式で結果を保存
-    ['html', { outputFolder: 'playwright-report', open: 'never' }], // HTML形式で結果を保存
-    ['list'], // ターミナルに結果を表示
-    ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }] // 別のHTMLレポート保存先
+    ['json', { outputFile: '/app/playwright-report/output.json' }], // JSONレポート保存
+    ['html', { outputFolder: '/app/playwright-report', open: 'never' }], // HTMLレポート保存
+    ['list'], // ターミナルで結果表示
+    ['html', { outputFolder: '/app/test-results' }] // 別のHTMLレポート保存先
   ],
   
   use: {
