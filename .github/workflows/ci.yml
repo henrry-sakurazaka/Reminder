@@ -140,11 +140,11 @@ jobs:
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
       
-      # - name: Run Playwright tests and set permissions
-      #   run: |
-      #     mkdir -p /home/runner/work/Reminder/Reminder/test-results
-      #     chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
-
+      - name: Set permissions for test-results directory
+        run: |
+          sudo mkdir -p /home/runner/work/Reminder/Reminder/test-results
+          sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+          
       - name: Run E2E Tests
         run: npx playwright test  
         env:
