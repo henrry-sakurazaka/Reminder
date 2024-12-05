@@ -2,7 +2,7 @@ import { defineConfig } from '@playwright/test';
 import {config as dotenvConfig } from 'dotenv';
 
 if (process.env.CI !== 'true') {
-  require('dotenv').config();
+  dotenvConfig(); 
 }
 
 // // サーバー起動を待機
@@ -14,7 +14,7 @@ if (process.env.CI !== 'true') {
 
 
 export default defineConfig({
-  // testDir: './tests',  // テストファイルのディレクトリ
+  testDir: './tests',  // テストファイルのディレクトリ
   // timeout: 30000,  // テストのタイムアウト時間
   // retries: 1,  // テストのリトライ回数
   // reporter: [],
@@ -25,6 +25,11 @@ export default defineConfig({
   //   ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }],
   // ],
   // 動画キャプチャを無効にする
+  webServer: {
+    command: 'npm run dev',
+    url: process.env. VITE_REACT_APP_API_URL || 'https://localhost:3000',
+    reuseExistingServer: !process.env.CI,
+  },
   reporter: 'list',
   use: {
     headless: true,  // ヘッドレスモードで実行（表示なし）
