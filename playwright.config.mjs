@@ -5,16 +5,8 @@ if (process.env.CI !== 'true') {
   dotenvConfig(); 
 }
 
-// // サーバー起動を待機
-// await waitOn({
-//   resources: [process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000'],
-//   timeout: 30000, // 最大30秒待機
-//   strictSSL: false, // HTTPSエラーを無視
-// });
-
-
 export default defineConfig({
-  testDir: './tests',  // テストファイルのディレクトリ
+  // testDir: './tests',  // テストファイルのディレクトリ
   timeout: 30000,  // テストのタイムアウト時間
   retries: 1,  // テストのリトライ回数
   // reporter: [],
