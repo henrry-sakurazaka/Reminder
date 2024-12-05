@@ -38,6 +38,8 @@ COPY package*.json ./
 COPY server.cert.pem /etc/ssl/certs/
 COPY server.key.pem /etc/ssl/private/
 COPY nginx.conf /etc/nginx/nginx.conf
+# COPY server.cert.pem  /app/server.key.pem
+# COPY server.key.pem /app/server.cert.pem
 
 RUN npm ci
 RUN npm install
