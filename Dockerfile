@@ -29,8 +29,6 @@ RUN mkdir -p /app/test-results /app/playwright-report \
 
 RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
 
-RUN chmod 777 /home/runner/work/Reminder/Reminder/test-results/.last-run.json
-
 # 必要な環境変数を設定
 ENV CI=true
 
