@@ -27,7 +27,7 @@ WORKDIR /usr/src/app
 RUN mkdir -p /app/test-results /app/playwright-report \
     && chmod -R 777 /app/test-results /app/playwright-report
 
-RUN chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
 
 # 必要な環境変数を設定
 ENV CI=true
