@@ -103,10 +103,6 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Build Docker image
-        run: |
-          docker build -t my-app .
-
       - name: Install dependencies
         run: npm install 
       
@@ -148,8 +144,8 @@ jobs:
         run: |
           sudo mkdir -p /home/runner/work/Reminder/Reminder/test-results
           sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
-          sudo chmod 644 /etc/ssl/private/server.key.pem
-          sudo chmod 644 /etc/ssl/certs/server.cert.pem
+          sudo chmod 644 server.key.pem
+          sudo chmod 644 server.cert.pem
 
       - name: Run E2E Tests
         run: npx playwright test  
