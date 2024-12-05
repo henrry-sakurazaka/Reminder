@@ -147,6 +147,11 @@ jobs:
           sudo chmod 644 server.key.pem
           sudo chmod 644 server.cert.pem
 
+      - name: Check certificate files
+        run: |
+          ls -l server.key.pem
+          ls -l server.cert.pem
+          
       - name: Run E2E Tests
         run: npx playwright test  
         env:

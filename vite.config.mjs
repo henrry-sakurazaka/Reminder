@@ -80,13 +80,20 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     // 本番環境と開発環境で HTTPS の設定を分ける
-    https: process.env.VITE_NODE_ENV === 'production' 
+    https: process.env.VITE_NODE_ENV === 'production' && process.env.CI === 'true'
+      ? {
+          key: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.key.pem')),
+          cert: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.cert.pem'))
+      }
+      : undefined,
+  
+     https: process.env.VITE_NODE_ENV === 'production'
       ? {
           key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
           cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
       }
       : undefined, // 開発環境では HTTPS を無効化
-
+    
     hmr: true,
     overlay: false,
     port: 3000,
