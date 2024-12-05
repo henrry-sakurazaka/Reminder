@@ -32,7 +32,7 @@ export default defineConfig({
     actionTimeout: 10000,  // アクションごとのタイムアウト
     baseURL: process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000',
     ignoreHTTPSErrors: true,  // HTTPSエラーを無視
-    trace: 'off',
+    trace: 'on-first-retry',
     video: 'off',  
     // video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
     screenshot: 'off',
