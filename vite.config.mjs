@@ -86,12 +86,15 @@ export default defineConfig({
         } 
       : undefined,
 
-    https: process.env.VITE_NODE_ENV === 'production' && process.env.CI === 'true'
-       ? {
-          key: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.key.pem')),
-          cert: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.cert.pem'))
-      }
-      : undefined,
+    // https: process.env.VITE_NODE_ENV === 'production' && process.env.CI === 'true'
+    //    ? {
+    //       key: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.key.pem')),
+    //       cert: fs.readFileSync(path.resolve('/home/runner/Reminder/Reminder', 'server.cert.pem'))
+    //   }
+    //   : {
+    //       key: fs.readFileSync('/etc/ssl/private/server.key.pem'),
+    //       cert: fs.readFileSync('/etc/ssl/certs/server.cert.pem'),
+    //     },
   
     hmr: true,
     overlay: false,
