@@ -142,10 +142,12 @@ jobs:
       
       - name: Set permissions for test-results directory
         run: |
-          sudo mkdir -p /home/runner/work/Reminder/Reminder/test-results
-          sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
           sudo chmod 644 server.key.pem
           sudo chmod 644 server.cert.pem
+          sudo mkdir -p /home/runner/work/Reminder/Reminder/test-results
+          sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+          sudo chmod 777 /etc/ssl/private/server.key.pem
+          sudo chmod 777 /etc/ssl/certs/server.cert.pem
 
       - name: Check certificate files
         run: |
