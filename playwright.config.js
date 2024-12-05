@@ -20,6 +20,8 @@ export default defineConfig({
   reporter: [
     ['json', { outputFile: 'playwright-report/output.json' }],
     ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    [['list'], ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }]],
+    
   ],
   use: {
     headless: true,  // ヘッドレスモードで実行（表示なし）
