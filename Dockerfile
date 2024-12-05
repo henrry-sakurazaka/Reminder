@@ -23,8 +23,6 @@ RUN java -version
 # アプリケーションディレクトリを作成
 WORKDIR /usr/src/app
 
-RUN apk add --no-cache bash coreutils
-
 RUN mkdir -p /app/test-results /app/playwright-report
 RUN chmod -R 755 /app/test-results /app/playwright-report
 RUN chown -R node:node /app/test-results /app/playwright-report
