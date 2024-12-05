@@ -18,11 +18,12 @@ export default defineConfig({
   timeout: 30000,  // テストのタイムアウト時間
   retries: 1,  // テストのリトライ回数
   reporter: [
-    ['json', { outputFile: 'playwright-report/output.json' }],
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
-    [['list'], ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }]],
-    
+    ['json', { outputFile: 'playwright-report/output.json' }], // JSON形式で結果を保存
+    ['html', { outputFolder: 'playwright-report', open: 'never' }], // HTML形式で結果を保存
+    ['list'], // ターミナルに結果を表示
+    ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }] // 別のHTMLレポート保存先
   ],
+  
   use: {
     headless: true,  // ヘッドレスモードで実行（表示なし）
     viewport: { width: 1280, height: 720 },  // ビューポートの設定
