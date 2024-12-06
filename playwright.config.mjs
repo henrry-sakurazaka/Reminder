@@ -1,5 +1,6 @@
 import { defineConfig } from '@playwright/test';
 import {config as dotenvConfig } from 'dotenv';
+import { fileURLToPath } from 'url'; 
 import path from 'path';
 
 if (process.env.CI !== 'true') {
