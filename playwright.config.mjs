@@ -12,7 +12,7 @@ export default defineConfig({
   // reporter: [],
   reporter: [
     ['json', { outputFile: 'playwright-report/output.json' }],
-    ['html', { outputFolder: 'playwright-report', open: 'never' }],
+    ['html', { outputFolder: path.resolve(__dirname, 'playwright-test-results')}],
     ['list'],
     ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }],
   ],
