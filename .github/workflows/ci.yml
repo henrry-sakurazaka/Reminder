@@ -146,8 +146,9 @@ jobs:
           sudo chmod 777 server.cert.pem
           sudo chown root:root server.key.pem
           sudo chown root:root server.cert.pem
-          sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
-          sudo chmod -R 777 $GITHUB_WORKSPACE/playwright-test-results
+          sudo mkdir -p $GITHUB_WORKSPACE/playwright-test-results
+          sudo chmod -R 777 $GITHUB_WORKSPACE/playwright-test-results 
+          sudo mkdir -p $GITHUB_WORKSPACE/test-results
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
           mkdir -p ./test-results
 
