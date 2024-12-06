@@ -1,9 +1,14 @@
 import { defineConfig } from '@playwright/test';
 import {config as dotenvConfig } from 'dotenv';
 import path from 'path';
+
 if (process.env.CI !== 'true') {
   dotenvConfig(); 
 }
+
+// ESモジュールスコープでの __dirname 再現
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export default defineConfig({
   // testDir: './tests',  // テストファイルのディレクトリ
