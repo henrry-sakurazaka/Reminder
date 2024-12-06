@@ -1,7 +1,6 @@
-require('dotenv').config();
+import 'dotenv/config';
 
-const { test, expect } = require('@playwright/test');
-
+import { test, expect } from '@playwright/test';
 
 // // 環境がローカルであれば.envを読み込む
 // if (process.env.CI !== 'true') {
