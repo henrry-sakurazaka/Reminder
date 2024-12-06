@@ -145,7 +145,6 @@ jobs:
           sudo chmod 777 server.key.pem
           sudo chmod 777 server.cert.pem
           sudo mkdir -p /home/runner/work/Reminder/Reminder/test-results
-          sudo chmod -R 777 /home/runner/work/Reminder/Reminder/playwright-results
           sudo chmod -R 777 /home/runner/work/Reminder/Reminder/playwright-test-results
           sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
           sudo chmod -R 777 /home/runner/work/Reminder/Reminder/playwright-results/.last-run.json
