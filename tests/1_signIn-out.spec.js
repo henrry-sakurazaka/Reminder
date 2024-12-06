@@ -1,6 +1,6 @@
-require('dotenv').config();
+import 'dotenv/config';
 
-const { test, expect } = require('@playwright/test');
+import { test, expect } from '@playwright/test';
  
 // test.use({
 //   browserName: 'chromium',
