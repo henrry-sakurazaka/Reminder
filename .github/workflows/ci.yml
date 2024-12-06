@@ -154,8 +154,14 @@ jobs:
           sudo chmod -R 777 $GITHUB_WORKSPACE/playwright-test-results
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
           mkdir -p ./test-results
-          chmod -R 777 ./test-results
 
+      - name: Fix permissions
+        run: |
+          sudo rm -rf ./test-results
+          mkdir -p ./test-results
+          sudo chmod -R 777 ./test-results
+          sudo chown -R $USER:$USER ./test-results
+          
       - name: Check certificate files
         run: |
           ls -l server.key.pem
