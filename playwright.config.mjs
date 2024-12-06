@@ -1,6 +1,6 @@
 import { defineConfig } from '@playwright/test';
 import {config as dotenvConfig } from 'dotenv';
-
+import path from 'path';
 if (process.env.CI !== 'true') {
   dotenvConfig(); 
 }
