@@ -2,6 +2,7 @@
   "name": "reminder",
   "version": "0.1.0",
   "private": true,
+  "type": "module",
   "homepage": "https://reminder3-65e84.web.app",
   "dependencies": {
     "@firebase/analytics": "^0.10.9",
@@ -146,7 +147,6 @@
       "browser": true,
       "node": true,
       "es6": true
-    },
-    "type": "module"
+    }
   }
 }

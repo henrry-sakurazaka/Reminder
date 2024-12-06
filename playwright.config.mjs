@@ -12,7 +12,8 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
-  // testDir: './tests',  // テストファイルのディレクトリ
+  testDir: './tests',  // テストファイルのディレクトリ
+  outputDir: path.resolve(process.cwd(), 'playwright-results'), // 書き込み可能なディレクトリを指定
   timeout: 30000,  // テストのタイムアウト時間
   retries: 1,  // テストのリトライ回数
   // reporter: [],
