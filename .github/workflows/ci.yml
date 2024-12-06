@@ -144,7 +144,6 @@ jobs:
         run: |
           sudo chmod 777 server.key.pem
           sudo chmod 777 server.cert.pem
-          sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
           sudo chown root:root server.key.pem
           sudo chown root:root server.cert.pem
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
