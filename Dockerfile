@@ -15,7 +15,15 @@ RUN apt-get update && apt-get install -y \
     curl \
     git \
     sudo \
-    && rm -rf /var/lib/apt/lists/*
+    && rm -rf /var/lib/apt/lists/
+
+# 証明書と秘密鍵をコンテナ内にコピー
+COPY server.cert.pem /etc/ssl/certs/
+COPY server.key.pem /etc/ssl/private/
+COPY nginx.conf /etc/nginx/nginx.conf
+# COPY server.cert.pem  /app/server.key.pem
+# COPY server.key.pem /app/server.cert.pem
+
 
 # Javaが正しくインストールされているか確認
 RUN java -version
@@ -34,12 +42,6 @@ RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /h
 
 # package.json と package-lock.json をコピーして依存関係をインストール
 COPY package*.json ./
-# 証明書と秘密鍵をコンテナ内にコピー
-COPY server.cert.pem /etc/ssl/certs/
-COPY server.key.pem /etc/ssl/private/
-COPY nginx.conf /etc/nginx/nginx.conf
-# COPY server.cert.pem  /app/server.key.pem
-# COPY server.key.pem /app/server.cert.pem
 
 RUN npm ci
 RUN npm install

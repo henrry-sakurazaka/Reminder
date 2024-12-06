@@ -16,13 +16,13 @@ export default defineConfig({
     ['list'],
     ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }],
   ],
-  //動画キャプチャを無効にする
-  webServer: {
-    command: 'npm run dev',
-    url: process.env. VITE_REACT_APP_API_URL || 'https://localhost:3000',
-    reuseExistingServer: !process.env.CI,
-  },
-  reporter: 'list',
+  // //動画キャプチャを無効にする
+  // webServer: {
+  //   command: 'npm run dev',
+  //   url: process.env. VITE_REACT_APP_API_URL || 'https://localhost:3000',
+  //   reuseExistingServer: !process.env.CI,
+  // },
+  // reporter: 'list',
   use: {
     headless: true,  // ヘッドレスモードで実行（表示なし）
     viewport: { width: 1280, height: 720 },  // ビューポートの設定
@@ -34,7 +34,7 @@ export default defineConfig({
     video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
     // screenshot: 'off',
     //証明書の設定を追加
-    outputDir: './custom-test-results', // 保存先を変更
+    // outputDir: './custom-test-results', // 保存先を変更
     launchOptions: {
       args: [
         '--ignore-certificate-errors', // 証明書エラーを無視
