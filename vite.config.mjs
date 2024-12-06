@@ -11,6 +11,10 @@ if (process.env.CI !== 'true') {
 }
 
 export default defineConfig({
+  plugins: [react()],
+  define: {
+    'process.env': process.env,
+  },
   base: './',  
   root: __dirname,  // ルートをプロジェクトのルートディレクトリに変更
   build: {
