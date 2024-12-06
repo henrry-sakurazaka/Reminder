@@ -145,7 +145,6 @@ jobs:
           sudo chmod 777 server.key.pem
           sudo chmod 777 server.cert.pem
           sudo chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
-          sudo chmod -R 777 /home/runner/work/Reminder/Reminder/playwright-report/output.json
           sudo chown root:root server.key.pem
           sudo chown root:root server.cert.pem
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
