@@ -20,7 +20,7 @@ import { test, expect } from '@playwright/test';
     });
 
     await page.click('span.#SU');
-    await expect(page).toHaveURL('/SignUp');
+    await expect(page).toHaveURL(`${baseUrl}/SignUp`);
 
     await page.waitForTimeout(5000); // 必要に応じて時間を調整
 

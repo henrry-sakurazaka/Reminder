@@ -27,7 +27,7 @@ import { test, expect } from '@playwright/test';
     await page.click('span#SI');
     await page.waitForTimeout(5000);
 
-    await expect(page).toHaveURL('/SignIn');
+    await expect(page).toHaveURL(`${baseUrl}/SignIn`);
     await page.waitForTimeout(5000); 
     await page.waitForSelector('#email', { timeout: 30000 });
     await page.fill('#email', email, { timeout: 30000 }); 
