@@ -168,7 +168,6 @@ jobs:
           
       - name: Run E2E Tests
         run: docker-compose exec playwright npx playwright test || exit 1
-        continue-on-error: false
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
@@ -176,7 +175,12 @@ jobs:
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
+        continue-on-error: false
 
+      - name: Run E2E Tests in Playwright container
+        run: |
+          docker-compose run --rm playwright npx playwright test --reporter=list || exit 1
+      
       # Playwright テストログ（失敗した場合のみ）
       - name: Playwright Test Logs
         if: failure()
