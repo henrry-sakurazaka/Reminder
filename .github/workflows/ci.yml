@@ -163,9 +163,12 @@ jobs:
         run: |
           ls -l server.key.pem
           ls -l server.cert.pem
-          
-      - name: Run E2E Tests
-        run: npx playwright test  
+
+      - name: Wait for services to be ready
+        run: sleep 20 # サービスの起動待機
+  
+      - name: Run E2Etests in Playwright container
+        run: docker-compose exec playwright npx playwright test
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
@@ -173,7 +176,7 @@ jobs:
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
-
+    
       # Playwright テストログ（失敗した場合のみ）
       - name: Playwright Test Logs
         if: failure()
