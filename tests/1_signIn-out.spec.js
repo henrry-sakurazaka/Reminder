@@ -14,17 +14,24 @@ import { test, expect } from '@playwright/test';
     
     await page.waitForTimeout(5000); 
     await page.goto(`${baseUrl}/SignIn`, {
-      waitUntil: 'load',
+      waitUntil: 'networkidle',
       timeout: 60000,
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
     });
+    await page.waitForTimeout(5000); // 必要に応じて時間を調整
+
     await page.waitForSelector('#email', { timeout: 30000 });
     await page.fill('#email', email, { timeout: 30000 }); 
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
-  
+
+    await page.waitForTimeout(5000); // 必要に応じて時間を調整
+
     await expect(page).toHaveURL(`${baseUrl}/Example`);
     await page.click('span.back');
+
+    await page.waitForTimeout(5000); // 必要に応じて時間を調整
+
     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)
 
     await page.click('span#SO'); 
