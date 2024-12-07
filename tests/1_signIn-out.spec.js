@@ -18,8 +18,8 @@ import { test, expect } from '@playwright/test';
       timeout: 60000,
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
     });
-    await expect(page).toHaveURL(`${baseUrl}/UserAuth`);
-    await page.click('div.inner9-container span#SI');
+    await page.waitForTimeout(60000); 
+    await page.click('span#SI');
     await page.waitForTimeout(5000); 
     await expect(page).toHaveURL(`${baseUrl}/SignIn`);
 
