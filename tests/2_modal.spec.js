@@ -22,9 +22,8 @@ import { test, expect } from '@playwright/test';
       waitUntil: 'networkidle',
       timeout: 60000,
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
-    }); 
-    await page.waitForTimeout(60000); 
-    await page.click('span#SI');
+    });  
+    await page.click('span#SI', { timeout: 30000 });
     await page.waitForTimeout(5000);
 
     await expect(page).toHaveURL(`${baseUrl}/SignIn`);
