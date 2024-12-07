@@ -24,8 +24,10 @@ import { test, expect } from '@playwright/test';
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
     }); 
     
-    await page.fill('#email', email); 
-    await page.fill('#password', password); 
+    await page.waitForSelector('#email', { timeout: 15000});
+    await page.fill('#email', email, { timeout: 20000 }); 
+    await page.waitForSelector('#password', { timeout: 15000});
+    await page.fill('#password', password, { timeout: 20000}); 
     await page.click('button.form-button[type="submit"]');
   
     await expect(page).toHaveURL(`${baseUrl}/Example`);
