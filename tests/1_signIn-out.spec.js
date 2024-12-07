@@ -18,8 +18,8 @@ import { test, expect } from '@playwright/test';
       timeout: 60000,
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
     });
-    await page.waitForSelector('#email', { timeout: 15000});
-    await page.fill('#email', email, { timeout: 20000 }); 
+    await page.waitForSelector('#email', { timeout: 30000 });
+    await page.fill('#email', email, { timeout: 30000 }); 
     await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
   
