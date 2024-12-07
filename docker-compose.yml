@@ -55,12 +55,12 @@ services:
     command: firebase emulators:start --only firestore,functions,auth,storage
     volumes:
       - ./storage.rules:/firebase/storage.rules # ファイルの場合
-    healthcheck:
-      test: ["CMD", "curl", "-f", "http://localhost:8080"]
-      interval: 90s
-      timeout: 60s
-      retries: 5
-      start_period: 1200s
+    # healthcheck:
+    #   test: ["CMD", "curl", "-f", "http://localhost:8080"]
+    #   interval: 90s
+    #   timeout: 60s
+    #   retries: 5
+    #   start_period: 1200s
     networks:
       - test-network
 
@@ -87,8 +87,8 @@ services:
     depends_on:
       app:
         condition: service_healthy
-      firebase: 
-        condition: service_healthy
+      # firebase: 
+      #   condition: service_healthy
     networks:
       - test-network
     working_dir: /app
