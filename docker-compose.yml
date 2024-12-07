@@ -55,6 +55,14 @@ services:
     command: firebase emulators:start --only firestore,functions,auth,storage
     volumes:
       - ./storage.rules:/firebase/storage.rules # ファイルの場合
+    healthcheck:
+      test: ["CMD-SHELL", "curl -k -v https://localhost:3000 || exit 1"]
+      interval: 90s
+      timeout: 60s
+      retries: 5
+      start_period: 1200s
+    networks:
+      - test-network
 
   nginx:
     image: nginx:latest
@@ -78,6 +86,8 @@ services:
     image: mcr.microsoft.com/playwright:v1.49.0-jammy   
     depends_on:
       app:
+        condition: service_healthy
+      firebase: 
         condition: service_healthy
     networks:
       - test-network
