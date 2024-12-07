@@ -168,7 +168,7 @@ jobs:
         run: sleep 20 # サービスの起動待機
   
       - name: Run E2Etests in Playwright container
-        run: docker-compose exec playwright npx playwright test
+        run: docker-compose run --rm playwright npx playwright test || exit 1
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
