@@ -11,7 +11,6 @@ if (process.env.CI !== 'true') {
 }
 
 export default defineConfig({
-  plugins: [react()],
   define: {
     'process.env': process.env,
   },
