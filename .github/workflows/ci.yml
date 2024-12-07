@@ -90,7 +90,7 @@ jobs:
       - name: Run ESLint with auto-fix
         run: npx eslint src/ --fix
 
-  e2e-tests:
+  E2E-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
 
@@ -111,9 +111,6 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
-
-      
-
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -167,7 +164,6 @@ jobs:
           ls -l server.cert.pem
           
       - name: Run E2E Tests
-        # run: docker-compose exec playwright npx playwright test || exit 1
         run: |
           docker-compose run --rm playwright npx playwright test --reporter=list || exit 1
         env:
@@ -192,7 +188,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - lint
-      - e2e-tests
+      - E2E-tests
 
     steps:
       - name: Checkout code
