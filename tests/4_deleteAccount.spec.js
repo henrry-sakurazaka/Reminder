@@ -20,18 +20,22 @@ import { test, expect } from '@playwright/test';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
-    await page.goto(`${baseUrl}/SignIn`, {
+    await page.goto(`${baseUrl}/UserAuth`, {
         waitUntil: 'networkidle',
         timeout: 60000,
         ignoreHTTPSErrors: true, // これで証明書エラーを無視します
       });
 
-    await page.waitForTimeout(5000); // 必要に応じて時間を調整
-
+    await page.waitForTimeout(5000); 
+    await page.click('span#SI');
+    await page.waitForTimeout(5000); 
+    await expect(page).toHaveURL('/SignIn');
+    
+    await page.waitForTimeout(5000); 
     await page.waitForSelector('#email', { timeout: 30000 });
     await page.fill('#email', email, { timeout: 30000 }); 
 
-    await page.waitForTimeout(5000); // 必要に応じて時間を調整
+    await page.waitForTimeout(5000); 
 
     await page.waitForSelector('#password', { timeout: 30000 });
     await page.fill('#password', password, { timeout: 30000 }); 
