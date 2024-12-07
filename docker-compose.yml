@@ -79,8 +79,6 @@ services:
     depends_on:
       app:
         condition: service_healthy
-    extra_hosts:
-      - "app:127.0.0.1"  
     networks:
       - test-network
     working_dir: /app
