@@ -69,3 +69,7 @@ RUN chmod +x /entrypoint.sh
 ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
 
 # RUN npm cache clean --force
+
+
+
+
