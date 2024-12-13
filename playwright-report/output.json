@@ -86,27 +86,8 @@
               "results": [
                 {
                   "workerIndex": 0,
-                  "status": "failed",
-                  "duration": 10,
-                  "error": {
-                    "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-L97v8W --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=55\u001b[22m\n",
-                    "stack": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-L97v8W --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=55\u001b[22m\n"
-                  },
-                  "errors": [
-                    {
-                      "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-L97v8W --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=55\u001b[22m\n"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2024-12-07T14:30:21.834Z",
-                  "attachments": []
-                },
-                {
-                  "workerIndex": 2,
                   "status": "timedOut",
-                  "duration": 32042,
+                  "duration": 30722,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -119,22 +100,77 @@
                       "location": {
                         "file": "/app/tests/1_signIn-out.spec.js",
                         "column": 16,
-                        "line": 16
+                        "line": 25
                       },
-                      "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://app:3000/UserAuth\", waiting until \"networkidle\"\u001b[22m\n\n\n  14 |     \n  15 |     await page.waitForTimeout(5000); \n> 16 |     await page.goto(`${baseUrl}/UserAuth`, {\n     |                ^\n  17 |       waitUntil: 'networkidle',\n  18 |       timeout: 60000,\n  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n    at /app/tests/1_signIn-out.spec.js:16:16"
+                      "message": "Error: page.waitForTimeout: Test timeout of 30000ms exceeded.\n\n  23 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  24 |\n> 25 |     await page.waitForTimeout(5000); \n     |                ^\n  26 |\n  27 |     await page.waitForSelector('#email', { timeout: 30000 });\n  28 |     await page.fill('#email', email, { timeout: 30000 }); \n    at /app/tests/1_signIn-out.spec.js:25:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-08T08:56:51.330Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/1_signIn-out-ログインテスト/video.webm"
+                    }
+                  ]
+                },
+                {
+                  "workerIndex": 3,
+                  "status": "failed",
+                  "duration": 27851,
+                  "error": {
+                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/1_signIn-out.spec.js:34:24",
+                    "matcherResult": {
+                      "name": "toHaveURL",
+                      "expected": "https://app:3000/Example",
+                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                      "pass": false,
+                      "actual": "https://app:3000/SignIn",
+                      "log": [
+                        "  - expect.toHaveURL with timeout 5000ms",
+                        "  - waiting for locator(':root')",
+                        "    9 × locator resolved to <html lang=\"en\">…</html>",
+                        "      - unexpected value \"https://app:3000/SignIn\""
+                      ],
+                      "timeout": 5000
+                    },
+                    "location": {
+                      "file": "/app/tests/1_signIn-out.spec.js",
+                      "column": 24,
+                      "line": 34
+                    },
+                    "snippet": "  32 |     await page.waitForTimeout(5000); \n  33 |\n> 34 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  35 |     await page.click('span.back');\n  36 |\n  37 |     await page.waitForTimeout(5000); "
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/1_signIn-out.spec.js",
+                        "column": 24,
+                        "line": 34
+                      },
+                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  32 |     await page.waitForTimeout(5000); \n  33 |\n> 34 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  35 |     await page.click('span.back');\n  36 |\n  37 |     await page.waitForTimeout(5000); \n    at /app/tests/1_signIn-out.spec.js:34:24"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-07T14:33:29.240Z",
+                  "startTime": "2024-12-08T08:57:44.292Z",
                   "attachments": [
                     {
                       "name": "video",
                       "contentType": "video/webm",
                       "path": "/app/test-results/1_signIn-out-ログインテスト-retry1/video.webm"
                     }
-                  ]
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/1_signIn-out.spec.js",
+                    "column": 24,
+                    "line": 34
+                  }
                 }
               ],
               "status": "unexpected"
@@ -167,27 +203,8 @@
               "results": [
                 {
                   "workerIndex": 1,
-                  "status": "failed",
-                  "duration": 11,
-                  "error": {
-                    "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-1llhvx --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=54\u001b[22m\n",
-                    "stack": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-1llhvx --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=54\u001b[22m\n"
-                  },
-                  "errors": [
-                    {
-                      "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-1llhvx --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=54\u001b[22m\n"
-                    }
-                  ],
-                  "stdout": [],
-                  "stderr": [],
-                  "retry": 0,
-                  "startTime": "2024-12-07T14:30:21.840Z",
-                  "attachments": []
-                },
-                {
-                  "workerIndex": 3,
                   "status": "timedOut",
-                  "duration": 31808,
+                  "duration": 30783,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -200,15 +217,48 @@
                       "location": {
                         "file": "/app/tests/2_modal.spec.js",
                         "column": 16,
-                        "line": 21
+                        "line": 26
                       },
-                      "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://app:3000/SignIn\", waiting until \"networkidle\"\u001b[22m\n\n\n  19 |    \n  20 |     await page.waitForTimeout(5000); \n> 21 |     await page.goto(`${baseUrl}/SignIn`, {\n     |                ^\n  22 |       waitUntil: 'networkidle',\n  23 |       timeout: 60000,\n  24 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n    at /app/tests/2_modal.spec.js:21:16"
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  24 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  25 |     });  \n> 26 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  27 |     await page.waitForTimeout(5000);\n  28 |\n  29 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n    at /app/tests/2_modal.spec.js:26:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-08T08:56:51.351Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/2_modal-タスクをフォームに入力して出力を確認/video.webm"
+                    }
+                  ]
+                },
+                {
+                  "workerIndex": 2,
+                  "status": "timedOut",
+                  "duration": 31368,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/app/tests/2_modal.spec.js",
+                        "column": 16,
+                        "line": 26
+                      },
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  24 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  25 |     });  \n> 26 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  27 |     await page.waitForTimeout(5000);\n  28 |\n  29 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n    at /app/tests/2_modal.spec.js:26:16"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-07T14:33:29.236Z",
+                  "startTime": "2024-12-08T08:57:44.353Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -236,7 +286,7 @@
       "specs": [
         {
           "title": "タスクをフォームを入力して出力を確認",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -248,17 +298,116 @@
               "results": [
                 {
                   "workerIndex": 4,
-                  "status": "passed",
-                  "duration": 88099,
-                  "errors": [],
+                  "status": "failed",
+                  "duration": 26837,
+                  "error": {
+                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/3_edit.spec.js:43:26",
+                    "matcherResult": {
+                      "name": "toHaveURL",
+                      "expected": "https://app:3000/Example",
+                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                      "pass": false,
+                      "actual": "https://app:3000/SignIn",
+                      "log": [
+                        "  - expect.toHaveURL with timeout 5000ms",
+                        "  - waiting for locator(':root')",
+                        "    9 × locator resolved to <html lang=\"en\">…</html>",
+                        "      - unexpected value \"https://app:3000/SignIn\""
+                      ],
+                      "timeout": 5000
+                    },
+                    "location": {
+                      "file": "/app/tests/3_edit.spec.js",
+                      "column": 26,
+                      "line": 43
+                    },
+                    "snippet": "  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/3_edit.spec.js",
+                        "column": 26,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);\n    at /app/tests/3_edit.spec.js:43:26"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-07T14:36:13.337Z",
-                  "attachments": []
+                  "startTime": "2024-12-08T08:58:13.868Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/3_edit-タスクをフォームを入力して出力を確認/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/3_edit.spec.js",
+                    "column": 26,
+                    "line": 43
+                  }
+                },
+                {
+                  "workerIndex": 6,
+                  "status": "failed",
+                  "duration": 26624,
+                  "error": {
+                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/3_edit.spec.js:43:26",
+                    "matcherResult": {
+                      "name": "toHaveURL",
+                      "expected": "https://app:3000/Example",
+                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                      "pass": false,
+                      "actual": "https://app:3000/SignIn",
+                      "log": [
+                        "  - expect.toHaveURL with timeout 5000ms",
+                        "  - waiting for locator(':root')",
+                        "    9 × locator resolved to <html lang=\"en\">…</html>",
+                        "      - unexpected value \"https://app:3000/SignIn\""
+                      ],
+                      "timeout": 5000
+                    },
+                    "location": {
+                      "file": "/app/tests/3_edit.spec.js",
+                      "column": 26,
+                      "line": 43
+                    },
+                    "snippet": "  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/3_edit.spec.js",
+                        "column": 26,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);\n    at /app/tests/3_edit.spec.js:43:26"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-12-08T08:58:42.261Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/3_edit-タスクをフォームを入力して出力を確認-retry1/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/3_edit.spec.js",
+                    "column": 26,
+                    "line": 43
+                  }
                 }
               ],
-              "status": "expected"
+              "status": "unexpected"
             }
           ],
           "id": "f01057d7661885a83c03-9da0f5b8e0e172c0845f",
@@ -276,7 +425,7 @@
       "specs": [
         {
           "title": "アカウント削除のテスト",
-          "ok": true,
+          "ok": false,
           "tags": [],
           "tests": [
             {
@@ -288,50 +437,116 @@
               "results": [
                 {
                   "workerIndex": 5,
-                  "status": "timedOut",
-                  "duration": 30719,
+                  "status": "failed",
+                  "duration": 26768,
                   "error": {
-                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
-                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/4_deleteAccount.spec.js:43:24",
+                    "matcherResult": {
+                      "name": "toHaveURL",
+                      "expected": "https://app:3000/Example",
+                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                      "pass": false,
+                      "actual": "https://app:3000/SignIn",
+                      "log": [
+                        "  - expect.toHaveURL with timeout 5000ms",
+                        "  - waiting for locator(':root')",
+                        "    9 × locator resolved to <html lang=\"en\">…</html>",
+                        "      - unexpected value \"https://app:3000/SignIn\""
+                      ],
+                      "timeout": 5000
+                    },
+                    "location": {
+                      "file": "/app/tests/4_deleteAccount.spec.js",
+                      "column": 24,
+                      "line": 43
+                    },
+                    "snippet": "  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |"
                   },
                   "errors": [
                     {
-                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
-                    },
-                    {
                       "location": {
                         "file": "/app/tests/4_deleteAccount.spec.js",
-                        "column": 16,
-                        "line": 33
+                        "column": 24,
+                        "line": 43
                       },
-                      "message": "Error: page.waitForTimeout: Test timeout of 30000ms exceeded.\n\n  31 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  32 |     \n> 33 |     await page.waitForTimeout(5000); \n     |                ^\n  34 |     await page.waitForSelector('#email', { timeout: 30000 });\n  35 |     await page.fill('#email', email, { timeout: 30000 }); \n  36 |\n    at /app/tests/4_deleteAccount.spec.js:33:16"
+                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |\n    at /app/tests/4_deleteAccount.spec.js:43:24"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-07T14:36:13.333Z",
+                  "startTime": "2024-12-08T08:58:17.298Z",
                   "attachments": [
                     {
                       "name": "video",
                       "contentType": "video/webm",
                       "path": "/app/test-results/4_deleteAccount-アカウント削除のテスト/video.webm"
                     }
-                  ]
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/4_deleteAccount.spec.js",
+                    "column": 24,
+                    "line": 43
+                  }
                 },
                 {
-                  "workerIndex": 6,
-                  "status": "passed",
-                  "duration": 26569,
-                  "errors": [],
+                  "workerIndex": 7,
+                  "status": "failed",
+                  "duration": 26810,
+                  "error": {
+                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/4_deleteAccount.spec.js:43:24",
+                    "matcherResult": {
+                      "name": "toHaveURL",
+                      "expected": "https://app:3000/Example",
+                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
+                      "pass": false,
+                      "actual": "https://app:3000/SignIn",
+                      "log": [
+                        "  - expect.toHaveURL with timeout 5000ms",
+                        "  - waiting for locator(':root')",
+                        "    9 × locator resolved to <html lang=\"en\">…</html>",
+                        "      - unexpected value \"https://app:3000/SignIn\""
+                      ],
+                      "timeout": 5000
+                    },
+                    "location": {
+                      "file": "/app/tests/4_deleteAccount.spec.js",
+                      "column": 24,
+                      "line": 43
+                    },
+                    "snippet": "  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/4_deleteAccount.spec.js",
+                        "column": 24,
+                        "line": 43
+                      },
+                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |\n    at /app/tests/4_deleteAccount.spec.js:43:24"
+                    }
+                  ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-07T14:36:46.223Z",
-                  "attachments": []
+                  "startTime": "2024-12-08T08:58:45.678Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/4_deleteAccount-アカウント削除のテスト-retry1/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/4_deleteAccount.spec.js",
+                    "column": 24,
+                    "line": 43
+                  }
                 }
               ],
-              "status": "flaky"
+              "status": "unexpected"
             }
           ],
           "id": "9714527d5e13ca36954a-749a2e59f2368848c173",
@@ -360,9 +575,9 @@
               "projectName": "",
               "results": [
                 {
-                  "workerIndex": 6,
+                  "workerIndex": 8,
                   "status": "failed",
-                  "duration": 6492,
+                  "duration": 6296,
                   "error": {
                     "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n",
                     "stack": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n    at /app/tests/5_signUp.spec.js:21:16",
@@ -386,7 +601,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-07T14:37:13.112Z",
+                  "startTime": "2024-12-08T08:59:10.426Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -401,9 +616,9 @@
                   }
                 },
                 {
-                  "workerIndex": 7,
+                  "workerIndex": 9,
                   "status": "failed",
-                  "duration": 6307,
+                  "duration": 6185,
                   "error": {
                     "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n",
                     "stack": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n    at /app/tests/5_signUp.spec.js:21:16",
@@ -427,7 +642,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-07T14:37:21.076Z",
+                  "startTime": "2024-12-08T08:59:18.272Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -455,11 +670,11 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-12-07T14:29:54.230Z",
-    "duration": 466697.956,
-    "expected": 1,
+    "startTime": "2024-12-08T08:56:48.263Z",
+    "duration": 156324.801,
+    "expected": 0,
     "skipped": 0,
-    "unexpected": 3,
-    "flaky": 1
+    "unexpected": 5,
+    "flaky": 0
   }
 }

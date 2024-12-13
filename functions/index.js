@@ -10,7 +10,7 @@ const cors = require('cors');
 require('dotenv').config();
 
    
-var serviceAccount = require("./serviceAccountKey.json"); 
+var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
