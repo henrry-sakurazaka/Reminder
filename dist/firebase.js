@@ -1,7 +1,7 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
 import { getAuth, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
 import { getFirestore } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";
-import { getDatabase } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
+
 // import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
 const firebaseConfig = {
@@ -18,7 +18,6 @@ const firebaseConfig = {
 // const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const db = getDatabase(app); 
 const firestore = getFirestore(app); 
 const provider = new GoogleAuthProvider();
 
@@ -132,5 +131,5 @@ export const registerServiceWorkerAndRequestToken = async () => {
 
 
 
-export { app, auth, db, firestore, provider }; // dbもエクスポートする
+export { app, auth, firestore, provider }; // dbもエクスポートする
 export default firebaseConfig;

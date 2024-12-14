@@ -19,7 +19,8 @@ const UserAuth = () => {
     }
     
     const [ isSignOut , setIsSignOut ] = useState(false);
-    const getColor = () => "rgba(40, 147, 247, 0.772)";
+    const getColor = () => "#fff";
+    // const getColor = () => "rgba(40, 147, 247, 0.772)";
     const getColor2 = () => "rgba(40, 147, 247, 0.772)";
 
   
@@ -74,8 +75,9 @@ const UserAuth = () => {
                     ))}
                 </div>
             <div className="container">
+                < img className="logo" src="./public/logo_transparent.png" />
                 <div className="decoration-container">
-                    <div className="decoration2">
+                    {/* <div className="decoration2">
                         {spans.map((_, index) => (
                         <span 
                             key={index} 
@@ -83,7 +85,7 @@ const UserAuth = () => {
                             style={{ backgroundColor: getColor2() }}
                         ></span>
                         ))}
-                    </div>
+                    </div> */}
                 </div>
                 <div className="circle2">
                     <div className="inner9-container">
