@@ -21,9 +21,6 @@ RUN apt-get update && apt-get install -y \
 # COPY server.cert.pem /etc/ssl/certs/
 # COPY server.key.pem /etc/ssl/private/
 COPY nginx.conf /etc/nginx/nginx.conf
-# COPY server.cert.pem  /app/server.key.pem
-# COPY server.key.pem /app/server.cert.pem
-
 
 # Javaが正しくインストールされているか確認
 RUN java -version
@@ -55,7 +52,7 @@ RUN npm install --global vite
 # unzipをインストール
 RUN apt-get update && apt-get install -y unzip
 
-RUN curl -sL https://bin.equinox.io/c/4VmDzA7iaJz/ngrok-stable-linux-amd64.zip -o ngrok.zip \
+RUN curl -sL https://github.com/ngrok/ngrok/releases/download/v3.1.0/ngrok-stable-linux-amd64.zip -o ngrok.zip \
     && unzip ngrok.zip \
     && mv ngrok /usr/local/bin \
     && rm ngrok.zip
