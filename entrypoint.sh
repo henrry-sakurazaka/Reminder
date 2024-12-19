@@ -6,6 +6,11 @@ export VITE_GOOGLE_APPLICATION_CREDENTIALS="./serviceAccountKey.json"
 # if [ "$VITE_NODE_ENV" != "production" ]; then
 #   unset VITE_GOOGLE_APPLICATION_CREDENTIALS
 # fi
+# コンテナ起動時にngrokの認証トークンを設定
+ngrok authtoken $VITE_NGROK_AUTH_TOKEN
+
+# ngrokのプロセスを起動
+ngrok http 80
 
 # 環境に応じて実行するコマンドを分ける
 if [ "$VITE_NODE_ENV" == "production" ]; then

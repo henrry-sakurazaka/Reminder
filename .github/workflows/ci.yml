@@ -131,13 +131,21 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
+      - name: Run app container with ngrok auth token
+        run: |
+          docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} app
+
       - name: Build and Start App
         run: |
           docker-compose down
           docker-compose build
           docker-compose up -d
 
-      - name: Show Logs
+      - name: Run app container with ngrok auth token
+        run: |
+          docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} app
+
+    - name: Show Logs
         run: docker-compose logs app
 
       - name: Install Playwright browsers
