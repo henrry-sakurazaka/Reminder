@@ -51,9 +51,10 @@ COPY . .
 # Viteをインストール（プロジェクトの依存関係に追加）
 RUN npm install --global vite
 
-# ngrokのインストール
-RUN curl -s https://ngrok.com/download | tar -xz && mv ngrok /usr/local/bin
+# ngrokをダウンロード、インストール
+RUN curl -s https://ngrok.com/download | bash
 
+RUN mv /ngrok /usr/local/bin
 
 # Playwright のブラウザをインストール
 RUN npx playwright install --with-deps
