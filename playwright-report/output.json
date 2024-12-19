@@ -87,7 +87,7 @@
                 {
                   "workerIndex": 0,
                   "status": "timedOut",
-                  "duration": 30722,
+                  "duration": 32305,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -100,15 +100,15 @@
                       "location": {
                         "file": "/app/tests/1_signIn-out.spec.js",
                         "column": 16,
-                        "line": 25
+                        "line": 21
                       },
-                      "message": "Error: page.waitForTimeout: Test timeout of 30000ms exceeded.\n\n  23 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  24 |\n> 25 |     await page.waitForTimeout(5000); \n     |                ^\n  26 |\n  27 |     await page.waitForSelector('#email', { timeout: 30000 });\n  28 |     await page.fill('#email', email, { timeout: 30000 }); \n    at /app/tests/1_signIn-out.spec.js:25:16"
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  20 |     });\n> 21 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  22 |     await page.waitForTimeout(5000); \n  23 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  24 |\n    at /app/tests/1_signIn-out.spec.js:21:16"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-08T08:56:51.330Z",
+                  "startTime": "2024-12-19T06:08:15.043Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -119,58 +119,36 @@
                 },
                 {
                   "workerIndex": 3,
-                  "status": "failed",
-                  "duration": 27851,
+                  "status": "timedOut",
+                  "duration": 32421,
                   "error": {
-                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/1_signIn-out.spec.js:34:24",
-                    "matcherResult": {
-                      "name": "toHaveURL",
-                      "expected": "https://app:3000/Example",
-                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                      "pass": false,
-                      "actual": "https://app:3000/SignIn",
-                      "log": [
-                        "  - expect.toHaveURL with timeout 5000ms",
-                        "  - waiting for locator(':root')",
-                        "    9 × locator resolved to <html lang=\"en\">…</html>",
-                        "      - unexpected value \"https://app:3000/SignIn\""
-                      ],
-                      "timeout": 5000
-                    },
-                    "location": {
-                      "file": "/app/tests/1_signIn-out.spec.js",
-                      "column": 24,
-                      "line": 34
-                    },
-                    "snippet": "  32 |     await page.waitForTimeout(5000); \n  33 |\n> 34 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  35 |     await page.click('span.back');\n  36 |\n  37 |     await page.waitForTimeout(5000); "
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
                   },
                   "errors": [
                     {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
                       "location": {
                         "file": "/app/tests/1_signIn-out.spec.js",
-                        "column": 24,
-                        "line": 34
+                        "column": 16,
+                        "line": 21
                       },
-                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  32 |     await page.waitForTimeout(5000); \n  33 |\n> 34 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  35 |     await page.click('span.back');\n  36 |\n  37 |     await page.waitForTimeout(5000); \n    at /app/tests/1_signIn-out.spec.js:34:24"
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  20 |     });\n> 21 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  22 |     await page.waitForTimeout(5000); \n  23 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  24 |\n    at /app/tests/1_signIn-out.spec.js:21:16"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-08T08:57:44.292Z",
+                  "startTime": "2024-12-19T06:08:59.709Z",
                   "attachments": [
                     {
                       "name": "video",
                       "contentType": "video/webm",
                       "path": "/app/test-results/1_signIn-out-ログインテスト-retry1/video.webm"
                     }
-                  ],
-                  "errorLocation": {
-                    "file": "/app/tests/1_signIn-out.spec.js",
-                    "column": 24,
-                    "line": 34
-                  }
+                  ]
                 }
               ],
               "status": "unexpected"
@@ -204,7 +182,7 @@
                 {
                   "workerIndex": 1,
                   "status": "timedOut",
-                  "duration": 30783,
+                  "duration": 32283,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -225,7 +203,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-08T08:56:51.351Z",
+                  "startTime": "2024-12-19T06:08:15.036Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -237,7 +215,7 @@
                 {
                   "workerIndex": 2,
                   "status": "timedOut",
-                  "duration": 31368,
+                  "duration": 32427,
                   "error": {
                     "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
                     "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
@@ -258,7 +236,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-08T08:57:44.353Z",
+                  "startTime": "2024-12-19T06:08:59.689Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -299,45 +277,31 @@
                 {
                   "workerIndex": 4,
                   "status": "failed",
-                  "duration": 26837,
+                  "duration": 38641,
                   "error": {
-                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/3_edit.spec.js:43:26",
-                    "matcherResult": {
-                      "name": "toHaveURL",
-                      "expected": "https://app:3000/Example",
-                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                      "pass": false,
-                      "actual": "https://app:3000/SignIn",
-                      "log": [
-                        "  - expect.toHaveURL with timeout 5000ms",
-                        "  - waiting for locator(':root')",
-                        "    9 × locator resolved to <html lang=\"en\">…</html>",
-                        "      - unexpected value \"https://app:3000/SignIn\""
-                      ],
-                      "timeout": 5000
-                    },
+                    "message": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n",
+                    "stack": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n    at /app/tests/3_edit.spec.js:28:18",
                     "location": {
                       "file": "/app/tests/3_edit.spec.js",
-                      "column": 26,
-                      "line": 43
+                      "column": 18,
+                      "line": 28
                     },
-                    "snippet": "  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);"
+                    "snippet": "  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  27 |       }); \n> 28 |       await page.click('span#SI', { timeout: 30000 });\n     |                  ^\n  29 |       await page.waitForTimeout(5000); \n  30 |       await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  31 |       await page.waitForTimeout(5000); "
                   },
                   "errors": [
                     {
                       "location": {
                         "file": "/app/tests/3_edit.spec.js",
-                        "column": 26,
-                        "line": 43
+                        "column": 18,
+                        "line": 28
                       },
-                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);\n    at /app/tests/3_edit.spec.js:43:26"
+                      "message": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  27 |       }); \n> 28 |       await page.click('span#SI', { timeout: 30000 });\n     |                  ^\n  29 |       await page.waitForTimeout(5000); \n  30 |       await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  31 |       await page.waitForTimeout(5000); \n    at /app/tests/3_edit.spec.js:28:18"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-08T08:58:13.868Z",
+                  "startTime": "2024-12-19T06:09:34.484Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -347,52 +311,38 @@
                   ],
                   "errorLocation": {
                     "file": "/app/tests/3_edit.spec.js",
-                    "column": 26,
-                    "line": 43
+                    "column": 18,
+                    "line": 28
                   }
                 },
                 {
-                  "workerIndex": 6,
+                  "workerIndex": 7,
                   "status": "failed",
-                  "duration": 26624,
+                  "duration": 38546,
                   "error": {
-                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/3_edit.spec.js:43:26",
-                    "matcherResult": {
-                      "name": "toHaveURL",
-                      "expected": "https://app:3000/Example",
-                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                      "pass": false,
-                      "actual": "https://app:3000/SignIn",
-                      "log": [
-                        "  - expect.toHaveURL with timeout 5000ms",
-                        "  - waiting for locator(':root')",
-                        "    9 × locator resolved to <html lang=\"en\">…</html>",
-                        "      - unexpected value \"https://app:3000/SignIn\""
-                      ],
-                      "timeout": 5000
-                    },
+                    "message": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n",
+                    "stack": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n    at /app/tests/3_edit.spec.js:28:18",
                     "location": {
                       "file": "/app/tests/3_edit.spec.js",
-                      "column": 26,
-                      "line": 43
+                      "column": 18,
+                      "line": 28
                     },
-                    "snippet": "  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);"
+                    "snippet": "  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  27 |       }); \n> 28 |       await page.click('span#SI', { timeout: 30000 });\n     |                  ^\n  29 |       await page.waitForTimeout(5000); \n  30 |       await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  31 |       await page.waitForTimeout(5000); "
                   },
                   "errors": [
                     {
                       "location": {
                         "file": "/app/tests/3_edit.spec.js",
-                        "column": 26,
-                        "line": 43
+                        "column": 18,
+                        "line": 28
                       },
-                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |       await page.click('button.form-button[type=\"submit\"]');\n  42 |     \n> 43 |       await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                          ^\n  44 |         \n  45 |         \n  46 |       await page.waitForTimeout(40000);\n    at /app/tests/3_edit.spec.js:43:26"
+                      "message": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  27 |       }); \n> 28 |       await page.click('span#SI', { timeout: 30000 });\n     |                  ^\n  29 |       await page.waitForTimeout(5000); \n  30 |       await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  31 |       await page.waitForTimeout(5000); \n    at /app/tests/3_edit.spec.js:28:18"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-08T08:58:42.261Z",
+                  "startTime": "2024-12-19T06:10:14.980Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -402,8 +352,8 @@
                   ],
                   "errorLocation": {
                     "file": "/app/tests/3_edit.spec.js",
-                    "column": 26,
-                    "line": 43
+                    "column": 18,
+                    "line": 28
                   }
                 }
               ],
@@ -437,113 +387,69 @@
               "results": [
                 {
                   "workerIndex": 5,
-                  "status": "failed",
-                  "duration": 26768,
+                  "status": "timedOut",
+                  "duration": 32083,
                   "error": {
-                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/4_deleteAccount.spec.js:43:24",
-                    "matcherResult": {
-                      "name": "toHaveURL",
-                      "expected": "https://app:3000/Example",
-                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                      "pass": false,
-                      "actual": "https://app:3000/SignIn",
-                      "log": [
-                        "  - expect.toHaveURL with timeout 5000ms",
-                        "  - waiting for locator(':root')",
-                        "    9 × locator resolved to <html lang=\"en\">…</html>",
-                        "      - unexpected value \"https://app:3000/SignIn\""
-                      ],
-                      "timeout": 5000
-                    },
-                    "location": {
-                      "file": "/app/tests/4_deleteAccount.spec.js",
-                      "column": 24,
-                      "line": 43
-                    },
-                    "snippet": "  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |"
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
                   },
                   "errors": [
                     {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
                       "location": {
                         "file": "/app/tests/4_deleteAccount.spec.js",
-                        "column": 24,
-                        "line": 43
+                        "column": 16,
+                        "line": 29
                       },
-                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |\n    at /app/tests/4_deleteAccount.spec.js:43:24"
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  27 |       });\n  28 |\n> 29 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  30 |     await page.waitForTimeout(5000); \n  31 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  32 |     \n    at /app/tests/4_deleteAccount.spec.js:29:16"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-08T08:58:17.298Z",
+                  "startTime": "2024-12-19T06:09:34.464Z",
                   "attachments": [
                     {
                       "name": "video",
                       "contentType": "video/webm",
                       "path": "/app/test-results/4_deleteAccount-アカウント削除のテスト/video.webm"
                     }
-                  ],
-                  "errorLocation": {
-                    "file": "/app/tests/4_deleteAccount.spec.js",
-                    "column": 24,
-                    "line": 43
-                  }
+                  ]
                 },
                 {
-                  "workerIndex": 7,
-                  "status": "failed",
-                  "duration": 26810,
+                  "workerIndex": 6,
+                  "status": "timedOut",
+                  "duration": 32042,
                   "error": {
-                    "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                    "stack": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n    at /app/tests/4_deleteAccount.spec.js:43:24",
-                    "matcherResult": {
-                      "name": "toHaveURL",
-                      "expected": "https://app:3000/Example",
-                      "message": "\u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n",
-                      "pass": false,
-                      "actual": "https://app:3000/SignIn",
-                      "log": [
-                        "  - expect.toHaveURL with timeout 5000ms",
-                        "  - waiting for locator(':root')",
-                        "    9 × locator resolved to <html lang=\"en\">…</html>",
-                        "      - unexpected value \"https://app:3000/SignIn\""
-                      ],
-                      "timeout": 5000
-                    },
-                    "location": {
-                      "file": "/app/tests/4_deleteAccount.spec.js",
-                      "column": 24,
-                      "line": 43
-                    },
-                    "snippet": "  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |"
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
                   },
                   "errors": [
                     {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
                       "location": {
                         "file": "/app/tests/4_deleteAccount.spec.js",
-                        "column": 24,
-                        "line": 43
+                        "column": 16,
+                        "line": 29
                       },
-                      "message": "Error: \u001b[31mTimed out 5000ms waiting for \u001b[39m\u001b[2mexpect(\u001b[22m\u001b[31mlocator\u001b[39m\u001b[2m).\u001b[22mtoHaveURL\u001b[2m(\u001b[22m\u001b[32mexpected\u001b[39m\u001b[2m)\u001b[22m\n\nLocator: locator(':root')\nExpected string: \u001b[32m\"https://app:3000/\u001b[7mExample\u001b[27m\"\u001b[39m\nReceived string: \u001b[31m\"https://app:3000/\u001b[7mSignIn\u001b[27m\"\u001b[39m\nCall log:\n\u001b[2m  - expect.toHaveURL with timeout 5000ms\u001b[22m\n\u001b[2m  - waiting for locator(':root')\u001b[22m\n\u001b[2m    9 × locator resolved to <html lang=\"en\">…</html>\u001b[22m\n\u001b[2m      - unexpected value \"https://app:3000/SignIn\"\u001b[22m\n\n\n  41 |     await page.click('button.form-button[type=\"submit\"]');\n  42 |   \n> 43 |     await expect(page).toHaveURL(`${baseUrl}/Example`);\n     |                        ^\n  44 |     await page.click('span.back');\n  45 |     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)\n  46 |\n    at /app/tests/4_deleteAccount.spec.js:43:24"
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  27 |       });\n  28 |\n> 29 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  30 |     await page.waitForTimeout(5000); \n  31 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  32 |     \n    at /app/tests/4_deleteAccount.spec.js:29:16"
                     }
                   ],
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-08T08:58:45.678Z",
+                  "startTime": "2024-12-19T06:10:08.194Z",
                   "attachments": [
                     {
                       "name": "video",
                       "contentType": "video/webm",
                       "path": "/app/test-results/4_deleteAccount-アカウント削除のテスト-retry1/video.webm"
                     }
-                  ],
-                  "errorLocation": {
-                    "file": "/app/tests/4_deleteAccount.spec.js",
-                    "column": 24,
-                    "line": 43
-                  }
+                  ]
                 }
               ],
               "status": "unexpected"
@@ -577,7 +483,7 @@
                 {
                   "workerIndex": 8,
                   "status": "failed",
-                  "duration": 6296,
+                  "duration": 6189,
                   "error": {
                     "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n",
                     "stack": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n    at /app/tests/5_signUp.spec.js:21:16",
@@ -601,7 +507,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 0,
-                  "startTime": "2024-12-08T08:59:10.426Z",
+                  "startTime": "2024-12-19T06:10:41.939Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -618,7 +524,7 @@
                 {
                   "workerIndex": 9,
                   "status": "failed",
-                  "duration": 6185,
+                  "duration": 6132,
                   "error": {
                     "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n",
                     "stack": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n    at /app/tests/5_signUp.spec.js:21:16",
@@ -642,7 +548,7 @@
                   "stdout": [],
                   "stderr": [],
                   "retry": 1,
-                  "startTime": "2024-12-08T08:59:18.272Z",
+                  "startTime": "2024-12-19T06:10:49.609Z",
                   "attachments": [
                     {
                       "name": "video",
@@ -670,8 +576,8 @@
   ],
   "errors": [],
   "stats": {
-    "startTime": "2024-12-08T08:56:48.263Z",
-    "duration": 156324.801,
+    "startTime": "2024-12-19T06:08:11.862Z",
+    "duration": 164067.761,
     "expected": 0,
     "skipped": 0,
     "unexpected": 5,

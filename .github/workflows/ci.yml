@@ -42,6 +42,7 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
+          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
 
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
@@ -119,6 +120,7 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
+          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
 
             # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
@@ -162,6 +164,15 @@ jobs:
         run: |
           ls -l server.key.pem
           ls -l server.cert.pem
+
+      - name: Install ngrok
+        run: |
+          curl -s https://ngrok.com/download | tar -xz && mv ngrok /usr/local/bin
+  
+      - name: Start ngrok tunnel
+        run: |
+          ngrok http 3000 &
+          sleep 5  # ngrokが立ち上がるのを待つ 
           
       - name: Run E2E Tests
         run: |
@@ -173,6 +184,7 @@ jobs:
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
+          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
         continue-on-error: false
      
       # Playwright テストログ（失敗した場合のみ）
