@@ -22,7 +22,7 @@ services:
       - .env
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v https://offsetcodecraft.com || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
