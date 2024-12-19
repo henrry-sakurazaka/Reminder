@@ -18,8 +18,8 @@ RUN apt-get update && apt-get install -y \
     && rm -rf /var/lib/apt/lists/
 
 # 証明書と秘密鍵をコンテナ内にコピー
-COPY server.cert.pem /etc/ssl/certs/
-COPY server.key.pem /etc/ssl/private/
+# COPY server.cert.pem /etc/ssl/certs/
+# COPY server.key.pem /etc/ssl/private/
 COPY nginx.conf /etc/nginx/nginx.conf
 # COPY server.cert.pem  /app/server.key.pem
 # COPY server.key.pem /app/server.cert.pem
