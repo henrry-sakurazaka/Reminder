@@ -52,9 +52,10 @@ COPY . .
 RUN npm install --global vite
 
 # ngrokをダウンロード、インストール
-RUN curl -s https://ngrok.com/download | bash
-
-RUN mv /ngrok /usr/local/bin
+RUN curl -sL https://bin.equinox.io/c/4VmDzA7iaJz/ngrok-stable-linux-amd64.zip -o ngrok.zip \
+    && unzip ngrok.zip \
+    && mv ngrok /usr/local/bin \
+    && rm ngrok.zip
 
 # Playwright のブラウザをインストール
 RUN npx playwright install --with-deps
