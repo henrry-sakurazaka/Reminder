@@ -18,7 +18,11 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-
+       
+      - name: Build Docker image
+        run: |
+          docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} -t app .
+       
       - name: Install Docker Compose
         run: |
           sudo apt-get update
@@ -112,6 +116,7 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
+
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -171,9 +176,10 @@ jobs:
   
       - name: Start ngrok tunnel
         run: |
+          ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
           ngrok http 3000 &
           sleep 5  # ngrokが立ち上がるのを待つ 
-          
+
       - name: Run E2E Tests
         run: |
           docker-compose run --rm playwright npx playwright test --reporter=list || exit 1
