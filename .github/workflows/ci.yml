@@ -149,7 +149,8 @@ jobs:
       - name: Run app container with ngrok auth token
         run: |
           docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} app
-
+          docker logs ngrok-container
+          
       - name: Show Logs
         run: docker-compose logs app
 

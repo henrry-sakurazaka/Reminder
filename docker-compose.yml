@@ -22,7 +22,7 @@ services:
       - .env
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app|| exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
