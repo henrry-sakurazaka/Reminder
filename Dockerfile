@@ -53,10 +53,10 @@ RUN npm install --global vite
 RUN apt-get update && apt-get install -y unzip
 
 # ngrok authtoken ${VITE_NGROK_AUTH_TOKEN}
-RUN curl -sL https://github.com/ngrok/ngrok/releases/download/v3.1.0/ngrok-stable-linux-amd64.tar.gz -o /tmp/ngrok.tar.gz && \
-    tar -xvzf /tmp/ngrok.tar.gz -C /tmp && \
+RUN curl -sL https://github.com/ngrok/ngrok/releases/download/v3.1.0/ngrok-v3-stable-linux-amd64.tgz -o /tmp/ngrok.tgz && \
+    tar -xzf /tmp/ngrok.tgz -C /tmp && \
     mv /tmp/ngrok /usr/local/bin && \
-    rm /tmp/ngrok.tar.gz
+    rm /tmp/ngrok.tgz
 
 # Playwright のブラウザをインストール
 RUN npx playwright install --with-deps
