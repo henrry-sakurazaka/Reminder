@@ -21,8 +21,11 @@ jobs:
        
       - name: Build Docker image
         run: |
-          docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} -t app .
-       
+          docker buildx build \
+            --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} \
+            -t app . \
+            --load
+
       - name: Install Docker Compose
         run: |
           sudo apt-get update
@@ -231,3 +234,16 @@ jobs:
       - name: Deploy to Firebase
         run: |
           firebase deploy --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+
+
+
+
+
+
+
+
+
+
+
+
+
