@@ -103,7 +103,6 @@ jobs:
 
   E2E-tests:
     runs-on: ubuntu-latest
-    needs: build
     timeout-minutes: 30
 
     steps:
@@ -144,6 +143,9 @@ jobs:
       - name: Run ngrok container
         run: docker run -d -e VITE_NGROK_AUTHTOKEN=${{ secrets.VITE_NGROK_AUTHTOKEN }} ngrok/ngrok http 80
      
+      - name: Build Docker image (App)
+        run: docker build -t app:latest .
+
       - name: Build and Start App
         run: |
           docker-compose down
