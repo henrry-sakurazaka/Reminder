@@ -145,7 +145,7 @@ jobs:
         run: |
           docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} app
 
-    - name: Show Logs
+      - name: Show Logs
         run: docker-compose logs app
 
       - name: Install Playwright browsers
