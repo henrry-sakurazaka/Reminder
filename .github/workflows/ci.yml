@@ -26,6 +26,13 @@ jobs:
             -t app . \
             --load
 
+      # - name: Run ngrok via Docker
+      #   run: |
+      #     docker run -d -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} app
+
+      - name: Run ngrok via Docker
+        run: docker run -it -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} app
+        
       - name: Install Docker Compose
         run: |
           sudo apt-get update
@@ -133,11 +140,13 @@ jobs:
             # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+      
+      - name: Pull ngrok image
+        run: docker pull ngrok/ngrok
 
-      - name: Run app container with ngrok auth token
-        run: |
-          docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} app
-
+      - name: Run ngrok container
+        run: docker run -it -e VITE_NGROK_AUTHTOKEN=${{ secrets.VITE_NGROK_AUTHTOKEN }} ngrok/ngrok http 80
+     
       - name: Build and Start App
         run: |
           docker-compose down
