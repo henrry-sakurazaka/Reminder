@@ -23,9 +23,10 @@ jobs:
         run: |
           docker buildx build \
             --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -f ./Dockerfile \
             -t app . \
             --load
-
+            
       - name: Install Docker Compose
         run: |
           sudo apt-get update
@@ -142,7 +143,10 @@ jobs:
 
       - name: Install ngrok
         run: |
-          curl -s https://ngrok.com/download | tar -xz && mv ngrok /usr/local/bin
+          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
+          unzip ngrok.zip
+          mv ngrok /usr/local/bin
+          rm ngrok.zip
 
       - name: Run ngrok container
         run: |
