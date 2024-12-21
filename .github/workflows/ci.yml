@@ -21,9 +21,18 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y docker-compose
 
+      - name: Clean Docker system
+        run: docker system prune -a -f
+    
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-             
+
+      - name: Debug: Verify Buildx
+        run: docker buildx version
+
+      - name: Debug: Print NGROK_AUTH_TOKEN
+        run: echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+               
       - name: Build Docker image
         run: |
           docker buildx build \
@@ -31,6 +40,7 @@ jobs:
             -f ./Dockerfile \
             -t app . \
             --load
+            --progress=plain
 
       - name: Create .env file
         run: |
