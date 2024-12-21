@@ -101,9 +101,9 @@ services:
     depends_on:
       - app
     environment:
-      VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN} # Ngrokのトークン
-    expose:
-      - "4040" # Ngrokの管理インターフェイス
+      NGROK_AUTH_TOKEN: ${NGROK_AUTH_TOKEN} # Ngrokのトークン
+    ports:
+      - "4040:4040" # Ngrokの管理インターフェイス
     network_mode: bridge
 
   playwright:
