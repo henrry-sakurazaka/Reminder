@@ -18,7 +18,12 @@ jobs:
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
-       
+            
+      - name: Install Docker Compose
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y docker-compose
+      
       - name: Build Docker image
         run: |
           docker buildx build \
@@ -26,11 +31,6 @@ jobs:
             -f ./Dockerfile \
             -t app . \
             --load
-            
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
 
       - name: Create .env file
         run: |
@@ -148,31 +148,24 @@ jobs:
           mv ngrok /usr/local/bin
           rm ngrok.zip
 
-      - name: Run ngrok container
-        run: |
-          docker run -d --name ngrok \
-            -e NGROK_AUTHTOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
-            ngrok/ngrok http app:3000
-      
       - name: Build Docker image (App)
         run: docker build -t app:latest .
+
+      - name: Run app container with ngrok auth token
+        run: |
+          docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -e NGROK_URL=$NGROK_URL app
+          docker logs ngrok
 
       - name: Fetch Ngrok URL
         run: |
           NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
           echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
 
-    
       - name: Build and Start App
         run: |
           docker-compose down
           docker-compose build
           docker-compose up -d
-
-      - name: Run app container with ngrok auth token
-        run: |
-          docker run -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -e NGROK_URL=$NGROK_URL app
-          docker logs ngrok
 
       - name: Show Logs
         run: docker-compose logs app
