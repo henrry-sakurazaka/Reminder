@@ -220,9 +220,9 @@ jobs:
       - name: Run app container with ngrok auth token
         run: |
           docker run -d --name app-container \
-            -e NGROK_URL=${{ env.NGROK_URL }} \
+            -e NGROK_URL=*** \
             -p 3000:3000 \
-            app
+            app:latest
 
       - name: Run app container with ngrok auth token
         run: |
