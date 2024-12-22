@@ -35,21 +35,6 @@ jobs:
           echo "Debugging NGROK_AUTH_TOKEN:"
           echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
 
-      - name: Start ngrok
-        run: |
-          docker-compose up -d ngrok
-          # ngrok が準備できるまで待機（適切な時間に調整）
-          sleep 10
-      
-      - name: Build Docker image
-        run: |
-          docker buildx build \
-            --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
-            -f ./Dockerfile \
-            -t app . \
-            --load
-            --progress=plain
-
       - name: Create .env file
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -79,7 +64,22 @@ jobs:
           set -a
           source .env
           set +a
-                 
+
+      - name: Start ngrok
+        run: |
+          docker-compose up -d ngrok
+          # ngrok が準備できるまで待機（適切な時間に調整）
+          sleep 10
+      
+      - name: Build Docker image
+        run: |
+          docker buildx build \
+            --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -f ./Dockerfile \
+            -t app . \
+            --load
+            --progress=plain
+          
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
 
@@ -167,16 +167,33 @@ jobs:
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
-      - name: Start ngrok
+       # ngrok コンテナを起動
+      - name: Start ngrok container
         run: |
-          docker-compose up -d ngrok
-          # ngrok が準備できるまで待機（適切な時間に調整）
+          docker run -d --name ngrok \
+            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -p 4040:4040 \
+            ngrok/ngrok http 3000
+          # ngrok が準備できるまで待機
           sleep 10
-      
+
       - name: Fetch Ngrok URL
         run: |
           NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
           echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
+          echo "ngrok public URL: ${NGROK_URL}" # デバッグ用出力
+      
+      # アプリの Docker イメージをビルド
+      - name: Build Docker image (App)
+        run: docker build -t app:latest .
+
+      # アプリコンテナを起動
+      - name: Run app container with ngrok auth token
+        run: |
+          docker run -d --name app-container \
+            -e NGROK_URL=${{ env.NGROK_URL }} \
+            -p 3000:3000 \
+            app
 
       - name: Run app container with ngrok auth token
         run: |
@@ -223,7 +240,6 @@ jobs:
           ls -l server.key.pem
           ls -l server.cert.pem
 
-    
       - name: Run E2E Tests
         run: |
           docker-compose run --rm playwright npx playwright test --reporter=list || exit 1
