@@ -79,7 +79,15 @@ jobs:
             -t app . \
             --load
             --progress=plain
+      - name: Start ngrok container
+        run: |
+          docker run -d --name ngrok \
+            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -p 4040:4040 \
+            ngrok/ngrok http 3000
           
+          sleep 10
+      
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
 
@@ -167,6 +175,15 @@ jobs:
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
+      - name: Build Docker image (App)
+        run: |
+          docker buildx build \
+            --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -f ./Dockerfile \
+            -t app . \
+            --load \
+            --progress=plain
+            
        # ngrok コンテナを起動
       - name: Start ngrok container
         run: |
