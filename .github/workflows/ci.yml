@@ -71,16 +71,22 @@ jobs:
           # ngrok が準備できるまで待機（適切な時間に調整）
           sleep 10
 
+      - name: Fetch Ngrok URL
+        run: |
+          NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+          echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
+    
+      - name: Use Ngrok URL
+        run: |
+          echo "Ngrok URL is ${{ env.NGROK_URL }}"
+
       - name: Debug current directory
         run: |
           pwd
           ls -la
           
       - name: Build Docker image (App)
-        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} .
-             docker buildx build -f ./Dockerfile .
-             docker buildx build -t app:latest .
-             docker buildx build --load --progress=plain .
+        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
     
       - name: Start ngrok container
         run: |
@@ -178,17 +184,20 @@ jobs:
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
+      - name: Fetch Ngrok URL
+        run: |
+          NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+          echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
+      
+      - name: Use Ngrok URL
+        run: |
+          echo "Ngrok URL is ${{ env.NGROK_URL }}"
+
       - name: Debug current directory
         run: |
           pwd
           ls -la
-
-      - name: Build Docker image (App)
-        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} .
-             docker buildx build -f ./Dockerfile .
-             docker buildx build -t app:latest .
-             docker buildx build --load --progress=plain .
-  
+      
       - name: Build Docker image (App)
         run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
     
@@ -202,11 +211,6 @@ jobs:
           # ngrok が準備できるまで待機
           sleep 10
 
-      - name: Fetch Ngrok URL
-        run: |
-          NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-          echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
-          echo "ngrok public URL: ${NGROK_URL}" # デバッグ用出力
       
       # アプリの Docker イメージをビルド
       - name: Build Docker image (App)
