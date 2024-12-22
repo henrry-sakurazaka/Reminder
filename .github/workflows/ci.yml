@@ -27,12 +27,14 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
 
-      - name: Debug: Verify Buildx
+      - name: Verify Docker Buildx Version
         run: docker buildx version
 
-      - name: Debug: Print NGROK_AUTH_TOKEN
-        run: echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
-               
+      - name: Validate NGROK_AUTH_TOKEN
+        run: |
+          echo "Debugging NGROK_AUTH_TOKEN:"
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+            
       - name: Build Docker image
         run: |
           docker buildx build \
