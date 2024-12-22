@@ -91,10 +91,10 @@ jobs:
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
-            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -e NGROK_AUTH_TOKEN=*** \
             -p 4040:4040 \
             ngrok/ngrok http 3000
-          
+
           sleep 10
       
       - name: Create Service Account Key
@@ -206,13 +206,12 @@ jobs:
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
-            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -e NGROK_AUTH_TOKEN=*** \
             -p 4040:4040 \
             ngrok/ngrok http 3000
-          # ngrok が準備できるまで待機
+       
           sleep 10
 
-      
       # アプリの Docker イメージをビルド
       - name: Build Docker image (App)
         run: docker build -t app:latest .
