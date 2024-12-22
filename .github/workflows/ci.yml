@@ -71,14 +71,16 @@ jobs:
           # ngrok が準備できるまで待機（適切な時間に調整）
           sleep 10
       
-      - name: Build Docker image
+      - name: Build Docker image (App)
         run: |
           docker buildx build \
             --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
-            -f ./Dockerfile \
-            -t app . \
-            --load
+            --file ./Dockerfile \
+            --tag app:latest \
+            . \
+            --load \
             --progress=plain
+            
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
@@ -179,11 +181,12 @@ jobs:
         run: |
           docker buildx build \
             --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
-            -f ./Dockerfile \
-            -t app . \
+            --file ./Dockerfile \
+            --tag app:latest \
+            . \
             --load \
             --progress=plain
-            
+    
        # ngrok コンテナを起動
       - name: Start ngrok container
         run: |
