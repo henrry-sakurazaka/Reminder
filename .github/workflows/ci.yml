@@ -150,8 +150,6 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
       
-      # - name: Pull ngrok image
-      #   run: docker pull ngrok/ngrok
 
       - name: Install ngrok
         run: |
