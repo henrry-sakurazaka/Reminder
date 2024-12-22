@@ -86,8 +86,8 @@ jobs:
           ls -la
           
       - name: Build Docker image (App)
-        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
-    
+        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=*** -f ./Dockerfile -t app:latest --load --progress=plain .
+        
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
@@ -199,7 +199,8 @@ jobs:
           ls -la
       
       - name: Build Docker image (App)
-        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
+        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=*** -f ./Dockerfile -t app:latest --load --progress=plain .
+
     
        # ngrok コンテナを起動
       - name: Start ngrok container
