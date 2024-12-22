@@ -34,7 +34,13 @@ jobs:
         run: |
           echo "Debugging NGROK_AUTH_TOKEN:"
           echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
-            
+
+      - name: Start ngrok
+        run: |
+          docker-compose up -d ngrok
+          # ngrok が準備できるまで待機（適切な時間に調整）
+          sleep 10
+      
       - name: Build Docker image
         run: |
           docker buildx build \
@@ -161,6 +167,12 @@ jobs:
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
+      - name: Start ngrok
+        run: |
+          docker-compose up -d ngrok
+          # ngrok が準備できるまで待機（適切な時間に調整）
+          sleep 10
+      
       - name: Fetch Ngrok URL
         run: |
           NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
