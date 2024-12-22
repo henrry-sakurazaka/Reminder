@@ -78,7 +78,8 @@ jobs:
           
       - name: Build Docker image (App)
         run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} .
-             docker buildx build -f ./Dockerfile -t app:latest .
+             docker buildx build -f ./Dockerfile .
+             docker buildx build -t app:latest .
              docker buildx build --load --progress=plain .
     
       - name: Start ngrok container
@@ -184,7 +185,8 @@ jobs:
 
       - name: Build Docker image (App)
         run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} .
-             docker buildx build -f ./Dockerfile -t app:latest .
+             docker buildx build -f ./Dockerfile .
+             docker buildx build -t app:latest .
              docker buildx build --load --progress=plain .
   
       - name: Build Docker image (App)
