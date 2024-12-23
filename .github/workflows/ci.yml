@@ -72,7 +72,7 @@ jobs:
       - name: Validate NGROK_AUTH_TOKEN
         run: |
           echo "Debugging NGROK_AUTH_TOKEN:"
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+          echo "NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN"
       
       - name: Set up ngrok
         run: |
@@ -101,7 +101,7 @@ jobs:
           ls -la
           
       - name: Build Docker image (App)
-        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=*** -f ./Dockerfile -t app:latest --load --progress=plain .
+        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
         
       - name: Start ngrok container
         run: |
@@ -200,7 +200,7 @@ jobs:
       - name: Validate NGROK_AUTH_TOKEN
         run: |
           echo "Debugging NGROK_AUTH_TOKEN:"
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+          echo "NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN"
     
       - name: Set up ngrok
         run: |
@@ -246,7 +246,7 @@ jobs:
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
-            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
             -p 4040:4040 \
             ngrok/ngrok http 3000
        
