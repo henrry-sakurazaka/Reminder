@@ -67,19 +67,10 @@ RUN npx playwright install --with-deps
 
 RUN npx playwright install chromium
 
-FROM mcr.microsoft.com/playwright:v1.49.0-jammy
-
-RUN npm install playwright@1.49.0
-
-# 必要なテストファイルや依存関係をコピー
-COPY ./tests /app/tests
-COPY package*.json /app/
-
-# 依存関係をインストール
-RUN npm install
-
 # デフォルトコマンド
 CMD ["npx", "playwright", "test", "npm", "run", "dev"]
+
+# RUN npm install -g firebase-tools
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
