@@ -280,6 +280,7 @@ jobs:
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
           NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          NGROK_URL: ${{ env.NGROK_URL }}
         continue-on-error: false
      
       # Playwright テストログ（失敗した場合のみ）
