@@ -208,7 +208,7 @@ jobs:
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
-            -e NGROK_AUTH_TOKEN=${{ NGROK_AUTH_TOKEN }} \
+            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
             -p 4040:4040 \
             ngrok/ngrok http 3000
        
@@ -222,15 +222,15 @@ jobs:
       - name: Run app container with ngrok auth token
         run: |
           docker run -d --name app-container \
-            -e NGROK_URL=${{ NGROK_URL }} \
+            -e NGROK_URL=${{ env.NGROK_URL }} \
             -p 3000:3000 \
             app:latest
 
       - name: Run app container with ngrok auth token
         run: |
-          echo "NGROK_URL=${{ NGROK_URL }} # if needed for debugging
+          echo "NGROK_URL=${{ env.NGROK_URL }} # if needed for debugging
 
-          docker run -e NGROK_AUTH_TOKEN=${{ NGROK_AUTH_TOKEN}} -e NGROK_URL=${{ NGROK_URL }} app
+          docker run -e NGROK_AUTH_TOKEN=${{  secrets.NGROK_AUTH_TOKEN }} -e NGROK_URL=${{ env.NGROK_URL }} app
 
       - name: Build and Start App
         run: |
