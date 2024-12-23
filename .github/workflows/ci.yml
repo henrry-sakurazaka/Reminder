@@ -73,7 +73,9 @@ jobs:
       
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+          ngrok config add-authtoken $NGROK_AUTH_TOKEN
+           env:
+            NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: Start ngrok
         run: |
@@ -168,6 +170,12 @@ jobs:
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
+      
+      - name: Download and install ngrok
+        run: |
+          curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
+          tar -xvf ngrok.tgz -C /usr/local/bin
+          chmod +x /usr/local/bin/ngrok
 
       - name: Create .env file and keys
         run: |
@@ -182,7 +190,6 @@ jobs:
             # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-      
 
       - name: Validate NGROK_AUTH_TOKEN
         run: |
@@ -191,7 +198,9 @@ jobs:
     
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
+          ngrok config add-authtoken $NGROK_AUTH_TOKEN
+           env:
+            NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: Install jq
         run: sudo apt-get install jq
