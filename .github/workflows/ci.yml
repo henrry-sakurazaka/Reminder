@@ -81,7 +81,7 @@ jobs:
         run: |
           ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
         env:
-        VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
 
       - name: Start ngrok
         run: |
@@ -209,7 +209,7 @@ jobs:
         run: |
           ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
         env:
-        VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
 
       - name: Install jq
         run: sudo apt-get install jq
