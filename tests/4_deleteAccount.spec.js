@@ -16,7 +16,7 @@ import { test, expect } from '@playwright/test';
             body: JSON.stringify({ success: true }),
         });
     });
-    const baseUrl = process.env.VITE_REACT_APP_API_URL || 'http://localhost:3000';
+    const baseUrl = process.env.NGROK_URL || 'http://localhost:3000';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
