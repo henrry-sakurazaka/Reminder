@@ -119,7 +119,7 @@ services:
     env_file:
       - .env
     build:
-      context: ./playwright
+      context: .
       dockerfile: Dockerfile
     volumes:
       - ./tests:/app/tests
