@@ -32,8 +32,7 @@ jobs:
 
       - name: Install ngrok
         run: |
-          sudo apt-get update
-          sudo apt-get install -y ngrok
+          curl -s https://ngrok.com/download | sudo bash
 
       - name: Validate NGROK_AUTH_TOKEN
         run: |
