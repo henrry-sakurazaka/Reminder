@@ -30,21 +30,6 @@ jobs:
       - name: Verify Docker Buildx Version
         run: docker buildx version
 
-      - name: Download and install ngrok
-        run: |
-          curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
-          tar -xvf ngrok.tgz -C /usr/local/bin
-          chmod +x /usr/local/bin/ngrok
-
-      - name: Validate NGROK_AUTH_TOKEN
-        run: |
-          echo "Debugging NGROK_AUTH_TOKEN:"
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
-      
-      - name: Set up ngrok
-        run: |
-          ngrok config add-authtoken $NGROK_AUTH_TOKEN
-
       - name: Create .env file
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -74,6 +59,21 @@ jobs:
           set -a
           source .env
           set +a
+
+      - name: Download and install ngrok
+        run: |
+          curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
+          tar -xvf ngrok.tgz -C /usr/local/bin
+          chmod +x /usr/local/bin/ngrok
+
+      - name: Validate NGROK_AUTH_TOKEN
+        run: |
+          echo "Debugging NGROK_AUTH_TOKEN:"
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+      
+      - name: Set up ngrok
+        run: |
+          ngrok config add-authtoken $NGROK_AUTH_TOKEN
 
       - name: Start ngrok
         run: |
@@ -169,15 +169,6 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
-      - name: Validate NGROK_AUTH_TOKEN
-        run: |
-          echo "Debugging NGROK_AUTH_TOKEN:"
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
-    
-      - name: Set up ngrok
-        run: |
-          ngrok config add-authtoken $NGROK_AUTH_TOKEN
-
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -192,6 +183,16 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
       
+
+      - name: Validate NGROK_AUTH_TOKEN
+        run: |
+          echo "Debugging NGROK_AUTH_TOKEN:"
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+    
+      - name: Set up ngrok
+        run: |
+          ngrok config add-authtoken $NGROK_AUTH_TOKEN
+
       - name: Install jq
         run: sudo apt-get install jq
     
