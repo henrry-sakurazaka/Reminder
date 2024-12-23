@@ -54,6 +54,9 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
+      - name: Debug .env file
+        run: cat .env
+        
       - name: Load Environment Variables
         run: |
           set -a
@@ -76,9 +79,9 @@ jobs:
       
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken $VITE_NGROK_AUTH_TOKEN
-           env:
-            VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
+        env:
+        VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
 
       - name: Start ngrok
         run: |
@@ -204,9 +207,9 @@ jobs:
     
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken $VITE_NGROK_AUTH_TOKEN
-           env:
-            VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
+        env:
+        VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
 
       - name: Install jq
         run: sudo apt-get install jq
