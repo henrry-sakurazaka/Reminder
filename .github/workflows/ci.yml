@@ -273,7 +273,7 @@ jobs:
         run: |
           docker run -e NGROK_URL=${{ env.NGROK_URL }} \
             mcr.microsoft.com/playwright:v1.49.0-jammy  \
-            npx playwright test
+            npx playwright test ./tests
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
