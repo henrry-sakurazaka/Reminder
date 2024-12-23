@@ -97,6 +97,8 @@ jobs:
       - name: Use Ngrok URL
         run: |
           echo "Ngrok URL is ${{ env.NGROK_URL }}"
+        env:
+          NGROK_URL: ${{ env.NGROK_URL }}
 
       - name: Debug current directory
         run: |
@@ -230,11 +232,14 @@ jobs:
       - name: Fetch Ngrok URL
         run: |
           NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+          echo "Ngrok URL fetched: $NGROK_URL"
           echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
       
       - name: Use Ngrok URL
         run: |
           echo "Ngrok URL is ${{ env.NGROK_URL }}"
+        env:
+          NGROK_URL: ${{ env.NGROK_URL }}
 
       - name: Debug current directory
         run: |
@@ -260,18 +265,13 @@ jobs:
         run: docker build -t app:latest .
 
       # アプリコンテナを起動
-      - name: Run app container with ngrok auth token
+      - name: Run app container with ngrok auth and URL
         run: |
           docker run -d --name app-container \
+            -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} \
             -e NGROK_URL=${{ env.NGROK_URL }} \
             -p 3000:3000 \
             app:latest
-
-      - name: Run app container with ngrok auth token
-        run: |
-          echo "NGROK_URL=${{ env.NGROK_URL }} # if needed for debugging
-
-          docker run -e VITE_NGROK_AUTH_TOKEN=${{  secrets.VITE_NGROK_AUTH_TOKEN }} -e NGROK_URL=${{ env.NGROK_URL }} app
 
       - name: Build and Start App
         run: |
