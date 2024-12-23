@@ -73,7 +73,7 @@ jobs:
       
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken $NGROK_AUTH_TOKEN
+          ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: Start ngrok
         run: |
@@ -191,7 +191,7 @@ jobs:
     
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken $NGROK_AUTH_TOKEN
+          ngrok config add-authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: Install jq
         run: sudo apt-get install jq
