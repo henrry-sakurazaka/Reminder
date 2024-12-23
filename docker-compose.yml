@@ -114,10 +114,15 @@ services:
     networks:
       - test-network
     working_dir: /app
-    volumes:
-      - .:/app
+    # volumes:
+    #   - .:/app
     env_file:
       - .env
+    build:
+      context: ./playwright
+      dockerfile: Dockerfile
+    volumes:
+      - ./tests:/app/tests
     environment:
       - NGROK_URL=${NGROK_URL} 
     command: npx playwright test
