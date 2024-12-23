@@ -30,6 +30,11 @@ jobs:
       - name: Verify Docker Buildx Version
         run: docker buildx version
 
+      - name: Install ngrok
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y ngrok
+
       - name: Validate NGROK_AUTH_TOKEN
         run: |
           echo "Debugging NGROK_AUTH_TOKEN:"
