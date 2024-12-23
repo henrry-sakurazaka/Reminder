@@ -118,6 +118,8 @@ services:
       - .:/app
     env_file:
       - .env
+    environment:
+      - NGROK_URL=${NGROK_URL} 
     command: npx playwright test
 
 networks:

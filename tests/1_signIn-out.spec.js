@@ -11,6 +11,8 @@ import { test, expect } from '@playwright/test';
     const baseUrl = process.env.NGROK_URL || 'http://localhost:3000';
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
+
+    console.log(`NGROK_URL in test: ${process.env.NGROK_URL}`);
     
     await page.waitForTimeout(5000); 
     await page.goto(`${baseUrl}/UserAuth`, {
