@@ -30,9 +30,11 @@ jobs:
       - name: Verify Docker Buildx Version
         run: docker buildx version
 
-      - name: Install ngrok
+      - name: Download and install ngrok
         run: |
-          curl -s https://ngrok.com/download | sudo bash
+          curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
+          tar -xvf ngrok.tgz -C /usr/local/bin
+          chmod +x /usr/local/bin/ngrok
 
       - name: Validate NGROK_AUTH_TOKEN
         run: |
