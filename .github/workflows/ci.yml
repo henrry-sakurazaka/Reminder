@@ -49,6 +49,7 @@ jobs:
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
+          echo "VITE_NGROK_URL=${{ secrets.VITE_NGROK_URL }}" >> .env
 
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
@@ -232,6 +233,8 @@ jobs:
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
+          echo "VITE_NGROK_URL=${{ secrets.VITE_NGROK_URL }}" >> .env
+
 
             # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
