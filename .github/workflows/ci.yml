@@ -196,9 +196,12 @@ jobs:
 
       - name: Install ngrok (latest version)
         run: |
-          curl -s https://ngrok.com/download | tar xz -C /usr/local/bin
-          ngrok update  # 最新バージョンをインストール
-
+          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
+          unzip ngrok.zip
+          mv ngrok /usr/local/bin
+          rm ngrok.zip
+          ngrok update  # ngrok を最新バージョンにアップデート
+      
       # - name: Install ngrok
       #   run: |
       #     curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
