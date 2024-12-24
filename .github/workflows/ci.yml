@@ -226,6 +226,7 @@ jobs:
       
       - name: Start ngrok and fetch URL
         run: |
+          ngrok config add-authtoken $VITE_NGROK_AUTH_TOKEN
           ngrok http 3000 > ngrok.log 2>&1 &
           sleep 5
           NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
