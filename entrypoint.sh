@@ -17,13 +17,21 @@ if [ "$VITE_NODE_ENV" == "production" ]; then
   npm run dev
 fi
 
-ngrok http 3000 > /dev/null &
 
+# ngrok をバックグラウンドで起動
+ngrok http 3000 > ngrok.log 2>&1 &
 sleep 5
+
+# ngrok の URL を取得
 NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
 
-echo "Ngrok URL is $NGROK_URL"
-export NGROK_URL=$NGROK_URL
-
-exec "$@"
+# URL を環境変数としてエクスポート
+if [ -n "$NGROK_URL" ]; then
+  echo "Ngrok URL fetched: $NGROK_URL"
+  echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
+else
+  echo "Error: Failed to fetch ngrok URL"
+  cat ngrok.log
+  exit 1
+fi
 
