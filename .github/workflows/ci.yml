@@ -239,7 +239,7 @@ jobs:
             # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-      
+
       - name: Start ngrok and fetch URL
         run: |
           ngrok authtoken $NGROK_AUTH_TOKEN
