@@ -106,7 +106,7 @@ services:
     environment:
       NGROK_AUTH_TOKEN: ${NGROK_AUTH_TOKEN} # Ngrokのトークン
     ports:
-      - "4040:4040" # Ngrokの管理インターフェイス
+      - "4041:4040" # Ngrokの管理インターフェイス
     network_mode: bridge
 
   playwright:
