@@ -9,7 +9,7 @@ services:
           cpus: "0.5"
           memory: 512M
     ports:
-      - "3000:3000" 
+      - "3001:3000" 
     networks:
       - test-network
     volumes:
@@ -33,6 +33,9 @@ services:
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0
+      VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN}
+      NGROK_URL: ${NGROK_URL} 
+
     depends_on:
       - firebase
    
