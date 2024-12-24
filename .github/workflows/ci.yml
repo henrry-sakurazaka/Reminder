@@ -48,8 +48,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
-          echo "VITE_NGROK_URL=${{ secrets.VITE_NGROK_URL }}" >> .env
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+          echo "NGROK_URL=${{ secrets.NGROK_URL }}" >> .env
 
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
@@ -73,16 +73,16 @@ jobs:
       - name: Verify ngrok installation
         run: ngrok version
 
-      - name: Validate VITE_NGROK_AUTH_TOKEN
+      - name: Validate NGROK_AUTH_TOKEN
         run: |
-          echo "Debugging VITE_NGROK_AUTH_TOKEN:"
-          echo "VITE_NGROK_AUTH_TOKEN=$VITE_NGROK_AUTH_TOKEN"
+          echo "Debugging NGROK_AUTH_TOKEN:"
+          echo "NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN"
       
       - name: Set up ngrok
         run: |
-          ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
+          ngrok config add-authtoken "${{ secrets.NGROK_AUTH_TOKEN }}"
         env:
-          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: Start ngrok
         run: |
@@ -107,12 +107,12 @@ jobs:
           ls -la
           
       - name: Build Docker image (App)
-        run: docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
+        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
         
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
-            -e VITE_NGROK_AUTH_TOKEN=$VITE_NGROK_AUTH_TOKEN \
+            -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
             -p 4040:4040 \
             ngrok/ngrok http 3000
 
@@ -232,8 +232,8 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
-          echo "VITE_NGROK_URL=${{ secrets.VITE_NGROK_URL }}" >> .env
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+          echo "NGROK_URL=${{ secrets.NGROK_URL }}" >> .env
 
 
             # 証明書ファイルの作成
@@ -242,7 +242,7 @@ jobs:
       
       - name: Start ngrok and fetch URL
         run: |
-          ngrok authtoken $VITE_NGROK_AUTH_TOKEN
+          ngrok authtoken $NGROK_AUTH_TOKEN
           ngrok http 3000 > ngrok.log 2>&1 &
           sleep 5
           NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
@@ -255,7 +255,7 @@ jobs:
             exit 1
           fi
         env:
-          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
   
       - name: Use Ngrok URL
         run: |
@@ -267,12 +267,12 @@ jobs:
         run: cat .env
         
       - name: Set up ngrok authtoken
-        run: ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+        run: ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: test ngrok authtoken
         run: |
-          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
-          ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}"
+          ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
 
       - name: Entrypoint
         run: ./entrypoint.sh
@@ -302,14 +302,14 @@ jobs:
           ls -la
       
       - name: Buildx build Docker image (App)
-        run: docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN}} -f ./Dockerfile -t app:latest --load --progress=plain .
+        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN}} -f ./Dockerfile -t app:latest --load --progress=plain .
 
     
        # ngrok コンテナを起動
       - name: Start ngrok container
         run: |
           docker run -d --name ngrok \
-            -e VITE_NGROK_AUTH_TOKEN=$VITE_NGROK_AUTH_TOKEN \
+            -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
             -p 4041:4040 \
             ngrok/ngrok http 3000
        
@@ -323,7 +323,7 @@ jobs:
       - name: Run app container with ngrok auth and URL
         run: |
           docker run -d --name app-container \
-            -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} \
+            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
             -e NGROK_URL=${{ env.NGROK_URL }} \
             -p 3002:3000 \
             app:latest
