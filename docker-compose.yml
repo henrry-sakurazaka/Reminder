@@ -8,8 +8,8 @@ services:
         limits:
           cpus: "0.5"
           memory: 512M
-    ports:
-      - "3002:3000" 
+    expose:
+      - "3000"
     networks:
       - test-network
     volumes:
