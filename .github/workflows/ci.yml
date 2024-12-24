@@ -206,9 +206,11 @@ jobs:
           mkdir -p /home/runner/.ngrok
           mv ngrok /home/runner/.ngrok/ngrok
           rm ngrok.zip
+          # ngrokをパスに追加
+          export PATH=$PATH:/home/runner/.ngrok
           # インストールされたバージョンを確認
-          /home/runner/.ngrok/ngrok version
-            
+          ngrok version
+      
       # - name: Install ngrok
       #   run: |
       #     curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
