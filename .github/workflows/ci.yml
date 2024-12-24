@@ -227,10 +227,8 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
-      - name: Validate VITE_NGROK_AUTH_TOKEN
-        run: |
-          echo "Debugging VITE_NGROK_AUTH_TOKEN:"
-          echo "VITE_NGROK_AUTH_TOKEN=$VITE_NGROK_AUTH_TOKEN"
+      - name: Set up ngrok authtoken
+        run: ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
     
       - name: Set up ngrok
         run: |
