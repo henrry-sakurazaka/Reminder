@@ -9,7 +9,7 @@ services:
           cpus: "0.5"
           memory: 512M
     ports:
-      - "3001:3000" 
+      - "3002:3000" 
     networks:
       - test-network
     volumes:
