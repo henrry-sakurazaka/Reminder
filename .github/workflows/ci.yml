@@ -270,7 +270,7 @@ jobs:
           docker run -d --name app-container \
             -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} \
             -e NGROK_URL=${{ env.NGROK_URL }} \
-            -p 3001:3000 \
+            -p 3002:3000 \
             app:latest
 
       - name: Build and Start App
