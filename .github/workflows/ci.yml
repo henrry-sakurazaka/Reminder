@@ -207,7 +207,7 @@ jobs:
           mv ngrok /home/runner/.ngrok/ngrok
           rm ngrok.zip
           # ngrokをパスに追加
-          export PATH=$PATH:/home/runner/.ngrok
+          echo "/home/runner/.ngrok" >> $GITHUB_PATH
           # インストールされたバージョンを確認
           ngrok version
       
