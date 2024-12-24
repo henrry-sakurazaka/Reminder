@@ -191,11 +191,24 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
       
-      - name: Download and install ngrok
+      - name: Install jq
+        run: sudo apt-get install jq
+  
+      - name: Install ngrok
         run: |
-          curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
-          tar -xvf ngrok.tgz -C /usr/local/bin
-          chmod +x /usr/local/bin/ngrok
+          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
+          unzip ngrok.zip
+          mv ngrok /usr/local/bin
+          rm ngrok.zip
+  
+      - name: Verify ngrok installation
+        run: ngrok version
+
+      # - name: Download and install ngrok
+      #   run: |
+      #     curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
+      #     tar -xvf ngrok.tgz -C /usr/local/bin
+      #     chmod +x /usr/local/bin/ngrok
 
       - name: Verify ngrok installation
         run: ngrok version
@@ -224,19 +237,6 @@ jobs:
           ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
         env:
           VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
-
-      - name: Install jq
-        run: sudo apt-get install jq
-    
-      - name: Install ngrok
-        run: |
-          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
-          unzip ngrok.zip
-          mv ngrok /usr/local/bin
-          rm ngrok.zip
-
-      - name: Verify ngrok installation
-        run: ngrok version
 
       - name: Build Docker image (App)
         run: docker build -t app:latest .
