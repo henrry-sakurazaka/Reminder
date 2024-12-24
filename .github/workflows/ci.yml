@@ -229,12 +229,6 @@ jobs:
 
       - name: Set up ngrok authtoken
         run: ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
-    
-      - name: Set up ngrok
-        run: |
-          ngrok config add-authtoken "${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
-        env:
-          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
 
       - name: Build Docker image (App)
         run: docker build -t app:latest .
