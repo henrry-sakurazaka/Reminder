@@ -238,7 +238,7 @@ jobs:
             exit 1
           fi
         env:
-          VIRE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
   
       - name: Use Ngrok URL
         run: |
