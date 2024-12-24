@@ -59,6 +59,8 @@ RUN apt-get update && apt-get install -y wget && \
     rm /tmp/ngrok.tgz && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
+RUN apt-get update && apt-get install -y jq
+
 ARG NGROK_AUTH_TOKEN
 ENV NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN
 
