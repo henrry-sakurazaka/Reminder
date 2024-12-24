@@ -227,9 +227,17 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
-      - name: Set up ngrok authtoken
-        run: ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+      - name: Debug .env file contents
+        run: cat .env
 
+      - name: Add ngrok authtoken
+        run: ngrok config add-authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+
+      - name: test ngrok authtoken
+        run: |
+          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}"
+          ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+  
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
@@ -263,7 +271,7 @@ jobs:
           pwd
           ls -la
       
-      - name: Build Docker image (App)
+      - name: Buildx build Docker image (App)
         run: docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN}} -f ./Dockerfile -t app:latest --load --progress=plain .
 
     
