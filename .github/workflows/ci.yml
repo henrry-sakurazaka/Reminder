@@ -194,18 +194,18 @@ jobs:
       - name: Install jq
         run: sudo apt-get install jq
 
-      - name: Install latest ngrok v3.2.0+
+      - name: Install latest ngrok
         run: |
           # 古いngrokの削除
           rm -f /usr/local/bin/ngrok
           rm -rf /home/runner/.ngrok
           # 最新バージョンのngrokを公式サイトからダウンロード
-          curl -s https://ngrok-agent.s3.amazonaws.com/ngrok-stable-linux-amd64.tgz -o ngrok.tgz
-          tar -xvzf ngrok.tgz
+          curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o ngrok.zip
+          unzip ngrok.zip
           # ngrokをインストール先ディレクトリに移動
           mkdir -p /home/runner/.ngrok
           mv ngrok /home/runner/.ngrok/ngrok
-          rm ngrok.tgz
+          rm ngrok.zip
           # ngrokをパスに追加
           echo "/home/runner/.ngrok" >> $GITHUB_PATH
           # パスが正しいことを確認
