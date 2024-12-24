@@ -17,4 +17,13 @@ if [ "$VITE_NODE_ENV" == "production" ]; then
   npm run dev
 fi
 
+ngrok http 3000 > /dev/null &
+
+sleep 5
+NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
+
+echo "Ngrok URL is $NGROK_URL"
+export NGROK_URL=$NGROK_URL
+
+exec "$@"
 
