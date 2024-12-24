@@ -229,9 +229,9 @@ jobs:
 
       - name: Debug .env file contents
         run: cat .env
-
-      - name: Add ngrok authtoken
-        run: ngrok config add-authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
+        
+      - name: Set up ngrok authtoken
+        run: ngrok authtoken ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
 
       - name: test ngrok authtoken
         run: |
