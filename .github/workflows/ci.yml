@@ -256,6 +256,7 @@ jobs:
       - name: Run Playwright tests
         run: |
           NGROK_URL=${{ env.NGROK_URL }}  # 環境変数として指定
+          export NGROK_URL=$NGROK_URL
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
