@@ -198,13 +198,15 @@ jobs:
         run: |
           # 古いngrokの削除
           rm -f /usr/local/bin/ngrok
-          # 最新バージョンをインストール
+          rm -f /home/runner/.ngrok/ngrok
+          # 最新バージョンのngrokをインストール
           curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
           unzip ngrok.zip
-          mv ngrok /usr/local/bin
+          mv ngrok /home/runner/.ngrok/ngrok
           rm ngrok.zip
           # インストールされたバージョンを確認
-          ngrok version
+          /home/runner/.ngrok/ngrok version
+      
        
       # - name: Install ngrok
       #   run: |
