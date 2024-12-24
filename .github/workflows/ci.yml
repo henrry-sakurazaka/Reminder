@@ -193,13 +193,18 @@ jobs:
       
       - name: Install jq
         run: sudo apt-get install jq
-  
-      - name: Install ngrok
+
+      - name: Install ngrok (latest version)
         run: |
-          curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
-          unzip ngrok.zip
-          mv ngrok /usr/local/bin
-          rm ngrok.zip
+          curl -s https://ngrok.com/download | tar xz -C /usr/local/bin
+          ngrok update  # 最新バージョンをインストール
+
+      # - name: Install ngrok
+      #   run: |
+      #     curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
+      #     unzip ngrok.zip
+      #     mv ngrok /usr/local/bin
+      #     rm ngrok.zip
   
       - name: Verify ngrok installation
         run: ngrok version
@@ -217,12 +222,6 @@ jobs:
             # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-
-      # - name: Fetch Ngrok URL
-      #   run: |
-      #     NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-      #     echo "Ngrok URL fetched: $NGROK_URL"
-      #     echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
       
       - name: Start ngrok and fetch URL
         run: |
