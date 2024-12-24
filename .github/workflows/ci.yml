@@ -260,6 +260,8 @@ jobs:
             cat ngrok.log
             exit 1
           fi
+          ngrok authtoken --help
+
         env:
           NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
   
@@ -371,6 +373,7 @@ jobs:
       - name: Run E2E Tests
         run: |
           docker run -e NGROK_URL=${{ env.NGROK_URL }} \
+            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
             mcr.microsoft.com/playwright:v1.49.0-jammy  \
             npx playwright test ./tests
       
