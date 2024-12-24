@@ -23,7 +23,7 @@ services:
     entrypoint: ./entrypoint.sh
     healthcheck:
       # test: ["CMD-SHELL", "curl -k -v https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app || exit 1"]
-      test: ["CMD-SHELL", "curl -k -v $NGROK_URL || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v $VITE_NGROK_URL || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -35,7 +35,7 @@ services:
       command: vite --https
       VITE_HOST: 0.0.0.0
       VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN}
-      NGROK_URL: ${NGROK_URL} 
+      VITE_NGROK_URL: ${VITE_NGROK_URL} 
 
     depends_on:
       - firebase
@@ -81,31 +81,13 @@ services:
       - .env
   # command: /bin/sh -c "while ! curl --silent --fail http://certbot:80/.well-known/acme-challenge/health-check; do echo 'Waiting for certbot to issue certificate...'; sleep 5; done; nginx -g 'daemon off;'"
 
-  # certbot:
-  #   image: certbot/certbot
-  #   container_name: certbot
-  #   volumes:
-  #     - ./data/certbot/conf:/etc/letsencrypt
-  #     - ./data/certbot/www:/var/www/certbot
-  #   entrypoint: "/bin/sh -c 'trap exit TERM; certbot certonly --standalone --agree-tos --no-eff-email --email vasto.mar3xc@gmail.com -d offsetcodecraft.com; sleep 12h & wait $${!};'"
-  #   restart: unless-stopped
-
-  # certbot_renew:
-  # image: certbot/certbot
-  # container_name: certbot_renew
-  # volumes:
-  #   - ./data/certbot/conf:/etc/letsencrypt
-  #   - ./data/certbot/www:/var/www/certbot
-  # entrypoint: "/bin/sh -c 'trap exit TERM; while :; do certbot renew; sleep 12h & wait $${!}; done;'"
-  # restart: unless-stopped
-
   ngrok:
     image: ngrok/ngrok
     command: http app:3000
     depends_on:
       - app
     environment:
-      NGROK_AUTH_TOKEN: ${NGROK_AUTH_TOKEN} # Ngrokのトークン
+      VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN} # Ngrokのトークン
     ports:
       - "4041:4040" # Ngrokの管理インターフェイス
     network_mode: bridge
@@ -118,8 +100,6 @@ services:
     networks:
       - test-network
     working_dir: /app
-    # volumes:
-    #   - .:/app
     env_file:
       - .env
     build:
@@ -128,9 +108,10 @@ services:
     volumes:
       - ./tests:/app/tests
     environment:
-      - NGROK_URL=${NGROK_URL} 
+      - VITE_NGROK_URL=${VITE_NGROK_URL} 
     command: npx playwright test
 
 networks:
   test-network:
     driver: bridge
+
