@@ -307,7 +307,7 @@ jobs:
         run: |
           docker run -d --name ngrok \
             -e VITE_NGROK_AUTH_TOKEN=$VITE_NGROK_AUTH_TOKEN \
-            -p 4040:4040 \
+            -p 4041:4040 \
             ngrok/ngrok http 3000
        
           sleep 10
