@@ -23,7 +23,7 @@ services:
     entrypoint: ./entrypoint.sh
     healthcheck:
       # test: ["CMD-SHELL", "curl -k -v https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app || exit 1"]
-      test: ["CMD-SHELL", "curl -k -v $VITE_NGROK_URL || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v $NGROK_URL || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -34,8 +34,8 @@ services:
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0
-      VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN}
-      VITE_NGROK_URL: ${VITE_NGROK_URL} 
+      NGROK_AUTH_TOKEN: ${NGROK_AUTH_TOKEN}
+      NGROK_URL: ${NGROK_URL} 
 
     depends_on:
       - firebase
@@ -87,7 +87,7 @@ services:
     depends_on:
       - app
     environment:
-      VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN} # Ngrokのトークン
+      NGROK_AUTH_TOKEN: ${NGROK_AUTH_TOKEN} # Ngrokのトークン
     ports:
       - "4041:4040" # Ngrokの管理インターフェイス
     network_mode: bridge
@@ -108,7 +108,7 @@ services:
     volumes:
       - ./tests:/app/tests
     environment:
-      - VITE_NGROK_URL=${VITE_NGROK_URL} 
+      - NGROK_URL=${NGROK_URL} 
     command: npx playwright test
 
 networks:
