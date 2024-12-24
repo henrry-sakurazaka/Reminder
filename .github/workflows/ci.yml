@@ -202,12 +202,13 @@ jobs:
           # 最新バージョンのngrokをインストール
           curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
           unzip ngrok.zip
+          # ngrokをインストール先ディレクトリに移動
+          mkdir -p /home/runner/.ngrok
           mv ngrok /home/runner/.ngrok/ngrok
           rm ngrok.zip
           # インストールされたバージョンを確認
           /home/runner/.ngrok/ngrok version
-      
-       
+            
       # - name: Install ngrok
       #   run: |
       #     curl -s https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-linux-amd64.zip -o ngrok.zip
