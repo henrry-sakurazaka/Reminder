@@ -82,8 +82,11 @@ services:
   # command: /bin/sh -c "while ! curl --silent --fail http://certbot:80/.well-known/acme-challenge/health-check; do echo 'Waiting for certbot to issue certificate...'; sleep 5; done; nginx -g 'daemon off;'"
 
   ngrok:
-    image: ngrok/ngrok
+    image: ngrok/ngrok:latest
     command: ngrok http 3000  # 3000ポートでngrokを起動
+    # command:
+    #   - "http"
+    #   - "http://host.docker.internal:80"
     depends_on:
       - app
     environment:
