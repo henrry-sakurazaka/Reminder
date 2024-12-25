@@ -83,7 +83,7 @@ services:
 
   ngrok:
     image: ngrok/ngrok
-    command: http app:3000
+    command: ngrok http 3000  # 3000ポートでngrokを起動
     depends_on:
       - app
     environment:
