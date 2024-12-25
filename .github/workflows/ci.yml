@@ -238,7 +238,7 @@ jobs:
           set +a
             
       - name: Debug Environment Variables
-        run: echo "NGROK_AUTH_TOKEN is set: ${NGROK_AUTH_TOKEN:+yes}"
+        run: echo "NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}"
 
       - name: Set PATH for ngrok
         run: |
