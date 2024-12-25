@@ -284,16 +284,14 @@ jobs:
 
       - name: Start ngrok container (Only once)
         run: |
-           # NGROK_AUTH_TOKENが正しく設定されているか確認
-          if [ -z "$NGROK_AUTH_TOKEN" ]; then
-            echo "NGROK_AUTH_TOKENが設定されていません"
-            exit 1
-          fi
-          docker run -d --name ngrok \
-            -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
-            -p 4041:4040 \
-            ngrok/ngrok http 3000
-          sleep 10
+          # docker run -d --name ngrok \
+          #   -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
+          #   -p 4041:4040 \
+          #   ngrok/ngrok http 3000
+          # sleep 10
+
+          docker run -it -e NGROK_AUTHTOKEN=$NGROK_AUTH_TOKEN ngrok/ngrok:latest http 3000 sleep 10
+
 
       - name: Build and Start App
         run: |
