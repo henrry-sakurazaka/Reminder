@@ -240,32 +240,31 @@ jobs:
       - name: Debug Environment Variables
         run: echo "NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}"
 
-    
       - name: Set PATH for ngrok
         run: |
           export PATH=$PATH:/usr/local/bin
           echo "ngrok installed at $(which ngrok)"
 
-          - name: Entrypoint
-          run: ./entrypoint.sh
-            chmod +x ./entrypoint.sh
-  
-        - name: Build Docker image (App)
-          run: docker build -t app:latest .
-  
-        - name: Run Playwright tests
-          run: |
-            NGROK_URL=${{ env.NGROK_URL }}  # 環境変数として指定
-            export NGROK_URL=$NGROK_URL
-          env:
-            VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-            VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
-            VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
-            VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
-            VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
-            VITE_HOST: ${{ secrets.VITE_HOST }}
-            NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-            NGROK_URL: ${{ env.NGROK_URL }}
+      - name: Entrypoint
+        run: ./entrypoint.sh
+          chmod +x ./entrypoint.sh
+
+      - name: Build Docker image (App)
+        run: docker build -t app:latest .
+
+      - name: Run Playwright tests
+        run: |
+          NGROK_URL=${{ env.NGROK_URL }}  # 環境変数として指定
+          export NGROK_URL=$NGROK_URL
+        env:
+          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
+          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
+          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
+          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
+          VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
+          VITE_HOST: ${{ secrets.VITE_HOST }}
+          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          NGROK_URL: ${{ env.NGROK_URL }}
   
       - name: Build and Start App
         run: |
