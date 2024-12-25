@@ -225,7 +225,12 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
           cat .env
-      
+      - name: Load environment variables
+        run: |
+          set -a
+          source .env
+          set +a
+            
       - name: Debug Environment Variables
         run: echo "NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}"
     
