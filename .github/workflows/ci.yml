@@ -224,6 +224,11 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
+          cat .env
+      
+      - name: Debug Environment Variables
+        run: echo "NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}"
+    
       - name: Set PATH for ngrok
         run: |
           export PATH=$PATH:/usr/local/bin
@@ -231,7 +236,7 @@ jobs:
 
       - name: Start ngrok and fetch URL
         run: |
-          ngrok authtoken $NGROK_AUTH_TOKEN
+          ngrok authtoken "$NGROK_AUTH_TOKEN"
           ngrok http 3000 > ngrok.log 2>&1 &
           sleep 5
           NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
