@@ -225,6 +225,12 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
           cat .env
+      
+      - name: Write .env file
+        run: |
+          echo "VITE_HTTPS=1" >> .env
+          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+      
       - name: Load environment variables
         run: |
           set -a
@@ -233,11 +239,55 @@ jobs:
             
       - name: Debug Environment Variables
         run: echo "NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}"
+
     
       - name: Set PATH for ngrok
         run: |
           export PATH=$PATH:/usr/local/bin
           echo "ngrok installed at $(which ngrok)"
+
+          - name: Entrypoint
+          run: ./entrypoint.sh
+            chmod +x ./entrypoint.sh
+  
+        - name: Build Docker image (App)
+          run: docker build -t app:latest .
+  
+        - name: Run Playwright tests
+          run: |
+            NGROK_URL=${{ env.NGROK_URL }}  # 環境変数として指定
+            export NGROK_URL=$NGROK_URL
+          env:
+            VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
+            VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
+            VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
+            VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
+            VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
+            VITE_HOST: ${{ secrets.VITE_HOST }}
+            NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+            NGROK_URL: ${{ env.NGROK_URL }}
+  
+      - name: Build and Start App
+        run: |
+          docker-compose down --volumes
+          docker system prune -f
+          docker-compose build
+          docker-compose up -d
+
+      - name: Show Logs
+        run: docker-compose logs app
+
+      - name: Set permissions for test-results directory
+        run: |
+          sudo chmod 777 server.key.pem
+          sudo chmod 777 server.cert.pem
+          sudo chown root:root server.key.pem
+          sudo chown root:root server.cert.pem
+          sudo mkdir -p $GITHUB_WORKSPACE/playwright-test-results
+          sudo chmod -R 777 $GITHUB_WORKSPACE/playwright-test-results
+          sudo mkdir -p $GITHUB_WORKSPACE/test-results
+          sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
+          mkdir -p ./test-results
 
       - name: Start ngrok and fetch URL
         run: |
@@ -266,31 +316,11 @@ jobs:
       - name: Set up ngrok authtoken
         run: ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
 
-      - name: Entrypoint
-        run: ./entrypoint.sh
-          chmod +x ./entrypoint.sh
-
-      - name: Build Docker image (App)
-        run: docker build -t app:latest .
-
-      - name: Run Playwright tests
-        run: |
-          NGROK_URL=${{ env.NGROK_URL }}  # 環境変数として指定
-          export NGROK_URL=$NGROK_URL
-        env:
-          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
-          VITE_HOST: ${{ secrets.VITE_HOST }}
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-          NGROK_URL: ${{ env.NGROK_URL }}
-
+     
       - name: Debug current directory
         run: |
           pwd
-          ls -la
+          ls -la 
 
       - name: Start ngrok container (Only once)
         run: |
@@ -301,29 +331,6 @@ jobs:
           # sleep 10
 
           docker run -it -e NGROK_AUTHTOKEN=$NGROK_AUTH_TOKEN -p 4041:4040 ngrok/ngrok:latest http 3000 sleep 10
-
-
-      - name: Build and Start App
-        run: |
-          docker-compose down --volumes
-          docker system prune -f
-          docker-compose build
-          docker-compose up -d
-
-      - name: Show Logs
-        run: docker-compose logs app
-
-      - name: Set permissions for test-results directory
-        run: |
-          sudo chmod 777 server.key.pem
-          sudo chmod 777 server.cert.pem
-          sudo chown root:root server.key.pem
-          sudo chown root:root server.cert.pem
-          sudo mkdir -p $GITHUB_WORKSPACE/playwright-test-results
-          sudo chmod -R 777 $GITHUB_WORKSPACE/playwright-test-results
-          sudo mkdir -p $GITHUB_WORKSPACE/test-results
-          sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
-          mkdir -p ./test-results
 
       - name: Run E2E Tests
         run: |
