@@ -16,8 +16,8 @@ services:
       - .:/app
       - /app/node_modules # 監視対象から除外
       - /app/dist # 監視対象から除外
-      # - ./server.key.pem:/etc/ssl/private/server.key.pem
-      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+      - ./server.key.pem:/etc/ssl/private/server.key.pem
+      - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
     env_file:
       - .env
     entrypoint: ./entrypoint.sh
@@ -68,19 +68,18 @@ services:
     ports:
       - "443:443"
       - "80:80"
+    depends_on:
+      - app 
+      - ngrok
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
-      # - ./server.key.pem:/etc/ssl/private/server.key.pem
+      - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+      - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./ssl:/etc/nginx/ssl:ro
-      # - ./data/certbot/conf:/etc/letsencrypt
-      # - ./data/certbot/www:/var/www/certbot
     networks:
       - test-network
     env_file:
       - .env
-  # command: /bin/sh -c "while ! curl --silent --fail http://certbot:80/.well-known/acme-challenge/health-check; do echo 'Waiting for certbot to issue certificate...'; sleep 5; done; nginx -g 'daemon off;'"
-
   ngrok:
     image: ngrok/ngrok:latest
     command: ngrok http 3000  # 3000ポートでngrokを起動
@@ -88,7 +87,8 @@ services:
     #   - "http"
     #   - "http://host.docker.internal:80"
     depends_on:
-      - app
+      app:
+        condition: service_healthy
     environment:
       NGROK_AUTH_TOKEN: ${NGROK_AUTH_TOKEN} # Ngrokのトークン
     ports:
