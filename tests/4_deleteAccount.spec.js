@@ -1,12 +1,9 @@
 import 'dotenv/config';
-
 import { test, expect } from '@playwright/test';
 
-// // 環境がローカルであれば.envを読み込む
-// if (process.env.CI !== 'true') {
-//     require('dotenv').config();
-//   }
-
+if (process.env.CI !== 'true') {
+  dotenv.config();
+}
 
   test('アカウント削除のテスト', async ({ page }) => {
     await page.waitForTimeout(5000); 

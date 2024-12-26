@@ -1,11 +1,10 @@
 import 'dotenv/config';
-
 import { test, expect } from '@playwright/test';
- 
-// // 環境がローカルであれば.envを読み込む
-// if (process.env.CI !== 'true') {
-//   require('dotenv').config();
-// }
+
+if (process.env.CI !== 'true') {
+  dotenv.config();
+}
+
 // require('dotenv').config();
 // test.use({
 //     browserName: 'chromium',
