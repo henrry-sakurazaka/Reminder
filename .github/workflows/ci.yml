@@ -152,16 +152,6 @@ jobs:
 
           cat .env
       
-      
-        # run: |
-        #   set -a
-        #   source .env
-        #   set +a
-            
-      - name: Entrypoint
-        run: ./entrypoint.sh
-          chmod +x ./entrypoint.sh
-
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
