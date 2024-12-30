@@ -1,4 +1,4 @@
-import { defineConfig } from '@playwright/test';
+import { defineConfig , devices} from '@playwright/test';
 import {config as dotenvConfig } from 'dotenv';
 import { fileURLToPath } from 'url'; 
 import path from 'path';
@@ -7,11 +7,21 @@ if (process.env.CI !== 'true') {
   dotenvConfig(); 
 }
 
+
+
+
 // ESモジュールスコープでの __dirname 再現
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
 export default defineConfig({
+
+  webServer: {
+    command: 'yarn dev',
+    url: 'http://localhost:7020',
+    reuseExistingServer: !process.env.CI,
+  },
+
   testDir: './tests',  // テストファイルのディレクトリ
   outputDir: path.resolve(process.cwd(), 'test-results'), // 書き込み可能なディレクトリを指定
   timeout: 30000,  // テストのタイムアウト時間

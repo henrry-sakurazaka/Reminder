@@ -66,19 +66,6 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     jq && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-# ngrokのインストール
-RUN curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o ngrok.zip && \
-    unzip -o ngrok.zip && \
-    mkdir -p /home/runner/.ngrok && \
-    mv ngrok /home/runner/.ngrok/ngrok && \
-    rm ngrok.zip && \
-    echo "/home/runner/.ngrok" >> /etc/profile.d/ngrok.sh
-
-# ngrokをシステム全体で利用できるようにPATHを設定
-ENV PATH="/home/runner/.ngrok:$PATH"
-
-# インストール確認（オプション）
-RUN ngrok version
 
 RUN apt-get update && apt-get install -y bash
 
