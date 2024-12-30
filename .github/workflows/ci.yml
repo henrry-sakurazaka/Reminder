@@ -75,13 +75,13 @@ jobs:
         run: docker-compose build
 
       - name: Build Docker image (App)
-        run: docker build -t app:latest .
+        run: docker build -t app2:latest .
 
       - name: Start Vite HTTPS Server
         run: npm run dev -- --https &
 
-      - name: Debug app container
-        run: docker-compose logs app
+      - name: Debug app2 container
+        run: docker-compose logs app2
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
@@ -153,7 +153,7 @@ jobs:
           cat .env
       
       - name: Build Docker image (App)
-        run: docker build -t app:latest .
+        run: docker build -t app2:latest .
 
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
@@ -173,7 +173,7 @@ jobs:
           docker-compose up -d
 
       - name: Show Logs
-        run: docker-compose logs app
+        run: docker-compose logs app2
 
       - name: Set permissions for test-results directory
         run: |
