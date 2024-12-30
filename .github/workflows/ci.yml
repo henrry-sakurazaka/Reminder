@@ -189,10 +189,6 @@ jobs:
 
       - name: Debug .env file contents
         run: cat .env
-     
-      - name: Build and start ngrok container
-        run: |
-          docker-compose -f docker-compose.yml up -d
 
       - name: Run E2E Tests
         run: |
