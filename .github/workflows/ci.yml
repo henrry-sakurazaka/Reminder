@@ -48,9 +48,7 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
-          echo "NGROK_URL=${{ secrets.NGROK_URL }}" >> .env
-
+          
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -64,9 +62,6 @@ jobs:
           source .env
           set +a
 
-      - name: Build Docker image (App)
-        run: docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .     
-      
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
 
@@ -157,22 +152,12 @@ jobs:
 
           cat .env
       
-      - name: Write .env file
-        run: |
-          echo "VITE_HTTPS=1" >> .env
-          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
       
-      - name: Load environment variables
-        run: |
-          set -a
-          source .env
-          set +a
+        # run: |
+        #   set -a
+        #   source .env
+        #   set +a
             
-      - name: Set PATH for ngrok
-        run: |
-          export PATH=$PATH:/usr/local/bin
-          echo "ngrok installed at $(which ngrok)"
-
       - name: Entrypoint
         run: ./entrypoint.sh
           chmod +x ./entrypoint.sh
@@ -212,32 +197,16 @@ jobs:
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
           mkdir -p ./test-results
 
-      - name: Use Ngrok URL
-        run: |
-          echo "Ngrok URL is ${{ env.NGROK_URL }}"
-        env:
-          NGROK_URL: ${{ env.NGROK_URL }}
-
       - name: Debug .env file contents
         run: cat .env
      
       - name: Build and start ngrok container
         run: |
           docker-compose -f docker-compose.yml up -d
-          
-      - name: Wait for ngrok to start
-        run: sleep 10
-
-      - name: Verify ngrok
-        run: |
-          curl -s http://localhost:4040/api/tunnels
 
       - name: Run E2E Tests
         run: |
-          docker run -e NGROK_URL=${{ env.NGROK_URL }} \
-            -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} \
-            mcr.microsoft.com/playwright:v1.49.0-jammy  \
-            npx playwright test ./tests
+          npx playwright test ./tests
 
       - name: Run Playwright Tests
         run: |
