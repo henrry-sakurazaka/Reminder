@@ -48,7 +48,7 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
           echo "NGROK_URL=${{ secrets.NGROK_URL }}" >> .env
 
           # 証明書ファイルの作成
@@ -64,59 +64,8 @@ jobs:
           source .env
           set +a
 
-      - name: Download and install ngrok
-        run: |
-          curl -sL https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -o ngrok.tgz
-          tar -xvf ngrok.tgz -C /usr/local/bin
-          chmod +x /usr/local/bin/ngrok
-
-      - name: Verify ngrok installation
-        run: ngrok version
-
-      - name: Validate NGROK_AUTH_TOKEN
-        run: |
-          echo "Debugging NGROK_AUTH_TOKEN:"
-          echo "NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN"
-      
-      - name: Set up ngrok
-        run: |
-          ngrok config add-authtoken "${{ secrets.NGROK_AUTH_TOKEN }}"
-        env:
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
-
-      - name: Start ngrok
-        run: |
-          docker-compose up -d ngrok
-          # ngrok が準備できるまで待機（適切な時間に調整）
-          sleep 10
-
-      - name: Fetch Ngrok URL
-        run: |
-          NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-          echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
-    
-      - name: Use Ngrok URL
-        run: |
-          echo "Ngrok URL is ${{ env.NGROK_URL }}"
-        env:
-          NGROK_URL: ${{ env.NGROK_URL }}
-
-      - name: Debug current directory
-        run: |
-          pwd
-          ls -la
-          
       - name: Build Docker image (App)
-        run: docker buildx build --build-arg NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .
-        
-      - name: Start ngrok container
-        run: |
-          docker run -d --name ngrok \
-            -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
-            -p 4040:4040 \
-            ngrok/ngrok http 3000
-
-          sleep 10
+        run: docker buildx build --build-arg VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} -f ./Dockerfile -t app:latest --load --progress=plain .     
       
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
@@ -192,24 +141,6 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
-      - name: Install jq
-        run: sudo apt-get install jq
-
-      - name: Install latest ngrok
-        run: |
-          rm -f /usr/local/bin/ngrok
-          rm -rf /home/runner/.ngrok
-          curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o ngrok.zip
-          unzip ngrok.zip
-          mkdir -p /home/runner/.ngrok
-          mv ngrok /home/runner/.ngrok/ngrok
-          rm ngrok.zip
-          echo "/home/runner/.ngrok" >> $GITHUB_PATH
-          echo $PATH
-          /home/runner/.ngrok/ngrok version
-
-      - name: Verify ngrok installation
-        run: ngrok version
 
       - name: Create .env file and keys
         run: |
@@ -219,7 +150,7 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
           echo "NGROK_URL=${{ secrets.NGROK_URL }}" >> .env
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -229,7 +160,7 @@ jobs:
       - name: Write .env file
         run: |
           echo "VITE_HTTPS=1" >> .env
-          echo "NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }}" >> .env
+          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
       
       - name: Load environment variables
         run: |
@@ -237,9 +168,6 @@ jobs:
           source .env
           set +a
             
-      - name: Debug Environment Variables
-        run: echo "NGROK_AUTH_TOKEN=${NGROK_AUTH_TOKEN}"
-
       - name: Set PATH for ngrok
         run: |
           export PATH=$PATH:/usr/local/bin
@@ -252,10 +180,6 @@ jobs:
       - name: Build Docker image (App)
         run: docker build -t app:latest .
 
-      - name: Run Playwright tests
-        run: |
-          NGROK_URL=${{ env.NGROK_URL }}  # 環境変数として指定
-          export NGROK_URL=$NGROK_URL
         env:
           VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
           VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
@@ -263,7 +187,7 @@ jobs:
           VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
-          NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+          VITE_NGROK_AUTH_TOKEN: ${{ secrets.VITE_NGROK_AUTH_TOKEN }}
           NGROK_URL: ${{ env.NGROK_URL }}
   
       - name: Build and Start App
@@ -288,21 +212,6 @@ jobs:
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
           mkdir -p ./test-results
 
-      - name: Start ngrok and fetch URL
-        run: |
-          ngrok authtoken "$NGROK_AUTH_TOKEN"
-          ngrok http 3000 > ngrok.log 2>&1 &
-          sleep 5
-          NGROK_URL=$(curl --silent http://127.0.0.1:4040/api/tunnels | jq -r '.tunnels[0].public_url')
-          if [ -n "$NGROK_URL" ]; then
-            echo "Ngrok URL fetched: $NGROK_URL"
-            echo "NGROK_URL=${NGROK_URL}" >> $GITHUB_ENV
-          else
-            echo "Error: Failed to fetch ngrok URL"
-            cat ngrok.log
-            exit 1
-          fi
-
       - name: Use Ngrok URL
         run: |
           echo "Ngrok URL is ${{ env.NGROK_URL }}"
@@ -311,30 +220,22 @@ jobs:
 
       - name: Debug .env file contents
         run: cat .env
-
-      - name: Set up ngrok authtoken
-        run: ngrok authtoken ${{ secrets.NGROK_AUTH_TOKEN }}
-
      
-      - name: Debug current directory
+      - name: Build and start ngrok container
         run: |
-          pwd
-          ls -la 
+          docker-compose -f docker-compose.yml up -d
+          
+      - name: Wait for ngrok to start
+        run: sleep 10
 
-      - name: Start ngrok container (Only once)
+      - name: Verify ngrok
         run: |
-          # docker run -d --name ngrok \
-          #   -e NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN \
-          #   -p 4041:4040 \
-          #   ngrok/ngrok http 3000
-          # sleep 10
-
-          docker run -it -e NGROK_AUTHTOKEN=$NGROK_AUTH_TOKEN -p 4041:4040 ngrok/ngrok:latest http 3000 sleep 10
+          curl -s http://localhost:4040/api/tunnels
 
       - name: Run E2E Tests
         run: |
           docker run -e NGROK_URL=${{ env.NGROK_URL }} \
-            -e NGROK_AUTH_TOKEN=${{ secrets.NGROK_AUTH_TOKEN }} \
+            -e VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }} \
             mcr.microsoft.com/playwright:v1.49.0-jammy  \
             npx playwright test ./tests
 

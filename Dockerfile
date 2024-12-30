@@ -25,24 +25,32 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Javaが正しくインストールされているか確認
 RUN java -version
 
+FROM node:20.14.0
+
 # アプリケーションディレクトリを作成
-WORKDIR /usr/src/app
+WORKDIR /usr/src/app2
 
 # 必要な環境変数を設定
 ENV CI=true
 
 # 権限を適切に設定
-RUN mkdir -p /app/test-results /app/playwright-report \
-    && chmod -R 777 /app/test-results /app/playwright-report
+RUN mkdir -p /app2/test-results /app2/playwright-report \
+    && chmod -R 777 /app2/test-results /app2/playwright-report
 
 RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
 
 # package.json と package-lock.json をコピーして依存関係をインストール
 COPY package*.json ./
 
-RUN npm ci
+# npm キャッシュをクリアして依存関係をインストール
+RUN npm cache clean --force && npm ci
+
 RUN npm install
-# アプリケーションのソースコードをコピー
+
+# 依存関係のインストール
+RUN npm install @rollup/rollup-linux-x64-gnu \
+    && npm install
+
 COPY . .
 
 # Viteをインストール（プロジェクトの依存関係に追加）
@@ -52,37 +60,52 @@ RUN npm install --global vite
 # unzipをインストール
 RUN apt-get update && apt-get install -y unzip
 
-# ngrokのインストール
-RUN apt-get update && apt-get install -y wget && \
-    wget https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.tgz -O /tmp/ngrok.tgz && \
-    tar -xzf /tmp/ngrok.tgz -C /usr/local/bin && \
-    rm /tmp/ngrok.tgz && \
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    curl \
+    unzip \
+    jq && \
     apt-get clean && rm -rf /var/lib/apt/lists/*
 
-RUN apt-get update && apt-get install -y jq
+# ngrokのインストール
+RUN curl -s https://bin.equinox.io/c/bNyj1mQVY4c/ngrok-v3-stable-linux-amd64.zip -o ngrok.zip && \
+    unzip -o ngrok.zip && \
+    mkdir -p /home/runner/.ngrok && \
+    mv ngrok /home/runner/.ngrok/ngrok && \
+    rm ngrok.zip && \
+    echo "/home/runner/.ngrok" >> /etc/profile.d/ngrok.sh
 
-ARG NGROK_AUTH_TOKEN
-ENV NGROK_AUTH_TOKEN=$NGROK_AUTH_TOKEN
+# ngrokをシステム全体で利用できるようにPATHを設定
+ENV PATH="/home/runner/.ngrok:$PATH"
+
+# インストール確認（オプション）
+RUN ngrok version
+
+RUN apt-get update && apt-get install -y bash
 
 # Playwright のブラウザをインストール
 RUN npx playwright install --with-deps
 
 RUN npx playwright install chromium
 
-# デフォルトコマンド
-CMD ["npx", "playwright", "test", "npm", "run", "dev"]
+WORKDIR /app2
+COPY package.json package-lock.json ./
+RUN npm install
 
-# RUN npm install -g firebase-tools
+
+# デフォルトコマンド
+CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app"]
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-# エントリーポイントを指定
-ENTRYPOINT ["/bin/bash", "/entrypoint.sh"]
+# RUN npm install -g firebase-tools
+
+# ENTRYPOINT [ "/bin/bash", "/entrypoint.sh"]
+
 
 # RUN npm cache clean --force
-
+    
 
 
 
