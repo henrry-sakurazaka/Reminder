@@ -83,23 +83,6 @@ services:
     env_file:
       - .env
 
-  ngrok:
-    image: ngrok/ngrok:latest
-    # command: ngrok http 3000
-    build:
-      context: .
-      dockerfile: Dockerfile.ngrok
-    command: sh -c "ngrok http 3000 & sleep 5 && export NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url') && echo $NGROK_URL"
-    depends_on:
-      app2:
-        condition: service_healthy
-    environment:
-      VITE_NGROK_AUTH_TOKEN: ${VITE_NGROK_AUTH_TOKEN}
-    ports:
-      - "4041:4040"
-    network_mode: bridge
-    # entrypoint: ["sh", "-c", "ngrok http 3000 & sleep 5 && export NGROK_URL=$(curl -s http://localhost:4040/api/tunnels | jq -r '.tunnels[0].public_url') && echo $NGROK_URL"]
-    entrypoint: ["./entrypoint.sh"]
 
   playwright:
     image: mcr.microsoft.com/playwright:v1.49.0-jammy   
