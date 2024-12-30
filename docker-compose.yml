@@ -22,11 +22,11 @@ services:
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v https://localhost:3000|| exit 1"]
+      test: ["CMD-SHELL", "curl -k -v https://localhost:3000 || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
-      start_period: 1200s
+      start_period: 600s
     environment: 
       VITE_NODE_ENV: ${VITE_NODE_ENV}
       VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
