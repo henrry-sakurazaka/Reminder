@@ -15,9 +15,9 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run start',
-    url: 'http://localhost:3000',
+    url: 'http://localhost:3005',
     timeout: 120000,
-    reuseExistingServer: true,
+    reuseExistingServer: false,
     ignoreHTTPSErrors: true, // 証明書エラーを無視
   },
   use: {
