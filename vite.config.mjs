@@ -5,6 +5,7 @@ import path, { resolve } from 'path';
 import fs from 'fs';
 import * as dotenv from 'dotenv';
 
+
 if (process.env.CI !== 'true') {
   dotenv.config();
 }
@@ -77,7 +78,7 @@ export default defineConfig({
   },
   webServer: {
     command: 'npm run dev', // サーバー起動コマンド
-    port: 3000,             // サーバーがリッスンするポート
+    port: 3005,             // サーバーがリッスンするポート
     timeout: 120000,        // タイムアウトを120秒に延長
   },
   reporter: [
