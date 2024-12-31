@@ -83,6 +83,7 @@ export default defineConfig({
   reporter: [
     ['list'], 
     ['html', { outputFolder: './custom-test-results' }]
+    ['html', { outputDir: '/app2/test-results' }],
   ],
   
 });
