@@ -15,8 +15,6 @@ if (process.env.CI !== 'true') {
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
-    console.log(`NGROK_URL in test: ${process.env.NGROK_URL}`);
-    
     await page.waitForTimeout(5000); 
     await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
