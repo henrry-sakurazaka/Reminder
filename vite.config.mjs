@@ -63,13 +63,13 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    https:
-      process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
-        ? {
-            key: fs.readFileSync('./server.key.pem' || '/etc/ssl/private/server.key.pem'),
-            cert: fs.readFileSync('./server.cert.pem' || '/etc/ssl/certs/server.cert.pem'),
-          }
-        : false,
+    // https:
+    //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
+    //     ? {
+    //         key: fs.readFileSync('./server.key.pem' || '/etc/ssl/private/server.key.pem'),
+    //         cert: fs.readFileSync('./server.cert.pem' || '/etc/ssl/certs/server.cert.pem'),
+    //       }
+    //     : false,
     hmr: true,
     overlay: false,
     port: 3000,
