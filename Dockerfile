@@ -40,6 +40,11 @@ RUN mkdir -p /app2/test-results /app2/playwright-report \
 
 RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
 
+# ホスト側のディレクトリをコンテナ内で参照する設定
+RUN mkdir -p /mnt/test-results && \
+    chmod -R 777 /mnt/test-results && \
+    chown -R node:node /mnt/test-results
+
 # test-results ディレクトリの権限を変更する
 RUN mkdir -p /app2/test-results && \
     chmod -R 777 /app2/test-results && \
