@@ -19,6 +19,7 @@ export default defineConfig({
     url: 'https://localhost:3000',
     timeout: 120000,
     reuseExistingServer: !process.env.CI,
+    ignoreHTTPSErrors: true, // 証明書エラーを無視
   },
 
   testDir: './tests',  // テストファイルのディレクトリ
