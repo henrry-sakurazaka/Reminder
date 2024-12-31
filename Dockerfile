@@ -33,16 +33,17 @@ WORKDIR /usr/src/app2
 # 必要な環境変数を設定
 ENV CI=true
 
-# test-results ディレクトリの権限を変更する
-RUN mkdir -p /app/test-results && \
-    chmod -R 777 /app/test-results && \
-    chown -R node:node /app/test-results
 
 # 権限を適切に設定
 RUN mkdir -p /app2/test-results /app2/playwright-report \
     && chmod -R 777 /app2/test-results /app2/playwright-report
 
 RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+
+# test-results ディレクトリの権限を変更する
+RUN mkdir -p /app2/test-results && \
+    chmod -R 777 /app2/test-results && \
+    chown -R node:node /app2/test-results
 
 # package.json と package-lock.json をコピーして依存関係をインストール
 COPY package*.json ./
