@@ -75,4 +75,14 @@ export default defineConfig({
     port: 3000,
     cors: true,
   },
+  webServer: {
+    command: 'npm run dev', // サーバー起動コマンド
+    port: 3000,             // サーバーがリッスンするポート
+    timeout: 120000,        // タイムアウトを120秒に延長
+  },
+  reporter: [
+    ['list'], 
+    ['html', { outputFolder: './custom-test-results' }]
+  ],
+  
 });
