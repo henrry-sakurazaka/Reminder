@@ -6,7 +6,7 @@ if (process.env.CI !== 'true') {
 }
 
   test('サインアップ機能のテスト', async ({ page }) => {
-    const baseUrl = process.env.VITE_REACT_APP_API_UR || "http://localhost:3000" || "http://localhost:3005";
+    const baseUrl = process.env.VITE_REACT_APP_API_URL || "http://localhost:3000" || "http://localhost:3005";
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
     
