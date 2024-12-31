@@ -18,8 +18,12 @@ export default defineConfig({
     command: 'npm run start',
     url: 'https://localhost:3000',
     timeout: 120000,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
     ignoreHTTPSErrors: true, // 証明書エラーを無視
+  },
+  use: {
+    ignoreHTTPSErrors: true,
+    headless: true,
   },
 
   testDir: './tests',  // テストファイルのディレクトリ
