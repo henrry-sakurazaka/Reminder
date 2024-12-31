@@ -15,8 +15,9 @@ const __dirname = path.dirname(__filename);
 export default defineConfig({
 
   webServer: {
-    command: 'yarn dev',
+    command: 'npm run start',
     url: 'http://localhost:7020',
+    timeout: 120000,
     reuseExistingServer: !process.env.CI,
   },
 
@@ -37,7 +38,7 @@ export default defineConfig({
     headless: true,  // ヘッドレスモードで実行（表示なし）
     viewport: { width: 1280, height: 720 },  // ビューポートの設定
     actionTimeout: 10000,  // アクションごとのタイムアウト
-    baseURL: process.env.VITE_REACT_APP_API_URL || 'http://localhost:3000',
+    baseURL: process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000',
     ignoreHTTPSErrors: true,  // HTTPSエラーを無視
     video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
     //証明書の設定を追加
