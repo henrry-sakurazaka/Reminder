@@ -184,7 +184,6 @@ jobs:
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
           mkdir -p ./test-results
           chmod -R 777 ./test-results
-          chown -R $USER:$USER ./test-results
 
       - name: Debug .env file contents
         run: cat .env
