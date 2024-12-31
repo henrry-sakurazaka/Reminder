@@ -145,8 +145,6 @@ jobs:
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "VITE_NGROK_AUTH_TOKEN=${{ secrets.VITE_NGROK_AUTH_TOKEN }}" >> .env
-          echo "NGROK_URL=${{ secrets.NGROK_URL }}" >> .env
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
@@ -184,6 +182,9 @@ jobs:
           sudo chmod -R 777 $GITHUB_WORKSPACE/test-results
           mkdir -p ./test-results
           chmod -R 777 ./test-results
+
+          # test-resultsディレクトリに書き込みできるか確認
+          ls -l $GITHUB_WORKSPACE/test-results
 
       - name: Debug .env file contents
         run: cat .env

@@ -29,7 +29,8 @@ export default defineConfig({
     ['json', { outputFile: 'playwright-report/output.json' }],
     ['html', { outputFolder: path.resolve(__dirname, 'playwright-test-results')}],
     ['list'],
-    ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }],
+    ['html', { outputFolder: 'playwright-test-results', open: 'never' }]
+    // ['html', { outputFolder: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results' }],
   ],
  
   use: {
