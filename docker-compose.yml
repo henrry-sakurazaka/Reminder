@@ -21,6 +21,7 @@ services:
       - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
+   
     entrypoint: ./entrypoint.sh
     healthcheck:
       test: ["CMD-SHELL", "curl -k -v https://localhost:3000 || exit 1"]
