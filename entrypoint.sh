@@ -8,8 +8,8 @@ if [ "$VITE_NODE_ENV" == "production" ]; then
   npm run dev
 fi
 
-# プロセスを維持
-tail -f /dev/null
-# ngrok のプロセスが終了しないように待機
-wait $NGROK_PID
+# # プロセスを維持
+# tail -f /dev/null
+# # ngrok のプロセスが終了しないように待機
+
 

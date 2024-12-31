@@ -8,8 +8,6 @@ if (process.env.CI !== 'true') {
 }
 
 
-
-
 // ESモジュールスコープでの __dirname 再現
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
