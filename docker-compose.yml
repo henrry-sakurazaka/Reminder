@@ -67,14 +67,14 @@ services:
       - "443:443"
       - "80:80"
     depends_on:
-       app2: 
+      app2: 
         condition: service_healthy
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
       # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       # - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./ssl:/etc/nginx/ssl:ro
-      - ./app2
+       - ./app2
     networks:
       - test-network
     env_file:
@@ -99,9 +99,6 @@ services:
       - ./package.json:/app2/package.json
       - ./node_modules:/app2/node_modules
     command: npx playwright test
-    environment:
-      BASE_URL: http://app2:3000
-      command: npx playwright test
 
 networks:
   test-network:
