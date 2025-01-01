@@ -99,7 +99,7 @@ services:
       - ./node_modules:/app2/node_modules
     command: npx playwright test
     environment:
-      BASE_URL: "http://app:3000"
+      BASE_URL: 'http://172.18.0.3:3000'
 
 networks:
   test-network:
