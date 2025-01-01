@@ -43,7 +43,6 @@ export default defineConfig({
     actionTimeout: 10000,  // アクションごとのタイムアウト
     baseURL: BASE_URL,
     ignoreHTTPSErrors: true,  // HTTPSエラーを無視
-    storageState: path.resolve(__dirname, 'state.json'),
      video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
     //証明書の設定を追加
     // outputDir: './custom-test-results', // 保存先を変更
