@@ -70,11 +70,11 @@ services:
        app2: 
         condition: service_healthy
     volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf:ro
+      - ./nginx.conf:/etc/nginx/nginx.conf
       # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       # - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./ssl:/etc/nginx/ssl:ro
-       - .:/app2:ro
+       - .:/app2
     networks:
       - test-network
     env_file:
