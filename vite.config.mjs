@@ -64,6 +64,7 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
+    port: 3000,
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
     //     ? {
@@ -72,15 +73,14 @@ export default defineConfig({
     //       }
     //     : false,
     hmr: true,
-    overlay: false,
-    port: 3000,
+    overlay: false, 
     cors: true,
   },
-  webServer: {
-    command: 'npm run dev', 
-    port: 3000,             
-    timeout: 120000,    
-  },
+  // webServer: {
+  //   command: 'npm run dev', 
+  //   port: 3000,             
+  //   timeout: 120000,    
+  // },
   reporter: [
     ['list'], 
     ['html', { outputFolder: './custom-test-results' }]
