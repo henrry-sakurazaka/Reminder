@@ -19,8 +19,8 @@ export default defineConfig({
     command: 'npm run start',
     url: BASE_URL,
     timeout: 120000,
-    // reuseExistingServer: true,
-    reuseExistingServer: !process.env.CI,
+    reuseExistingServer: true,
+    // reuseExistingServer: !process.env.CI,
     ignoreHTTPSErrors: true, // 証明書エラーを無視
   },
 
