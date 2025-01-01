@@ -10,6 +10,8 @@ services:
         limits:
           cpus: "0.5"
           memory: 512M
+    # expose: 
+    #   - "3000"
     ports:
       - "3000:3000"
     networks:
@@ -82,6 +84,7 @@ services:
 
 
   playwright:
+    container_name: reminder-playwright-1
     image: mcr.microsoft.com/playwright:v1.49.0-jammy   
     depends_on:
       app2:
