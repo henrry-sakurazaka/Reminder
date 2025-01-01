@@ -10,13 +10,13 @@ if (process.env.CI !== 'true') {
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
     
-    await page.waitForTimeout(5000); 
+    await page.waitForTimeout(6000); 
     await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
       timeout: 60000,
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
     });
-    await page.click('span.#SU', { timeout: 30000 });
+    await page.click('span#SU', { timeout: 30000 });
     await expect(page).toHaveURL(`${baseUrl}/SignUp`);
 
     await page.waitForTimeout(5000); // 必要に応じて時間を調整
@@ -27,7 +27,6 @@ if (process.env.CI !== 'true') {
     await page.waitForTimeout(5000); // 必要に応じて時間を調整
 
     await expect(page).toHaveURL(`${baseUrl}/Terms`);
-    await page.waitForEvent({ timeout: 20000 }); 
     await page.waitForTimeout(5000); 
     await page.click('nav');
     await page.waitForTimeout(5000); 
