@@ -10,28 +10,24 @@ if (process.env.CI !== 'true') {
 // ESモジュールスコープでの __dirname 再現
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
+const BASE_URL = process.env.VITE_REACT_APP_API_URL || 'http://localhost:3000';
+
 
 export default defineConfig({
 
   webServer: {
     command: 'npm run start',
-    url: 'http://172.18.0.3:3000',
+    url: BASE_URL
     timeout: 120000,
     // reuseExistingServer: true,
     reuseExistingServer: !process.env.CI,
     ignoreHTTPSErrors: true, // 証明書エラーを無視
   },
-  use: {
-    baseURL: 'http://172.18.0.3:3000',
-    ignoreHTTPSErrors: true,
-    headless: true,
-    storageState: 'state.json',
-  },
 
   testDir: './tests',  // テストファイルのディレクトリ
   outputDir: path.resolve(process.cwd(), 'test-results'), // 書き込み可能なディレクトリを指定
   timeout: 30000,  // テストのタイムアウト時間
-  retries: 1,  // テストのリトライ回数
+  retries: process.env.CI ? 2 : 1,
   // reporter: [],
   reporter: [
     ['json', { outputFile: 'playwright-report/output.json' }],
@@ -45,9 +41,10 @@ export default defineConfig({
     headless: true,  // ヘッドレスモードで実行（表示なし）
     viewport: { width: 1280, height: 720 },  // ビューポートの設定
     actionTimeout: 10000,  // アクションごとのタイムアウト
-    baseURL: process.env.VITE_REACT_APP_API_URL || 'http://localhost:3000',
+    baseURL: BASE_URL,
     ignoreHTTPSErrors: true,  // HTTPSエラーを無視
-    video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
+    storageState: path.resolve(__dirname, 'state.json'),
+     video: 'retain-on-failure',  // テスト失敗時にビデオ記録を保持
     //証明書の設定を追加
     // outputDir: './custom-test-results', // 保存先を変更
     launchOptions: {
@@ -56,6 +53,14 @@ export default defineConfig({
       ],
     },
   },
+  
+   projects: [
+    {
+      name: 'chromium',
+      use: { ...devices['Desktop Chrome'] },
+    },
+  ]
+
 });
 
 

@@ -91,11 +91,13 @@ RUN npm install
 
 
 # デフォルトコマンド
-CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app"]
+CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0"]
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
+EXPOSE 3000
 
 # RUN npm install -g firebase-tools
 
