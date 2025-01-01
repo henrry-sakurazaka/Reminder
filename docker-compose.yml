@@ -10,10 +10,10 @@ services:
         limits:
           cpus: "0.5"
           memory: 512M
-    # expose: 
-    #   - "3000"
-    ports:
-      - "3000:3000"
+    expose: 
+      - "3000"
+    # ports:
+    #   - "3000:3000"
     networks:
       - test-network
     volumes:
