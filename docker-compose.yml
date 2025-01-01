@@ -98,6 +98,8 @@ services:
       - ./package.json:/app2/package.json
       - ./node_modules:/app2/node_modules
     command: npx playwright test
+    environment:
+      BASE_URL: "http://app:3000"
 
 networks:
   test-network:

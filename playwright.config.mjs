@@ -15,14 +15,16 @@ export default defineConfig({
 
   webServer: {
     command: 'npm run start',
-    url: 'http://localhost:3000',
+    url: 'http://172.18.0.3:3000'
     timeout: 120000,
     reuseExistingServer: true,
     ignoreHTTPSErrors: true, // 証明書エラーを無視
   },
   use: {
+    baseURL: 'http://172.18.0.3:3000'
     ignoreHTTPSErrors: true,
     headless: true,
+    storageState: 'state.json',
   },
 
   testDir: './tests',  // テストファイルのディレクトリ
