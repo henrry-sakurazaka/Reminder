@@ -17,7 +17,7 @@ if (process.env.CI !== 'true') {
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
    
     await page.waitForTimeout(5000); 
-    await page.goto(`${baseUrl}/SignIn`, {
+    await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
       timeout: 60000,
       ignoreHTTPSErrors: true, // これで証明書エラーを無視します
