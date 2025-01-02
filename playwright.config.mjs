@@ -10,7 +10,7 @@ if (process.env.CI !== 'true') {
 // ESモジュールスコープでの __dirname 再現
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const BASE_URL = process.env.VITE_REACT_APP_API_URL || 'http://localhost:3000';
+const BASE_URL = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
 
 
 export default defineConfig({
@@ -19,8 +19,8 @@ export default defineConfig({
     command: 'npm run start',
     url: BASE_URL,
     timeout: 120000,
-    reuseExistingServer: true,
-    // reuseExistingServer: !process.env.CI,
+    // reuseExistingServer: true,
+    reuseExistingServer: !process.env.CI,
     ignoreHTTPSErrors: true, // 証明書エラーを無視
   },
 
