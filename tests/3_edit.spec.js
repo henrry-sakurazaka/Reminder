@@ -12,6 +12,17 @@ if (process.env.CI !== 'true') {
 
   test.setTimeout(1200000);
 
+  test('サインインテスト', async ({ browser }) => {
+    const context = await browser.newContext(); // 新しいコンテキストを生成
+    const page = await context.newPage();
+    await page.goto(`${baseUrl}/UserAuth`);
+    await context.clearCookies();
+    await page.evaluate(() => {
+        localStorage.clear();
+        sessionStorage.clear();     
+    });
+  });
+
   test('タスクをフォームを入力して出力を確認', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL || "http:/app2:3000";
       const email = process.env.VITE_REACT_APP_TEST_EMAIL

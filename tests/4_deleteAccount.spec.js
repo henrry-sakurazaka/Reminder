@@ -4,7 +4,18 @@ import { test, expect } from '@playwright/test';
 if (process.env.CI !== 'true') {
   dotenv.config();
 }
-
+ 
+  test('サインインテスト', async ({ browser }) => {
+    const context = await browser.newContext(); // 新しいコンテキストを生成
+    const page = await context.newPage();
+    await page.goto(`${baseUrl}/UserAuth`);
+    await context.clearCookies();
+    await page.evaluate(() => {
+        localStorage.clear();
+        sessionStorage.clear();     
+    });
+  });
+  
   test('アカウント削除のテスト', async ({ page }) => {
     await page.waitForTimeout(5000); 
     await page.route('**/deleteAccount', (route) => {
