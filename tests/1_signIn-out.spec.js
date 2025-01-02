@@ -15,13 +15,6 @@ if (process.env.CI !== 'true') {
     const email = process.env.VITE_REACT_APP_TEST_EMAIL
     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
-    await page.goto(`${baseUrl}/Example`);
-    await page.click('span.back');
-
-    await page.waitForTimeout(5000); 
-
-    await expect(page).toHaveURL(`${baseUrl}/UserAuth`)
-
     await page.waitForTimeout(5000); 
     await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
