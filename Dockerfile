@@ -17,6 +17,9 @@ RUN apt-get update && apt-get install -y \
     sudo \
     && rm -rf /var/lib/apt/lists/
 
+COPY server.js .
+CMD ["node", "server.js"]
+    
 # 証明書と秘密鍵をコンテナ内にコピー
 # COPY server.cert.pem /etc/ssl/certs/
 # COPY server.key.pem /etc/ssl/private/

@@ -10,13 +10,13 @@ if (process.env.CI !== 'true') {
 // ESモジュールスコープでの __dirname 再現
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
-const BASE_URL = process.env.VITE_REACT_APP_API_URL || 'https://localhost:3000';
+const BASE_URL = process.env.VITE_REACT_APP_API_URL || 'http://localhost:3000';
 
 
 export default defineConfig({
 
   webServer: {
-    command: 'npm run start',
+    command: 'docker-compose up -d app2',
     url: BASE_URL,
     timeout: 120000,
     reuseExistingServer: true,

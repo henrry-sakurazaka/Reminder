@@ -22,6 +22,7 @@ if (process.env.CI !== 'true') {
       const page = await context.newPage();
       await page.goto(`${baseUrl}/UserAuth`);
       await context.clearCookies();
+      await context.clearPermissions();
       await page.evaluate(() => {
           localStorage.clear();
           sessionStorage.clear();     
