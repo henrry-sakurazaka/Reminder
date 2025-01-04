@@ -15,18 +15,18 @@ services:
     ports:
       - "3000:3000"
     networks:
-      - test-network
+      - test-network2
     volumes:
       - .:/app2
       - /app2/node_modules # 監視対象から除外
       - /app2/dist # 監視対象から除外
-      - ./server.key.pem:/etc/ssl/private/server.key.pem
-      - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+      # - ./server.key.pem:/etc/ssl/private/server.key.pem
+      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
    
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v https://localhost:3000 || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -61,7 +61,7 @@ services:
     volumes:
       - ./storage.rules:/firebase/storage.rules # ファイルの場合
     networks:
-      - test-network
+      - test-network2
    
   nginx:
     image: nginx:latest
@@ -73,12 +73,12 @@ services:
         condition: service_healthy
     volumes:
       - ./nginx.conf:/etc/nginx/nginx.conf
-      - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
-      - ./server.key.pem:/etc/ssl/private/server.key.pem
+      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+      # - ./server.key.pem:/etc/ssl/private/server.key.pem
       - ./ssl:/etc/nginx/ssl:ro
        - ./app2
     networks:
-      - test-network
+      - test-network2
     env_file:
       - .env
 
@@ -90,7 +90,7 @@ services:
       app2:
         condition: service_healthy
     networks:
-      - test-network
+      - test-network2
     working_dir: /app2
     env_file:
       - .env
@@ -104,6 +104,8 @@ services:
     command: npx playwright test
 
 networks:
-  test-network:
+  test-network2:
     driver: bridge
+    external: true
+
 

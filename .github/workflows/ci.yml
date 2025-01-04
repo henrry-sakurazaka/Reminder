@@ -16,6 +16,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v3
 
+      - name: Create Docker network
+        run: docker network create test-network2
+
+      - name: Connect reminder-nginx-1 to test-network2
+        run: docker network connect test-network2 reminder-nginx-1
+
+      - name: Connect reminder-playwright-1 to test-network2
+        run: docker network connect test-network2 reminder-playwright-1
+
+      - name: Connect reminder-app2-1 to test-network2
+        run: docker network connect test-network2 reminder-app2-1
+
+      - name: Connect reminder-firebase-1 to test-network2
+        run: docker network connect test-network2 reminder-firebase-1
+
       - name: Install Docker Compose
         run: |
           sudo apt-get update
@@ -115,6 +130,21 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Create Docker network
+        run: docker network create test-network2
+
+      - name: Connect reminder-nginx-1 to test-network2
+        run: docker network connect test-network2 reminder-nginx-1
+
+      - name: Connect reminder-playwright-1 to test-network2
+        run: docker network connect test-network2 reminder-playwright-1
+
+      - name: Connect reminder-app2-1 to test-network2
+        run: docker network connect test-network2 reminder-app2-1
+
+      - name: Connect reminder-firebase-1 to test-network2
+        run: docker network connect test-network2 reminder-firebase-1
+
       - name: Clear Playwright cache
         run: rm -rf /home/runner/.cache/ms-playwright
 
@@ -195,6 +225,9 @@ jobs:
         run: |
           npx playwright test ./tests
 
+      - name: Test HTTP endpoint
+        run: curl -k http://app2:3000/UserAuth
+    
       - name: Run Playwright Tests
         run: |
           npx playwright test --reporter=html

@@ -260,5 +260,20 @@
 // });
 
 
+import express from 'express';
+const app = express();
+
+// ミドルウェア
+app.use(express.json());
+
+// ルート
+app.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
+
+// サーバーを起動
+app.listen(3000, '0.0.0.0', () => {
+  console.log('Server is running on port 3000');
+});
 
 
