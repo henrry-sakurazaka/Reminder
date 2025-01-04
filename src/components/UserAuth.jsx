@@ -75,7 +75,7 @@ const UserAuth = () => {
                     ))}
                 </div>
             <div className="container">
-                < img className="logo" src="./public/logo_transparent.png" />
+                {/* < img className="logo" src="./public/logo_transparent.png" /> */}
                 <div className="decoration-container">
                     {/* <div className="decoration2">
                         {spans.map((_, index) => (
