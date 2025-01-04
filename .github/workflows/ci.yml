@@ -211,8 +211,6 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
-
-
       - name: Show Logs
         run: docker-compose logs app2
 
@@ -240,7 +238,7 @@ jobs:
           npx playwright test ./tests
 
       - name: Test HTTP endpoint
-        run: curl -k http://app2:3000/UserAuth
+        run: curl -k http://reminder-app2-1:3000/UserAuth
     
       - name: Run Playwright Tests
         run: |
