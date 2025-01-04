@@ -161,21 +161,11 @@ jobs:
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
           VITE_PORT: ${{ secrets.VITE_PORT }}
-  
-      - name: Build and Start App
-        run: |
-          docker-compose down --volumes
-          docker system prune -f
-          docker-compose build
-          docker-compose up -d
-
-      - name: Show Logs
-        run: docker-compose logs app2
 
       - name: Wait for containers to be fully started
         run: |
-          sleep 10  # コンテナが起動するのを少し待つ
-
+          sleep 10  
+    
       - name: Create Docker network
         run: docker network create test-network2
 
@@ -191,6 +181,18 @@ jobs:
       - name: Connect reminder-firebase-1 to test-network2
         run: docker network connect test-network2 reminder-firebase-1
 
+      - name: Build App
+        run: |
+          docker-compose down --volumes
+          docker system prune -f
+          docker-compose build
+          
+      - name: Start App
+        run: |
+          docker-compose up -d
+
+      - name: Show Logs
+        run: docker-compose logs app2
 
       - name: Set permissions for test-results directory
         run: |
