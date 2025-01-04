@@ -180,16 +180,37 @@ jobs:
           sleep 10  
 
       - name: Connect reminder-nginx-1 to test-network2
-        run: docker network connect test-network2 reminder-nginx-1
+        run: |
+          if ! docker network inspect test-network2 | grep -q "reminder-nginx-1"; then
+            docker network connect test-network2 reminder-nginx-1
+          else
+            echo "Container is already connected to the network."
+          fi
 
       - name: Connect reminder-playwright-1 to test-network2
-        run: docker network connect test-network2 reminder-playwright-1
+        run: |
+          if ! docker network inspect test-network2 | grep -q "reminder-playwright-1"; then
+            docker network connect test-network2 reminder-playwright-1
+          else
+            echo "Container is already connected to the network."
+          fi
 
       - name: Connect reminder-app2-1 to test-network2
-        run: docker network connect test-network2 reminder-app2-1
+        run: |
+          if ! docker network inspect test-network2 | grep -q "reminder-app2-1"; then
+            docker network connect test-network2 reminder-app2-1
+          else
+            echo "Container is already connected to the network."
+          fi
 
       - name: Connect reminder-firebase-1 to test-network2
-        run: docker network connect test-network2 reminder-firebase-1
+        run: |
+          if ! docker network inspect test-network2 | grep -q "reminder-firebase-1"; then
+            docker network connect test-network2 reminder-firebase-1
+          else
+            echo "Container is already connected to the network."
+          fi
+
 
 
       - name: Show Logs
