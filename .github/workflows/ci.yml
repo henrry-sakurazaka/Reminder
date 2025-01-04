@@ -162,6 +162,16 @@ jobs:
           VITE_HOST: ${{ secrets.VITE_HOST }}
           VITE_PORT: ${{ secrets.VITE_PORT }}
 
+      - name: Build App
+        run: |
+          docker-compose down --volumes
+          docker system prune -f
+          docker-compose build
+          
+      - name: Start App
+        run: |
+          docker-compose up -d
+
       - name: Wait for containers to be fully started
         run: |
           sleep 10  
@@ -181,15 +191,6 @@ jobs:
       - name: Connect reminder-firebase-1 to test-network2
         run: docker network connect test-network2 reminder-firebase-1
 
-      - name: Build App
-        run: |
-          docker-compose down --volumes
-          docker system prune -f
-          docker-compose build
-          
-      - name: Start App
-        run: |
-          docker-compose up -d
 
       - name: Show Logs
         run: docker-compose logs app2
