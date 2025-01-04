@@ -167,6 +167,9 @@ jobs:
           docker-compose down --volumes
           docker system prune -f
           docker-compose build
+
+      - name: Create Docker network
+        run: docker network create test-network2
           
       - name: Start App
         run: |
@@ -175,9 +178,6 @@ jobs:
       - name: Wait for containers to be fully started
         run: |
           sleep 10  
-    
-      - name: Create Docker network
-        run: docker network create test-network2
 
       - name: Connect reminder-nginx-1 to test-network2
         run: docker network connect test-network2 reminder-nginx-1
