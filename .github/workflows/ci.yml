@@ -210,9 +210,10 @@ jobs:
           else
             echo "Container is already connected to the network."
           fi
-      - name: Check response URL
+
+      - name: Check responsed URL
         run: |
-          docker exec -it reminder-playwright-1 curl http://172.18.0.3:3000
+          docker exec reminder-playwright-1 curl http://172.18.0.3:3000
 
       - name: Show Logs
         run: docker-compose logs app2
