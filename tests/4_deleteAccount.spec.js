@@ -36,7 +36,7 @@ if (process.env.CI !== 'true') {
       });
 
     await page.click('span#SI', { timeout: 30000 });
-    await page.waitForTimeout(5000); 
+    await page.waitForTimeout(7000); 
     await expect(page).toHaveURL(`${baseUrl}/SignIn`);
     
     await page.waitForTimeout(5000); 

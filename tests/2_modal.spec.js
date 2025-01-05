@@ -27,7 +27,7 @@ if (process.env.CI !== 'true') {
           sessionStorage.clear();     
       });
     }
-    await page.waitForTimeout(5000); 
+    await page.waitForTimeout(7000); 
     await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
       timeout: 60000,
