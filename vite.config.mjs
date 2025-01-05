@@ -18,9 +18,7 @@ export default defineConfig({
   // root: __dirname,
   root: '/app2/',
   build: {
-    // outDir: resolve(__dirname, 'dist'),
-    // define: {
-    outDir: resolve('/app2/', 'dist'),
+    outDir: resolve(__dirname, 'dist'),
     define: {
       'process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS),
     },
