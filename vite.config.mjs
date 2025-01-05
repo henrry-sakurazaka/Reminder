@@ -15,8 +15,8 @@ export default defineConfig({
     'process.env': process.env,
   },
   base: './',
-  // root: __dirname,
-  root: '/app2/',
+  root: __dirname,
+  // root: '/app2/',
   build: {
     outDir: resolve(__dirname, 'dist'),
     define: {
