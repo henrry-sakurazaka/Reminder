@@ -234,6 +234,9 @@ jobs:
 
       - name: Debug .env file contents
         run: cat .env
+      - name: xvfb
+        run: |
+          xvfb-run npx playwright test
 
       - name: Run E2E Tests
         run: |
