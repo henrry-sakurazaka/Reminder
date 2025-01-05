@@ -38,7 +38,7 @@ export default defineConfig({
   ],
  
   use: {
-    headless: true,  // ヘッドレスモードで実行（表示なし）
+    headless: false,  //有効にして視覚確認できるようにする
     viewport: { width: 1280, height: 720 },  // ビューポートの設定
     actionTimeout: 10000,  // アクションごとのタイムアウト
     baseURL: BASE_URL,
