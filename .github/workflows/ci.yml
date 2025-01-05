@@ -207,7 +207,7 @@ jobs:
       - name: Check responsed URL
         run: |
           docker exec reminder-playwright-1 curl http://172.18.0.3:3000
-          docker exec reminder-playwright-1 cat /path/to/server/config
+          # docker exec reminder-playwright-1 cat /path/to/server/config
           docker exec reminder-playwright-1 ps aux | grep node
 
       - name: Show Logs
