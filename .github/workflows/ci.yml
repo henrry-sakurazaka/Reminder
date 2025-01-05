@@ -49,6 +49,8 @@ jobs:
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
+          echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
+
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -139,6 +141,7 @@ jobs:
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
+          echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
@@ -154,6 +157,7 @@ jobs:
           VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
           VITE_HOST: ${{ secrets.VITE_HOST }}
           VITE_PORT: ${{ secrets.VITE_PORT }}
+          VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
 
       - name: Build App
         run: |

@@ -37,6 +37,7 @@ services:
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0 
+      VITE_PLAYWRIGHT_BASE_URL: http://172.18.0.3:3000/
     depends_on:
       - firebase
    
