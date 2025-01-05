@@ -22,7 +22,7 @@ if (process.env.CI !== 'true') {
           sessionStorage.clear();     
       });
     }
-    await page.waitForTimeout(6000); 
+    await page.waitForTimeout(7000); 
     await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
       timeout: 60000,
@@ -31,7 +31,7 @@ if (process.env.CI !== 'true') {
     await page.click('span#SU', { timeout: 30000 });
     await expect(page).toHaveURL(`${baseUrl}/SignUp`);
 
-    await page.waitForTimeout(5000); // 必要に応じて時間を調整
+    await page.waitForTimeout(7000); // 必要に応じて時間を調整
 
     await page.waitForSelector('li.terms', { timeout: 30000 });
     await page.click('li.terms')
