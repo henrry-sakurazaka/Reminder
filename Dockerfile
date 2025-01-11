@@ -1,10 +1,6 @@
 # OpenJDKを含むDebianベースの軽量イメージを使用
 FROM openjdk:11-jdk-slim
 
-# # Firebase CLIとJavaのインストール
-# RUN apt-get update && apt-get install -y openjdk-11-jre-headless && \
-#     npm install -g firebase-tools
-
 # Node.jsのインストール用にNodeSourceを追加
 RUN apt-get update && apt-get install -y curl \
     && curl -fsSL https://deb.nodesource.com/setup_18.x | bash - \
@@ -16,6 +12,17 @@ RUN apt-get update && apt-get install -y \
     git \
     sudo \
     && rm -rf /var/lib/apt/lists/
+
+# cloudflaredのインストール
+RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/download/2025.1.0/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
+    chmod +x /usr/local/bin/cloudflared
+
+# # Dockerfile example
+# FROM cloudflare/cloudflared:latest
+
+
+# # 事前に生成したcert.pemをイメージにコピー
+# COPY ./cert.pem /home/nonroot/.cloudflared/cert.pem
 
 COPY server.js .
 CMD ["node", "server.js"]
@@ -35,7 +42,6 @@ WORKDIR /usr/src/app2
 
 # 必要な環境変数を設定
 ENV CI=true
-
 
 # 権限を適切に設定
 RUN mkdir -p /app2/test-results /app2/playwright-report \
@@ -94,7 +100,7 @@ RUN npm install
 
 
 # デフォルトコマンド
-CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0"]
+CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0", "cloudflare", "tunnel", "offsetcodecraft.site"]
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh

@@ -23,7 +23,6 @@ services:
       # - ./server.key.pem:/etc/ssl/private/server.key.pem
       # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
-   
     entrypoint: ./entrypoint.sh
     healthcheck:
       test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
@@ -37,7 +36,6 @@ services:
       VITE_HTTPS: "true"
       command: vite --https
       VITE_HOST: 0.0.0.0 
-      VITE_PLAYWRIGHT_BASE_URL: http://172.18.0.3:3000/
     depends_on:
       - firebase
    
@@ -50,7 +48,7 @@ services:
     environment:
       VITE_GOOGLE_APPLICATION_CREDENTIALS: "/firebase/serviceAccountKey.json"
     ports:
-      - "8080:8080"
+      - "8070:8070"
       - "5001:5001"
       - "5000:5000"
       - "8090:8090"
@@ -63,7 +61,28 @@ services:
       - ./storage.rules:/firebase/storage.rules # ファイルの場合
     networks:
       - test-network2
-   
+  
+  cloudflared:
+    image: cloudflare/cloudflared:latest
+    container_name: cloudflared
+    depends_on:
+      app2:
+        condition: service_healthy
+    environment:
+      - VITE_CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}
+      - CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}
+      - TUNNEL_ID=${VITE_TUNNEL_ID}
+      # - TUNNEL_ORIGIN_CERT=${VITE_TUNNEL_ORIGIN_CERT}
+      # - VITE_TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem  # cert.pemのパス
+    command: 
+      cloudflare tunnel login
+      tunnel --no-autoupdate run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
+      tunnel --url localhost:3000 
+      cloudflare tunnel run offsetcodecraft.site
+    volumes:
+      - /home/nonroot/.cloudflared/cert.pem
+    restart: unless-stopped
+
   nginx:
     image: nginx:latest
     ports:
@@ -103,10 +122,10 @@ services:
       - ./package.json:/app2/package.json
       - ./node_modules:/app2/node_modules
     command: npx playwright test
-
+            
 networks:
   test-network2:
     driver: bridge
-    external: true
+    # external: true
 
 
