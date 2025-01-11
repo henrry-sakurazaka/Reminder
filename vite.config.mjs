@@ -79,11 +79,7 @@ export default defineConfig({
     overlay: false, 
     cors: true,
   },
-  // webServer: {
-  //   command: 'npm run dev', 
-  //   port: 3000,             
-  //   timeout: 120000,    
-  // },
+ 
   reporter: [
     ['list'], 
     ['html', { outputFolder: './custom-test-results' }]

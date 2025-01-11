@@ -50,7 +50,8 @@ jobs:
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
-
+          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -132,6 +133,12 @@ jobs:
           sudo chmod +x /usr/local/bin/docker-compose
           docker-compose version
 
+      - name: Download cloudflared
+        run: |
+          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+          sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
+          sudo chmod +x /usr/local/bin/cloudflared
+        
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -142,11 +149,13 @@ jobs:
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
+          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
           cat .env
-      
+
       - name: Build Docker image (App)
         run: docker build -t app2:latest .
         env:
@@ -158,6 +167,43 @@ jobs:
           VITE_HOST: ${{ secrets.VITE_HOST }}
           VITE_PORT: ${{ secrets.VITE_PORT }}
           VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
+          VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
+          VITE_CLOUDFLARE_API_TOKEN: ${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}
+      
+      # - name: Make Cloudflare credentials
+      #   run: |
+      #     mkdir -p /home/nonroot/.cloudflared
+         
+      # - name: Encode cert.pem
+      #   run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
+
+      # - name: Copy Cloudflare credentials
+      #   run: echo "${{ secrets.VITE_CLOUDFLARE_CERT }}" > /home/nonroot/.cloudflared/cert.pem
+      
+      - name: Set up Cloudflare API token
+        run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+
+      - name: Build and run Docker container
+        run: |
+          docker build --build-arg VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} -t cloudflared .
+          docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflared
+
+      - name: Run Cloudflare login
+        run: cloudflared tunnel login
+
+      - name: Docker Run Cloudflare Tunnel
+        run: docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
+        # run: docker run -v ~/.cloudflared:/home/nonroot/.cloudflared cloudflare/cloudflared:latest tunnel run my-tunnel
+
+      - name: Setting Tunnel url
+        run: tunnel --url localhost:3000 
+
+      - name: Tunnel start
+        run: cloudflare tunnel run offsetcodecraft.site
+        
+      - name: Check Cloudflare Tunnel
+        run: |
+          curl -I https://offsetcodecraft.site.trycloudflare.com
 
       - name: Build App
         run: |
@@ -234,18 +280,12 @@ jobs:
 
       - name: Debug .env file contents
         run: cat .env
-      - name: xvfb
-        run: |
-          xvfb-run npx playwright test
 
       - name: Run E2E Tests
         run: |
           npx playwright test ./tests --workers=1
           DEBUG=pw:api npx playwright test
 
-      - name: Test HTTP endpoint
-        run: curl -k http://reminder-app2-1:3000/UserAuth
-    
       - name: Run Playwright Tests
         run: |
           npx playwright test --reporter=html
@@ -278,7 +318,8 @@ jobs:
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
 
 
 
