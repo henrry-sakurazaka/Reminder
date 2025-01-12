@@ -98,6 +98,41 @@ jobs:
 
       - name: Run ESLint with auto-fix
         run: npx eslint src/ --fix
+  name: Run Cloudflare Tunnel
+
+
+  cloudflare-tunnel:
+    runs-on: ubuntu-latest
+
+    steps:
+      # 必要なリポジトリチェックアウト
+      - name: Checkout repository
+        uses: actions/checkout@v3
+
+      # 必要な依存関係のインストール
+      - name: Install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y curl
+
+      # UDP Buffer Sizeを増加
+      - name: Increase UDP Buffer Size
+        run: |
+          echo "net.core.rmem_max=2500000" | sudo tee -a /etc/sysctl.conf
+          sudo sysctl -w net.core.rmem_max=2500000
+
+      # ping_group_rangeの設定
+      - name: Adjust ping_group_range
+        run: |
+          echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
+          echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
+
+      # Cloudflare Tunnelの実行
+      - name: Run Cloudflare Tunnel
+        env:
+          VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.CLOUDFLARE_TUNNEL_TOKEN }}
+        run: |
+          cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
 
   E2E-tests:
     runs-on: ubuntu-latest
@@ -180,11 +215,9 @@ jobs:
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
-      # - name: Build and run Docker container
-      #   run: |
-      #     docker build --build-arg VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} -t cloudflared .
-      #     docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflared
-      
+      - name: Start Cloudflare Tunnel
+        run: cloudflared tunnel run --token ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
+
       - name: Build and run Docker container
         run: docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflare/cloudflared:latest
 
