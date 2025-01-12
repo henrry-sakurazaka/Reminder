@@ -52,6 +52,7 @@ jobs:
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
           echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
           echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "VITE_TUNNEL_ID=${{ secrets.VITE_TUNNEL_ID}}" >> .env
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -152,6 +153,7 @@ jobs:
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
           echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
           echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "VITE_TUNNEL_ID=${{ secrets.VITE_TUNNEL_ID}}" >> .env
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
 
@@ -170,6 +172,7 @@ jobs:
           VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
           VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
           VITE_CLOUDFLARE_API_TOKEN: ${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}
+          VITE_TUNNEL_ID: ${{ secrets.VITE_TUNNEL_ID}}
       
       # - name: Make Cloudflare credentials
       #   run: |
