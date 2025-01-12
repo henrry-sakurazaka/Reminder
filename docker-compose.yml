@@ -102,7 +102,6 @@ services:
     env_file:
       - .env
 
-
   playwright:
     container_name: reminder-playwright-1
     image: mcr.microsoft.com/playwright:v1.49.0-jammy   
@@ -126,6 +125,6 @@ services:
 networks:
   test-network2:
     driver: bridge
-    # external: true
+    
 
 
