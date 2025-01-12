@@ -189,7 +189,9 @@ jobs:
         run: docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflare/cloudflared:latest
 
       - name: Run Cloudflare Tunnel
-        run: cloudflared tunnel run --token $VITE_CLOUDFLARE_API_TOKEN
+        run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
+        env:
+          VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
       
       - name: Docker Run Cloudflare Tunnel
         run: docker run cloudflare/cloudflared:latest tunnel --no-autoupdate run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
