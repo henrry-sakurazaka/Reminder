@@ -8,9 +8,7 @@ if (process.env.CI !== 'true') {
 // test.use({
 //   browserName: 'chromium',
 //   channel: 'chrome' // PlaywrightでChromeを使用するように指定
-// });
-
- 
+// }
 
   test('ログインテスト', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL;

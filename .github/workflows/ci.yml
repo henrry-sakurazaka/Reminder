@@ -177,16 +177,16 @@ jobs:
       # - name: Encode cert.pem
       #   run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
 
-      # - name: Copy Cloudflare credentials
-      #   run: echo "${{ secrets.VITE_CLOUDFLARE_CERT }}" > /home/nonroot/.cloudflared/cert.pem
-      
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
+      # - name: Build and run Docker container
+      #   run: |
+      #     docker build --build-arg VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} -t cloudflared .
+      #     docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflared
+      
       - name: Build and run Docker container
-        run: |
-          docker build --build-arg VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} -t cloudflared .
-          docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflared
+        run: docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflare/cloudflared:latest
 
       - name: Run Cloudflare login
         run: cloudflared tunnel login
