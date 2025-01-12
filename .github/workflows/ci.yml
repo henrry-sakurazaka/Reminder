@@ -99,32 +99,7 @@ jobs:
       - name: Run ESLint with auto-fix
         run: npx eslint src/ --fix
   
-  cloudflare-tunnel:
-    runs-on: ubuntu-latest
-
-    steps:
-      # 必要なリポジトリチェックアウト
-      - name: Checkout repository
-        uses: actions/checkout@v3
-
-      # 必要な依存関係のインストール
-      - name: Install dependencies
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y curl
-
-      # UDP Buffer Sizeを増加
-      - name: Increase UDP Buffer Size
-        run: |
-          echo "net.core.rmem_max=2500000" | sudo tee -a /etc/sysctl.conf
-          sudo sysctl -w net.core.rmem_max=2500000
-
-      # ping_group_rangeの設定
-      - name: Adjust ping_group_range
-        run: |
-          echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
-          echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
-
+    
   E2E-tests:
     runs-on: ubuntu-latest
     timeout-minutes: 30
@@ -164,6 +139,19 @@ jobs:
           wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
           sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
+
+      # UDP Buffer Sizeを増加
+      - name: Increase UDP Buffer Size
+        run: |
+          echo "net.core.rmem_max=2500000" | sudo tee -a /etc/sysctl.conf
+          sudo sysctl -w net.core.rmem_max=2500000
+
+      # ping_group_rangeの設定
+      - name: Adjust ping_group_range
+        run: |
+          echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
+          echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
+
         
       - name: Create .env file and keys
         run: |
@@ -203,6 +191,7 @@ jobs:
       # - name: Encode cert.pem
       #   run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
 
+      
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
