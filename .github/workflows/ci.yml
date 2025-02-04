@@ -213,7 +213,7 @@ jobs:
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
 
       - name: Start Cloudflare Tunnel
-        run: cloudflared tunnel run --token ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
+        run: cloudflared tunnel run --token ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }} &
 
       - name: Build and run Docker container
         run: docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflare/cloudflared:latest
