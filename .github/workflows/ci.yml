@@ -189,12 +189,12 @@ jobs:
           HOST: ${{ secrets.HOST }}
           PORT: ${{ secrets.PORT }}
           
-      # - name: Make Cloudflare credentials
-      #   run: |
-      #     mkdir -p /home/nonroot/.cloudflared
+      - name: Make Cloudflare credentials
+        run: |
+          mkdir -p /home/nonroot/.cloudflared
          
-      # - name: Encode cert.pem
-      #   run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
+      - name: Encode cert.pem
+        run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
 
       
       - name: Set up Cloudflare API token
@@ -239,7 +239,7 @@ jobs:
       - name: Start App
         run: |
           docker-compose up -d app2
-
+  
       - name: Show Logs
         run: docker-compose logs app2
 
@@ -259,14 +259,6 @@ jobs:
       - name: Wait for containers to be fully started
         run: |
           sleep 10  
-
-      # - name: Connect reminder-nginx-1 to test-network2
-      #   run: |
-      #     if ! docker network inspect test-network2 | grep -q "reminder-nginx-1"; then
-      #       docker network connect test-network2 reminder-nginx-1
-      #     else
-      #       echo "Container is already connected to the network."
-      #     fi
 
       - name: Connect reminder-playwright-1 to test-network2
         run: |
@@ -292,10 +284,10 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
-      # - name: Check responsed URL
-      #   run: |
-      #     docker exec reminder-playwright-1 curl http://172.18.0.3:3000
-      #     docker exec reminder-playwright-1 ps aux | grep node
+      - name: Check responsed URL
+        run: |
+          docker exec reminder-playwright-1 curl http://172.18.0.3:3000
+          docker exec reminder-playwright-1 ps aux | grep node
 
       - name: Set permissions for test-results directory
         run: |
