@@ -243,7 +243,7 @@ jobs:
         run: docker-compose logs app2
 
       - name: Setting Tunnel url
-        run: tunnel --url localhost:3000 
+        run: docker exec -it cloudflared cloudflared tunnel --url localhost:3000 
 
       - name: Tunnel start
         run: cloudflare tunnel run offsetcodecraft.site &
