@@ -64,7 +64,6 @@ services:
     networks:
       - test-network2
   
-   
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
