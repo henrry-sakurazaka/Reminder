@@ -13,20 +13,7 @@ RUN apt-get update && apt-get install -y \
     sudo \
     && rm -rf /var/lib/apt/lists/
 
-# cloudflaredのインストール
-RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/download/2025.1.0/cloudflared-linux-amd64 -o /usr/local/bin/cloudflared && \
-    chmod +x /usr/local/bin/cloudflared
 
-# # Dockerfile example
-# FROM cloudflare/cloudflared:latest
-
-
-# # 事前に生成したcert.pemをイメージにコピー
-# COPY ./cert.pem /home/nonroot/.cloudflared/cert.pem
-
-COPY server.js .
-CMD ["node", "server.js"]
-    
 # 証明書と秘密鍵をコンテナ内にコピー
 # COPY server.cert.pem /etc/ssl/certs/
 # COPY server.key.pem /etc/ssl/private/
@@ -35,7 +22,20 @@ COPY nginx.conf /etc/nginx/nginx.conf
 # Javaが正しくインストールされているか確認
 RUN java -version
 
-FROM node:20.14.0
+FROM node:20
+
+WORKDIR /usr/src/app2
+
+# 必要なファイルをコピー
+COPY package*.json ./
+
+# npmのキャッシュをクリアし、依存関係をインストール
+RUN npm cache clean --force && npm ci
+
+# アプリケーションのコードをコピー
+COPY . .
+   
+COPY server.js .
 
 # アプリケーションディレクトリを作成
 WORKDIR /usr/src/app2
@@ -48,6 +48,9 @@ RUN mkdir -p /app2/test-results /app2/playwright-report \
     && chmod -R 777 /app2/test-results /app2/playwright-report
 
 RUN mkdir -p /home/runner/work/Reminder/Reminder/test-results && chmod -R 777 /home/runner/work/Reminder/Reminder/test-results
+
+# # node ユーザーとグループを作成
+# RUN groupadd -r node && useradd -r -g node node
 
 # ホスト側のディレクトリをコンテナ内で参照する設定
 RUN mkdir -p /mnt/test-results && \
@@ -100,13 +103,16 @@ RUN npm install
 
 
 # デフォルトコマンド
-CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0", "cloudflare", "tunnel", "offsetcodecraft.site"]
+CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0", "cloudflare", "tunnel", "offsetcodecraft.site", "node", "server.js"]
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
 EXPOSE 3000
+
+# # エントリーポイントを指定
+# ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
 
 # RUN npm install -g firebase-tools
 

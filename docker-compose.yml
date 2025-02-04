@@ -1,5 +1,6 @@
 services:
   app2:
+    container_name: app2
     build:
       context: .
       dockerfile: Dockerfile
@@ -32,10 +33,11 @@ services:
       start_period: 60s
     environment: 
       VITE_NODE_ENV: ${VITE_NODE_ENV}
-      VITE_REACT_APP_API_URL: ${VITE_REACT_APP_API_URL}
       VITE_HTTPS: "true"
       command: vite --https
-      VITE_HOST: 0.0.0.0 
+      VITE_PORT: ${VITE_PORT}
+      VITE_HOST: ${VITE_HOST}
+      HOST: 0.0.0.0
     depends_on:
       - firebase
    
@@ -48,7 +50,7 @@ services:
     environment:
       VITE_GOOGLE_APPLICATION_CREDENTIALS: "/firebase/serviceAccountKey.json"
     ports:
-      - "8070:8070"
+      - "8080:8080"
       - "5001:5001"
       - "5000:5000"
       - "8090:8090"
@@ -58,55 +60,85 @@ services:
     entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
     command: firebase emulators:start --only firestore,functions,auth,storage
     volumes:
-      - ./storage.rules:/firebase/storage.rules # ファイルの場合
+      - ./storage.rules:/firebase/storage.rules 
     networks:
       - test-network2
   
+   
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
+    build:
+      context: .
+      dockerfile: ./.cloudflared/Dockerfile
+    ulimits:
+      nofile:
+        soft: 65536
+        hard: 65536
     depends_on:
       app2:
         condition: service_healthy
-    environment:
-      - VITE_CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}
-      - CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}
-      - TUNNEL_ID=${VITE_TUNNEL_ID}
-      # - TUNNEL_ORIGIN_CERT=${VITE_TUNNEL_ORIGIN_CERT}
-      # - VITE_TUNNEL_ORIGIN_CERT=/etc/cloudflared/cert.pem  # cert.pemのパス
-    command: 
-      cloudflare tunnel login
-      tunnel --no-autoupdate run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
-      tunnel --url localhost:3000 
-      cloudflare tunnel run offsetcodecraft.site
-    volumes:
-      - /home/nonroot/.cloudflared/cert.pem
-    restart: unless-stopped
-
-  nginx:
-    image: nginx:latest
-    ports:
-      - "443:443"
-      - "80:80"
-    depends_on:
-      app2: 
-        condition: service_healthy
-    volumes:
-      - ./nginx.conf:/etc/nginx/nginx.conf
-      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
-      # - ./server.key.pem:/etc/ssl/private/server.key.pem
-      - ./ssl:/etc/nginx/ssl:ro
-       - ./app2
-    networks:
-      - test-network2
+      # nginx: 
+      #   condition: service_healthy
     env_file:
       - .env
+    entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
+    volumes:
+      - ~/.cloudflared:/home/nonroot/.cloudflared
+      - /tmp/cloudflared/.cloudflared:/home/nonroot/.cloudflared
+      - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
+      - ~/cloudflared-config:/home/nonroot/.cloudflared
+      - ./.cloudflared:/home/nonroot/.cloudflared
+      - ./.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
+      - /Users/Tsp33786/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem
+      - /Users/Tsp33786/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
+      - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/.cloudflared:/home/nonroot/.cloudflared
+    environment:
+      - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
+      - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
+      - TUNNEL_ID=${TUNNEL_ID} 
+    healthcheck:
+      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
+      interval: 90s
+      timeout: 60s
+      retries: 5
+      start_period: 60s
+    networks:
+      - test-network2
+   
+  
+  # nginx:
+  #   image: nginx:latest
+  #   ports:
+  #     - "80:80"
+  #   depends_on:
+  #     app2: 
+  #       condition: service_healthy 
+  #   volumes:
+  #     - ./nginx.conf:/etc/nginx/nginx.conf
+  #     # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+  #     # - ./server.key.pem:/etc/ssl/private/server.key.pem
+  #     - ./ssl:/etc/nginx/ssl:ro
+  #      - ./app2
+  #   restart: always
+  #   healthcheck:
+  #     test: ["CMD", "curl", "-f", "http://localhost:80", "||", "exit", "1"]
+  #     interval: 90s
+  #     timeout: 60s
+  #     retries: 5
+  #     start_period: 60s
+  #   networks:
+  #     - test-network2
+  #   env_file:
+  #     - .env
 
   playwright:
     container_name: reminder-playwright-1
     image: mcr.microsoft.com/playwright:v1.49.0-jammy   
     depends_on:
       app2:
+        condition: service_healthy
+      cloudflared:
         condition: service_healthy
     networks:
       - test-network2
@@ -116,6 +148,8 @@ services:
     build:
       context: .
       dockerfile: Dockerfile
+    environment:
+      - VITE_REACT_APP_API_URL=${VITE_REACT_APP_API_URL}
     volumes:
       - ./tests:/app2/tests
       - ./package.json:/app2/package.json
@@ -124,7 +158,10 @@ services:
             
 networks:
   test-network2:
-    driver: bridge
+    name: reminder_test-network2
+    external: true
+    # driver: bridge
+
     
 
 

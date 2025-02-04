@@ -52,11 +52,13 @@ jobs:
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
           echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
           echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
-          echo "VITE_TUNNEL_ID=${{ secrets.VITE_TUNNEL_ID}}" >> .env
+          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID}}" >> .env
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-
+          printf -- "${{ secrets.CF_CONFIG_YML}}" > .cloudflaredm/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM}}" > .cloudflaredm/cert.pem
+          printf -- "${{ secrets.CF_CREDENTIALS_FILE}}" > .cloudflaredm/offsetcodecraft.site.json
       - name: Debug .env file
         run: cat .env
 
@@ -140,7 +142,8 @@ jobs:
           wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
           sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
-        
+      
+     
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -153,9 +156,12 @@ jobs:
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
           echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
           echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
-          echo "VITE_TUNNEL_ID=${{ secrets.VITE_TUNNEL_ID}}" >> .env
+          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID}}" >> .env
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+          printf -- "${{ secrets.CF_CONFIG_YML}}" > .cloudflaredm/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM}}" > .cloudflaredm/cert.pem
+          printf -- "${{ secrets.CF_CREDENTIALS_FILE}}" > .cloudflaredm/offsetcodecraft.site.js
 
           cat .env
 
@@ -172,7 +178,7 @@ jobs:
           VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
           VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
           VITE_CLOUDFLARE_API_TOKEN: ${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}
-          VITE_TUNNEL_ID: ${{ secrets.VITE_TUNNEL_ID}}
+          TUNNEL_ID: ${{ secrets.TUNNEL_ID}}
       
       # - name: Make Cloudflare credentials
       #   run: |
