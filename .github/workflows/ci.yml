@@ -191,7 +191,7 @@ jobs:
           
       - name: Make Cloudflare credentials
         run: |
-          mkdir -p /home/nonroot/.cloudflared
+         sudo mkdir -p /home/nonroot/.cloudflared
          
       - name: Encode cert.pem
         run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
