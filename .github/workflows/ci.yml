@@ -237,7 +237,7 @@ jobs:
           
       - name: Start App
         run: |
-          docker-compose up -d app2
+          docker-compose up -d cloudflared
   
       - name: Show Logs
         run: docker-compose logs app2
