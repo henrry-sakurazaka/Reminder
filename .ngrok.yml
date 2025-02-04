@@ -1,6 +1,0 @@
-agent:
-  authtoken: $VITE_NGROK_AUTH_TOKEN
-  tunnels:
-    app:
-      proto: http
-      addr: 3000

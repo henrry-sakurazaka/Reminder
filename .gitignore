@@ -17,6 +17,9 @@ function/.env
 serviceAccountKey.json
 function/serviceAccountKey.json
 bfg-repo-cleaner/
+.cloudflared/cert.pem
+.cloudflared/offsetcodecraft.site.json
+.cloudflared/config.yml
 
 
 

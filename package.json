@@ -53,7 +53,7 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "vite --host $HOST --port $PORT",
     "build": "vite build",
     "clean": "rm -rf node_modules && npm install",
     "preview": "vite preview",
