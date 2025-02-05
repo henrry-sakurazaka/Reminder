@@ -194,10 +194,12 @@ jobs:
           printf -- "${{ secrets.CF_ENTRYPOINT}}" > $CLOUDFLARED_DIR/entrypoint.sh
          
           cat .env
-          
+
       - name: Copy Cloudflared Config to Target Directory
         run: |
           mkdir -p /home/nonroot/.cloudflared/
+          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+          sudo chmod -R 700 /home/nonroot/.cloudflared
           cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
           cp .cloudflared/config.yml /home/nonroot/.cloudflared/
           cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
