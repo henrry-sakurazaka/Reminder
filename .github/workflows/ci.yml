@@ -184,7 +184,17 @@ jobs:
           printf -- "${{ secrets.CF_CERT_PEM}}" > .cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE}}" > .cloudflared/offsetcodecraft.site.jso
           printf -- "${{ secrets.CF_ENTRYPOINT}}" > .cloudflared/entrypoint.sh
-         
+
+      - name: Copy Cloudflared Config to Target Directory
+        run: |
+          sudo mkdir -p /home/nonroot/.cloudflared/
+          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+          sudo chmod -R 700 /home/nonroot/.cloudflared
+          cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
+          cp .cloudflared/config.yml /home/nonroot/.cloudflared/
+          cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
+          ls -la /home/nonroot/.cloudflared/
+              
           mkdir -p $CLOUDFLARED_DIR 
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
@@ -194,17 +204,7 @@ jobs:
           printf -- "${{ secrets.CF_ENTRYPOINT}}" > $CLOUDFLARED_DIR/entrypoint.sh
          
           cat .env
-
-      - name: Copy Cloudflared Config to Target Directory
-        run: |
-          mkdir -p /home/nonroot/.cloudflared/
-          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-          sudo chmod -R 700 /home/nonroot/.cloudflared
-          cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-          cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-          cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-          ls -la /home/nonroot/.cloudflared/
-              
+       
       - name: Build Docker image (App)
         run: docker build -t app2:latest .
         env:
