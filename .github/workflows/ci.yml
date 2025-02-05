@@ -191,8 +191,22 @@ jobs:
           
       - name: Make Cloudflare credentials
         run: |
-         sudo mkdir -p /home/nonroot/.cloudflared
-         
+          sudo mkdir -p /home/nonroot/.cloudflared
+          sudo chown -R $USER:$USER /home/nonroot/.cloudflared
+      
+      - name: Copy directory and file
+        run: sudo cp -r ./.cloudflared/* /home/nonroot/.cloudflared/
+      
+      - name: Define Permission
+        run: |
+          sudo chmod +x /home/nonroot/.cloudflared/entrypoint.sh
+          sudo chmod 600 /home/nonroot/.cloudflared/config.yml
+      
+      - name: Add Permission
+        run: |
+          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+          sudo chmod 640 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+      
       # - name: Encode cert.pem
       #   run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
   
