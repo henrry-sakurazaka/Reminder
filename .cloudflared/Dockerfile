@@ -52,6 +52,7 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
 
 #CI/CD環境用
 # 実行ユーザーを設定（GitHub Actions の runner 環境では "runner" などになる）
+
 ARG USERNAME=runner
 ARG HOME_DIR=/home/$USERNAME
 
@@ -62,17 +63,17 @@ RUN useradd -m -s /bin/bash $USERNAME
 ENV CLOUDFLARED_DIR=$HOME_DIR/.cloudflared
 
 # ディレクトリ作成
-RUN mkdir -p $CLOUDFLARED_DIR
+RUN mkdir -p $CLOUDFLARED_DIR/
 
 # 必要なファイルをコピー
 COPY .cloudflared/entrypoint.sh $CLOUDFLARED_DIR/entrypoint.sh
 COPY .cloudflared/config.yml $CLOUDFLARED_DIR/config.yml
-
-RUN chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json && \
-    chown nonroot:nonroot $CLOUDFLARED_DIR/offsetcodecraft.site.json
+COPY .cloudflared/cert.pem $CLOUDFLARED_DIR/cert.pem
+COPY .cloudflared/offsetcodecraft.site.json $CLOUDFLARED_DIR/offsetcodecraft.site.json
 
 # 実行権限を付与
 RUN chmod +x $CLOUDFLARED_DIR/entrypoint.sh
+RUN chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json
 
 # 権限の設定（GitHub Actions runner ユーザーに合わせる）
 RUN chown -R $USERNAME:$USERNAME $CLOUDFLARED_DIR
