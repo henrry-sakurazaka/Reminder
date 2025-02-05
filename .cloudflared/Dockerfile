@@ -30,6 +30,7 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
     -o /usr/local/bin/cloudflared \
     && chmod +x /usr/local/bin/cloudflared
 
+#ローカル、Docker環境用、Cloudflareが推奨するディレクトリ構成
 # RUN mkdir -p /home/nonroot/.cloudflared
 
 # # nonroot ユーザーを作成
@@ -48,6 +49,8 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
    
 # ENTRYPOINT ["/bin/sh","/home/nonroot/.cloudflared/entrypoint.sh"]
 
+
+#CI/CD環境用
 # 実行ユーザーを設定（GitHub Actions の runner 環境では "runner" などになる）
 ARG USERNAME=runner
 ARG HOME_DIR=/home/$USERNAME
