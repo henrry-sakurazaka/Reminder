@@ -223,6 +223,11 @@ jobs:
         run: |
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
+
+      - name: Fix Cloudflare Tunnel Credentials Permissions
+        run: |
+          docker exec -i cloudflared chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          docker exec -i cloudflared chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
       
       - name: Start Cloudflare Tunnel
         run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
@@ -253,7 +258,7 @@ jobs:
           docker-compose up -d cloudflared
   
       - name: Show Logs
-        run: docker-compose logs app2
+        run: docker-compose logs 
 
       - name: Setting Tunnel url
         run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
