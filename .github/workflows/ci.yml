@@ -192,8 +192,7 @@ jobs:
       - name: Make Cloudflare credentials
         run: |
           mkdir -p $HOME/.cloudflared
-          chown -R $USER:$USER $HOME/.cloudflared
-      
+
       - name: Copy directory and file
         run: cp -r ./.cloudflared/* $HOME/.cloudflared/
       
@@ -204,10 +203,9 @@ jobs:
       
       - name: Add Permission
         run: |
-          chown -R $(whoami):$(whoami) $HOME/.cloudflared
           chmod 640 $HOME/.cloudflared/offsetcodecraft.site.json
 
-    
+
       # - name: Encode cert.pem
       #   run: base64 ~/.cloudflared/cert.pem > cert.pem.base64
   
