@@ -65,12 +65,36 @@ jobs:
 
       - name: Copy Cloudflared Config to Target Directory
         run: |
-          sudo useradd -m -s /bin/bash nonroot
-          sudo mkdir -p /home/nonroot/.cloudflared/
-          cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-          cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-          cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-          ls -la /home/nonroot/.cloudflared/
+          sudo mkdir -p /home/runner/.cloudflared/
+          sudo chown -R runner:runner /home/runner/.cloudflared/
+          sudo chmod -R 700 /home/runner/.cloudflared/
+
+          cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
+          cp .cloudflared/config.yml /home/runner/.cloudflared/
+          cp .cloudflared/cert.pem /home/runner/.cloudflared/
+
+          ls -la /home/runner/.cloudflared/
+
+
+      # ローカル環境用設定
+      # - name: Copy Cloudflared Config to Target Directory
+      #   run: |
+      #     sudo useradd -m -s /bin/bash nonroot
+      #     sudo mkdir -p /home/nonroot/.cloudflared/
+      #     cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
+      #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
+      #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
+      #     ls -la /home/nonroot/.cloudflared/
+
+          mkdir -p $CLOUDFLARED_DIR 
+          printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
+          printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
+          printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
+          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
+          printf -- "${{ secrets.CF_ENTRYPOINT}}" > $CLOUDFLARED_DIR/entrypoint.sh
+        
+          cat .env
 
       - name: Debug .env file
         run: cat .env
@@ -188,15 +212,28 @@ jobs:
 
       - name: Copy Cloudflared Config to Target Directory
         run: |
-          sudo useradd -m -s /bin/bash nonroot
-          sudo mkdir -p /home/nonroot/.cloudflared/
-          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-          sudo chmod -R 755 /home/nonroot/  
-          sudo chmod -R 700 /home/nonroot/.cloudflared
-          cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-          cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-          cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-          ls -la /home/nonroot/.cloudflared/
+          sudo mkdir -p /home/runner/.cloudflared/
+          sudo chown -R runner:runner /home/runner/.cloudflared/
+          sudo chmod -R 700 /home/runner/.cloudflared/
+
+          cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
+          cp .cloudflared/config.yml /home/runner/.cloudflared/
+          cp .cloudflared/cert.pem /home/runner/.cloudflared/
+
+          ls -la /home/runner/.cloudflared/
+
+      # ローカル環境用設定
+      # - name: Copy Cloudflared Config to Target Directory
+      #   run: |
+      #     sudo useradd -m -s /bin/bash nonroot
+      #     sudo mkdir -p /home/nonroot/.cloudflared/
+      #     sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+      #     sudo chmod -R 755 /home/nonroot/  
+      #     sudo chmod -R 700 /home/nonroot/.cloudflared
+      #     cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
+      #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
+      #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
+      #     ls -la /home/nonroot/.cloudflared/
               
           mkdir -p $CLOUDFLARED_DIR 
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
