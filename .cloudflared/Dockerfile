@@ -48,8 +48,8 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
    
 # ENTRYPOINT ["/bin/sh","/home/nonroot/.cloudflared/entrypoint.sh"]
 
-# 実行ユーザーを取得（GitHub Actions の runner 環境では "runner" などになる）
-ARG USERNAME=$(whoami)
+# 実行ユーザーを設定（GitHub Actions の runner 環境では "runner" などになる）
+ARG USERNAME=runner
 ARG HOME_DIR=/home/$USERNAME
 
 # 環境変数をセット
@@ -65,7 +65,7 @@ COPY .cloudflared/config.yml $CLOUDFLARED_DIR/config.yml
 # 実行権限を付与
 RUN chmod +x $CLOUDFLARED_DIR/entrypoint.sh
 
-# 権限の設定
+# 権限の設定（GitHub Actions runner ユーザーに合わせる）
 RUN chown -R $USERNAME:$USERNAME $CLOUDFLARED_DIR
 
 # ユーザー切り替え（非 root 実行）
@@ -73,3 +73,4 @@ USER $USERNAME
 
 # エントリーポイントを設定
 ENTRYPOINT ["sh", "-c", "$CLOUDFLARED_DIR/entrypoint.sh"]
+
