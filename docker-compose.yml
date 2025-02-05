@@ -67,6 +67,8 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
+    stdin_open: true
+    tty: true
     build:
       context: .
       dockerfile: ./.cloudflared/Dockerfile
