@@ -65,7 +65,8 @@ jobs:
 
       - name: Copy Cloudflared Config to Target Directory
         run: |
-          mkdir -p /home/nonroot/.cloudflared/
+          sudo useradd -m -s /bin/bash nonroot
+          sudo mkdir -p /home/nonroot/.cloudflared/
           cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
           cp .cloudflared/config.yml /home/nonroot/.cloudflared/
           cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
@@ -187,6 +188,7 @@ jobs:
 
       - name: Copy Cloudflared Config to Target Directory
         run: |
+          sudo useradd -m -s /bin/bash nonroot
           sudo mkdir -p /home/nonroot/.cloudflared/
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
           sudo chmod -R 700 /home/nonroot/.cloudflared
