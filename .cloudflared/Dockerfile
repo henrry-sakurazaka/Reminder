@@ -52,6 +52,9 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
 ARG USERNAME=runner
 ARG HOME_DIR=/home/$USERNAME
 
+# 実行ユーザーを作成
+RUN useradd -m -s /bin/bash $USERNAME
+
 # 環境変数をセット
 ENV CLOUDFLARED_DIR=$HOME_DIR/.cloudflared
 
