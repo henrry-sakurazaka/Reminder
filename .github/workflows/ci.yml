@@ -259,7 +259,7 @@ jobs:
         run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
 
       - name: Tunnel start
-        run: cloudflare tunnel run offsetcodecraft.site &
+        run: docker exec -i cloudflared cloudflared tunnel run offsetcodecraft.site &
         
       - name: Check Cloudflare Tunnel
         run: |
