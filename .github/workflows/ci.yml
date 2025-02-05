@@ -191,6 +191,7 @@ jobs:
           sudo useradd -m -s /bin/bash nonroot
           sudo mkdir -p /home/nonroot/.cloudflared/
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+          sudo chmod -R 755 /home/nonroot/  
           sudo chmod -R 700 /home/nonroot/.cloudflared
           cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
           cp .cloudflared/config.yml /home/nonroot/.cloudflared/
