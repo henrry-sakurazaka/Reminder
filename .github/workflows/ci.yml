@@ -198,12 +198,12 @@ jobs:
       
       - name: Define Permission
         run: |
-          chmod +x $CLOUDFLARED_DIR/entrypoint.sh
-          chmod 600 $CLOUDFLARED_DIR/config.yml
+          chmod +x $HOME/.cloudflared/entrypoint.sh
+          chmod 600 $HOME/.cloudflared/config.yml
       
       - name: Add Permission
         run: |
-          chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json
+          chmod 640 $HOME/.cloudflared/offsetcodecraft.site.json
 
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
@@ -219,21 +219,12 @@ jobs:
         run: |
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
-
-      - name: Fix Cloudflare Tunnel Credentials Permissions
-        run: |
-          docker exec -i cloudflared chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json
-          docker exec -i cloudflared chown nonroot:nonroot $CLOUDFLARED_DIR//offsetcodecraft.site.json
-      
+          
       - name: Start Cloudflare Tunnel
         run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
         env:
           VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
       
-      - name: Build and run Docker container
-        run: docker run -e VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }} cloudflare/cloudflared:latest &
-
-    
       - name: Build App
         run: |
           docker-compose down --volumes
