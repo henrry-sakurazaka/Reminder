@@ -68,9 +68,9 @@ RUN mkdir -p $CLOUDFLARED_DIR
 COPY .cloudflared/entrypoint.sh $CLOUDFLARED_DIR/entrypoint.sh
 COPY .cloudflared/config.yml $CLOUDFLARED_DIR/config.yml
 
-RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json && \
-    chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-    
+RUN chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json && \
+    chown nonroot:nonroot $CLOUDFLARED_DIR/offsetcodecraft.site.json
+
 # 実行権限を付与
 RUN chmod +x $CLOUDFLARED_DIR/entrypoint.sh
 
