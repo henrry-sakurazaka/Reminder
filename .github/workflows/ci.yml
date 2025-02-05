@@ -204,7 +204,7 @@ jobs:
       
       - name: Add Permission
         run: |
-          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+          sudo chown -R $(whoami):$(whoami) /home/nonroot/.cloudflared
           sudo chmod 640 /home/nonroot/.cloudflared/offsetcodecraft.site.json
       
       # - name: Encode cert.pem
