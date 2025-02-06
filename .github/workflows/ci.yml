@@ -63,24 +63,23 @@ jobs:
           # printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
           # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
 
-          echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
-          echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
-          echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
-          echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
+      #     echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
+      #     echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
+      #     echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
+      #     echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
+      #     echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
 
+      # - name: Copy Cloudflared Config to Target Directory
+      #   run: |
+      #     sudo mkdir -p /home/runner/.cloudflared/
+      #     sudo chown -R runner:runner /home/runner/.cloudflared/
+      #     sudo chmod -R 700 /home/runner/.cloudflared/
 
-      - name: Copy Cloudflared Config to Target Directory
-        run: |
-          sudo mkdir -p /home/runner/.cloudflared/
-          sudo chown -R runner:runner /home/runner/.cloudflared/
-          sudo chmod -R 700 /home/runner/.cloudflared/
+      #     cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
+      #     cp .cloudflared/config.yml /home/runner/.cloudflared/
+      #     cp .cloudflared/cert.pem /home/runner/.cloudflared/
 
-          cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
-          cp .cloudflared/config.yml /home/runner/.cloudflared/
-          cp .cloudflared/cert.pem /home/runner/.cloudflared/
-
-          ls -la /home/runner/.cloudflared/
+      #     ls -la /home/runner/.cloudflared/
     
       # ローカル環境用設定
       # - name: Copy Cloudflared Config to Target Directory
@@ -92,15 +91,15 @@ jobs:
       #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
       #     ls -la /home/nonroot/.cloudflared/
 
-          mkdir -p $CLOUDFLARED_DIR 
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
-          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
+          # mkdir -p $CLOUDFLARED_DIR 
+          # printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
+          # printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
+          # printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
+          # printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
+          # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
+          # printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
         
-          cat .env
+          # cat .env
 
       - name: Debug .env file
         run: cat .env
