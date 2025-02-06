@@ -83,11 +83,15 @@ services:
       #   condition: service_healthy
     env_file:
       - .env
-    entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
+    entrypoint: ["/home/runner/.cloudflared/entrypoint.sh"]
+    # entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     volumes:
-      - ~/.cloudflared:/home/nonroot/.cloudflared
-      - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
-      - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
+      - ~/.cloudflared:/home/runner/.cloudflared
+      - ~/.cloudflared/cert.pem:/home/runner/.cloudflared/cert.pem:ro
+      - ~/.cloudflared/offsetcodecraft.site.json:/home/runner/.cloudflared/offsetcodecraft.site.json:ro
+      # - ~/.cloudflared:/home/nonroot/.cloudflared
+      # - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
+      # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
       # - ~/.cloudflared:/home/nonroot/.cloudflared
       # - /tmp/cloudflared/.cloudflared:/home/nonroot/.cloudflared
       # - ~/cloudflared-config:/home/nonroot/.cloudflared
@@ -97,7 +101,8 @@ services:
       # - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/.cloudflared:/home/nonroot/.cloudflared
     environment:
       - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
-      - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
+      - TUNNEL_ORIGIN_CERT=/home/runner/.cloudflared/cert.pem
+      # - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
       - TUNNEL_ID=${TUNNEL_ID} 
     healthcheck:
       test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
