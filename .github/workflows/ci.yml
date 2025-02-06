@@ -188,7 +188,17 @@ jobs:
           wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
           sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
+      
+     
 
+      # - name: Copy directory and file
+      #   run: cp -r ./.cloudflared/* $HOME/reminder/.cloudflared/
+      
+      - name: Define Permission
+        run: |
+          chmod +x .cloudflared/entrypoint.sh
+          chmod 600 $HOME/reminder/.cloudflared/config.yml
+          
       - name: Set CLOUDFLARED_DIR in github.env
         run: echo "CLOUDFLARED_DIR=/home/runner/.cloudflared" >> $GITHUB_ENV
 
@@ -275,22 +285,6 @@ jobs:
           HOST: ${{ secrets.HOST }}
           PORT: ${{ secrets.PORT }}
           
-      - name: Make Cloudflare credentials
-        run: |
-          mkdir -p $HOME/.cloudflared
-
-      - name: Copy directory and file
-        run: cp -r ./.cloudflared/* $HOME/.cloudflared/
-      
-      - name: Define Permission
-        run: |
-          chmod +x $HOME/.cloudflared/entrypoint.sh
-          chmod 600 $HOME/.cloudflared/config.yml
-        
-      - name: Define Permission2
-        run: | 
-          chmod +x .cloudflared/entrypoint.sh
-          chmod +x /home/runner/.cloudflared/entrypoint.sh
       
       - name: Add Permission
         run: |
@@ -311,6 +305,10 @@ jobs:
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
       
+      - name: Define Permission
+        run: | 
+          chmod +x .cloudflared/entrypoint.sh
+          chmod +x /home/runner/.cloudflared/entrypoint.sh
       
       - name: Start Cloudflare Tunnel
         run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
