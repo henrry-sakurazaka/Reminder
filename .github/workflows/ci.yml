@@ -286,8 +286,7 @@ jobs:
         run: |
           chmod +x $HOME/.cloudflared/entrypoint.sh
           chmod 600 $HOME/.cloudflared/config.yml
-          - name: Add Permission entrypoin
-
+        
       - name: Define Permission2
         run: | 
           chmod +x .cloudflared/entrypoint.sh
