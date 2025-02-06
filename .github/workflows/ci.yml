@@ -207,7 +207,7 @@ jobs:
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
 
-           # 証明書ファイルの作成
+          # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
@@ -215,6 +215,7 @@ jobs:
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
 
+          
       - name: Copy Cloudflared Config to Target Directory
         run: |
           sudo mkdir -p /home/runner/.cloudflared/
@@ -226,20 +227,7 @@ jobs:
           cp .cloudflared/cert.pem /home/runner/.cloudflared/
 
           ls -la /home/runner/.cloudflared/
-
-      # ローカル環境用設定
-      # - name: Copy Cloudflared Config to Target Directory
-      #   run: |
-      #     sudo useradd -m -s /bin/bash nonroot
-      #     sudo mkdir -p /home/nonroot/.cloudflared/
-      #     sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-      #     sudo chmod -R 755 /home/nonroot/  
-      #     sudo chmod -R 700 /home/nonroot/.cloudflared
-      #     cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-      #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-      #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-      #     ls -la /home/nonroot/.cloudflared/
-              
+    
           mkdir -p $CLOUDFLARED_DIR 
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
@@ -257,6 +245,19 @@ jobs:
           
           cat .env
        
+      # ローカル環境用設定
+      # - name: Copy Cloudflared Config to Target Directory
+      #   run: |
+      #     sudo useradd -m -s /bin/bash nonroot
+      #     sudo mkdir -p /home/nonroot/.cloudflared/
+      #     sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+      #     sudo chmod -R 755 /home/nonroot/  
+      #     sudo chmod -R 700 /home/nonroot/.cloudflared
+      #     cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
+      #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
+      #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
+      #     ls -la /home/nonroot/.cloudflared/
+
       - name: Build Docker image (App)
         run: docker build -t app2:latest .
         env:
