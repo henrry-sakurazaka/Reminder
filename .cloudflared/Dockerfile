@@ -72,7 +72,7 @@ COPY .cloudflared/cert.pem $CLOUDFLARED_DIR/cert.pem
 COPY .cloudflared/offsetcodecraft.site.json $CLOUDFLARED_DIR/offsetcodecraft.site.json
 
 # 実行権限を付与
-RUN chmod +x .cloudflared/entrypoint.sh
+RUN chmod +x $CLOUDFLARED_DIR/entrypoint.sh
 RUN chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json
 
 # 権限の設定（GitHub Actions runner ユーザーに合わせる）
@@ -82,6 +82,6 @@ RUN chown -R $USERNAME:$USERNAME $CLOUDFLARED_DIR
 USER $USERNAME
 
 # エントリーポイントを設定
-# ENTRYPOINT ["sh", "-c", "$CLOUDFLARED_DIR/entrypoint.sh"]
-ENTRYPOINT ["sh", "-c", "/.cloudflared/entrypoint.sh"]
+ENTRYPOINT ["sh", "-c", "$CLOUDFLARED_DIR/entrypoint.sh"]
+# ENTRYPOINT ["sh", "-c", "/.cloudflared/entrypoint.sh"]
 

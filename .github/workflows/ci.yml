@@ -62,6 +62,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
+          printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
 
       #     echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
       #     echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
@@ -97,7 +98,8 @@ jobs:
           # printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
           # printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
           # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
-          
+          # printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
+        
           # cat .env
 
       - name: Debug .env file
@@ -232,13 +234,15 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
-          
+          printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
+         
           echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
           echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
           echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
           echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
           echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
-        
+          echo "${{ secrets.CF_ENTRYPOINT }}" | sed 's/\\n/\n/g' > .cloudflared/entrypoint.sh
+          
           cat .env
        
       # ローカル環境用設定
@@ -280,7 +284,12 @@ jobs:
       
       - name: Define Permission
         run: |
+          chmod +x $HOME/.cloudflared/entrypoint.sh
           chmod 600 $HOME/.cloudflared/config.yml
+          - name: Add Permission entrypoin
+
+      - name: Define Permission2
+        run: | 
           chmod +x .cloudflared/entrypoint.sh
           chmod +x /home/runner/.cloudflared/entrypoint.sh
       
@@ -303,7 +312,7 @@ jobs:
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
       
-
+      
       - name: Start Cloudflare Tunnel
         run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
         env:

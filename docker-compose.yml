@@ -83,8 +83,9 @@ services:
       #   condition: service_healthy
     env_file:
       - .env
-    entrypoint: ["/bin/bash", "-c", "chmod +x entrypoint.sh && ./entrypoint.sh"]
+    # entrypoint: ["/bin/bash", "-c", "chmod +x entrypoint.sh && ./entrypoint.sh"]
     # entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
+    entrypoint: ["/home/runner/.cloudflared/entrypoint.sh"]
     volumes:
       - ~/.cloudflared:/home/runner/.cloudflared
       - ~/.cloudflared/cert.pem:/home/runner/.cloudflared/cert.pem:ro
