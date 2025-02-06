@@ -304,12 +304,19 @@ jobs:
         run: |
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
+      
+      - name: Add Permission entrypoint
+        run: | 
+          chmod +x .cloudflared/entrypoint.sh
+          chmod +x /home/runner/.cloudflared/entrypoint.sh
           
       - name: Start Cloudflare Tunnel
         run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
         env:
           VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
       
+     
+
       - name: Build App
         run: |
           docker-compose down --volumes
