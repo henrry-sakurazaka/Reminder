@@ -56,12 +56,12 @@ jobs:
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
 
-          # 証明書ファイルの作成
-          # printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
-          # printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-          # printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
-          # printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
-          # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
+          証明書ファイルの作成
+          printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+          printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+          printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
+          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
 
       #     echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
       #     echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
@@ -215,13 +215,12 @@ jobs:
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
 
-          
+
       - name: Copy Cloudflared Config to Target Directory
         run: |
           sudo mkdir -p /home/runner/.cloudflared/
           sudo chown -R runner:runner /home/runner/.cloudflared/
           sudo chmod -R 700 /home/runner/.cloudflared/
-
           cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
           cp .cloudflared/config.yml /home/runner/.cloudflared/
           cp .cloudflared/cert.pem /home/runner/.cloudflared/
@@ -236,12 +235,12 @@ jobs:
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
          
-          # echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
-          # echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
-          # echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
-          # echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
-          # echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
-          # echo "${{ secrets.CF_ENTRYPOINT }}" | sed 's/\\n/\n/g' > .cloudflared/entrypoint.sh
+          echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
+          echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
+          echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
+          echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
+          echo "${{ secrets.CF_ENTRYPOINT }}" | sed 's/\\n/\n/g' > .cloudflared/entrypoint.sh
           
           cat .env
        
