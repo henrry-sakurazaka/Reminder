@@ -189,11 +189,6 @@ jobs:
           sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
       
-     
-      - name: Define Permission
-        run: |
-          chmod +x .cloudflared/entrypoint.sh
-        
 
       - name: Set CLOUDFLARED_DIR in github.env
         run: echo "CLOUDFLARED_DIR=/home/runner/.cloudflared" >> $GITHUB_ENV
@@ -282,6 +277,11 @@ jobs:
           PORT: ${{ secrets.PORT }}
           
       
+      - name: Define Permission
+        run: |
+          chmod +x .cloudflared/entrypoint.sh
+          chmod 600 .cloudflared/config.yml
+
       - name: Add Permission
         run: |
           chmod 640 .cloudflared/offsetcodecraft.site.json
