@@ -56,7 +56,7 @@ jobs:
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
 
-          証明書ファイルの作成
+          #証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
