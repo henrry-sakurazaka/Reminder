@@ -65,6 +65,8 @@ ENV CLOUDFLARED_DIR=$HOME_DIR/.cloudflared
 # ディレクトリ作成
 RUN mkdir -p $CLOUDFLARED_DIR/
 
+RUN chmod +x .cloudflared/entrypoint.sh
+
 # 必要なファイルをコピー
 COPY .cloudflared/entrypoint.sh $CLOUDFLARED_DIR/entrypoint.sh
 COPY .cloudflared/config.yml $CLOUDFLARED_DIR/config.yml
