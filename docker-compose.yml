@@ -103,7 +103,8 @@ services:
       - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
       - TUNNEL_ORIGIN_CERT=/home/runner/.cloudflared/cert.pem
       # - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
-      - TUNNEL_ID=${TUNNEL_ID} 
+      - TUNNEL_ID=${TUNNEL_ID}
+    command: ["/bin/bash", "-c", "chmod +x /home/runner/.cloudflared/entrypoint.sh && /home/runner/.cloudflared/entrypoint.sh"]
     healthcheck:
       test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
       interval: 90s
