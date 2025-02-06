@@ -193,7 +193,7 @@ jobs:
       - name: Define Permission
         run: |
           chmod +x .cloudflared/entrypoint.sh
-          chmod 600 .cloudflared/config.yml
+        
 
       - name: Set CLOUDFLARED_DIR in github.env
         run: echo "CLOUDFLARED_DIR=/home/runner/.cloudflared" >> $GITHUB_ENV
