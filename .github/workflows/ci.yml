@@ -239,7 +239,11 @@ jobs:
           ls -la /home/runner/.cloudflared/
      
           cat .env
-       
+
+      - name: Check Permission
+        run: |
+          docker exec -i cloudflared ls -l /home/runner/.cloudflared/
+
       # ローカル環境用設定
       # - name: Copy Cloudflared Config to Target Directory
       #   run: |
@@ -314,7 +318,7 @@ jobs:
           docker-compose up -d cloudflared
   
       - name: Show Logs
-        run: docker-compose logs 
+        run: docker-compose logs cloudflared
 
       - name: Setting Tunnel url
         run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
