@@ -316,12 +316,12 @@ jobs:
         run: |
           docker-compose up -d cloudflared
 
-      - name: Check Permission
-        run: |
-          docker exec -i cloudflared ls -l /home/runner/.cloudflared/
+      # - name: Check Permission
+      #   run: |
+      #     docker exec -i cloudflared ls -l /home/runner/.cloudflared/
 
       - name: Show Logs
-        run: docker-compose logs cloudflared
+        run: docker logs cloudflared
 
       - name: Setting Tunnel url
         run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
