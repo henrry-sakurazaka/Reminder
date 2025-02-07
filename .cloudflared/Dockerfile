@@ -54,6 +54,8 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
 # 実行ユーザーを設定（GitHub Actions の runner 環境では "runner" などになる）
 RUN useradd -m -s /bin/bash runner
 
+USER runner
+
 # Cloudflared 設定用ディレクトリ作成
 RUN mkdir -p /home/runner/.cloudflared
 
