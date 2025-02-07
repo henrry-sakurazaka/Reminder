@@ -67,7 +67,7 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
-    user: runner
+    user: root
     stdin_open: true
     tty: true
     build:
