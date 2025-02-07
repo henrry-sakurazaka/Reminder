@@ -292,11 +292,6 @@ jobs:
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
       
-      - name: Start Cloudflare Tunnel
-        run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
-        env:
-          VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
-      
       - name: Build App
         run: |
           docker-compose down --volumes
@@ -304,12 +299,19 @@ jobs:
           docker-compose build
 
       - name: Create Docker network
-        run: docker network create test-network2
+        run: | 
+          docker network create test-network2
 
       - name: Define Permission2
         run: | 
           chmod +x /home/runner/.cloudflared/entrypoint.sh
-          
+
+      # - name: Start Cloudflare Tunnel
+      #   run: | 
+      #     nohup cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN > cloudflared.log 2>&1 &
+      #   env:
+      #     VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
+      
       - name: Start App
         run: |
           docker-compose up -d cloudflared
@@ -324,14 +326,14 @@ jobs:
       - name: Setting Tunnel url
         run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
 
-      - name: Tunnel start
-        run: docker exec -i cloudflared cloudflared tunnel run offsetcodecraft.site &
+      # - name: Tunnel start
+      #   run: docker exec -i cloudflared cloudflared tunnel run offsetcodecraft.site &
         
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
   
-      - name: Docker compose up
+      - name: Start App
         run: docker-compose up -d
 
       - name: Wait for containers to be fully started
