@@ -303,7 +303,7 @@ jobs:
           docker-compose up -d cloudflared
 
       - name: Show Logs
-        run: docker logs 
+        run: docker logs cloudflared
 
       - name: Setting Tunnel url
         run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
