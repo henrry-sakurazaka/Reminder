@@ -1,6 +1,5 @@
 #!/bin/bash
-# CI/CD用設定
-#!/bin/bash
+
 set -e  # スクリプト内のエラーで即終了する
 
 echo "Starting Cloudflare Tunnel..."
