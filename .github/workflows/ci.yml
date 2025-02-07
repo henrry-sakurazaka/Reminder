@@ -210,8 +210,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
-
+          
       - name: Define Permission
         run: |
           chmod +x .cloudflared/entrypoint.sh
