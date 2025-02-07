@@ -67,10 +67,9 @@ COPY .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/offsetcode
 
 USER root
 RUN chmod +x /home/runner/.cloudflared/entrypoint.sh
-USER runner
-
-# 実行権限を付与
 RUN chmod 644 /home/runner/.cloudflared/offsetcodecraft.site.json
+
+USER runner
 
 # 権限の設定（GitHub Actions runner ユーザーに合わせる）
 RUN chown -R runner:runner /home/runner/.cloudflared
