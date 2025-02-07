@@ -184,10 +184,6 @@ jobs:
           sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
       
-
-      # - name: Set CLOUDFLARED_DIR in github.env
-      #   run: echo "CLOUDFLARED_DIR=/home/runner/.cloudflared" >> $GITHUB_ENV
-
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -239,7 +235,6 @@ jobs:
      
           cat .env
 
-
       # ローカル環境用設定
       # - name: Copy Cloudflared Config to Target Directory
       #   run: |
@@ -252,25 +247,6 @@ jobs:
       #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
       #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
       #     ls -la /home/nonroot/.cloudflared/
-
-      # - name: Build Docker image (App)
-      #   run: docker build -t app2:latest .
-      #   env:
-      #     VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-      #     VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
-      #     VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
-      #     VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
-      #     VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
-      #     VITE_HOST: ${{ secrets.VITE_HOST }}
-      #     VITE_PORT: ${{ secrets.VITE_PORT }}
-      #     VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
-      #     VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
-      #     VITE_CLOUDFLARE_API_TOKEN: ${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}
-      #     TUNNEL_ID: ${{ secrets.TUNNEL_ID }}
-      #     HOST: ${{ secrets.HOST }}
-      #     PORT: ${{ secrets.PORT }}
-          
-
 
       - name: Add Permission
         run: |
@@ -300,10 +276,6 @@ jobs:
       - name: Create Docker network
         run: | 
           docker network create test-network2
-
-      # - name: Define Permission2
-      #   run: | 
-      #     chmod +x /home/runner/.cloudflared/entrypoint.sh
           
       - name: Change ownership of entrypoint.sh
         run: |
@@ -329,19 +301,6 @@ jobs:
       - name: Start App
         run: |
           docker-compose up -d cloudflared
-
-      # - name: Fix entrypoint permissions inside container
-      #   run: |
-      #     docker exec -i cloudflared chown root:root /home/runner/.cloudflared/entrypoint.sh
-      #     docker exec -i cloudflared chmod +x /home/runner/.cloudflared/entrypoint.sh
-      
-
-      # - name: Check Permission
-      #   run: |
-      #     docker exec -i cloudflared ls -l /home/runner/.cloudflared/
-
-      # - name: Fix entrypoint permissions in container
-      #   run: docker exec -i cloudflared chmod +x /home/runner/.cloudflared/entrypoint.sh
 
       - name: Show Logs
         run: docker logs cloudflared

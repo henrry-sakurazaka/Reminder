@@ -110,6 +110,7 @@ services:
     restart: always
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
+      # disable: true
       test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
       interval: 90s
       timeout: 60s
