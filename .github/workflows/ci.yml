@@ -64,12 +64,14 @@ jobs:
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
 
-      #     echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
-      #     echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
-      #     echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
-      #     echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
-      #     echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
-
+      # mkdir -p /home/runner/.cloudflared
+      # printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/runner/.cloudflared/server.cert.pem
+      # printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/runner/.cloudflared/server.key.pem
+      # printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/runner/.cloudflared/config.yml
+      # printf -- "${{ secrets.CF_CERT_PEM }}" > /home/runner/.cloudflared/cert.pem
+      # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/runner/.cloudflared/offsetcodecraft.site.json
+      # printf -- "${{ secrets.CF_ENTRYPOINT }}" > /home/runner/.cloudflared/entrypoint.sh
+      
       # - name: Copy Cloudflared Config to Target Directory
       #   run: |
       #     sudo mkdir -p /home/runner/.cloudflared/
@@ -92,14 +94,7 @@ jobs:
       #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
       #     ls -la /home/nonroot/.cloudflared/
 
-          # mkdir -p $CLOUDFLARED_DIR 
-          # printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
-          # printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
-          # printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
-          # printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
-          # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
-          # printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
-        
+      
           # cat .env
 
       - name: Debug .env file
@@ -217,6 +212,14 @@ jobs:
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
 
+          mkdir -p /home/runner/.cloudflared
+          printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/runner/.cloudflared/server.cert.pem
+          printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/runner/.cloudflared/server.key.pem
+          printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/runner/.cloudflared/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM }}" > /home/runner/.cloudflared/cert.pem
+          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/runner/.cloudflared/offsetcodecraft.site.json
+          printf -- "${{ secrets.CF_ENTRYPOINT }}" > /home/runner/.cloudflared/entrypoint.sh
+
 
       - name: Copy Cloudflared Config to Target Directory
         run: |
@@ -229,20 +232,6 @@ jobs:
 
           ls -la /home/runner/.cloudflared/
     
-          mkdir -p $CLOUDFLARED_DIR 
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > $CLOUDFLARED_DIR/server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > $CLOUDFLARED_DIR/server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > $CLOUDFLARED_DIR/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM }}" > $CLOUDFLARED_DIR/cert.pem
-          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > $CLOUDFLARED_DIR/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > $CLOUDFLARED_DIR/entrypoint.sh
-         
-          echo "${{ secrets.VITE_SERVER_CERT }}" | sed 's/\\n/\n/g' > server.cert.pem
-          echo "${{ secrets.VITE_SERVER_KEY }}" | sed 's/\\n/\n/g' > server.key.pem
-          echo "${{ secrets.CF_CONFIG_YML }}" | sed 's/\\n/\n/g' > .cloudflared/config.yml
-          echo "${{ secrets.CF_CERT_PEM }}" | sed 's/\\n/\n/g' > .cloudflared/cert.pem
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | sed 's/\\n/\n/g' > .cloudflared/offsetcodecraft.site.json
-          echo "${{ secrets.CF_ENTRYPOINT }}" | sed 's/\\n/\n/g' > .cloudflared/entrypoint.sh
           
           cat .env
        
@@ -259,22 +248,22 @@ jobs:
       #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
       #     ls -la /home/nonroot/.cloudflared/
 
-      - name: Build Docker image (App)
-        run: docker build -t app2:latest .
-        env:
-          VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
-          VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
-          VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
-          VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
-          VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
-          VITE_HOST: ${{ secrets.VITE_HOST }}
-          VITE_PORT: ${{ secrets.VITE_PORT }}
-          VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
-          VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
-          VITE_CLOUDFLARE_API_TOKEN: ${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}
-          TUNNEL_ID: ${{ secrets.TUNNEL_ID }}
-          HOST: ${{ secrets.HOST }}
-          PORT: ${{ secrets.PORT }}
+      # - name: Build Docker image (App)
+      #   run: docker build -t app2:latest .
+      #   env:
+      #     VITE_HTTPS: ${{ secrets.VITE_HTTPS }}
+      #     VITE_REACT_APP_API_URL: ${{ secrets.VITE_REACT_APP_API_URL }}
+      #     VITE_REACT_APP_TEST_EMAIL: ${{ secrets.VITE_REACT_APP_TEST_EMAIL }}
+      #     VITE_REACT_APP_TEST_PASSWORD: ${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}
+      #     VITE_NODE_ENV: ${{ secrets.VITE_NODE_ENV }}
+      #     VITE_HOST: ${{ secrets.VITE_HOST }}
+      #     VITE_PORT: ${{ secrets.VITE_PORT }}
+      #     VITE_PLAYWRIGHT_BASE_URL: ${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}
+      #     VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
+      #     VITE_CLOUDFLARE_API_TOKEN: ${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}
+      #     TUNNEL_ID: ${{ secrets.TUNNEL_ID }}
+      #     HOST: ${{ secrets.HOST }}
+      #     PORT: ${{ secrets.PORT }}
           
       
       - name: Define Permission
@@ -301,18 +290,11 @@ jobs:
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
       
-      - name: Define Permission
-        run: | 
-          chmod +x .cloudflared/entrypoint.sh
-          chmod +x /home/runner/.cloudflared/entrypoint.sh
-      
       - name: Start Cloudflare Tunnel
         run: cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN &
         env:
           VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
       
-     
-
       - name: Build App
         run: |
           docker-compose down --volumes
@@ -321,6 +303,10 @@ jobs:
 
       - name: Create Docker network
         run: docker network create test-network2
+
+      - name: Define Permission2
+        run: | 
+          chmod +x /home/runner/.cloudflared/entrypoint.sh
           
       - name: Start App
         run: |
