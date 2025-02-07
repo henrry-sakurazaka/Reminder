@@ -52,36 +52,30 @@ RUN curl -fsSL https://github.com/cloudflare/cloudflared/releases/latest/downloa
 
 #CI/CD環境用
 # 実行ユーザーを設定（GitHub Actions の runner 環境では "runner" などになる）
-
-ARG USERNAME=runner
-ARG HOME_DIR=/home/$USERNAME
-
 # 実行ユーザーを作成
-RUN useradd -m -s /bin/bash $USERNAME
+RUN useradd -m -s /bin/bash runner
 
-# 環境変数をセット
-ENV CLOUDFLARED_DIR=$HOME_DIR/.cloudflared
-
-# ディレクトリ作成
-RUN mkdir -p $CLOUDFLARED_DIR/
+# Cloudflared 設定用ディレクトリ作成
+RUN mkdir -p /home/runner/.cloudflared
 
 # 必要なファイルをコピー
-COPY .cloudflared/entrypoint.sh $CLOUDFLARED_DIR/entrypoint.sh
-COPY .cloudflared/config.yml $CLOUDFLARED_DIR/config.yml
-COPY .cloudflared/cert.pem $CLOUDFLARED_DIR/cert.pem
-COPY .cloudflared/offsetcodecraft.site.json $CLOUDFLARED_DIR/offsetcodecraft.site.json
+COPY .cloudflared/entrypoint.sh /home/runner/.cloudflared/entrypoint.sh
+COPY .cloudflared/config.yml /home/runner/.cloudflared/config.yml
+COPY .cloudflared/cert.pem /home/runner/.cloudflared/cert.pem
+COPY .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/offsetcodecraft.site.json
 
 # 実行権限を付与
-RUN chmod +x $CLOUDFLARED_DIR/entrypoint.sh
-RUN chmod 644 $CLOUDFLARED_DIR/offsetcodecraft.site.json
+RUN chmod +x /home/runner/.cloudflared/entrypoint.sh
+RUN chmod 644 /home/runner/.cloudflared/offsetcodecraft.site.json
 
 # 権限の設定（GitHub Actions runner ユーザーに合わせる）
-RUN chown -R $USERNAME:$USERNAME $CLOUDFLARED_DIR
+RUN chown -R runner:runner /home/runner/.cloudflared
 
 # ユーザー切り替え（非 root 実行）
-USER $USERNAME
+USER runner
 
 # エントリーポイントを設定
-ENTRYPOINT ["sh", "-c", "$CLOUDFLARED_DIR/entrypoint.sh"]
+ENTRYPOINT ["/bin/sh", "/home/runner/.cloudflared/entrypoint.sh"]
+
 # ENTRYPOINT ["sh", "-c", "/.cloudflared/entrypoint.sh"]
 
