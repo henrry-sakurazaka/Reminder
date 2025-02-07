@@ -240,9 +240,6 @@ jobs:
      
           cat .env
 
-      - name: Check Permission
-        run: |
-          docker exec -i cloudflared ls -l /home/runner/.cloudflared/
 
       # ローカル環境用設定
       # - name: Copy Cloudflared Config to Target Directory
@@ -329,7 +326,11 @@ jobs:
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
-      
+
+      - name: Check Permission
+        run: |
+          docker exec -i cloudflared ls -l /home/runner/.cloudflared/
+  
       - name: Docker compose up
         run: docker-compose up -d
 
