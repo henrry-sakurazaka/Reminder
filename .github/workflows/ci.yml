@@ -312,16 +312,27 @@ jobs:
       #   env:
       #     VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
       
+      - name: Fix entrypoint permissions
+        run: |
+          sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
+          sudo chmod +x /home/runner/.cloudflared/entrypoint.sh
+
       - name: Start App
         run: |
           docker-compose up -d cloudflared
 
+      - name: Fix entrypoint permissions inside container
+        run: |
+          docker exec -i cloudflared chown root:root /home/runner/.cloudflared/entrypoint.sh
+          docker exec -i cloudflared chmod +x /home/runner/.cloudflared/entrypoint.sh
+      
+
       # - name: Check Permission
       #   run: |
       #     docker exec -i cloudflared ls -l /home/runner/.cloudflared/
-      
-      - name: Fix entrypoint permissions in container
-        run: docker exec -i cloudflared chmod +x /home/runner/.cloudflared/entrypoint.sh
+
+      # - name: Fix entrypoint permissions in container
+      #   run: docker exec -i cloudflared chmod +x /home/runner/.cloudflared/entrypoint.sh
 
       - name: Show Logs
         run: docker logs cloudflared
