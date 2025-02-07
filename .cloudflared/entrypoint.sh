@@ -3,7 +3,7 @@
 # 1. Named Tunnel を実行（TUNNEL_IDが必要）
 if [ -n "${TUNNEL_ID}" ]; then
   cloudflared tunnel run "${TUNNEL_ID}"
-elif [ -f "/home/runner/.cloudflared/offsetcodecraft.site.json" ]; then
+elif 
   cloudflared tunnel --credentials-file /home/runner/.cloudflared/offsetcodecraft.site.json run offsetcodecraft.site
 elif [ -f "/home/runner/.cloudflared/config.yml" ]; then
   cloudflared tunnel --config /home/runner/.cloudflared/config.yml run
