@@ -71,8 +71,8 @@ RUN chmod 644 /home/runner/.cloudflared/offsetcodecraft.site.json
 
 USER runner
 
-# 権限の設定（GitHub Actions runner ユーザーに合わせる）
-RUN chown -R runner:runner /home/runner/.cloudflared
+# # 権限の設定（GitHub Actions runner ユーザーに合わせる）
+# RUN chown -R runner:runner /home/runner/.cloudflared
 
 # ユーザー切り替え（非 root 実行）
 USER runner
