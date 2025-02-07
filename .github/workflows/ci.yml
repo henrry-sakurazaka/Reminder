@@ -313,7 +313,11 @@ jobs:
       - name: Start App
         run: |
           docker-compose up -d cloudflared
-  
+
+      - name: Check Permission
+        run: |
+          docker exec -i cloudflared ls -l /home/runner/.cloudflared/
+
       - name: Show Logs
         run: docker-compose logs cloudflared
 
@@ -326,10 +330,6 @@ jobs:
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
-
-      - name: Check Permission
-        run: |
-          docker exec -i cloudflared ls -l /home/runner/.cloudflared/
   
       - name: Docker compose up
         run: docker-compose up -d
