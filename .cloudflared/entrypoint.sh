@@ -1,18 +1,11 @@
 #!/bin/bash
 
-set -e  # スクリプト内のエラーで即終了する
-
-echo "Starting Cloudflare Tunnel..."
-
 # 1. Named Tunnel を実行（TUNNEL_IDが必要）
 if [ -n "${TUNNEL_ID}" ]; then
-  echo "Running tunnel with ID: ${TUNNEL_ID}..."
   cloudflared tunnel run "${TUNNEL_ID}"
-elif [ -f "/home/runner/.cloudflared/offsetcodecraft.site.json" ]; then
-  echo "Running tunnel with credentials file..."
+else if [ -f "/home/runner/.cloudflared/offsetcodecraft.site.json" ]; then
   cloudflared tunnel --credentials-file /home/runner/.cloudflared/offsetcodecraft.site.json run offsetcodecraft.site
-elif [ -f "/home/runner/.cloudflared/config.yml" ]; then
-  echo "Running tunnel with config file..."
+else if [ -f "/home/runner/.cloudflared/config.yml" ]; then
   cloudflared tunnel --config /home/runner/.cloudflared/config.yml run
 else
   echo "Error: No valid tunnel configuration found."
