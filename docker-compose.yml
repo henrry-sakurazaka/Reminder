@@ -107,7 +107,7 @@ services:
       # - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
       - TUNNEL_ID=${TUNNEL_ID}
       - VITE_CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}
-    restart: unless-stopped
+    restart: always
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
       test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
