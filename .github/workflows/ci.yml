@@ -185,8 +185,8 @@ jobs:
           sudo chmod +x /usr/local/bin/cloudflared
       
 
-      - name: Set CLOUDFLARED_DIR in github.env
-        run: echo "CLOUDFLARED_DIR=/home/runner/.cloudflared" >> $GITHUB_ENV
+      # - name: Set CLOUDFLARED_DIR in github.env
+      #   run: echo "CLOUDFLARED_DIR=/home/runner/.cloudflared" >> $GITHUB_ENV
 
       - name: Create .env file and keys
         run: |
