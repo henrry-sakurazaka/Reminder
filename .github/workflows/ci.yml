@@ -346,8 +346,8 @@ jobs:
       - name: Show Logs
         run: docker logs cloudflared
 
-      - name: Setting Tunnel url
-        run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
+      # - name: Setting Tunnel url
+      #   run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
 
       # - name: Tunnel start
       #   run: docker exec -i cloudflared cloudflared tunnel run offsetcodecraft.site &
@@ -356,7 +356,7 @@ jobs:
         run: |
           curl -I https://offsetcodecraft.site
   
-      - name: Start App
+      - name: Start Apps
         run: docker-compose up -d
 
       - name: Wait for containers to be fully started
