@@ -105,6 +105,7 @@ services:
       - TUNNEL_ORIGIN_CERT=/home/runner/.cloudflared/cert.pem
       # - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
       - TUNNEL_ID=${TUNNEL_ID}
+      - VITE_CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     restart: always
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
