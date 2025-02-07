@@ -212,6 +212,13 @@ jobs:
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
 
+      - name: Define Permission
+        run: |
+          chmod +x .cloudflared/entrypoint.sh
+          chmod 600 .cloudflared/config.yml
+
+      - name: Define Directory
+        run: |
           mkdir -p /home/runner/.cloudflared
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/runner/.cloudflared/server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/runner/.cloudflared/server.key.pem
@@ -219,7 +226,6 @@ jobs:
           printf -- "${{ secrets.CF_CERT_PEM }}" > /home/runner/.cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/runner/.cloudflared/offsetcodecraft.site.json
           printf -- "${{ secrets.CF_ENTRYPOINT }}" > /home/runner/.cloudflared/entrypoint.sh
-
 
       - name: Copy Cloudflared Config to Target Directory
         run: |
@@ -231,8 +237,7 @@ jobs:
           cp .cloudflared/cert.pem /home/runner/.cloudflared/
 
           ls -la /home/runner/.cloudflared/
-    
-          
+     
           cat .env
        
       # ローカル環境用設定
@@ -265,11 +270,7 @@ jobs:
       #     HOST: ${{ secrets.HOST }}
       #     PORT: ${{ secrets.PORT }}
           
-      
-      - name: Define Permission
-        run: |
-          chmod +x .cloudflared/entrypoint.sh
-          chmod 600 .cloudflared/config.yml
+
 
       - name: Add Permission
         run: |
