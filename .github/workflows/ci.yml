@@ -300,7 +300,7 @@ jobs:
 
       - name: Start App
         run: |
-          docker-compose up -d 
+          docker-compose up -d cloudflared
 
       - name: Show Logs
         run: docker logs cloudflared
@@ -314,6 +314,10 @@ jobs:
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
+
+      - name: Start Apps
+        run: |
+          docker-compose up -d 
 
       - name: Wait for containers to be fully started
         run: |
