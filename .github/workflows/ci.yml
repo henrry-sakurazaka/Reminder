@@ -298,9 +298,9 @@ jobs:
       
       - name: Run commands as nonroot user
         run: |
-          sudo nonroot -c "whoami"
-          sudo nonroot -c "ls -la /home/nonroot/.cloudflared/"
-        
+          sudo -u nonroot whoami
+          sudo -u nonroot ls -la /home/nonroot/.cloudflared/
+
       - name: Start Cloudflare Tunnel
         run: | 
           nohup cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN > cloudflared.log 2>&1 &
