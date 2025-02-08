@@ -44,9 +44,10 @@ COPY .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
 COPY .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
 COPY .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
-# 実行権限を付与
+USER root
 RUN chmod u+rx /home/nonroot/.cloudflared/entrypoint.sh\
     && chmod u+rx /home/nonroot/.cloudflared/config.yml
+# RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared \
     && chmod 640 /home/nonroot/.cloudflared/offsetcodecraft.site.json
