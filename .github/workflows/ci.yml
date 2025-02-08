@@ -177,12 +177,24 @@ jobs:
       - name: Clear Cloudflared cache
         run: rm -rf ~/.cloudflared /tmp/cloudflared ~/.config/cloudflared
     
+      # - name: Download cloudflared
+      #   run: |
+      #     wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
+      #     sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
+      #     sudo chmod +x /usr/local/bin/cloudflared
+
+      # - name: Download cloudflared
+      #   run: |
+      #     wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O $HOME/cloudflared
+      #     chmod +x $HOME/cloudflared
+      #     $HOME/cloudflared --version  # バージョン確認
+
       - name: Download cloudflared
         run: |
-          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
-          sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
+          wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
-      
+          cloudflared --version  # バージョン確認
+       
       - name: Create .env file and keys
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
@@ -245,7 +257,6 @@ jobs:
      
       #     cat .env
 
-      #ローカル環境用設定
       - name: Copy Cloudflared Config to Target Directory
         run: |
           if ! id -u nonroot &>/dev/null; then
