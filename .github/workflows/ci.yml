@@ -211,9 +211,19 @@ jobs:
           chmod u+rx .cloudflared/entrypoint.sh
           chmod 600 .cloudflared/config.yml
 
+      - name: Create nonroot user
+        run: |
+          sudo useradd -m nonroot
+          sudo chown -R nonroot:nonroot /home/nonroot
+          sudo chmod 755 /home/nonroot
+
+      - name: Setup cloudflared directory
+        run: |
+          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+          sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
+
       - name: Define Directory
         run: |
-          mkdir -p /home/nonroot/.cloudflared
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml

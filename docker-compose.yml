@@ -67,7 +67,7 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
-    user: root
+    user: "nonroot"
     stdin_open: true
     tty: true
     build:
