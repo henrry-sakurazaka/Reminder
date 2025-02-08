@@ -67,7 +67,6 @@ services:
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
-    user: "nonroot"
     stdin_open: true
     tty: true
     build:
@@ -88,9 +87,9 @@ services:
     # entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     entrypoint: ["/bin/bash", "-c", "/home/nonroot/.cloudflared/entrypoint.sh"]
     volumes:
-      - ~/.cloudflared:/home/nonroot/.cloudflared
-      - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
-      - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
+      - ~//home/nonroot/.cloudflared:/home/nonroot/.cloudflared
+      - ~/home/nonroot/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
+      - ~/home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
       # - ~/.cloudflared:/home/nonroot/.cloudflared
       # - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
       # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
