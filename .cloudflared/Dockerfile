@@ -51,7 +51,7 @@ RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared 
 
-USER nonroot
+# USER nonroot
    
 ENTRYPOINT ["/bin/sh","/home/nonroot/.cloudflared/entrypoint.sh"]
 
