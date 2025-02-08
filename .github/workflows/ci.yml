@@ -187,13 +187,13 @@ jobs:
       #   run: |
       #     wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O $HOME/cloudflared
       #     chmod +x $HOME/cloudflared
-      #     $HOME/cloudflared --version  # バージョン確認
+      #     $HOME/cloudflared --version  
 
       - name: Download cloudflared
         run: |
           wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O /usr/local/bin/cloudflared
           sudo chmod +x /usr/local/bin/cloudflared
-          cloudflared --version  # バージョン確認
+          cloudflared --version  
        
       - name: Create .env file and keys
         run: |
