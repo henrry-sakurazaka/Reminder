@@ -66,7 +66,7 @@ COPY .cloudflared/cert.pem /home/runner/.cloudflared/cert.pem
 COPY .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/offsetcodecraft.site.json
 
 USER root
-RUN chmod +x /home/runner/.cloudflared/entrypoint.sh
+RUN chmod u+rx /home/runner/.cloudflared/entrypoint.sh
 RUN chmod 644 /home/runner/.cloudflared/offsetcodecraft.site.json
 
 USER runner
