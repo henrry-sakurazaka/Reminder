@@ -253,13 +253,14 @@ jobs:
           fi
           sudo mkdir -p /home/nonroot/.cloudflared/
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-          sudo chmod -R 755 /home/nonroot/  
-          sudo chmod -R 700 /home/nonroot/.cloudflared
+          sudo chmod -R 750 /home/nonroot/.cloudflared  
+          sudo chmod 755 /home/nonroot  
+
           sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
           sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
           sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/
-          ls -la /home/nonroot/.cloudflared/
+          sudo ls -la /home/nonroot/.cloudflared/
 
       - name: Add Permission
         run: |
