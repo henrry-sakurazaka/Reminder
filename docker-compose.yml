@@ -172,7 +172,3 @@ networks:
     # external: true
     driver: bridge
 
-    
-
-
-  - ~/.cloudflared/entrypoint.sh:/home/nonroot/.cloudflared/entrypoint.sh
