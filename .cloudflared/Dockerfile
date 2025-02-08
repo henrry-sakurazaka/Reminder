@@ -45,11 +45,12 @@ COPY .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
 COPY .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 USER root
+
 RUN chmod u+rx /home/nonroot/.cloudflared/entrypoint.sh\
     && chmod u+rx /home/nonroot/.cloudflared/config.yml\
     && chmod u+rx /home/nonroot/.cloudflared/cert.pem\
     && chmod u+rx /home/nonroot/.cloudflared/offsetcodecraft.site.json
-    
+
 RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared 
