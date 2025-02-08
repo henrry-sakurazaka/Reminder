@@ -46,18 +46,14 @@ COPY .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcod
 
 USER root
 
-RUN chmod u+rx /home/nonroot/.cloudflared/entrypoint.sh\
-    && chmod u+rx /home/nonroot/.cloudflared/config.yml\
-    && chmod u+rx /home/nonroot/.cloudflared/cert.pem\
-    && chmod u+rx /home/nonroot/.cloudflared/offsetcodecraft.site.json
-
+RUN chmod 755 /home/nonroot/.cloudflared/entrypoint.sh
+RUN chmod 644 /home/nonroot/.cloudflared/config.yml
+RUN chmod 644 /home/nonroot/.cloudflared/cert.pem
 RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared 
 
-RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
-
-# USER nonroot
+USER nonroot
    
 ENTRYPOINT ["/bin/sh","/home/nonroot/.cloudflared/entrypoint.sh"]
 
