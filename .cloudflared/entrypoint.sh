@@ -24,18 +24,6 @@ fi
 echo "Running tunnel with custom URL and hostname..."
 cloudflared tunnel --url http://localhost:3000 --hostname offsetcodecraft.site
 
-# 4. Dockerビルドコンフィグを指定してトンネルを起動（修正済み）
-if [ -f ./cloudflared/Dockerfile ]; then
-  echo "Running tunnel with Docker configuration..."
-  cloudflared tunnel --config <<EOF
-build:
-  context: .
-  dockerfile: ./Dockerfile
-EOF
-else
-  echo "Error: Dockerfile not found at ./cloudflared/Dockerfile"
-  exit 1
-fi
 
 # 5. Config ファイルを使用してトンネルを起動
 if [ -f "/home/nonroot/.cloudflared/config.yml" ]; then
