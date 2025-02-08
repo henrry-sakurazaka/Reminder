@@ -217,8 +217,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
-          
+         
       - name: Define Permission
         run: |
           chmod u+rx .cloudflared/entrypoint.sh
@@ -243,8 +242,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
-          
+         
       # - name: Copy Cloudflared Config to Target Directory
       #   run: |
       #     sudo mkdir -p /home/nonroot/.cloudflared/
@@ -307,7 +305,7 @@ jobs:
       - name: Change ownership of entrypoint.sh
         run: |
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/entrypoint.sh
-          sudo chmod u+rx /home/nonroot/.cloudflared/entrypoint.sh
+          sudo chmod +x /home/nonroot/.cloudflared/entrypoint.sh
       
       - name: Run commands as nonroot user
         run: |
