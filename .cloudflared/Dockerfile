@@ -47,7 +47,7 @@ COPY .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcod
 USER root
 RUN chmod u+rx /home/nonroot/.cloudflared/entrypoint.sh\
     && chmod u+rx /home/nonroot/.cloudflared/config.yml
-# RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared \
     && chmod 640 /home/nonroot/.cloudflared/offsetcodecraft.site.json
