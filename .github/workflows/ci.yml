@@ -234,7 +234,7 @@ jobs:
      
       #     cat .env
 
-      ローカル環境用設定
+      #ローカル環境用設定
       - name: Copy Cloudflared Config to Target Directory
         run: |
           sudo useradd -m -s /bin/bash nonroot
