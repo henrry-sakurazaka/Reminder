@@ -317,10 +317,10 @@ jobs:
       #   run: |
       #     cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
           
-      - name: Fix entrypoint permissions
-        run: |
-          sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
-          sudo chmod +x /home/runner/.cloudflared/entrypoint.sh
+      # - name: Fix entrypoint permissions
+      #   run: |
+      #     sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
+      #     sudo chmod +x /home/runner/.cloudflared/entrypoint.sh
 
       - name: Start App
         run: |
@@ -329,19 +329,13 @@ jobs:
       - name: Show Logs
         run: docker logs cloudflared
 
-      # - name: Setting Tunnel url
-      #   run: docker exec -i cloudflared cloudflared tunnel --url localhost:3000 &
-
-      # - name: Tunnel start
-      #   run: docker exec -i cloudflared cloudflared tunnel run offsetcodecraft.site &
-        
-      - name: Check Cloudflare Tunnel
-        run: |
-          curl -I https://offsetcodecraft.site
-
       - name: Start Apps
         run: |
           docker-compose up -d 
+
+      - name: Check Cloudflare Tunnel
+        run: |
+          curl -I https://offsetcodecraft.site
 
       - name: Wait for containers to be fully started
         run: |

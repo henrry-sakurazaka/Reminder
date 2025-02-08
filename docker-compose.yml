@@ -84,12 +84,12 @@ services:
     env_file:
       - .env
     # entrypoint: ["/bin/bash", "-c", "chmod +x entrypoint.sh && ./entrypoint.sh"]
-    # entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
-    entrypoint: ["/bin/bash", "-c", "/home/nonroot/.cloudflared/entrypoint.sh"]
+    entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
+    # entrypoint: ["/bin/bash", "-c", "/home/nonroot/.cloudflared/entrypoint.sh"]
     volumes:
-      - ~//home/nonroot/.cloudflared:/home/nonroot/.cloudflared
-      - ~/home/nonroot/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
-      - ~/home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
+      - ~/.cloudflared:/home/nonroot/.cloudflared
+      - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
+      - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
       # - ~/.cloudflared:/home/nonroot/.cloudflared
       # - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
       # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
