@@ -36,8 +36,6 @@ RUN mkdir -p /home/nonroot/.cloudflared
 # nonroot ユーザーを作成
 RUN useradd -m -u 1000 -s /bin/sh nonroot
 
-COPY ./.cloudflared /home/nonroot/.cloudflared/
-
 # 必要なファイルをコピー
 COPY .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
 COPY .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
