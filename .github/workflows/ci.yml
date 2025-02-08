@@ -247,7 +247,9 @@ jobs:
       #ローカル環境用設定
       - name: Copy Cloudflared Config to Target Directory
         run: |
+          if ! id -u nonroot &>/dev/null; then
           sudo useradd -m -s /bin/bash nonroot
+          fi
           sudo mkdir -p /home/nonroot/.cloudflared/
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
           sudo chmod -R 755 /home/nonroot/  
