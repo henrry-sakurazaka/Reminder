@@ -175,3 +175,4 @@ networks:
     
 
 
+  - ~/.cloudflared/entrypoint.sh:/home/nonroot/.cloudflared/entrypoint.sh
