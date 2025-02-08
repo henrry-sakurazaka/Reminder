@@ -83,7 +83,6 @@ services:
       #   condition: service_healthy
     env_file:
       - .env
-    # entrypoint: ["/bin/bash", "-c", "chmod +x entrypoint.sh && ./entrypoint.sh"]
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     # entrypoint: ["/bin/bash", "-c", "/home/nonroot/.cloudflared/entrypoint.sh"]
     # volumes:
@@ -91,13 +90,6 @@ services:
       # - ~/.cloudflared/entrypoint.sh:/home/nonroot/.cloudflared/entrypoint.sh
       # - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
       # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
-      # - ~/.cloudflared:/home/nonroot/.cloudflared
-      # - /tmp/cloudflared/.cloudflared:/home/nonroot/.cloudflared
-      # - ~/cloudflared-config:/home/nonroot/.cloudflared
-      # - ./.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
-      # - /Users/Tsp33786/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem
-      # - /Users/Tsp33786/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
-      # - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/.cloudflared:/home/nonroot/.cloudflared
     environment:
       - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
       - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
