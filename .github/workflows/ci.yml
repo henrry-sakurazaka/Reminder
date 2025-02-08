@@ -62,8 +62,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > .cloudflared/entrypoint.sh
-
+         
       # mkdir -p /home/runner/.cloudflared
       # printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/runner/.cloudflared/server.cert.pem
       # printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/runner/.cloudflared/server.key.pem
@@ -220,8 +219,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/runner/.cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > /home/runner/.cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/runner/.cloudflared/offsetcodecraft.site.json
-          printf -- "${{ secrets.CF_ENTRYPOINT }}" > /home/runner/.cloudflared/entrypoint.sh
-
+         
       - name: Copy Cloudflared Config to Target Directory
         run: |
           sudo mkdir -p /home/runner/.cloudflared/
@@ -230,6 +228,7 @@ jobs:
           cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
           cp .cloudflared/config.yml /home/runner/.cloudflared/
           cp .cloudflared/cert.pem /home/runner/.cloudflared/
+          cp .cloudflared/entrypoint.sh /home/runner/.cloudflared/
 
           ls -la /home/runner/.cloudflared/
      
