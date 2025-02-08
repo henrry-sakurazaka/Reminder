@@ -287,11 +287,11 @@ jobs:
           su runner -c "whoami"
           su runner -c "ls -la /home/runner/.cloudflared/"
         
-      # - name: Start Cloudflare Tunnel
-      #   run: | 
-      #     nohup cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN > cloudflared.log 2>&1 &
-      #   env:
-      #     VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
+      - name: Start Cloudflare Tunnel
+        run: | 
+          nohup cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN > cloudflared.log 2>&1 &
+        env:
+          VITE_CLOUDFLARE_TUNNEL_TOKEN: ${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}
       
       # - name: Fix entrypoint permissions
       #   run: |
@@ -300,7 +300,7 @@ jobs:
 
       - name: Start App
         run: |
-          docker-compose up cloudflared
+          docker-compose up -d 
 
       - name: Show Logs
         run: docker logs cloudflared
@@ -314,9 +314,6 @@ jobs:
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
-  
-      - name: Start Apps
-        run: docker-compose up -d
 
       - name: Wait for containers to be fully started
         run: |
