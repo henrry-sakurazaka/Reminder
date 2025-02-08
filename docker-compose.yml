@@ -91,9 +91,6 @@ services:
       - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
       - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
       # - ~/.cloudflared:/home/nonroot/.cloudflared
-      # - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
-      # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
-      # - ~/.cloudflared:/home/nonroot/.cloudflared
       # - /tmp/cloudflared/.cloudflared:/home/nonroot/.cloudflared
       # - ~/cloudflared-config:/home/nonroot/.cloudflared
       # - ./.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
