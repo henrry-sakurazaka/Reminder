@@ -265,12 +265,12 @@ jobs:
           sudo mkdir -p /home/nonroot/.cloudflared/
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
           sudo chmod -R 750 /home/nonroot/.cloudflared  
-          sudo chmod 755 /home/nonroot  
+          sudo chmod 755 /home/nonroot
 
+          sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
           sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
-          sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
           sudo ls -la /home/nonroot/.cloudflared/
 
       - name: Add Permission
@@ -324,6 +324,7 @@ jobs:
 
       - name: Start App
         run: |
+          docker-compose down --volumes --remove-orphans
           docker-compose up cloudflared -d
 
       - name: Show Logs
