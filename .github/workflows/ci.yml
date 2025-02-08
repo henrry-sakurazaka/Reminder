@@ -267,10 +267,10 @@ jobs:
           sudo chmod -R 750 /home/nonroot/.cloudflared  
           sudo chmod 755 /home/nonroot  
 
-          sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-          sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-          sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-          sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/
+          sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
+          sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
+          sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
           sudo ls -la /home/nonroot/.cloudflared/
 
       - name: Add Permission
@@ -311,15 +311,16 @@ jobs:
         run: |
           sudo -u nonroot whoami
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
+          sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
-      - name: Start Cloudflare Tunnel
-        run: |
-          cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
-          
-      # - name: Fix entrypoint permissions
+      # - name: Start Cloudflare Tunnel
       #   run: |
-      #     sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
-      #     sudo chmod +x /home/runner/.cloudflared/entrypoint.sh
+      #     cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
+          
+      - name: Fix entrypoint permissions
+        run: |
+          sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
+          sudo chmod +x /home/runner/.cloudflared/entrypoint.sh
 
       - name: Start App
         run: |
