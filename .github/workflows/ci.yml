@@ -154,7 +154,7 @@ jobs:
           node-version: '20'
 
       - name: Clear Playwright cache
-        run: rm -rf /home/runner/.cache/ms-playwright
+        run: rm -rf /home/nonroot/.cache/ms-playwright
 
       - name: Install Playwright browsers
         run: npx playwright install --with-deps
@@ -213,39 +213,40 @@ jobs:
 
       - name: Define Directory
         run: |
-          mkdir -p /home/runner/.cloudflared
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/runner/.cloudflared/server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/runner/.cloudflared/server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/runner/.cloudflared/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM }}" > /home/runner/.cloudflared/cert.pem
-          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/runner/.cloudflared/offsetcodecraft.site.json
+          mkdir -p /home/nonroot/.cloudflared
+          printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
+          printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
+          printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
+          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/nonroot/.cloudflared/offsetcodecraft.site.json
          
-      - name: Copy Cloudflared Config to Target Directory
-        run: |
-          sudo mkdir -p /home/runner/.cloudflared/
-          sudo chown -R runner:runner /home/runner/.cloudflared/
-          sudo chmod -R 700 /home/runner/.cloudflared/
-          cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
-          cp .cloudflared/config.yml /home/runner/.cloudflared/
-          cp .cloudflared/cert.pem /home/runner/.cloudflared/
-          cp .cloudflared/entrypoint.sh /home/runner/.cloudflared/
-
-          ls -la /home/runner/.cloudflared/
-     
-          cat .env
-
-      # ローカル環境用設定
       # - name: Copy Cloudflared Config to Target Directory
       #   run: |
-      #     sudo useradd -m -s /bin/bash nonroot
       #     sudo mkdir -p /home/nonroot/.cloudflared/
-      #     sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-      #     sudo chmod -R 755 /home/nonroot/  
-      #     sudo chmod -R 700 /home/nonroot/.cloudflared
-      #     cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-      #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-      #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-      #     ls -la /home/nonroot/.cloudflared/
+      #     sudo chown -R runner:runner /home/runner/.cloudflared/
+      #     sudo chmod -R 700 /home/runner/.cloudflared/
+      #     cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
+      #     cp .cloudflared/config.yml /home/runner/.cloudflared/
+      #     cp .cloudflared/cert.pem /home/runner/.cloudflared/
+      #     cp .cloudflared/entrypoint.sh /home/runner/.cloudflared/
+
+      #     ls -la /home/runner/.cloudflared/
+     
+      #     cat .env
+
+      ローカル環境用設定
+      - name: Copy Cloudflared Config to Target Directory
+        run: |
+          sudo useradd -m -s /bin/bash nonroot
+          sudo mkdir -p /home/nonroot/.cloudflared/
+          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+          sudo chmod -R 755 /home/nonroot/  
+          sudo chmod -R 700 /home/nonroot/.cloudflared
+          cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
+          cp .cloudflared/config.yml /home/nonroot/.cloudflared/
+          cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
+          cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/
+          ls -la /home/nonroot/.cloudflared/
 
       - name: Add Permission
         run: |
@@ -278,13 +279,13 @@ jobs:
           
       - name: Change ownership of entrypoint.sh
         run: |
-          sudo chown runner:runner /home/runner/.cloudflared/entrypoint.sh
-          sudo chmod u+rx /home/runner/.cloudflared/entrypoint.sh
+          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/entrypoint.sh
+          sudo chmod u+rx /home/nonroot/.cloudflared/entrypoint.sh
       
-      - name: Run commands as runner user
+      - name: Run commands as nonroot user
         run: |
-          su runner -c "whoami"
-          su runner -c "ls -la /home/runner/.cloudflared/"
+          su nonroot -c "whoami"
+          su nonroot -c "ls -la /home/nonroot/.cloudflared/"
         
       - name: Start Cloudflare Tunnel
         run: | 
