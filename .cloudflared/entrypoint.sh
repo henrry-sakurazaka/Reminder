@@ -1,5 +1,4 @@
-ローカル環境用設定
-!/bin/bash
+#!/bin/bash
 
 # 1. Named Tunnel を実行（TUNNEL_IDが必要）
 if [ -n "${TUNNEL_ID}" ]; then
