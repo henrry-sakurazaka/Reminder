@@ -20,7 +20,5 @@ if [ -f "/home/nonroot/.cloudflared/offsetcodecraft.site.json" ]; then
   exec cloudflared tunnel --credentials-file /home/nonroot/.cloudflared/offsetcodecraft.site.json run offsetcodecraft.site &
 fi
 # 3. URLとホスト名を指定してトンネルを起動
-  exec cloudflared tunnel --url http://localhost:3000 --hostname offsetcodecraft.site 
-
-
-
+  exec cloudflared tunnel --url http://localhost:3000 --hostname offsetcodecraft.site  
+  
