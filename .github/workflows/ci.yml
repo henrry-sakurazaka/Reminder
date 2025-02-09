@@ -313,10 +313,6 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
-      # - name: Start Cloudflare Tunnel
-      #   run: |
-      #     cloudflared tunnel run --token $VITE_CLOUDFLARE_TUNNEL_TOKEN
-          
       # - name: Fix entrypoint permissions
       #   run: |
       #     sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
