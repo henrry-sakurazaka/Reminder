@@ -257,6 +257,14 @@ jobs:
      
       #     cat .env
 
+      - name: Set up Cloudflared credentials
+        run: |
+          sudo rm -f /home/nonroot/.cloudflared/offsetcodecraft.site.json  # 先に削除
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
+          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  # セキュアな権限に変更
+
+          
       - name: Copy Cloudflared Config to Target Directory
         run: |
           if ! id -u nonroot &>/dev/null; then
@@ -272,9 +280,6 @@ jobs:
           sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
           sudo ls -la /home/nonroot/.cloudflared/
-
-          echo "offsetcodecraft.site.json" | 
-          base64 --decode > /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
       - name: Add Permission
         run: |
