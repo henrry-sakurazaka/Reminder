@@ -241,7 +241,7 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
-          printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/nonroot/.cloudflared/offsetcodecraft.site.json
+      # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/nonroot/.cloudflared/offsetcodecraft.site.json
          
       # - name: Copy Cloudflared Config to Target Directory
       #   run: |
@@ -257,12 +257,12 @@ jobs:
      
       #     cat .env
 
-      # - name: Set up Cloudflared credentials
-      #   run: |
-      #     sudo rm -f /home/nonroot/.cloudflared/offsetcodecraft.site.json  # 先に削除
-      #     echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
-      #     sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-      #     sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  # セキュアな権限に変更
+      - name: Set up Cloudflared credentials
+        run: |
+          sudo rm -f /home/nonroot/.cloudflared/offsetcodecraft.site.json  # 先に削除
+          echo '${{ secrets.CF_CREDENTIALS_FILE }}' | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
+          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  # セキュアな権限に変更
 
 
       - name: Copy Cloudflared Config to Target Directory
