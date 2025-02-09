@@ -332,7 +332,7 @@ jobs:
 
       - name: Inspect could access
         run: |
-          docker exec -it cloudflared curl -I http://app2:3000
+          docker exec cloudflared curl -I http://app2:3000
 
       - name: Show Logs   
         run: docker logs cloudflared --follow
