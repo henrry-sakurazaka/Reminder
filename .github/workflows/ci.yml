@@ -284,6 +284,10 @@ jobs:
       - name: Add Permission
         run: |
           chmod 640 .cloudflared/offsetcodecraft.site.json
+      
+      - name: Check Credentials file
+        run: |
+          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
@@ -332,7 +336,7 @@ jobs:
 
       - name: Inspect could access
         run: |
-          docker exec cloudflared curl -I http://app2:3000
+          docker exec cloudflared curl -I http://app2:3000 &
 
       - name: Show Logs   
         run: docker logs cloudflared --follow
