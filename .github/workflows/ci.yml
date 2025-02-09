@@ -322,16 +322,16 @@ jobs:
         run: |
           docker-compose up -d cloudflared 
 
-      - name: Show Logs
+      - name: Check Cloudflare Tunnel
+        run: |
+          curl -I https://offsetcodecraft.site
+
+      - name: Show Logs   
         run: docker logs cloudflared
 
       - name: Start Apps
         run: |
           docker-compose up -d 
-
-      - name: Check Cloudflare Tunnel
-        run: |
-          curl -I https://offsetcodecraft.site
 
       - name: Wait for containers to be fully started
         run: |
