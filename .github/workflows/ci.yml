@@ -333,6 +333,9 @@ jobs:
         run: |
           docker-compose up -d 
 
+      - name: Show Logs   
+        run: docker logs cloudflared
+
       - name: Wait for containers to be fully started
         run: |
           sleep 10  
