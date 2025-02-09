@@ -17,6 +17,6 @@ elif [ -f "/home/nonroot/.cloudflared/offsetcodecraft.site.json" ]; then
 elif
 # 3. URLとホスト名を指定してトンネルを起動
   exec cloudflared tunnel --url http://localhost:3000 --hostname offsetcodecraft.site
-
+fi
 
 
