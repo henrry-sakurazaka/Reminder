@@ -264,7 +264,7 @@ jobs:
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  # セキュアな権限に変更
 
-          
+
       - name: Copy Cloudflared Config to Target Directory
         run: |
           if ! id -u nonroot &>/dev/null; then
@@ -330,15 +330,23 @@ jobs:
         run: |
           docker-compose up -d cloudflared 
 
+      - name: Check to tunnel list
+        run: docker exec i cloudflared cloudflared tunnel list
+        
+      - name: Inspect could access
+        run: |
+          docker exec -it cloudflared curl -I http://app2:3000
+
       - name: Show Logs   
-        run: docker logs cloudflared
+        run: docker logs cloudflared --follow
 
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
 
       - name: Show Logs   
-        run: docker logs cloudflared
+        run: docker logs app2 --follow
+
 
       - name: Start Apps
         run: |
