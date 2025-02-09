@@ -14,7 +14,7 @@ elif [ -n "${TUNNEL_ID}" ]; then
 elif [ -f "/home/nonroot/.cloudflared/offsetcodecraft.site.json" ]; then
   echo "Running tunnel with credentials file..."
   exec cloudflared tunnel --credentials-file /home/nonroot/.cloudflared/offsetcodecraft.site.json run offsetcodecraft.site
-elif
+else
 # 3. URLとホスト名を指定してトンネルを起動
   exec cloudflared tunnel --url http://localhost:3000 --hostname offsetcodecraft.site
 fi
