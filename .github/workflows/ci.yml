@@ -273,6 +273,16 @@ jobs:
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
           sudo ls -la /home/nonroot/.cloudflared/
 
+      - name: Decode and create credentials file
+        run: |
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | 
+          base64 --decode > ~/.cloudflared/offsetcodecraft.site.json
+
+      - name: Set file permissions
+        run: |
+          chmod 600 .cloudflared/offsetcodecraft.site.json
+          ls -l ~/.cloudflared/
+
       - name: Add Permission
         run: |
           chmod 640 .cloudflared/offsetcodecraft.site.json
