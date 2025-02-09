@@ -275,13 +275,13 @@ jobs:
 
       - name: Decode and create credentials file
         run: |
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | 
-          base64 --decode > ~/.cloudflared/offsetcodecraft.site.json
+          echo "offsetcodecraft.site.json" | 
+          base64 --decode > /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
       - name: Set file permissions
         run: |
-          chmod 600 .cloudflared/offsetcodecraft.site.json
-          ls -l ~/.cloudflared/
+          chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          ls -l /home/nonroot/.cloudflared/
 
       - name: Add Permission
         run: |
