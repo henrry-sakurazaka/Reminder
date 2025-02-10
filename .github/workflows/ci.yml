@@ -211,6 +211,7 @@ jobs:
           if ! id -u nonroot &>/dev/null; then
           sudo useradd -m -s /bin/bash nonroot
           fi
+          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
           sudo chmod -R 750 /home/nonroot/.cloudflared  
           sudo chmod 755 /home/nonroot
@@ -220,8 +221,6 @@ jobs:
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
           sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcode
          
-
-      
       # - name: Set up Cloudflared credentials
       #   run: |
       #     echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
@@ -280,8 +279,7 @@ jobs:
 
       - name: Check Credentials file
         run: |
-          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json &
-
+          docker exec cloudflared cat /home/nonroot/.cloudflared/ &
 
       - name: Inspect could access
         run: |
@@ -293,9 +291,6 @@ jobs:
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
-
-      - name: Show Logs   
-        run: docker logs app2 --follow
 
       - name: Start Apps
         run: |
