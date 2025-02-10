@@ -181,12 +181,20 @@ jobs:
       
       - name: Set up Cloudflared credentials
         run: |
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
+          sudo chmod 600 .cloudflared/offsetcodecraft.site.json  
+          sudo ls -la .cloudflared/
+          
+      - name: Set up Cloudflared credentials2
+        run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
           echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
           sudo ls -la /home/nonroot/.cloudflared/
           
+      
       - name: Debug JSON file content
         run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
     
