@@ -219,7 +219,7 @@ jobs:
           sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
           sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
-          sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcode
+          sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
          
       # - name: Set up Cloudflared credentials
       #   run: |
@@ -279,7 +279,8 @@ jobs:
 
       - name: Check Credentials file
         run: |
-          docker exec cloudflared cat /home/nonroot/.cloudflared/ &
+          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json &
+
 
       - name: Inspect could access
         run: |
