@@ -51,6 +51,7 @@ RUN chmod 644 /home/nonroot/.cloudflared/cert.pem
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared 
 
+
 USER nonroot
    
 ENTRYPOINT ["/bin/sh","/home/nonroot/.cloudflared/entrypoint.sh"]

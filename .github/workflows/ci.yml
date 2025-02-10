@@ -186,7 +186,10 @@ jobs:
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
           sudo ls -la /home/nonroot/.cloudflared/
-
+          
+      - name: Debug JSON file content
+        run: cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
+    
       - name: Define Permission
         run: |
           chmod u+rx .cloudflared/entrypoint.sh
@@ -222,7 +225,6 @@ jobs:
           sudo ls -la /home/nonroot/.cloudflared/
 
     
-
       # - name: Add Permission
       #   run: |
       #     chmod 640 .cloudflared/offsetcodecraft.site.json
