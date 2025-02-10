@@ -63,39 +63,7 @@ jobs:
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
           printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > .cloudflared/offsetcodecraft.site.json
          
-      # mkdir -p /home/runner/.cloudflared
-      # printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/runner/.cloudflared/server.cert.pem
-      # printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/runner/.cloudflared/server.key.pem
-      # printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/runner/.cloudflared/config.yml
-      # printf -- "${{ secrets.CF_CERT_PEM }}" > /home/runner/.cloudflared/cert.pem
-      # printf -- "${{ secrets.CF_CREDENTIALS_FILE }}" > /home/runner/.cloudflared/offsetcodecraft.site.json
-      # printf -- "${{ secrets.CF_ENTRYPOINT }}" > /home/runner/.cloudflared/entrypoint.sh
-      
-      # - name: Copy Cloudflared Config to Target Directory
-      #   run: |
-      #     sudo mkdir -p /home/runner/.cloudflared/
-      #     sudo chown -R runner:runner /home/runner/.cloudflared/
-      #     sudo chmod -R 700 /home/runner/.cloudflared/
-
-      #     cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
-      #     cp .cloudflared/config.yml /home/runner/.cloudflared/
-      #     cp .cloudflared/cert.pem /home/runner/.cloudflared/
-
-      #     ls -la /home/runner/.cloudflared/
     
-      # ローカル環境用設定
-      # - name: Copy Cloudflared Config to Target Directory
-      #   run: |
-      #     sudo useradd -m -s /bin/bash nonroot
-      #     sudo mkdir -p /home/nonroot/.cloudflared/
-      #     cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/
-      #     cp .cloudflared/config.yml /home/nonroot/.cloudflared/
-      #     cp .cloudflared/cert.pem /home/nonroot/.cloudflared/
-      #     ls -la /home/nonroot/.cloudflared/
-
-      
-          # cat .env
-
       - name: Debug .env file
         run: cat .env
 
@@ -177,18 +145,7 @@ jobs:
       - name: Clear Cloudflared cache
         run: rm -rf ~/.cloudflared /tmp/cloudflared ~/.config/cloudflared
     
-      # - name: Download cloudflared
-      #   run: |
-      #     wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64
-      #     sudo mv cloudflared-linux-amd64 /usr/local/bin/cloudflared
-      #     sudo chmod +x /usr/local/bin/cloudflared
-
-      # - name: Download cloudflared
-      #   run: |
-      #     wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O $HOME/cloudflared
-      #     chmod +x $HOME/cloudflared
-      #     $HOME/cloudflared --version  
-
+     
       - name: Download cloudflared
         run: |
           wget -q https://github.com/cloudflare/cloudflared/releases/latest/download/cloudflared-linux-amd64 -O /usr/local/bin/cloudflared
@@ -242,21 +199,7 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
    
-      # - name: Copy Cloudflared Config to Target Directory
-      #   run: |
-      #     sudo mkdir -p /home/nonroot/.cloudflared/
-      #     sudo chown -R runner:runner /home/runner/.cloudflared/
-      #     sudo chmod -R 700 /home/runner/.cloudflared/
-      #     cp .cloudflared/offsetcodecraft.site.json /home/runner/.cloudflared/
-      #     cp .cloudflared/config.yml /home/runner/.cloudflared/
-      #     cp .cloudflared/cert.pem /home/runner/.cloudflared/
-      #     cp .cloudflared/entrypoint.sh /home/runner/.cloudflared/
-
-      #     ls -la /home/runner/.cloudflared/
      
-      #     cat .env
-
-
       - name: Copy Cloudflared Config to Target Directory
         run: |
           if ! id -u nonroot &>/dev/null; then
