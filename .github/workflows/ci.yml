@@ -292,9 +292,9 @@ jobs:
         run: docker logs cloudflared 
   
 
-      - name: Check Credentials file
-        run: |
-          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json 
+      # - name: Check Credentials file
+      #   run: |
+      #     docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json 
 
 
       - name: Inspect could access
