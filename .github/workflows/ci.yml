@@ -174,10 +174,11 @@ jobs:
          
       - name: Set up Cloudflared credentials
         run: |
+          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
           echo -n "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown root:root .cloudflared/offsetcodecraft.site.json
-          sudo chmod 600 .cloudflared/offsetcodecraft.site.json  
-          sudo ls -la .cloudflared/
+          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
+          sudo ls -la /home/nonroot/.cloudflared/
     
       - name: Define Permission
         run: |
@@ -200,12 +201,12 @@ jobs:
         run: |
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
-
+          printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
+          printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
+       
       # - name: Define Directory2
       #   run: |    
-      #     printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
-      #     printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
-       
+      
       - name: Copy Cloudflared Config to Target Directory
         run: |
           if ! id -u nonroot &>/dev/null; then
