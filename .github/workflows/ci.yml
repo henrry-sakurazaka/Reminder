@@ -174,8 +174,8 @@ jobs:
          
       - name: Set up Cloudflared credentials
         run: |
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
+          echo -n "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+          sudo chown root:root .cloudflared/offsetcodecraft.site.json
           sudo chmod 600 .cloudflared/offsetcodecraft.site.json  
           sudo ls -la .cloudflared/
     
@@ -211,7 +211,6 @@ jobs:
           if ! id -u nonroot &>/dev/null; then
           sudo useradd -m -s /bin/bash nonroot
           fi
-          sudo mkdir -p /home/nonroot/.cloudflared/
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
           sudo chmod -R 750 /home/nonroot/.cloudflared  
           sudo chmod 755 /home/nonroot
