@@ -191,6 +191,7 @@ jobs:
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
           echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo chmod 755 /home/nonroot/.cloudflared
           sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
           sudo ls -la /home/nonroot/.cloudflared/
           
@@ -212,7 +213,7 @@ jobs:
       - name: Setup cloudflared directory
         run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          sudo chmod -R 755 /home/nonroot/.cloudflared
+          sudo chmod -R 770 /home/nonroot/.cloudflared
           sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
 
       - name: Define Directory
