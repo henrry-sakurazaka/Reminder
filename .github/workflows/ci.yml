@@ -171,7 +171,14 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
-         
+
+      - name: Create nonroot user
+        run: |
+          sudo useradd -m nonroot
+          sudo chown -R nonroot:nonroot /home/nonroot
+          sudo chmod 755 /home/nonroot
+
+      
       - name: Set up Cloudflared credentials
         run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
@@ -185,12 +192,7 @@ jobs:
           chmod u+rx .cloudflared/entrypoint.sh
           chmod 600 .cloudflared/config.yml
 
-      - name: Create nonroot user
-        run: |
-          sudo useradd -m nonroot
-          sudo chown -R nonroot:nonroot /home/nonroot
-          sudo chmod 755 /home/nonroot
-
+     
       - name: Setup cloudflared directory
         run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
