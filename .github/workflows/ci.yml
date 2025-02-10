@@ -212,7 +212,7 @@ jobs:
       - name: Setup cloudflared directory
         run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          sudo chmod -R 770 /home/nonroot/.cloudflared
+          sudo chmod -R 755 /home/nonroot/.cloudflared
           sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
 
       - name: Define Directory
