@@ -188,7 +188,7 @@ jobs:
           sudo ls -la /home/nonroot/.cloudflared/
           
       - name: Debug JSON file content
-        run: cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
+        run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
     
       - name: Define Permission
         run: |
