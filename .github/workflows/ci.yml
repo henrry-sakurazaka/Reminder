@@ -174,12 +174,11 @@ jobs:
          
       - name: Set up Cloudflared credentials
         run: |
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          echo -n "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
           sudo ls -la /home/nonroot/.cloudflared/
-    
+
       - name: Define Permission
         run: |
           chmod u+rx .cloudflared/entrypoint.sh
@@ -204,9 +203,6 @@ jobs:
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > /home/nonroot/.cloudflared/cert.pem
        
-      # - name: Define Directory2
-      #   run: |    
-      
       - name: Copy Cloudflared Config to Target Directory
         run: |
           if ! id -u nonroot &>/dev/null; then
@@ -221,13 +217,9 @@ jobs:
           sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
           sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
           sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
-         
-      # - name: Set up Cloudflared credentials
-      #   run: |
-      #     echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
-      #     sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-      #     sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
-      #     sudo ls -la /home/nonroot/.cloudflared/
+          sudo ls -la /home/nonroot/.cloudflared/
+
+    
 
       # - name: Add Permission
       #   run: |
