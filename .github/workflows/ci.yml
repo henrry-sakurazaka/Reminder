@@ -203,7 +203,12 @@ jobs:
           chmod u+rx .cloudflared/entrypoint.sh
           chmod 600 .cloudflared/config.yml
 
-     
+      - name: Fix Permissions for Cloudflared Credentials
+        run: |
+          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo ls -la /home/nonroot/.cloudflared/
+      
       - name: Setup cloudflared directory
         run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
@@ -284,7 +289,7 @@ jobs:
 
       - name: Check Credentials file
         run: |
-          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json &
+          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json 
 
 
       - name: Inspect could access
@@ -297,6 +302,12 @@ jobs:
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
+
+      - name: Debug Cloudflared Credentials Inside Container
+        run: |
+          docker exec -it cloudflared ls -la /home/nonroot/.cloudflared/
+          docker exec -it cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
+      
 
       - name: Start Apps
         run: |
