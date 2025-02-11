@@ -208,7 +208,7 @@ jobs:
       - name: Fix Permissions for Cloudflared Credentials
         run: |
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          sudo chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo ls -la /home/nonroot/.cloudflared/
       
       - name: Setup cloudflared directory
