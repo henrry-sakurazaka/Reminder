@@ -39,7 +39,7 @@ jobs:
           echo "VITE_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.REACT_APP_FIREBASE_API_KEY }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
