@@ -183,7 +183,7 @@ jobs:
         run: |
           echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
           sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
-          sudo chmod 600 .cloudflared/offsetcodecraft.site.json  
+          sudo chmod 644 .cloudflared/offsetcodecraft.site.json  
           sudo ls -la .cloudflared/
           
       - name: Set up Cloudflared credentials2
@@ -192,7 +192,7 @@ jobs:
           echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo chmod 755 /home/nonroot/.cloudflared
-          sudo chmod 600 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
+          sudo chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json  
           sudo ls -la /home/nonroot/.cloudflared/
           
       
@@ -233,6 +233,8 @@ jobs:
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
           sudo chmod -R 750 /home/nonroot/.cloudflared  
           sudo chmod 755 /home/nonroot
+          sudo chmod 644 .cloudflared/offsetcodecraft.site.json
+
 
           sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
           sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
