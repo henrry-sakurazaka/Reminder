@@ -231,8 +231,8 @@ jobs:
           fi
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
           sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-          sudo chmod -R 750 /home/nonroot/.cloudflared  
-          sudo chmod 755 /home/nonroot
+          sudo chmod -R 777 /home/nonroot/.cloudflared  
+          sudo chmod 777 /home/nonroot
           sudo chmod 666 .cloudflared/offsetcodecraft.site.json
 
           sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
