@@ -308,7 +308,7 @@ jobs:
       - name: Debug Cloudflared Credentials Inside Container
         run: |
           docker exec cloudflared ls -la /home/nonroot/.cloudflared/
-          docker exec i cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
+          docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
       
 
       - name: Start Apps
