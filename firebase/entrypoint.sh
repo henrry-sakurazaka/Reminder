@@ -1,5 +1,8 @@
 #!/bin/bash
 
+# .env を読み込む
+source .env
+
 # Firebaseエミュレーター用の環境変数を設定
 export VITE_GOOGLE_APPLICATION_CREDENTIALS="./serviceAccountKey.json"
 
