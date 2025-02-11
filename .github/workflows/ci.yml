@@ -278,33 +278,35 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
-      # - name: Fix entrypoint permissions
-      #   run: |
-      #     sudo chown root:root /home/runner/.cloudflared/entrypoint.sh
-      #     sudo chmod +x /home/runner/.cloudflared/entrypoint.sh
-
+  
       - name: Start App
         run: |
           docker-compose up -d cloudflared
 
+
       - name: Show Logs   
         run: docker logs cloudflared 
   
-      # - name: Cloudflaredを実行
-      #   run: |
-      #     cloudflared tunnel --credentials-file /home/nonroot/.cloudflared/offsetcodecraft.site.json run offsetcodecraft.site &
-      
+        
       - name: Inspect could access
         run: |
           docker exec cloudflared curl -I http://app2:3000 &
 
+
       - name: Show Logs   
         run: docker logs cloudflared 
+
 
       - name: Check Cloudflare Tunnel
         run: |
           curl -I https://offsetcodecraft.site
 
+
+      - name: Check Cloudflared Tunnel Info
+        run: |
+          docker exec cloudflared cloudflared tunnel info offsetcodecraft.site || docker logs cloudflared
+
+      
       - name: Debug Cloudflared Credentials Inside Container
         run: |
           docker exec cloudflared ls -la /home/nonroot/.cloudflared/
@@ -315,9 +317,11 @@ jobs:
         run: |
           docker-compose up -d 
 
+
       - name: Wait for containers to be fully started
         run: |
           sleep 10  
+
 
       - name: Connect reminder-playwright-1 to test-network2
         run: |
@@ -327,6 +331,7 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
+
       - name: Connect reminder-app2-1 to test-network2
         run: |
           if ! docker network inspect test-network2 | grep -q "reminder-app2-1"; then
@@ -334,6 +339,7 @@ jobs:
           else
             echo "Container is already connected to the network."
           fi
+
 
       - name: Connect reminder-firebase-1 to test-network2
         run: |
@@ -343,10 +349,12 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
+
       - name: Check responsed URL
         run: |
           docker exec reminder-playwright-1 curl http://172.18.0.3:3000
           docker exec reminder-playwright-1 ps aux | grep node
+
 
       - name: Set permissions for test-results directory
         run: |
