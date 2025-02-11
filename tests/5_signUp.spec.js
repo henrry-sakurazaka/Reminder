@@ -2,10 +2,9 @@ import 'dotenv/config';
 import { test, expect } from '@playwright/test';
 
 if (process.env.CI !== 'true') {
-  dotenv.config();
+
 }
   
- 
   test('サインアップ機能のテスト', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL;
     const email = process.env.VITE_REACT_APP_TEST_EMAIL

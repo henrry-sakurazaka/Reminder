@@ -2,7 +2,7 @@ import 'dotenv/config';
 import { test, expect } from '@playwright/test';
 
 if (process.env.CI !== 'true') {
-  dotenv.config();
+  
 }
  
   test('アカウント削除のテスト', async ({ page }) => {
