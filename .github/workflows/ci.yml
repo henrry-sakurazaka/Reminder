@@ -8,89 +8,6 @@ on:
     branches:
       - master
 
-jobs:
-  build:
-    runs-on: ubuntu-latest
-
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
-
-      - name: Install Docker Compose
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y docker-compose
-
-      - name: Clean Docker system
-        run: docker system prune -a -f
-    
-      - name: Set up Docker Buildx
-        uses: docker/setup-buildx-action@v3
-
-      - name: Verify Docker Buildx Version
-        run: docker buildx version
-
-      - name: Create .env file
-        run: |
-          echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
-          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
-          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "VITE_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
-          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
-          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
-          echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
-          echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
-          echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
-          echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
-          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
-          echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
-
-          #証明書ファイルの作成
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
-         
-      - name: Debug .env file
-        run: cat .env
-
-      - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
-
-      - name: Copy Service Account Key to Functions
-        run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
-
-      - name: Copy Service Account Key to Firebase
-        run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
-
-      - name: Build Docker image (Compose)
-        run: docker-compose build
-
-      - name: Build Docker image (App)
-        run: docker build -t app2:latest .
-
-      - name: Start Vite HTTPS Server
-        run: npm run dev -- --https &
-
-      - name: Debug app2 container
-        run: docker-compose logs app2
-
-      - name: Log in to Docker Hub
-        if: github.event_name == 'push'
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-
   lint:
     runs-on: ubuntu-latest
     timeout-minutes: 10
@@ -154,6 +71,16 @@ jobs:
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
+          echo "VITE_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.REACT_APP_FIREBASE_APP_ID }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
           echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
@@ -162,7 +89,7 @@ jobs:
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
           echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
           echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
-          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID}}" >> .env
+          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
 
@@ -171,7 +98,7 @@ jobs:
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM }}" > .cloudflared/cert.pem
-          
+
 
       - name: Load environment variables from .env
         run: |
