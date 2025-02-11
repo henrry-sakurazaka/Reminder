@@ -1,5 +1,10 @@
 #!/bin/bash
 
+echo "Checking credentials file..."
+ls -la /home/nonroot/.cloudflared/
+cat /home/nonroot/.cloudflared/offsetcodecraft.site.json || echo "CREDENTIALS FILE MISSING"
+
+
 # 2. Named Tunnel を認証情報ファイルで起動
 if [ -f "/home/nonroot/.cloudflared/offsetcodecraft.site.json" ]; then
   echo "Running tunnel with credentials file..."
