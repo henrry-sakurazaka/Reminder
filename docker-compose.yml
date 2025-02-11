@@ -83,8 +83,8 @@ services:
       #   condition: service_healthy
     env_file:
       - .env
-    # volumes:
-    #   - /home/nonroot/.cloudflared:/home/nonroot/.cloudflared
+    volumes:
+      - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     # entrypoint: ["/bin/bash", "-c", "/home/nonroot/.cloudflared/entrypoint.sh"]
     # volumes:
