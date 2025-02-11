@@ -79,19 +79,11 @@ services:
     depends_on:
       app2:
         condition: service_healthy
-      # nginx: 
-      #   condition: service_healthy
     env_file:
       - .env
     volumes:
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
-    # entrypoint: ["/bin/bash", "-c", "/home/nonroot/.cloudflared/entrypoint.sh"]
-    # volumes:
-      # - ~/.cloudflared:/home/nonroot/.cloudflared
-      # - ~/.cloudflared/entrypoint.sh:/home/nonroot/.cloudflared/entrypoint.sh
-      # - ~/.cloudflared/cert.pem:/home/nonroot/.cloudflared/cert.pem:ro
-      # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json:ro
     environment:
       - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
       - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
@@ -100,12 +92,12 @@ services:
     restart: unless-stopped
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
-      # disable: true
-      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
-      interval: 90s
-      timeout: 60s
-      retries: 5
-      start_period: 60s
+      disable: true
+      # test: ["CMD", "curl", "-f", "https://offsetcodecraft.site", "||", "exit", "1"]
+      # interval: 90s
+      # timeout: 60s
+      # retries: 5
+      # start_period: 60s
     networks:
       - test-network2
    
