@@ -91,13 +91,13 @@ services:
       - VITE_CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
-    # healthcheck:
-    #   disable: true
-      # test: ["CMD", "curl", "-f", "https://offsetcodecraft.site"]
-      # interval: 90s
-      # timeout: 60s
-      # retries: 5
-      # start_period: 60s
+    healthcheck:
+      disable: true
+      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site"]
+      interval: 90s
+      timeout: 60s
+      retries: 5
+      start_period: 60s
     networks:
       - test-network2
    
@@ -133,8 +133,8 @@ services:
     depends_on:
       app2:
         condition: service_healthy
-      # cloudflared:
-      #   condition: service_healthy
+      cloudflared:
+        condition: service_healthy
     networks:
       - test-network2
     working_dir: /app2
