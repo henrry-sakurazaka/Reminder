@@ -106,10 +106,6 @@ jobs:
           source .env
           echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
           
-      - name: Display Firebase API Key
-        run: |
-          echo "VITE_REACT_APP_FIREBASE_API_KEY is: $VITE_REACT_APP_FIREBASE_API_KEY"
-      
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
 
@@ -228,7 +224,7 @@ jobs:
   
       - name: Start App
         run: |
-          docker-compose up cloudflared
+          docker-compose up -d cloudflared
 
 
       - name: Show Logs   
@@ -238,10 +234,6 @@ jobs:
       - name: Inspect could access
         run: |
           docker exec cloudflared curl -I http://app2:3000 &
-
-
-      - name: Show Logs   
-        run: docker logs cloudflared 
 
 
       - name: Check Cloudflare Tunnel
@@ -263,6 +255,10 @@ jobs:
       - name: Start Apps
         run: |
           docker-compose up -d 
+          
+
+      - name: Show Logs   
+        run: docker logs cloudflared 
 
 
       - name: Wait for containers to be fully started
