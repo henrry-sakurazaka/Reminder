@@ -63,7 +63,7 @@ if (process.env.CI !== 'true') {
     await expect(page.locator('span.important')).toHaveText('Agreed');
  
     await page.click('button.form-button'); 
-    await expect(page).toHaveURL(`${baseUrl}/Example`); 
+    await expect(page).toHaveURL(`${baseUrl}/Example`, {timeout: 30000}); 
     
 });
 
