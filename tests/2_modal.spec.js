@@ -47,7 +47,6 @@ if (process.env.CI !== 'true') {
     // await expect(page).toHaveURL(`${baseUrl}/Example`);
 
     const lastCircle = page.locator('span.circleI').last();
-    await lastCircle.waitFor({timeout: 40000});
     await lastCircle.click();
 
     await expect(page.locator('div.modal')).toBeVisible();
