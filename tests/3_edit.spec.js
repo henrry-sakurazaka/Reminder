@@ -56,8 +56,7 @@ if (process.env.CI !== 'true') {
       await page.waitForTimeout(40000);
       await page.fill('input#task','test');
       await page.click('button.add');
-      const lastSpan = page.locator('span.content').last(); 
-      await lastSpan.waitFor({timeout: 40000});  
+      const lastSpan = page.locator('span.content').last();   
       await expect(lastSpan).toHaveText('test');
       const lastBtn = page.locator('button.compBtn').last();
       await lastBtn.waitFor({timeout: 40000});
