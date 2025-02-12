@@ -60,7 +60,12 @@ if (process.env.CI !== 'true') {
     // アカウント削除後、UserAuthページにリダイレクトされることを確認
     await expect(page.locator('.message')).toHaveText('ユーザーアカウントが削除されました');
     await expect(page).toHaveURL(`${baseUrl}/UserAuth`);
-
+    
+    await page.click('input.agree-check');
+    await expect(page.locator('span.important')).toHaveText('Agreed');
+ 
+    await page.click('button.form-button'); 
+    await expect(page).toHaveURL(`${baseUrl}/Example`); 
 });
 
 
