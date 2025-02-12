@@ -40,7 +40,6 @@ if (process.env.CI !== 'true') {
     await expect(page).toHaveURL(`${baseUrl}/Terms`);
     await page.waitForTimeout(5000); 
     await page.click('nav');
-    await page.waitForTimeout(5000); 
     await expect(page).toHaveURL(`${baseUrl}/SignUp`);
 
     await page.waitForTimeout(5000); // 必要に応じて時間を調整
