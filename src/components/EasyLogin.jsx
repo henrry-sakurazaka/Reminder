@@ -26,7 +26,7 @@ import "./logging.css";
   password: import.meta.env.VITE_REACT_APP_TEST_PASSWORD
 };
 
-// const vapidKey = process.env.REACT_APP_VAPID_KEY;
+// const vapidKey = process.env.VITE_REACT_APP_VAPID_KEY;
 
  const EasyLogin = () => {
   const navigate = useNavigate();
