@@ -22,8 +22,8 @@ import "./logging.css";
 // };
  // 指定したユーザー情報
  const easyLoginUser = {
-  email: import.meta.env.VITE_REACT_APP_TEST2_EMAIL,
-  password: import.meta.env.VITE_REACT_APP_TEST2_PASSWORD
+  email: import.meta.env.VITE_REACT_APP_TEST_EMAIL,
+  password: import.meta.env.VITE_REACT_APP_TEST_PASSWORD
 };
 
 // const vapidKey = process.env.REACT_APP_VAPID_KEY;
