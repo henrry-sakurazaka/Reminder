@@ -50,7 +50,7 @@ if (process.env.CI !== 'true') {
     await expect(page).toHaveURL(`${baseUrl}/SignUp`);
 
     await page.waitForSelector('#name', { timeout: 30000 });
-    await page.fill('#name', 'Clara')
+    await page.fill('#name', 'Clara2')
 
     await page.waitForSelector('#email', { timeout: 30000 });
     await page.fill('#email', email); 
