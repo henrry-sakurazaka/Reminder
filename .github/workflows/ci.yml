@@ -83,6 +83,7 @@ jobs:
           echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN}}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST2_EMAIL=${{ secrets.VITE_REACT_APP_TEST2_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
@@ -353,18 +354,27 @@ jobs:
 
       - name: Set up Firebase credentials
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
+          echo "${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
           export GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
-          firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only functions --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only hosting --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+
+          docker tag app2 henrry301/reminder:1
+          docker tag reminder-firebase henrry301/reminder:2
+          docker tag reminder-playwright henrry301/reminder:3
+          docker tag cloudflare/cloudflared henrry301/reminder:5
+          docker push henrry301/reminder:1
+          docker push henrry301/reminder:2
+          docker push henrry301/reminder:5
+          docker push henrry301/reminder:3
 
 
 
