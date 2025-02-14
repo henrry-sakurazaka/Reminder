@@ -7,8 +7,8 @@ if (process.env.CI !== 'true') {
  
   test('アカウント削除のテスト', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL;
-    const email = process.env.VITE_REACT_APP_TEST2_EMAIL;
-    const password = process.env.VITE_REACT_APP_TEST2_PASSWORD; 
+    const email = process.env.VITE_REACT_APP_TEST_EMAIL;
+    const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
     await page.waitForTimeout(5000); 
     await page.route('**/deleteAccount', (route) => {
