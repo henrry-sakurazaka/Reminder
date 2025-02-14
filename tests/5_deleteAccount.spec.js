@@ -20,36 +20,36 @@ if (process.env.CI !== 'true') {
     async ({ browser }) => {
       const context = await browser.newContext(); // 新しいコンテキストを生成
       const page = await context.newPage();
-      // await page.goto(`${baseUrl}/UserAuth`);
-      // await context.clearCookies();
-      // await context.clearPermissions();
-      // await page.evaluate(() => {
-      //     localStorage.clear();
-      //     sessionStorage.clear();     
-      // });
+      await page.goto(`${baseUrl}/UserAuth`);
+      await context.clearCookies();
+      await context.clearPermissions();
+      await page.evaluate(() => {
+          localStorage.clear();
+          sessionStorage.clear();     
+      });
     }
    
-    await page.goto(`${baseUrl}/Example`, {
+    await page.goto(`${baseUrl}/UserAuth`, {
         waitUntil: 'networkidle',
         timeout: 60000,
         ignoreHTTPSErrors: true, // これで証明書エラーを無視します
       });
 
-    // await page.click('span#SI', { timeout: 30000 });
-    // await page.waitForTimeout(7000); 
-    // await expect(page).toHaveURL(`${baseUrl}/SignIn`);
+    await page.click('span#SI', { timeout: 30000 });
+    await page.waitForTimeout(7000); 
+    await expect(page).toHaveURL(`${baseUrl}/SignIn`);
     
-    // await page.waitForTimeout(5000); 
-    // await page.waitForSelector('#email', { timeout: 30000 });
-    // await page.fill('#email', email, { timeout: 30000 }); 
+    await page.waitForTimeout(5000); 
+    await page.waitForSelector('#email', { timeout: 30000 });
+    await page.fill('#email', email, { timeout: 30000 }); 
 
-    // await page.waitForTimeout(5000); 
+    await page.waitForTimeout(5000); 
 
-    // await page.waitForSelector('#password', { timeout: 30000 });
-    // await page.fill('#password', password, { timeout: 30000 }); 
-    // await page.click('button.form-button[type="submit"]');
+    await page.waitForSelector('#password', { timeout: 30000 });
+    await page.fill('#password', password, { timeout: 30000 }); 
+    await page.click('button.form-button[type="submit"]');
   
-    // await expect(page).toHaveURL(`${baseUrl}/Example`);
+    await expect(page).toHaveURL(`${baseUrl}/Example`);
     await page.click('span.back');
     await expect(page).toHaveURL(`${baseUrl}/UserAuth`)
 
