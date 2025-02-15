@@ -14,7 +14,7 @@ var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS);
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.VITE_MYAPP_DATABASE_URL
+    databaseURL: process.env.VITE_REACT_APP_FIREBASE_DATABASE_URL
 });
 
 const app = express();
