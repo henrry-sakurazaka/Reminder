@@ -33,17 +33,20 @@ if (process.env.CI !== 'true') {
       timeout: 60000,
       ignoreHTTPSErrors: true,
     });  
-    await page.click('span#SI', { timeout: 30000 });
-    await page.waitForTimeout(5000);
 
-    await expect(page).toHaveURL(`${baseUrl}/SignIn`);
+    await page.click('span#SI', { timeout: 30000 });
     await page.waitForTimeout(5000); 
+    await expect(page).toHaveURL(`${baseUrl}/SignIn`);
+
+    await page.waitForTimeout(5000); 
+
     await page.waitForSelector('#email', { timeout: 30000 });
     await page.fill('#email', email, { timeout: 30000 }); 
-    await page.waitForSelector('#password', { timeout: 30000 });
-    await page.fill('#password', password, { timeout: 30000 }); 
+    await page.fill('#password', password); 
     await page.click('button.form-button[type="submit"]');
-  
+
+    await page.waitForTimeout(5000); 
+
     await expect(page).toHaveURL(`${baseUrl}/Example`);
 
     
