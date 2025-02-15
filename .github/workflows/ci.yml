@@ -74,14 +74,17 @@ jobs:
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
+          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
           echo "VITE_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.FIREBASE_TOKEN }}" >> .env
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY}}" >> .env
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALSREACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_DATABASE_URL=${{ secrets.VITE_REACT_APP_FIREBASE_DATABASE_URL }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
           echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
           echo "VITE_REACT_APP_TEST2_EMAIL=${{ secrets.VITE_REACT_APP_TEST2_EMAIL }}" >> .env
@@ -353,13 +356,13 @@ jobs:
 
       - name: Set up Firebase credentials
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
-          export GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
+          echo "${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
+          export VITE_GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
-          firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only functions --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only hosting --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
