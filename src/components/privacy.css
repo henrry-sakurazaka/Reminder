@@ -1,0 +1,12 @@
+@charset "utf-8";
+
+.container {
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+nav:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
