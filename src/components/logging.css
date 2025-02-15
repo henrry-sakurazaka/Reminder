@@ -1,0 +1,17 @@
+@charset "utf-8";
+
+.login-container {
+    width: 100vw;
+    height: 100vh;
+    position: relative;
+
+}
+.logging-in {
+
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 32px;
+    color: rgba(40, 147, 247, 0.772);
+}

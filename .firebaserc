@@ -1,0 +1,28 @@
+{
+  "projects": {
+    "default": "reminder3-65e84",
+    "main": "reminder3-65e84",
+    "reminder": "reminder3-65e84",
+    "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder3-65e84",
+    "e": "reminder3-65e84",
+    "deployment": "reminder3-65e84",
+    "production": "reminder3-65e84",
+    "produdtion": "reminder5-f1b91"
+  },
+  "targets": {
+    "reminder3-65e84": {
+      "hosting": {
+        "reminder": [
+          "reminder3-65e84",
+          "site"
+        ]
+      }
+    }
+  },
+  "etags": {
+    "reminder3-65e84": {
+      "extensionInstances": {}
+    }
+  },
+  "dataconnectEmulatorConfig": {}
+}
