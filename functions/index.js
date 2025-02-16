@@ -14,7 +14,7 @@ var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS);
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.VITE_MYAPP_DATABASE_URL
+    databaseURL: process.env.VITE_REACT_APP_FIREBASE_DATABASE_URL
 });
 
 const app = express();
@@ -22,7 +22,7 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app', 'https://localhost'],
+    origin: ['https://reminder3-65e84.web.app'],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,
