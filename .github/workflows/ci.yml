@@ -3,10 +3,10 @@ name: CI/CD Workflow
 on:
   push:
     branches:
-      - master
+      - originMaster2
   pull_request:
     branches:
-      - master
+      - originMaster2
 
 jobs:      
   lint:
