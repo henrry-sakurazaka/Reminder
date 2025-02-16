@@ -26,7 +26,7 @@ services:
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
+      test: ["CMD-SHELL", "curl -k -v http://localhost:3000"]
       interval: 90s
       timeout: 60s
       retries: 5
