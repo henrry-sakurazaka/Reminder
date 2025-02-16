@@ -1,0 +1,43 @@
+node_modules/
+<<<<<<< HEAD
+# firebase-messaging-sw.js.template
+# server.key
+# functions/**/node_modules/
+# functions/.firebase
+# functions/node_modules
+# public/firebase.js
+# public/firebase-config.js
+# build/firebase.js
+# build/config.js
+# functions/serviceAccoutKey.json
+# serviceAccoutKey.json
+# firebaseInit.js
+# .env
+=======
+firebase-messaging-sw.js.template
+server.key.pem
+server.cert.pem
+functions/**/node_modules/
+functions/.firebase
+functions/node_modules
+public/firebase.js
+public/firebase-config.js
+build/firebase.js
+build/firebase.js
+build/config.js
+functions/serviceAccoutnKey.json
+firebaseInit.js
+function/.env
+.env
+serviceAccountKey.json
+function/serviceAccountKey.json
+bfg-repo-cleaner/
+.cloudflared/cert.pem
+.cloudflared/offsetcodecraft.site.json
+.cloudflared/config.yml
+
+
+
+
+>>>>>>> development9
+
