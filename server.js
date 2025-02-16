@@ -260,6 +260,7 @@
 // });
 
 import express from 'express';
+import cors from 'cors';
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
@@ -267,6 +268,10 @@ const app = express();
 
 // ミドルウェア
 app.use(express.json());
+// CORSミドルウェアを使用
+app.use(cors({
+  origin: 'https://offsetcodecraft.site'
+}));
 
 // ルート
 app.get('/', (req, res) => {
