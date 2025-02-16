@@ -1,7 +1,7 @@
 node_modules/
 firebase-messaging-sw.js.template
-# server.key.pem
-# server.cert.pem
+server.key.pem
+server.cert.pem
 functions/**/node_modules/
 functions/.firebase
 functions/node_modules
@@ -10,16 +10,16 @@ public/firebase-config.js
 build/firebase.js
 build/firebase.js
 build/config.js
-# functions/serviceAccoutnKey.json
+functions/serviceAccoutnKey.json
 firebaseInit.js
-# function/.env
-# .env
-# serviceAccountKey.json
-# function/serviceAccountKey.json
+function/.env
+.env
+serviceAccountKey.json
+firebase/serviceAccountKey.json
 bfg-repo-cleaner/
-# .cloudflared/cert.pem
-# .cloudflared/offsetcodecraft.site.json
-# .cloudflared/config.yml
+.cloudflared/cert.pem
+.cloudflared/offsetcodecraft.site.json
+.cloudflared/config.yml
 
 
 
