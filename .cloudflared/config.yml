@@ -1,8 +1,0 @@
-tunnel: ${TUNNEL_ID}  # トンネルIDを指定
-credentials-file: /home/nonroot/.cloudflared/offsetcodecraft.site.json
-# credentials-file: /home/nonroot/.cloudflared/cert.pem
-origincert: /home/nonroot/.cloudflared/cert.pem
-ingress:
-  - hostname: offsetcodecraft.site
-    service: http://localhost:3000  # 必要に応じてローカルサービスのポートを変更
-  - service: http_status:404
