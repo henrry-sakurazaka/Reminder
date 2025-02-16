@@ -381,6 +381,8 @@ jobs:
             docker push henrry301/reminder:2
             docker push henrry301/reminder:3
             docker push henrry301/playwright:v1.49.0-jammy
+
+    # deployジョブにDocker Hubへのデプロイを自動化
   
   
 
