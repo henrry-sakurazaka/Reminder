@@ -260,7 +260,7 @@ jobs:
 
       - name: Start Apps
         run: |
-          docker-compose up -d 
+          docker-compose up  
 
 
       - name: Show Logs   
