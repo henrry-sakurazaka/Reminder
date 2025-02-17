@@ -353,13 +353,13 @@ jobs:
 
       - name: Set up Firebase credentials
         run: |
-          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
-          export GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
+          echo "${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
+          export VITE_GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
 
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only functions --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
-          firebase deploy --only hosting --project "${{ secrets.FIREBASE_PROJECT_ID }}" --token "${{ secrets.FIREBASE_TOKEN }}"
+          firebase deploy --only functions --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only hosting --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
