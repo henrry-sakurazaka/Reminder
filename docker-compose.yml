@@ -82,6 +82,7 @@ services:
     env_file:
       - .env
     volumes:
+      #  - ~/.cloudflared:/home/nonroot/.cloudflared
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     environment:

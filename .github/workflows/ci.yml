@@ -238,6 +238,11 @@ jobs:
       - name: Check config.yml
         run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
       
+      - name: List files to check if cert.pem exists
+        run: find . -name "cert.pem"
+
+      - name: Display cert.pem content
+        run: cat $(find . -name "cert.pem" | head -n 1)
       - name: Show Logs   
         run: docker logs app2
             
@@ -260,7 +265,7 @@ jobs:
         run: |
           docker exec cloudflared ls -la /home/nonroot/.cloudflared/
           docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
-      
+          
 
       - name: Debug Google Application Credentials
         run: |
