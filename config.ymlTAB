@@ -1,9 +1,0 @@
-tunnel: 6e89def9-410d-41b2-a1de-89c64bf332f6
-credentials-file: /home/nonroot/.cloudflared/offsetcodecraft.site.json
-
-ingress:
-  - hostname: offsetcodecraft.site
-    service: http://localhost:3000
-    protocol: http2
-  - service: http_status:404
-

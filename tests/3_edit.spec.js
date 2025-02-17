@@ -51,7 +51,9 @@ if (process.env.CI !== 'true') {
       await page.click('button.form-button[type="submit"]');
     
       await expect(page).toHaveURL(`${baseUrl}/Example`);
-        
+          
+      await page.waitForTimeout(40000);
+
       await page.fill('input#task','test');
       await page.click('button.add');
       const lastSpan = page.locator('span.content').last(); 

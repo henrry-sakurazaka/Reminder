@@ -30,7 +30,7 @@ if (process.env.CI !== 'true') {
     await page.goto(`${baseUrl}/UserAuth`, {
       waitUntil: 'networkidle',
       timeout: 60000,
-      ignoreHTTPSErrors: true, 
+      ignoreHTTPSErrors: true, // これで証明書エラーを無視します
     });
     await page.click('span#SI', { timeout: 30000 });
     await page.waitForTimeout(5000); 
