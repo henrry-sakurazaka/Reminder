@@ -22,7 +22,11 @@ const app = express();
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app'],
+    origin: [
+        'https://reminder3-65e84.web.app', 
+        'http://localhost:3000', 
+        'https://offsetcodecraft.site'
+      ],
     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
     allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
     credentials: true,

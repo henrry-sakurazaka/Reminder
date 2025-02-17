@@ -13,8 +13,8 @@ var vite_config_default = defineConfig({
   define: {
     "process.env": process.env
   },
-  base: '/app2/',
-  // base: "./",
+  // base: '/app2/',
+  base: "./",
   root: __vite_injected_original_dirname,
   // root: resolve(__dirname, 'app2'),
   // root: '/app2/',
