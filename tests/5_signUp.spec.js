@@ -7,8 +7,8 @@ if (process.env.CI !== 'true') {
   
   test('サインアップ機能のテスト', async ({ page }) => {
     const baseUrl = process.env.VITE_REACT_APP_API_URL;
-    const email = process.env.VITE_REACT_APP_TEST2_EMAIL;
-    const password = process.env.VITE_REACT_APP_TEST2_PASSWORD; 
+    const email = process.env.VITE_REACT_APP_TEST_EMAIL;
+    const password = process.env.VITE_REACT_APP_TEST_PASSWORD; 
 
     async ({ browser }) => {
       const context = await browser.newContext(); // 新しいコンテキストを生成
@@ -50,7 +50,7 @@ if (process.env.CI !== 'true') {
     await expect(page).toHaveURL(`${baseUrl}/SignUp`);
 
     await page.waitForSelector('#name', { timeout: 30000 });
-    await page.fill('#name', 'Clara')
+    await page.fill('#name', 'Clara2')
 
     await page.waitForSelector('#email', { timeout: 30000 });
     await page.fill('#email', email); 
