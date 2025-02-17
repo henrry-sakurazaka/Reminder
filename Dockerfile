@@ -101,6 +101,9 @@ WORKDIR /app2
 COPY package.json package-lock.json ./
 RUN npm install
 
+FROM node:20
+
+COPY server.js .
 
 # デフォルトコマンド
 CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0", "cloudflare", "tunnel", "offsetcodecraft.site", "node", "server.js"]
