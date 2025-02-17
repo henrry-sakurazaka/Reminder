@@ -232,14 +232,15 @@ jobs:
         run: |
           docker-compose up -d cloudflared
 
-
       - name: Show Logs   
         run: docker logs cloudflared 
-            
+      
+      - name: Check config.yml
+        run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
+      
       - name: Show Logs   
         run: docker logs app2
             
-
       - name: Inspect could access
         run: |
           docker exec cloudflared curl -I http://app2:3000 &
