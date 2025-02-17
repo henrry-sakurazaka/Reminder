@@ -22,7 +22,7 @@
           },
           {
             "key": "Access-Control-Allow-Origin",
-            "value": "https://reminder3-65e84.web.app"
+            "value": "https://reminder3-65e84.web.app,http://localhost:3000, https://offsetcodecraft.site"
           }
         ]
       },
