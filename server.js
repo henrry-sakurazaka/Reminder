@@ -269,9 +269,7 @@ const app = express();
 // ミドルウェア
 app.use(express.json());
 // CORSミドルウェアを使用
-app.use(cors({
-  origin: 'https://offsetcodecraft.site'
-}));
+app.use(cors());
 
 // ルート
 app.get('/', (req, res) => {
