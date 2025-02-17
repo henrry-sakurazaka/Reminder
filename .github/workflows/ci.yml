@@ -235,7 +235,7 @@ jobs:
 
       - name: Show Logs   
         run: docker logs cloudflared 
-  
+             docker logs app2
 
       - name: Inspect could access
         run: |
