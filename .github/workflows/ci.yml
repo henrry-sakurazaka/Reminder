@@ -257,6 +257,10 @@ jobs:
           docker exec cloudflared cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
       
 
+      - name: Debug Google Application Credentials
+        run: |
+          docker exec app2 env | grep GOOGLE_APPLICATION_CREDENTIALS
+
       - name: Start Apps
         run: |
           docker-compose up -d 
