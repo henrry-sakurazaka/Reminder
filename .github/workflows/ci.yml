@@ -266,7 +266,11 @@ jobs:
           else
             echo "Container app2 is already connected to the network."
           fi
-      
+
+      - name: Check TCP connection to app2
+        run: docker exec cloudflared nc -zv app2 3000 || echo "TCP connection failed"
+    
+  
       - name: Inspect cloudflared
         run: |
           docker inspect cloudflared
