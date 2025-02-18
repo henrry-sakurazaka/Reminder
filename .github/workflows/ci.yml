@@ -260,9 +260,7 @@ jobs:
       - name: Check app2 status
         run: docker ps -a
 
-      - name: Test app2 direct access
-        run: curl -I http://app2:3000
-
+      
       - name: Connect cloudflared to the network
         run: |
           if ! docker network inspect reminder_test-network2 | grep -q "cloudflared"; then
@@ -270,11 +268,16 @@ jobs:
           else
             echo "Container cloudflared is already connected to the network."
           fi
-            
+
+   
       - name: Inspect could access
         run: |
           docker exec cloudflared curl -I http://app2:3000 &
 
+
+      - name: Test app2 direct access
+        run: curl -I http://app2:3000
+        
 
       - name: Check Cloudflare Tunnel
         run: |
