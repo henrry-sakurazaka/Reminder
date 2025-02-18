@@ -258,7 +258,7 @@
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port ${PORT}`);
 // });
-
+import dotenv from 'dotenv';
 import express from 'express';
 // import cors from 'cors';
 
@@ -277,7 +277,7 @@ const app = express();
 //   credentials: true,
 //   optionsSuccessStatus: 204,
 // };
-
+dotenv.config(); 
 
 // ミドルウェア
 app.use(express.json());
