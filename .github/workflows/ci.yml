@@ -57,6 +57,9 @@ jobs:
       - name: Install dependencies
         run: npm install 
 
+      - name: Clean install dependencies
+        run: npm ci
+    
       - name: Install Docker Compose
         run: |
           sudo curl -L "https://github.com/docker/compose/releases/download/v2.11.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
@@ -236,6 +239,22 @@ jobs:
         run: |
           docker-compose up -d cloudflared
 
+
+      - name: Check if express is installed
+          id: check_express
+          run: |
+            if npm list express > /dev/null 2>&1; then
+              echo "Express is already installed."
+              echo "installed=true" >> $GITHUB_ENV
+            else
+              echo "Express is missing."
+              echo "installed=false" >> $GITHUB_ENV
+            fi
+        
+        - name: Install express if missing
+          if: env.installed == 'false'
+          run: npm install express
+        
 
       - name: Show Logs   
         run: docker-compose logs cloudflared 
