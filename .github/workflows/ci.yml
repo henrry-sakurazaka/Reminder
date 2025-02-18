@@ -262,6 +262,14 @@ jobs:
 
       - name: Test app2 direct access
         run: curl -I http://app2:3000
+
+      - name: Connect cloudflared to the network
+        run: |
+          if ! docker network inspect reminder_test-network2 | grep -q "cloudflared"; then
+            docker network connect reminder_test-network2 cloudflared
+          else
+            echo "Container cloudflared is already connected to the network."
+          fi
             
       - name: Inspect could access
         run: |

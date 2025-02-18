@@ -68,6 +68,7 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
+    allowedHosts: ['offsetcodecraft.site'],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
     //     ? {
@@ -80,10 +81,7 @@ export default defineConfig({
     cors: true,
   },
 
-  server: {
-    allowedHosts: ['offsetcodecraft.site']
-  },
- 
+
   reporter: [
     ['list'], 
     ['html', { outputFolder: './custom-test-results' }]
