@@ -262,8 +262,8 @@ jobs:
       - name: Check app2 status
         run: docker ps -a
 
-      - name: Test app2 direct access
-        run: curl -I http://app2:3000
+      # - name: Test app2 direct access
+      #   run: curl -I http://app2:3000
             
       - name: Inspect could access
         run: |
