@@ -26,7 +26,7 @@ services:
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v http://localhost:3000"]
+      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
@@ -42,6 +42,7 @@ services:
       - firebase
    
   firebase:
+    container_name: firebase
     build:
       context: .
       dockerfile: ./firebase/Dockerfile
@@ -93,7 +94,7 @@ services:
     restart: unless-stopped
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site"]
+      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
