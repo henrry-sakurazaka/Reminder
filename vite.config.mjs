@@ -79,6 +79,10 @@ export default defineConfig({
     overlay: false, 
     cors: true,
   },
+
+  server: {
+    allowedHosts: ['offsetcodecraft.site']
+  },
  
   reporter: [
     ['list'], 
