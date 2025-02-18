@@ -241,16 +241,16 @@ jobs:
 
 
       - name: Check if express is installed
-          id: check_express
-          run: |
-            if npm list express > /dev/null 2>&1; then
-              echo "Express is already installed."
-              echo "installed=true" >> $GITHUB_ENV
-            else
-              echo "Express is missing."
-              echo "installed=false" >> $GITHUB_ENV
-            fi
-        
+        id: check_express
+        run: |
+          if npm list express > /dev/null 2>&1; then
+            echo "Express is already installed."
+            echo "installed=true" >> $GITHUB_ENV
+          else
+            echo "Express is missing."
+            echo "installed=false" >> $GITHUB_ENV
+          fi
+      
         - name: Install express if missing
           if: env.installed == 'false'
           run: npm install express
