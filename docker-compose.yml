@@ -11,12 +11,8 @@ services:
         limits:
           cpus: "0.5"
           memory: 512M
-    # expose: 
-    #   - "3000"
     ports:
       - "3000:3000"
-    networks:
-      - test-network2
     volumes:
       - .:/app2
       - /app2/node_modules # 監視対象から除外
@@ -40,6 +36,8 @@ services:
       HOST: 0.0.0.0
     depends_on:
       - firebase
+    networks:
+      - test-network2
    
   firebase:
     container_name: firebase
@@ -83,7 +81,6 @@ services:
     env_file:
       - .env
     volumes:
-      #  - ~/.cloudflared:/home/nonroot/.cloudflared
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     environment:
@@ -136,8 +133,6 @@ services:
         condition: service_healthy
       cloudflared:
         condition: service_healthy
-    networks:
-      - test-network2
     working_dir: /app2
     env_file:
       - .env
@@ -151,6 +146,8 @@ services:
       - ./package.json:/app2/package.json
       - ./node_modules:/app2/node_modules
     command: npx playwright test
+    networks:
+      - test-network2
             
 networks:
   test-network2:
