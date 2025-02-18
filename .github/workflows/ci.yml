@@ -236,6 +236,24 @@ jobs:
         run: |
           docker-compose up -d cloudflared
 
+  
+      - name: Connect reminder-app2-1 to test-network2
+        run: |
+          if ! docker network inspect test-network2 | grep -q "reminder-app2-1"; then
+            docker network connect test-network2 app2
+          else
+            echo "Container is already connected to the network."
+          fi
+
+      - name: Connect reminder-firebase-1 to test-network2
+        run: |
+          if ! docker network inspect test-network2 | grep -q "reminder-firebase-1"; then
+            docker network connect test-network2 reminder-firebase-1
+          else
+            echo "Container is already connected to the network."
+          fi
+  
+
       - name: Inspect cloudflared
         run: |
           docker inspect cloudflared
@@ -293,7 +311,6 @@ jobs:
         run: |
           sleep 10  
 
-
       - name: Connect reminder-playwright-1 to test-network2
         run: |
           if ! docker network inspect test-network2 | grep -q "reminder-playwright-1"; then
@@ -301,25 +318,6 @@ jobs:
           else
             echo "Container is already connected to the network."
           fi
-
-
-      - name: Connect reminder-app2-1 to test-network2
-        run: |
-          if ! docker network inspect test-network2 | grep -q "reminder-app2-1"; then
-            docker network connect test-network2 app2
-          else
-            echo "Container is already connected to the network."
-          fi
-
-
-      - name: Connect reminder-firebase-1 to test-network2
-        run: |
-          if ! docker network inspect test-network2 | grep -q "reminder-firebase-1"; then
-            docker network connect test-network2 reminder-firebase-1
-          else
-            echo "Container is already connected to the network."
-          fi
-
 
       - name: Check responsed URL
         run: |
