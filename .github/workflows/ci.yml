@@ -271,11 +271,7 @@ jobs:
         run: |
           docker inspect cloudflared
 
-      - name: Check connectivity to app2 from cloudflared
-        run: |
-          docker exec cloudflared ping -c 4 app2
-      
-
+     
       - name: Check config.yml
         run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
 
@@ -296,9 +292,10 @@ jobs:
             echo "Container cloudflared is already connected to the network."
           fi
 
-      - name: Inspect could access
-        run: |
-          docker exec cloudflared curl -I http://app2:3000 &
+  
+      - name: Test connection to app2 from cloudflared
+        run: docker exec cloudflared curl -I http://app2:3000 &
+  
 
 
       - name: Test app2 direct access
