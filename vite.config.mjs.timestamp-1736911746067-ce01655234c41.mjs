@@ -78,6 +78,11 @@ var vite_config_default = defineConfig({
     cors: true,
     strictPort: true
   },
+
+  server: {
+    allowedHosts: ['offsetcodecraft.site']
+  },
+  
   reporter: [
     ["list"],
     ["html", { outputFolder: "./custom-test-results" }]["html", { outputDir: "/app2/test-results" }]
