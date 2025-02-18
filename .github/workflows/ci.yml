@@ -49,6 +49,11 @@ jobs:
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
 
+      - name: Clear app2 cache
+        run: |
+          rm -rf node_modules/.vite
+          npm cache clean --force
+      
       - name: Install dependencies
         run: npm install 
 
