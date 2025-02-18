@@ -232,10 +232,15 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
-      - name: Start App
+      - name: Start cloudflared
         run: |
           docker-compose up -d cloudflared
 
+
+      - name: Show Logs   
+        run: docker-compose logs cloudflared 
+
+    
       - name: Connect app2 to the network
         run: |
           if ! docker network inspect reminder_test-network2 | grep -q "app2"; then
@@ -248,14 +253,18 @@ jobs:
         run: |
           docker inspect cloudflared
 
-      - name: Show Logs   
-        run: docker-compose logs cloudflared 
+      - name: Check connectivity to app2 from cloudflared
+        run: |
+          docker exec cloudflared ping -c 4 app2
       
+
       - name: Check config.yml
         run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
+
       
       - name: Show Logs   
         run: docker-compose logs app2
+
 
       - name: Check app2 status
         run: docker ps -a
@@ -269,7 +278,6 @@ jobs:
             echo "Container cloudflared is already connected to the network."
           fi
 
-   
       - name: Inspect could access
         run: |
           docker exec cloudflared curl -I http://app2:3000 &
@@ -277,7 +285,7 @@ jobs:
 
       - name: Test app2 direct access
         run: curl -I http://app2:3000
-        
+
 
       - name: Check Cloudflare Tunnel
         run: |
