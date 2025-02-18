@@ -227,19 +227,22 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
-  
       - name: Start App
         run: |
           docker-compose up -d cloudflared
 
+      - name: Inspect cloudflared
+        run: |
+          docker inspect cloudflared
+
       - name: Show Logs   
-        run: docker logs cloudflared 
+        run: docker-compose logs cloudflared 
       
       - name: Check config.yml
         run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
       
       - name: Show Logs   
-        run: docker logs app2
+        run: docker-compose logs app2
 
       - name: Check app2 status
         run: docker ps -a
