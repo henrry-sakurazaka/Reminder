@@ -66,6 +66,7 @@ var vite_config_default = defineConfig({
   server: {
     host: "0.0.0.0",
     port: 3000,
+    allowedHosts: ['offsetcodecraft.site'],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
     //     ? {
@@ -79,10 +80,6 @@ var vite_config_default = defineConfig({
     strictPort: true
   },
 
-  server: {
-    allowedHosts: ['offsetcodecraft.site']
-  },
-  
   reporter: [
     ["list"],
     ["html", { outputFolder: "./custom-test-results" }]["html", { outputDir: "/app2/test-results" }]
