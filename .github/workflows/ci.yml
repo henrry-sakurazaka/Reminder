@@ -234,9 +234,16 @@ jobs:
 
       - name: Start App
         run: |
-          docker-compose up cloudflared
+          docker-compose up -d cloudflared
 
-  
+      - name: Connect app2 to the network
+        run: |
+          if ! docker network inspect reminder_test-network2 | grep -q "app2"; then
+            docker network connect reminder_test-network2 app2
+          else
+            echo "Container app2 is already connected to the network."
+          fi
+      
       - name: Connect reminder-app2-1 to test-network2
         run: |
           if ! docker network inspect test-network2 | grep -q "reminder-app2-1"; then
@@ -245,7 +252,6 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
-     
       - name: Inspect cloudflared
         run: |
           docker inspect cloudflared
