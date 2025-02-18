@@ -239,7 +239,6 @@ jobs:
         run: |
           docker-compose up -d cloudflared
 
-
       - name: Check if express is installed
         id: check_express
         run: |
@@ -251,10 +250,10 @@ jobs:
             echo "installed=false" >> $GITHUB_ENV
           fi
       
-        - name: Install express if missing
-          if: env.installed == 'false'
-          run: npm install express
-        
+      - name: Install express if missing
+        if: env.installed == 'false'
+        run: npm install express
+      
 
       - name: Show Logs   
         run: docker-compose logs cloudflared 
