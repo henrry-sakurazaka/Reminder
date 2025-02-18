@@ -247,7 +247,7 @@ jobs:
       - name: Connect reminder-app2-1 to test-network2
         run: |
           if ! docker network inspect test-network2 | grep -q "reminder-app2-1"; then
-            docker network connect test-network2 app2
+            docker network connect reminder_test-network2 app2
           else
             echo "Container is already connected to the network."
           fi
