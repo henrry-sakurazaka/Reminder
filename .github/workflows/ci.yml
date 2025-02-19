@@ -243,23 +243,20 @@ jobs:
           docker network prune -f  
           
         
-      - name: Create Docker network if not exists
-        run: |
-          if ! docker network inspect my_custom_network >/dev/null 2>&1; then
-            docker network create \
-              --driver bridge \
-              --subnet=192.168.100.0/24 \
-              my_custom_network
-          fi
+      # - name: Create Docker network if not exists
+      #   run: |
+      #     if ! docker network inspect my_custom_network >/dev/null 2>&1; then
+      #       docker network create \
+      #         --driver bridge \
+      #         --subnet=192.168.100.0/24 \
+      #         my_custom_network
+      #     fi
 
-      - name: List Docker networks
-        run: docker network ls
+      # - name: List Docker networks
+      #   run: docker network ls
 
   
-      - name: Inspect my_custom_network
-        run: docker network inspect my_custom_network || echo "Network my_custom_network not found"
-
-
+      
       - name: Start app2
         run: |
           docker-compose up -d app2
@@ -268,6 +265,10 @@ jobs:
       - name: Assign fixed IP to app2
         run: |
           docker network connect --ip 192.168.100.100 my_custom_network app2 || true
+          
+
+      - name: Inspect my_custom_network
+        run: docker network inspect my_custom_network || echo "Network my_custom_network not found"
 
 
       - name: Start cloudflared
