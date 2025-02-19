@@ -233,11 +233,10 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
 
-      # - name: Remove Network 
-      #   run: | 
-      #     docker network rm reminder_my_custom_network
-      #     docker network create --driver bridge --subnet=192.168.1100.0/24 reminder_my_custom_network
-
+      - name: Remove Network 
+        run: | 
+          docker network rm reminder_my_custom_network
+         
       # - name: Create custom network
       #   run: docker network create --subnet=192.168.100.0/24 my_custom_network || true
 
@@ -256,7 +255,7 @@ jobs:
           docker network connect --ip 192.168.1.100 my_custom_network app2 || true
 
           
-          
+
       - name: Start cloudflared
         run: |
           docker-compose up -d cloudflared
