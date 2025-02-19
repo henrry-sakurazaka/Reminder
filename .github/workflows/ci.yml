@@ -252,6 +252,14 @@ jobs:
               my_custom_network
           fi
 
+      - name: List Docker networks
+        run: docker network ls
+
+  
+      - name: Inspect my_custom_network
+        run: docker network inspect my_custom_network || echo "Network my_custom_network not found"
+        
+
       - name: Start cloudflared
         run: |
           docker-compose up -d app2
