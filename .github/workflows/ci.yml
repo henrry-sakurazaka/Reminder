@@ -264,11 +264,11 @@ jobs:
 
       - name: Assign fixed IP to app2
         run: |
-          docker network connect --ip 192.168.100.100 my_custom_network app2 || true
-          
+          docker network connect --ip 192.168.100.100 reminder_my_custom_network app2 || true
+
 
       - name: Inspect my_custom_network
-        run: docker network inspect my_custom_network || echo "Network my_custom_network not found"
+        run: docker network inspect reminder_my_custom_network || echo "Network my_custom_network not found"
 
 
       - name: Start cloudflared
@@ -298,8 +298,8 @@ jobs:
     
       - name: Connect app2 to the network
         run: |
-          if ! docker network inspect my_custom_network | grep -q "app2"; then
-            docker network connect my_custom_network app2
+          if ! docker network inspect reminder_my_custom_network | grep -q "app2"; then
+            docker network connect reminder_my_custom_network app2
           else
             echo "Container app2 is already connected to the network."
           fi
