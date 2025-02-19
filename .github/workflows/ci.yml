@@ -233,9 +233,9 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
 
-      - name: Remove Network 
-        run: | 
-          docker network rm reminder_my_custom_network
+      # - name: Remove Network 
+      #   run: | 
+      #     docker network rm reminder_my_custom_network
          
     
       # - name: Start services
