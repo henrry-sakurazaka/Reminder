@@ -220,14 +220,11 @@ jobs:
           docker system prune -f
           docker-compose build
 
-      - name: Create Docker network
-        run: | 
-          docker network create test-network2
-          
       - name: Change ownership of entrypoint.sh
         run: |
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/entrypoint.sh
           sudo chmod +x /home/nonroot/.cloudflared/entrypoint.sh
+
       
       - name: Run commands as nonroot user
         run: |
@@ -235,9 +232,30 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
+
+      - name: Create custom network
+        run: docker network create --subnet=192.168.1.0/24 my_custom_network || true
+
+    
+      - name: Assign fixed IP to app2
+        run: |
+          docker network connect --ip 192.168.1.100 my_custom_network app2 || true
+          
+      
+      - name: Create Docker network if not exists
+        run: |
+          if ! docker network inspect my_custom_network >/dev/null 2>&1; then
+            docker network create \
+              --driver bridge \
+              --subnet=192.168.1.0/24 \
+              my_custom_network
+          fi
+          
+      
       - name: Start cloudflared
         run: |
           docker-compose up -d cloudflared
+
 
       - name: Check if express is installed
         id: check_express
@@ -267,14 +285,13 @@ jobs:
             echo "Container app2 is already connected to the network."
           fi
 
-      - name: Create custom network
-        run: docker network create --subnet=192.168.1.0/24 my_custom_network || true
-
-    
-      - name: Assign fixed IP to app2
+      - name: Connect cloudflared to the network
         run: |
-          docker network connect --ip 192.168.1.100 my_custom_network app2 || true
-      
+          if ! docker network inspect my_custom_network | grep -q "cloudflared"; then
+            docker network connect my_custom_network cloudflared
+          else
+            echo "Container cloudflared is already connected to the network."
+          fi
 
       # - name: Get app2 IP and update /etc/hosts
       #   run: |
@@ -311,19 +328,9 @@ jobs:
         run: docker ps -a
 
       
-      - name: Connect cloudflared to the network
-        run: |
-          if ! docker network inspect my_custom_network | grep -q "cloudflared"; then
-            docker network connect my_custom_network cloudflared
-          else
-            echo "Container cloudflared is already connected to the network."
-          fi
-
-  
       - name: Test connection to app2 from cloudflared
         run: docker exec cloudflared curl -I http://app2:3000 &
   
-
 
       - name: Test app2 direct access
         run: curl -I http://app2:3000
