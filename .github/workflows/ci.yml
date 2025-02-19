@@ -244,19 +244,19 @@ jobs:
       #   run: |
       #     docker network connect --ip 192.168.1.100 my_custom_network app2 || true
 
-      # - name: Start services
-      #   run: |
-      #     docker network prune -f  # 古いネットワークを削除
+      - name: Start services
+        run: |
+          docker network prune -f  # 古いネットワークを削除
           
 
-      # - name: Create Docker network if not exists
-      #   run: |
-      #     if ! docker network inspect my_custom_network >/dev/null 2>&1; then
-      #       docker network create \
-      #         --driver bridge \
-      #         --subnet=192.168.1.0/24 \
-      #         my_custom_network
-      #     fi
+      - name: Create Docker network if not exists
+        run: |
+          if ! docker network inspect my_custom_network >/dev/null 2>&1; then
+            docker network create \
+              --driver bridge \
+              --subnet=192.168.1.0/24 \
+              my_custom_network
+          fi
 
 
       - name: Start cloudflared
