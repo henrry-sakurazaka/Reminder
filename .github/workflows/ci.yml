@@ -254,7 +254,7 @@ jobs:
           if ! docker network inspect my_custom_network >/dev/null 2>&1; then
             docker network create \
               --driver bridge \
-              --subnet=192.168.1.100.0/24 \
+              --subnet=192.168.1.0/24 \
               my_custom_network
           fi
 
