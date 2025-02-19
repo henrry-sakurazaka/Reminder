@@ -261,8 +261,8 @@ jobs:
     
       - name: Connect app2 to the network
         run: |
-          if ! docker network inspect reminder_test-network2 | grep -q "app2"; then
-            docker network connect reminder_test-network2 app2
+          if ! docker network inspect my_custom_network | grep -q "app2"; then
+            docker network connect my_custom_network app2
           else
             echo "Container app2 is already connected to the network."
           fi
@@ -313,8 +313,8 @@ jobs:
       
       - name: Connect cloudflared to the network
         run: |
-          if ! docker network inspect reminder_test-network2 | grep -q "cloudflared"; then
-            docker network connect reminder_test-network2 cloudflared
+          if ! docker network inspect my_custom_network | grep -q "cloudflared"; then
+            docker network connect my_custom_network cloudflared
           else
             echo "Container cloudflared is already connected to the network."
           fi
