@@ -267,8 +267,20 @@ jobs:
             echo "Container app2 is already connected to the network."
           fi
 
-      # - name: Test HTTP response from app2
-      #   run: docker exec cloudflared curl -I http://app2:3000 || echo "HTTP request failed"
+      - name: Create custom network
+        run: docker network create --subnet=192.168.1.0/24 my_custom_network || true
+
+    
+      - name: Assign fixed IP to app2
+        run: |
+          docker network connect --ip 192.168.1.100 my_custom_network app2 || true
+      
+
+      # - name: Get app2 IP and update /etc/hosts
+      #   run: |
+      #     APP2_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' app2)
+      #     docker exec app2 sh -c "echo \"$APP2_IP app2\" >> /etc/hosts"
+
 
       - name: Check /etc/hosts in app2
         run: docker exec app2 cat /etc/hosts
