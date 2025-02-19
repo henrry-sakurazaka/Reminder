@@ -234,7 +234,7 @@ jobs:
 
 
       - name: Create custom network
-        run: docker network create --subnet=192.168.1.0/24 my_custom_network || true
+        run: docker network create --subnet=192.168.100.0/24 my_custom_network || true
 
     
       - name: Assign fixed IP to app2
