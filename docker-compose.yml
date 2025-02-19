@@ -37,7 +37,10 @@ services:
     depends_on:
       - firebase
     networks:
-      - test-network2
+      my_custom_network:
+        ipv4_address: 192.168.1.100
+
+      
    
   firebase:
     container_name: firebase
@@ -61,7 +64,7 @@ services:
     volumes:
       - ./storage.rules:/firebase/storage.rules 
     networks:
-      - test-network2
+      - my_custom_network
   
   cloudflared:
     image: cloudflare/cloudflared:latest
@@ -97,7 +100,7 @@ services:
       retries: 5
       start_period: 60s
     networks:
-      - test-network2
+      - my_custom_network
    
   
   # nginx:
@@ -147,10 +150,12 @@ services:
       - ./node_modules:/app2/node_modules
     command: npx playwright test
     networks:
-      - test-network2
+      - my_custom_network
             
 networks:
-  test-network2:
-    name: reminder_test-network2
+  my_custom_network:
     driver: bridge
+    ipam:
+      config:
+        - subnet: 192.168.1.0/24
 
