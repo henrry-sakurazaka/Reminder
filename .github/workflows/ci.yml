@@ -267,13 +267,20 @@ jobs:
             echo "Container app2 is already connected to the network."
           fi
 
-      - name: Test HTTP response from app2
-        run: docker exec cloudflared curl -I http://app2:3000 || echo "HTTP request failed"
+      # - name: Test HTTP response from app2
+      #   run: docker exec cloudflared curl -I http://app2:3000 || echo "HTTP request failed"
 
-    
+      - name: Check /etc/hosts in app2
+        run: docker exec app2 cat /etc/hosts
+
+
+      - name: Check open ports in app2 using netstat
+        run: docker exec app2 sh -c "command -v netstat || (apt update && apt install -y net-tools); netstat -tulnp"
+        
+
       - name: Check app2 logs
         run: docker logs app2 --tail=50
-        
+
       
       - name: Inspect cloudflared
         run: |
