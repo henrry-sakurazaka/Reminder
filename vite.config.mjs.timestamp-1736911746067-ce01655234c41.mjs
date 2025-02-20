@@ -66,7 +66,14 @@ var vite_config_default = defineConfig({
   server: {
     host: "0.0.0.0",
     port: 3000,
-    allowedHosts: ['app2', 'localhost', '127.0.0.1'],
+    allowedHosts: [
+      'app2', 
+      'localhost', 
+      '127.0.0.1', 
+      '0.0.0.0', 
+      'offsetcodecraft.site',
+      '192.168.100.3'
+    ],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
     //     ? {
