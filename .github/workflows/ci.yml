@@ -306,8 +306,8 @@ jobs:
 
       - name: Connect cloudflared to the network
         run: |
-          if ! docker network inspect my_custom_network | grep -q "cloudflared"; then
-            docker network connect my_custom_network cloudflared
+          if ! docker network inspect reminder-my_custom_network | grep -q "cloudflared"; then
+            docker network connect reminder-my_custom_network cloudflared
           else
             echo "Container cloudflared is already connected to the network."
           fi
