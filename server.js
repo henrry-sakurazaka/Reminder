@@ -278,20 +278,20 @@ const app = express();
 //   optionsSuccessStatus: 204,
 // };
 
-const corsOptions = {
-  origin: '*', // すべてのオリジンを許可
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  allowedHeaders: '*', // すべてのヘッダーを許可
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+// const corsOptions = {
+//   origin: '*', // すべてのオリジンを許可
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//   allowedHeaders: '*', // すべてのヘッダーを許可
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
 
 dotenv.config(); 
 
 // ミドルウェア
 app.use(express.json());
 // CORSミドルウェアを使用
-app.use(cors(corsOptions));
+app.use(cors());
 
 // ルート
 app.get('/', (req, res) => {
