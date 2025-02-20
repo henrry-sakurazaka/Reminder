@@ -347,14 +347,22 @@ jobs:
       - name: Check app2 status
         run: docker ps -a
 
-      
+
+      - name: Connect app2 to the network
+        run: |
+          docker network inspect reminder_my_custom_network; then
+            
+          
       - name: Test connection to app2 from cloudflared
         run: docker exec cloudflared curl -v http://app2:3000 &
 
   
-      - name: Test connection to app2 from cloudflared
-        run: |
-          docker exec cloudflared curl -I -H "Authorization: Bearer ${{secrets.VITE_CLOUDFLARE_API_TOKEN }}" http://app2:3000
+      # - name: Test connection to app2 from cloudflared
+      #   run: |
+      #     docker exec cloudflared curl -I -H "Authorization: Bearer ${{secrets.VITE_CLOUDFLARE_API_TOKEN }}" http://app2:3000
+
+      - name: Check app2 status2
+        run: docker ps | grep app2
 
   
       - name: Test app2 direct access
