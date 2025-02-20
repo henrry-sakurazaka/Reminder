@@ -341,6 +341,10 @@ jobs:
         run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
 
       
+      - name: Check Access cloudflared
+        run: docker exec cloudflared curl -I http://192.168.100.100:3000
+        
+
       - name: Show Logs   
         run: docker-compose logs app2
 
@@ -366,6 +370,11 @@ jobs:
         run: docker ps | grep app2
 
   
+      - name: Connect app2 to the network
+        run: |
+          docker network inspect reminder_my_custom_network
+            
+          
       - name: Test app2 direct access
         run: curl -I http://app2:3000
 
