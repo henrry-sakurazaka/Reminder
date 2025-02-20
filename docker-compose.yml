@@ -37,8 +37,9 @@ services:
     depends_on:
       - firebase
     networks:
-      my_custom_network:
-        ipv4_address: 192.168.100.100
+      - my_custom_network
+      # my_custom_network:
+      #   ipv4_address: 192.168.100.100
     extra_hosts:
       - "cloudflared:192.168.100.3"
   
@@ -100,10 +101,11 @@ services:
       retries: 5
       start_period: 60s
     networks:
-      my_custom_network:
-        ipv4_address: 192.168.100.3
-    extra_hosts:
-      - "app2:192.168.100.100"
+      - my_custom_network
+    #   my_custom_network:
+    # #     ipv4_address: 192.168.100.3
+    # # extra_hosts:
+    # #   - "app2:192.168.100.100"
 
     
     # nginx:
@@ -158,7 +160,7 @@ services:
 networks:
   my_custom_network:
     driver: bridge
-    ipam:
-      config:
-        - subnet: 192.168.100.0/24
+    # ipam:
+    #   config:
+    #     - subnet: 192.168.100.0/24
 
