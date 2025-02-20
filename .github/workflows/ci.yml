@@ -317,11 +317,16 @@ jobs:
       #   run: |
       #     APP2_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' app2)
       #     docker exec app2 sh -c "echo \"$APP2_IP app2\" >> /etc/hosts"
+
       
-      
+      # - name: Add app2 to /etc/hosts in cloudflared
+      #   run: |
+      #     docker exec --user root cloudflared sh -c 'echo "192.168.100.100 app2" >> /etc/hosts'
+      #     docker exec cloudflared cat /etc/hosts
+
       - name: Add app2 to /etc/hosts in cloudflared
         run: |
-          docker exec cloudflared sh -c 'echo "192.168.100.100 app2" >> /etc/hosts'
+          docker run --add-host app2:192.168.100.100 cloudflare/cloudflared:latest &
           docker exec cloudflared cat /etc/hosts
 
 
