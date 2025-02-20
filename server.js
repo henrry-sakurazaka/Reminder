@@ -266,17 +266,26 @@ const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const app = express();
 
+// const corsOptions = {
+//   origin: [
+//       'https://reminder3-65e84.web.app', 
+//       'http://localhost:3000', 
+//       'https://offsetcodecraft.site'
+//     ],
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
+
 const corsOptions = {
-  origin: [
-      'https://reminder3-65e84.web.app', 
-      'http://localhost:3000', 
-      'https://offsetcodecraft.site'
-    ],
+  origin: '*', // すべてのオリジンを許可
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
+  allowedHeaders: '*', // すべてのヘッダーを許可
   credentials: true,
   optionsSuccessStatus: 204,
 };
+
 dotenv.config(); 
 
 // ミドルウェア
