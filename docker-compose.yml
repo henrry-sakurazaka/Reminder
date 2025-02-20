@@ -31,8 +31,8 @@ services:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
       VITE_HTTPS: "true"
       command: vite --https
-      VITE_PORT: ${VITE_PORT}
-      VITE_HOST: ${VITE_HOST}
+      # VITE_PORT: ${VITE_PORT}
+      # VITE_HOST: ${VITE_HOST}
       HOST: 0.0.0.0
     depends_on:
       - firebase
