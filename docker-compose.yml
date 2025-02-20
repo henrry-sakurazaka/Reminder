@@ -163,7 +163,7 @@ services:
 networks:
   my_custom_network:
     driver: bridge
-    # ipam:
-    #   config:
-    #     - subnet: 192.168.100.0/24
+    ipam:
+      config:
+        - subnet: 192.168.100.0/24
 
