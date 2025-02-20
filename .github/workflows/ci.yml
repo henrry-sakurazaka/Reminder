@@ -305,7 +305,6 @@ jobs:
         run: docker-compose logs cloudflared 
 
     
-      
       - name: Connect cloudflared to the network
         run: |
           if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
@@ -322,6 +321,10 @@ jobs:
 
       - name: Check /etc/hosts in app2
         run: docker exec app2 cat /etc/hosts
+        
+
+      - name: Check /etc/hosts in cloudflared
+        run: docker exec cloudflared cat /etc/hosts
 
 
       - name: Check open ports in app2 using netstat
@@ -343,7 +346,7 @@ jobs:
       
       - name: Check Access cloudflared
         run: docker exec cloudflared curl -I http://192.168.100.100:3000
-        
+
 
       - name: Show Logs   
         run: docker-compose logs app2

@@ -99,6 +99,8 @@ services:
       timeout: 60s
       retries: 5
       start_period: 60s
+    extra_hosts:
+      - "app2:192.168.100.100"
     networks:
       - my_custom_network
    
