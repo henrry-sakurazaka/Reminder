@@ -201,7 +201,7 @@ jobs:
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
-        # UDP Buffer Sizeを増加
+      # UDP Buffer Sizeを増加
       - name: Increase UDP Buffer Size
         run: |
           sudo sysctl -w net.core.rmem_max=8388608
@@ -231,31 +231,12 @@ jobs:
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/
           sudo -u nonroot ls -la /home/nonroot/.cloudflared/entrypoint.sh
 
-
-      # - name: Remove Network 
-      #   run: | 
-      #     docker network rm reminder_my_custom_network
-         
     
       - name: Start services
         run: |
           docker network prune -f  
           
         
-      # - name: Create Docker network if not exists
-      #   run: |
-      #     if ! docker network inspect my_custom_network >/dev/null 2>&1; then
-      #       docker network create \
-      #         --driver bridge \
-      #         --subnet=192.168.100.0/24 \
-      #         my_custom_network
-      #     fi
-
-      # - name: List Docker networks
-      #   run: docker network ls
-
-  
-      
       - name: Start app2
         run: |
           docker-compose up -d app2
@@ -269,11 +250,7 @@ jobs:
             echo "Container app2 is already connected to the network."
           fi
   
-      # - name: Assign fixed IP to app2
-      #   run: |
-      #     docker network connect --ip 192.168.100.100 reminder_my_custom_network app2 || true
-
-
+     
       - name: Inspect my_custom_network
         run: docker network inspect reminder_my_custom_network || echo "Network my_custom_network not found"
 
@@ -312,16 +289,6 @@ jobs:
             echo "Container cloudflared is already connected to the network."
           fi
 
-      # - name: Get app2 IP and update /etc/hosts
-      #   run: |
-      #     APP2_IP=$(docker inspect -f '{{range.NetworkSettings.Networks}}{{.IPAddress}}{{end}}' app2)
-      #     docker exec app2 sh -c "echo \"$APP2_IP app2\" >> /etc/hosts"
-
-      
-      # - name: Add app2 to /etc/hosts in cloudflared
-      #   run: |
-      #     docker exec --user root cloudflared sh -c 'echo "192.168.100.100 app2" >> /etc/hosts'
-      #     docker exec cloudflared cat /etc/hosts
 
       - name: Add app2 to /etc/hosts in cloudflared
         run: |
@@ -337,17 +304,13 @@ jobs:
         run: docker exec cloudflared cat /etc/hosts
 
 
-      - name: Check open ports in app2 using netstat
-        run: docker exec app2 sh -c "command -v netstat || (apt update && apt install -y net-tools); netstat -tulnp"
+      # - name: Check open ports in app2 using netstat
+      #   run: docker exec app2 sh -c "command -v netstat || (apt update && apt install -y net-tools); netstat -tulnp"
         
-
-      - name: Check app2 logs
-        run: docker logs app2 --tail=50
-
-      
-      - name: Inspect cloudflared
-        run: |
-          docker inspect cloudflared
+ 
+      # - name: Inspect cloudflared
+      #   run: |
+      #     docker inspect cloudflared
 
      
       - name: Check config.yml
@@ -366,30 +329,17 @@ jobs:
         run: docker ps -a
 
 
-      - name: Connect app2 to the network
-        run: |
-          docker network inspect reminder_my_custom_network
+      # - name: Connect app2 to the network
+      #   run: |
+      #     docker network inspect reminder_my_custom_network
             
           
       - name: Test connection to app2 from cloudflared
         run: docker exec cloudflared curl -v http://app2:3000 &
 
   
-      # - name: Test connection to app2 from cloudflared
-      #   run: |
-      #     docker exec cloudflared curl -I -H "Authorization: Bearer ${{secrets.VITE_CLOUDFLARE_API_TOKEN }}" http://app2:3000
-
       - name: Check app2 status2
         run: docker ps | grep app2
-
-  
-      - name: Connect app2 to the network
-        run: |
-          docker network inspect reminder_my_custom_network
-            
-          
-      # - name: Test app2 direct access
-      #   run: curl -I http://app2:3000
 
 
       - name: Check Cloudflare Tunnel

@@ -41,9 +41,7 @@ services:
         ipv4_address: 192.168.100.100
     extra_hosts:
       - "cloudflared:192.168.100.3"
-
-      
-   
+  
   firebase:
     container_name: firebase
     build:
