@@ -83,7 +83,6 @@ jobs:
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
           echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
-          echo "VITE_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY}}" >> .env
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
