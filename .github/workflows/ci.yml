@@ -290,10 +290,10 @@ jobs:
           fi
 
 
-      - name: Add app2 to /etc/hosts in cloudflared
-        run: |
-          docker run --add-host app2:192.168.100.100 cloudflare/cloudflared:latest &
-          docker exec cloudflared cat /etc/hosts
+      # - name: Add app2 to /etc/hosts in cloudflared
+      #   run: |
+      #     docker run --add-host app2:192.168.100.100 cloudflare/cloudflared:latest &
+      #     docker exec cloudflared cat /etc/hosts
 
 
       - name: Check /etc/hosts in app2
