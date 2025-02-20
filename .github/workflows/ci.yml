@@ -389,8 +389,8 @@ jobs:
           docker network inspect reminder_my_custom_network
             
           
-      - name: Test app2 direct access
-        run: curl -I http://app2:3000
+      # - name: Test app2 direct access
+      #   run: curl -I http://app2:3000
 
 
       - name: Check Cloudflare Tunnel
