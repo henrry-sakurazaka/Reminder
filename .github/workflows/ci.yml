@@ -271,11 +271,6 @@ jobs:
         run: docker network inspect reminder_my_custom_network || echo "Network my_custom_network not found"
 
 
-      - name: Start cloudflared
-        run: |
-          docker-compose up -d cloudflared
-
-
       - name: Check if express is installed
         id: check_express
         run: |
@@ -287,10 +282,16 @@ jobs:
             echo "installed=false" >> $GITHUB_ENV
           fi
       
+
       - name: Install express if missing
         if: env.installed == 'false'
         run: npm install express
+
       
+      - name: Start cloudflared
+        run: |
+          docker-compose up -d cloudflared
+
 
       - name: Show Logs   
         run: docker-compose logs cloudflared 
@@ -306,8 +307,8 @@ jobs:
 
       - name: Connect cloudflared to the network
         run: |
-          if ! docker network inspect reminder-my_custom_network | grep -q "cloudflared"; then
-            docker network connect reminder-my_custom_network cloudflared
+          if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
+            docker network connect reminder_my_custom_network cloudflared
           else
             echo "Container cloudflared is already connected to the network."
           fi
