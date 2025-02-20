@@ -262,9 +262,17 @@ jobs:
           docker-compose up -d app2
 
 
-      - name: Assign fixed IP to app2
+      - name: Connect app2 to the network
         run: |
-          docker network connect --ip 192.168.100.100 reminder_my_custom_network app2 || true
+          if ! docker network inspect reminder_my_custom_network | grep -q "app2"; then
+            docker network connect reminder_my_custom_network app2
+          else
+            echo "Container app2 is already connected to the network."
+          fi
+  
+      # - name: Assign fixed IP to app2
+      #   run: |
+      #     docker network connect --ip 192.168.100.100 reminder_my_custom_network app2 || true
 
 
       - name: Inspect my_custom_network
@@ -297,14 +305,7 @@ jobs:
         run: docker-compose logs cloudflared 
 
     
-      - name: Connect app2 to the network
-        run: |
-          if ! docker network inspect reminder_my_custom_network | grep -q "app2"; then
-            docker network connect reminder_my_custom_network app2
-          else
-            echo "Container app2 is already connected to the network."
-          fi
-
+      
       - name: Connect cloudflared to the network
         run: |
           if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
@@ -350,7 +351,7 @@ jobs:
 
       - name: Connect app2 to the network
         run: |
-          docker network inspect reminder_my_custom_network; then
+          docker network inspect reminder_my_custom_network
             
           
       - name: Test connection to app2 from cloudflared
