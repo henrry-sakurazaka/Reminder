@@ -348,12 +348,12 @@ jobs:
         run: docker ps -a
 
       
-      # - name: Test connection to app2 from cloudflared
-      #   run: docker exec cloudflared curl -I http://app2:3000 &
+      - name: Test connection to app2 from cloudflared
+        run: docker exec cloudflared curl -I http://app2:3000 &
   
 
-      # - name: Test app2 direct access
-      #   run: curl -I http://app2:3000
+      - name: Test app2 direct access
+        run: curl -I http://app2:3000
 
 
       - name: Check Cloudflare Tunnel
