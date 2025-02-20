@@ -87,7 +87,7 @@ services:
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     environment:
-      # - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
+      - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
       - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
       - TUNNEL_ID=${TUNNEL_ID}
       - VITE_CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}

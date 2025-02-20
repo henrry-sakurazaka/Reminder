@@ -349,9 +349,14 @@ jobs:
 
       
       - name: Test connection to app2 from cloudflared
-        run: docker exec cloudflared curl -I http://app2:3000 &
-  
+        run: docker exec cloudflared curl -v http://app2:3000 &
 
+  
+      - name: Test connection to app2 from cloudflared
+        run: |
+          docker exec cloudflared curl -I -H "Authorization: Bearer ${{VITE_CLOUDFLARE_API_TOKEN }}" http://app2:3000
+
+  
       - name: Test app2 direct access
         run: curl -I http://app2:3000
 
