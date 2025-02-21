@@ -285,6 +285,10 @@ jobs:
         run: docker inspect cloudflared | jq '.[0].State.Health'
 
 
+      - name: Inspect app2
+        run: docker inspect app2 | jq '.[0].State.Health'
+
+        
       - name: Inspect Network Setting
         run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPv4Address'
 
