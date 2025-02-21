@@ -302,7 +302,16 @@ jobs:
 
 
       - name: Inspect cloudflared IP Address
-        run: docker exec app2 curl -v http://172.18.0.4
+        run: docker exec app2 curl -v http://172.18.0.4:3000
+
+
+      - name: Inspect cloudflared tunnel URL
+        run: docker exec app2 curl -v https://offsetcodecraft.site
+        
+
+      - name: Inspect connected to cloudflare
+        run: docker logs cloudflared --tail 50
+
 
 
       # - name: Add app2 to /etc/hosts in cloudflared
