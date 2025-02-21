@@ -299,7 +299,7 @@ jobs:
 
       - name: Inspect my_custom_network
         run: docker network inspect reminder_my_custom_network || echo "Network reminder_my_custom_network not found"
-        
+
 
       - name: Test connection to app2 from cloudflared
         run: docker exec cloudflared curl -v http://app2:3000 &
@@ -315,8 +315,6 @@ jobs:
       - name: Inspect cloudflared tunnel URL
         run: docker exec app2 curl -v https://offsetcodecraft.site
 
-
-     
 
       # - name: Add app2 to /etc/hosts in cloudflared
       #   run: |
