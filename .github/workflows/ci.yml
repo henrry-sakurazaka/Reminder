@@ -278,13 +278,16 @@ jobs:
 
 
       - name: Show Logs   
-        run: docker-compose logs cloudflared 
+        run: docker logs cloudflared 
 
             
       - name: Inspect cloudflared 
-        run: docker inspect cloudflared | jq '.[0].State.Health'
+        run: docker inspect cloudflared | jq '.[0].Config.Healthcheck'
 
 
+      - name: Check docker network
+        run: docker network ls
+        
     
       - name: Connect cloudflared to the network
         run: |
