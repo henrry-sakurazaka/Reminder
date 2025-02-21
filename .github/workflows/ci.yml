@@ -278,17 +278,17 @@ jobs:
 
 
       - name: Show Logs   
-        run: docker logs cloudflared 
+        run: docker-compose logs cloudflared 
 
             
       - name: Inspect cloudflared 
-        run: docker inspect cloudflared | jq '.[0].Config.Healthcheck'
+        run: docker inspect cloudflared | jq '.[0].State.Health'
 
 
-      - name: Check docker network
-        run: docker network ls
-        
-    
+      - name: Inspect Network Setting
+        run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPAddress'
+
+
       - name: Connect cloudflared to the network
         run: |
           if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
@@ -297,6 +297,8 @@ jobs:
             echo "Container cloudflared is already connected to the network."
           fi
 
+      - name: Inspect my_custom_network
+        run: docker network inspect reminder_my_custom_network || echo "Network my_custom_network not found"
 
       # - name: Add app2 to /etc/hosts in cloudflared
       #   run: |
