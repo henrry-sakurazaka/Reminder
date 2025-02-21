@@ -40,8 +40,8 @@ services:
       - my_custom_network
       # my_custom_network:
       #   ipv4_address: 192.168.100.100
-    extra_hosts:
-      - "cloudflared:192.168.100.3"
+    # extra_hosts:
+    #   - "cloudflared:192.168.100.3"
   
   firebase:
     container_name: firebase
@@ -160,6 +160,8 @@ services:
 networks:
   my_custom_network:
     driver: bridge
+  # my_custom_network:
+  #   driver: bridge
     # ipam:
     #   config:
     #     - subnet: 192.168.100.0/24
