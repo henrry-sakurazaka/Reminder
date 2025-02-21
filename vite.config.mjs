@@ -72,7 +72,8 @@ export default defineConfig({
       'app2', 
       'localhost', 
       '0.0.0.0', 
-      'offsetcodecraft.site', 
+      'offsetcodecraft.site',
+      '172.18.0.4',
     ],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'

@@ -286,7 +286,7 @@ jobs:
 
 
       - name: Inspect Network Setting
-        run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPAddress'
+        run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPv4Address'
 
 
       - name: Connect cloudflared to the network
