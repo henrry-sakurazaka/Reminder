@@ -263,7 +263,7 @@ import express from 'express';
 import cors from 'cors';
 
 const PORT = process.env.PORT || 3000;
-const HOST = process.env.HOST;
+const HOST = process.env.HOST || '0.0.0.0';
 const app = express();
 
 const corsOptions = {
