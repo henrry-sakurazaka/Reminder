@@ -99,9 +99,10 @@ services:
       interval: 90s
       timeout: 60s
       retries: 5
-      start_period: 60s
+      start_period: 30s
     networks:
       - my_custom_network
+       
     #   my_custom_network:
     # #     ipv4_address: 192.168.100.3
     # # extra_hosts:
