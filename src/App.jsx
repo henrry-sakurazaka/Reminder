@@ -45,8 +45,7 @@ export default function App() {
   return (
     // <ErrorBoundary></ErrorBoundary>
       <div className="App">
-         {/* <BrowserRouter future={{ v7_startTransition: true }}> */}
-        <BrowserRouter> 
+        <BrowserRouter future={{ v7_startTransition: true }}>
           <Routes>
             <Route path="/" element={<FirstAuth/>} />
             <Route path="/Example" element={<Example/>} />
@@ -61,9 +60,7 @@ export default function App() {
             <Route path="/Terms2" element={<Terms2/>} />
           </Routes>
         </BrowserRouter>
-    </div>
-
-    
+    </div>   
   ); 
  }
 
