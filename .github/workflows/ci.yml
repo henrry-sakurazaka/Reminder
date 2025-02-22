@@ -278,7 +278,7 @@ jobs:
 
 
       - name: Show Logs   
-        run: docker-compose logs cloudflared --folow
+        run: docker logs cloudflared --folow
 
 
       - name: Check Responce
