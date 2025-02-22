@@ -12,7 +12,7 @@ import DeleteAccount from "./components/DeleteAccount";
 import PrivacyPolicy from "./components/PrivacyPolicy";
 import Terms from "./components/Terms";
 import Terms2 from "./components/Terms2";
-import ErrorBoundary from "./components/ErrorBoundary"; 
+// import ErrorBoundary from "./components/ErrorBoundary"; 
 
 // const router = createBrowserRouter(
 //   [
@@ -43,9 +43,10 @@ export default function App() {
   //   </ErrorBoundary>
   // );
   return (
-    <ErrorBoundary>
+    // <ErrorBoundary></ErrorBoundary>
       <div className="App">
-        <BrowserRouter future={{ v7_startTransition: true }}>
+         {/* <BrowserRouter future={{ v7_startTransition: true }}> */}
+        <BrowserRouter> 
           <Routes>
             <Route path="/" element={<FirstAuth/>} />
             <Route path="/Example" element={<Example/>} />
@@ -62,7 +63,7 @@ export default function App() {
         </BrowserRouter>
     </div>
 
-    </ErrorBoundary>
+    
   ); 
  }
 
