@@ -299,8 +299,8 @@ jobs:
         run: docker-compose logs cloudflared 
 
 
-      - name: Show Logs2   
-        run: docker logs cloudflared | grep "Connected"
+      # - name: Show Logs2   
+      #   run: docker logs cloudflared | grep "Connected"
 
 
       - name: Check Responce
