@@ -45,7 +45,11 @@ export default function App() {
   return (
     // <ErrorBoundary></ErrorBoundary>
       <div className="App">
-        <BrowserRouter future={{ v7_startTransition: true }}>
+        <BrowserRouter 
+          future={{ 
+            v7_startTransition: true,
+            v7_relativeSplatPath: true,
+          }}>
           <Routes>
             <Route path="/" element={<FirstAuth/>} />
             <Route path="/Example" element={<Example/>} />
