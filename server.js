@@ -260,7 +260,7 @@
 // });
 import dotenv from 'dotenv';
 import express from 'express';
-import cors from 'cors';
+// import cors from 'cors';
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || '0.0.0.0';
@@ -284,7 +284,7 @@ dotenv.config();
 app.use(express.json());
 // CORSミドルウェアを使用
 // app.use(cors(corsOptions));
-app.use(cors());
+// app.use(cors());
 
 // ルート
 app.get('/', (req, res) => {

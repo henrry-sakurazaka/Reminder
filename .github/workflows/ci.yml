@@ -277,10 +277,6 @@ jobs:
           docker-compose up -d cloudflared
 
 
-      - name: Restart cloudflared
-        run: |
-          docker restart cloudflared
-
 
       - name: Connect cloudflared to the network
         run: |
@@ -310,7 +306,12 @@ jobs:
       - name: Check cloudflared status2
         run: docker ps | grep cloudflared
 
-       
+
+      - name: Restart cloudflared
+        run: |
+          docker restart cloudflared
+
+        
       - name: Inspect cloudflared 
         run: docker inspect cloudflared | jq '.[0].State.Health'
 
@@ -353,21 +354,8 @@ jobs:
         run: docker exec cloudflared cat /etc/hosts
 
 
-      # - name: Check open ports in app2 using netstat
-      #   run: docker exec app2 sh -c "command -v netstat || (apt update && apt install -y net-tools); netstat -tulnp"
-        
- 
-      # - name: Inspect cloudflared
-      #   run: |
-      #     docker inspect cloudflared
-
-     
       - name: Check config.yml
         run: docker exec cloudflared cat /home/nonroot/.cloudflared/config.yml
-
-      
-      # - name: Check Access cloudflared
-      #   run: docker exec cloudflared curl -I http://192.168.100.100:3000
 
 
       - name: Show Logs   
@@ -378,14 +366,12 @@ jobs:
         run: docker ps -a
 
 
-
-      # - name: Connect app2 to the network
-      #   run: |
-      #     docker network inspect reminder_my_custom_network
-            
-          
       - name: Check app2 status2
         run: docker ps | grep app2
+
+
+      - name: Check cloudflared status2
+        run: docker ps | grep cloudflared
 
 
       - name: Check Cloudflare Tunnel
