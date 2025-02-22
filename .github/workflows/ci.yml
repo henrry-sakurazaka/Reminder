@@ -242,6 +242,23 @@ jobs:
           docker-compose up -d app2
 
 
+
+      - name: Wait for app2 to be healthy
+        run: |
+          for i in {1..30}; do
+            HEALTHY=$(docker inspect --format='{{.State.Health.Status}}' app2 2>/dev/null || echo "unhealthy")
+            if [ "$HEALTHY" == "healthy" ]; then
+              echo "app2 is healthy!"
+              exit 0
+            fi
+            echo "Waiting for app2 to be healthy... ($i/30)"
+            sleep 2
+          done
+          echo "app2 did not become healthy in time."
+          exit 1
+    
+          
+
       - name: Connect app2 to the network
         run: |
           if ! docker network inspect reminder_my_custom_network | grep -q "app2"; then
@@ -277,7 +294,27 @@ jobs:
           docker-compose up -d cloudflared
 
 
+      # - name: Restart cloudflared
+      #   run: |
+      #     docker restart cloudflared
+          
 
+      - name: Wait for cloudflared to be healthy
+        run: |
+          for i in {1..30}; do
+            HEALTHY=$(docker inspect --format='{{.State.Health.Status}}' cloudflared 2>/dev/null || echo "unhealthy")
+            if [ "$HEALTHY" == "healthy" ]; then
+              echo "Cloudflared is healthy!"
+              exit 0
+            fi
+            echo "Waiting for cloudflared to be healthy... ($i/30)"
+            sleep 2
+          done
+          echo "Cloudflared did not become healthy in time."
+          exit 1
+
+
+        
       - name: Connect cloudflared to the network
         run: |
           if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
@@ -306,10 +343,6 @@ jobs:
       - name: Check cloudflared status2
         run: docker ps | grep cloudflared
 
-
-      - name: Restart cloudflared
-        run: |
-          docker restart cloudflared
 
         
       - name: Inspect cloudflared 
