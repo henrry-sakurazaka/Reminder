@@ -331,9 +331,6 @@ jobs:
         run: docker logs cloudflared --tail 50
 
 
-      - name: Inspect connected to cloudflare2
-        run: docker logs -f cloudflared
-
       # - name: Inspect cloudflared IP Address
       #   run: docker exec app2 curl -v http://172.18.0.4:3000
 
