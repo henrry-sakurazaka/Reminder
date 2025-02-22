@@ -1,6 +1,6 @@
 import React from "react";
-import { createBrowserRouter, Routes, Route } from "react-router-dom";
-// import { BrowserRouter } from "react-router-dom";
+import { createBrowserRouter, RouterProvider } from "react-router-dom";
+// import { BrowserRouter, Routes, Route } from "react-router-dom";
 import Example from "./components/Example";
 import FirstAuth from "./components/FirstAuth";
 import UserAuth from "./components/UserAuth";
