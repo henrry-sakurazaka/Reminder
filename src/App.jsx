@@ -30,7 +30,8 @@ const router = createBrowserRouter(
   ],
   {
     future: {
-      v7_startTransition: true, // ← ここでオプトイン！
+      v7_startTransition: true,    // React.startTransition を v7 仕様に
+      v7_relativeSplatPath: true,  // Splat ルートの仕様変更を適用
     },
   }
 );
