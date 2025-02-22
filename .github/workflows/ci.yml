@@ -277,7 +277,7 @@ jobs:
           docker-compose up -d cloudflared
 
 
-      - name: Retart cloudflared
+      - name: Restart cloudflared
         run: |
           docker restart cloudflared
 
