@@ -277,6 +277,11 @@ jobs:
           docker-compose up -d cloudflared
 
 
+      - name: Retart cloudflared
+        run: |
+          docker restart cloudflared
+
+
       - name: Connect cloudflared to the network
         run: |
           if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
@@ -284,7 +289,7 @@ jobs:
           else
             echo "Container cloudflared is already connected to the network."
           fi
-          
+
 
       - name: Inspect my_custom_network
         run: docker network inspect reminder_my_custom_network || echo "Network reminder_my_custom_network not found"
@@ -292,6 +297,10 @@ jobs:
 
       - name: Show Logs   
         run: docker-compose logs cloudflared 
+
+
+      - name: Show Logs2   
+        run: docker logs cloudflared | grep "Connected"
 
 
       - name: Check Responce
@@ -320,6 +329,10 @@ jobs:
 
       - name: Inspect connected to cloudflare
         run: docker logs cloudflared --tail 50
+
+
+      - name: Inspect connected to cloudflare2
+        run: docker logs -f cloudflared
 
       # - name: Inspect cloudflared IP Address
       #   run: docker exec app2 curl -v http://172.18.0.4:3000
