@@ -277,12 +277,29 @@ jobs:
           docker-compose up -d cloudflared
 
 
+      - name: Connect cloudflared to the network
+        run: |
+          if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
+            docker network connect reminder_my_custom_network cloudflared
+          else
+            echo "Container cloudflared is already connected to the network."
+          fi
+          
+
+      - name: Inspect my_custom_network
+        run: docker network inspect reminder_my_custom_network || echo "Network reminder_my_custom_network not found"
+
+
       - name: Show Logs   
         run: docker-compose logs cloudflared 
 
 
       - name: Check Responce
         run: curl -k -v https://offsetcodecraft.site
+
+
+      - name: Check cloudflared status2
+        run: docker ps | grep cloudflared
 
        
       - name: Inspect cloudflared 
@@ -295,18 +312,6 @@ jobs:
         
       - name: Inspect Network Setting
         run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPv4Address'
-
-
-      - name: Connect cloudflared to the network
-        run: |
-          if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
-            docker network connect reminder_my_custom_network cloudflared
-          else
-            echo "Container cloudflared is already connected to the network."
-          fi
-
-      - name: Inspect my_custom_network
-        run: docker network inspect reminder_my_custom_network || echo "Network reminder_my_custom_network not found"
 
 
       - name: Test connection to app2 from cloudflared
@@ -369,7 +374,6 @@ jobs:
       #     docker network inspect reminder_my_custom_network
             
           
-     
       - name: Check app2 status2
         run: docker ps | grep app2
 
