@@ -278,9 +278,13 @@ jobs:
 
 
       - name: Show Logs   
-        run: docker-compose logs cloudflared 
+        run: docker-compose logs cloudflared --folow
 
-            
+
+      - name: Check Responce
+        run: curl -k -v https://offsetcodecraft.site
+
+       
       - name: Inspect cloudflared 
         run: docker inspect cloudflared | jq '.[0].State.Health'
 
