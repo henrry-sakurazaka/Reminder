@@ -210,8 +210,8 @@ jobs:
           sudo ls -la /home/nonroot/.cloudflared/
 
       
-      # - name: Set up Cloudflare API token
-      #   run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+      - name: Set up Cloudflare API token
+        run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
 
       # UDP Buffer Sizeを増加
@@ -253,10 +253,13 @@ jobs:
           docker network prune -f  
           
         
-      - name: Start app2
-        run: |
-          docker-compose up -d app2
+      # - name: Start app2
+      #   run: |
+      #     docker-compose up -d app2
 
+      - name: Start cloudflared
+      run: |
+        docker-compose up -d cloudflared
 
 
       - name: Connect app2 to the network
@@ -289,9 +292,9 @@ jobs:
         run: npm install express
 
       
-      - name: Start cloudflared
-        run: |
-          docker-compose up -d cloudflared
+      # - name: Start cloudflared
+      #   run: |
+      #     docker-compose up -d cloudflared
 
 
       - name: Restart cloudflared
