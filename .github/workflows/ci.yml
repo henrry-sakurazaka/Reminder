@@ -114,6 +114,14 @@ jobs:
           printf -- "${{ secrets.CF_CERT_PEM2 }}" > .cloudflared/cert.pem
 
 
+      - name: Set up Cloudflared credentials
+        run: |
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
+          sudo chmod 644 .cloudflared/offsetcodecraft.site.json  
+          sudo ls -la .cloudflared/
+
+          
       - name: Load environment variables from .env
         run: |
           source .env
@@ -135,13 +143,6 @@ jobs:
           sudo chmod 755 /home/nonroot
 
       
-      - name: Set up Cloudflared credentials
-        run: |
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
-          sudo chmod 644 .cloudflared/offsetcodecraft.site.json  
-          sudo ls -la .cloudflared/
-          
       - name: Set up Cloudflared credentials2
         run: |
           sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
@@ -316,17 +317,12 @@ jobs:
         run: docker-compose logs cloudflared 
 
 
-      # - name: Show Logs2   
-      #   run: docker logs cloudflared | grep "Connected"
-
-
       - name: Check Responce
         run: curl -k -v https://offsetcodecraft.site
 
 
       - name: Check cloudflared status2
         run: docker ps | grep cloudflared
-
 
         
       - name: Inspect cloudflared 
