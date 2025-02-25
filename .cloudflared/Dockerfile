@@ -36,10 +36,10 @@ RUN mkdir -p /home/nonroot/.cloudflared
 # nonroot ユーザーを作成
 RUN useradd -m -u 1000 -s /bin/sh nonroot
 
-COPY .cloudflared /home/nonroot/.cloudflared
+# COPY .cloudflared /home/nonroot/.cloudflared
 
-RUN chmod -R 755 /home/nonroot/.cloudflared && \
-    chown -R nonroot:nonroot /home/nonroot/.cloudflared
+# RUN chmod -R 755 /home/nonroot/.cloudflared && \
+#     chown -R nonroot:nonroot /home/nonroot/.cloudflared
 
 # 必要なファイルをコピー
 COPY .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
