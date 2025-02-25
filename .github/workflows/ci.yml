@@ -114,33 +114,40 @@ jobs:
           printf -- "${{ secrets.CF_CERT_PEM2 }}" > .cloudflared/cert.pem
 
 
-      - name: Set up Cloudflared credentials
-        run: |
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
-          sudo chmod 644 .cloudflared/offsetcodecraft.site.json  
-          sudo ls -la .cloudflared/
-
-          
+      
       - name: Load environment variables from .env
         run: |
           source .env
           echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
+
           
       - name: Create Service Account Key
         run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
 
+
       - name: Copy Service Account Key to Functions
         run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
 
+
+
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
+
+
 
       - name: Create nonroot user
         run: |
           sudo useradd -m nonroot
           sudo chown -R nonroot:nonroot /home/nonroot
           sudo chmod 755 /home/nonroot
+
+
+      - name: Set up Cloudflared credentials
+        run: |
+          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
+          sudo chmod 644 .cloudflared/offsetcodecraft.site.json  
+          sudo ls -la .cloudflared/
 
       
       - name: Set up Cloudflared credentials2
@@ -162,11 +169,13 @@ jobs:
           chmod u+rx .cloudflared/entrypoint.sh
           chmod 600 .cloudflared/config.yml
 
+
       - name: Fix Permissions for Cloudflared Credentials
         run: |
           sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo chmod 666 /home/nonroot/.cloudflared/offsetcodecraft.site.json
           sudo ls -la /home/nonroot/.cloudflared/
+
       
       - name: Setup cloudflared directory
         run: |
@@ -174,12 +183,14 @@ jobs:
           sudo chmod -R 777 /home/nonroot/.cloudflared
           sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
 
+
       - name: Define Directory
         run: |
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
           printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
           printf -- "${{ secrets.CF_CERT_PEM2 }}" > /home/nonroot/.cloudflared/cert.pem
+
        
       - name: Copy Cloudflared Config to Target Directory
         run: |
@@ -201,6 +212,7 @@ jobs:
       
       - name: Set up Cloudflare API token
         run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+
 
       # UDP Buffer Sizeを増加
       - name: Increase UDP Buffer Size
