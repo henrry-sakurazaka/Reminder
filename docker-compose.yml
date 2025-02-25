@@ -85,7 +85,10 @@ services:
     env_file:
       - .env
     volumes:
+      #CI/CD用設定
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
+      #ローカル環境用設定
+      # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
     environment:
       - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
@@ -95,6 +98,7 @@ services:
     restart: unless-stopped
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
+      # disable: true
       test: ["CMD", "curl", "-f", "https://offsetcodecraft.site || exit 1"]
       interval: 90s
       timeout: 60s
