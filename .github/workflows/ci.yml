@@ -220,17 +220,20 @@ jobs:
           sudo sysctl -w net.core.rmem_max=8388608
           sudo sysctl -w net.core.wmem_max=8388608
 
+
       # ping_group_rangeの設定
       - name: Adjust ping_group_range
         run: |
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
       
+
       - name: Build App
         run: |
           docker-compose down --volumes --remove-orphans
           docker system prune -f
           docker-compose build
+
 
       - name: Change ownership of entrypoint.sh
         run: |
@@ -291,9 +294,9 @@ jobs:
           docker-compose up -d cloudflared
 
 
-      # - name: Restart cloudflared
-      #   run: |
-      #     docker restart cloudflared
+      - name: Restart cloudflared
+        run: |
+          docker restart cloudflared
           
 
       # - name: Wait for cloudflared to be healthy
