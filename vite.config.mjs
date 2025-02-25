@@ -68,6 +68,12 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
+    allowedHosts: [
+      'app2', 
+      'localhost', 
+      '0.0.0.0', 
+      'offsetcodecraft.site',
+    ],
     // allowedHosts: [
     //   'app2', 
     //   'localhost', 
@@ -75,7 +81,7 @@ export default defineConfig({
     //   'offsetcodecraft.site',
     //   '172.18.0.4',
     // ],
-    allowedHosts: ['app2'],
+   
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
     //     ? {
