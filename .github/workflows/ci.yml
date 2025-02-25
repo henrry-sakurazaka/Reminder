@@ -258,8 +258,8 @@ jobs:
       #     docker-compose up -d app2
 
       - name: Start cloudflared
-      run: |
-        docker-compose up -d cloudflared
+        run: |
+          docker-compose up -d cloudflared
 
 
       - name: Connect app2 to the network
