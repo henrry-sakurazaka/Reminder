@@ -17,8 +17,6 @@ export default defineConfig({
   // base: '/app2/',
   base: './',
   root: __dirname,
-  // root: resolve(__dirname, 'app2'),
-  // root: '/app2/',
   build: {
     outDir: resolve(__dirname, 'dist'),
     define: {
@@ -73,15 +71,8 @@ export default defineConfig({
       'localhost', 
       '0.0.0.0', 
       'offsetcodecraft.site',
+      '172.18.0.4',
     ],
-    // allowedHosts: [
-    //   'app2', 
-    //   'localhost', 
-    //   '0.0.0.0', 
-    //   'offsetcodecraft.site',
-    //   '172.18.0.4',
-    // ],
-   
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
     //     ? {
@@ -93,7 +84,6 @@ export default defineConfig({
     overlay: false, 
     cors: true,
   },
-
 
   reporter: [
     ['list'], 

@@ -253,13 +253,14 @@ jobs:
           docker network prune -f  
           
         
-      # - name: Start app2
-      #   run: |
-      #     docker-compose up -d app2
-
       - name: Start cloudflared
         run: |
           docker-compose up -d cloudflared
+
+
+      - name: Restart cloudflared
+        run: |
+          docker restart cloudflared
 
 
       - name: Connect app2 to the network
@@ -270,6 +271,14 @@ jobs:
             echo "Container app2 is already connected to the network."
           fi
   
+      - name: Connect cloudflared to the network
+        run: |
+          if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
+            docker network connect reminder_my_custom_network cloudflared
+          else
+            echo "Container cloudflared is already connected to the network."
+          fi
+
      
       - name: Inspect my_custom_network
         run: docker network inspect reminder_my_custom_network || echo "Network my_custom_network not found"
@@ -290,41 +299,6 @@ jobs:
       - name: Install express if missing
         if: env.installed == 'false'
         run: npm install express
-
-      
-      # - name: Start cloudflared
-      #   run: |
-      #     docker-compose up -d cloudflared
-
-
-      - name: Restart cloudflared
-        run: |
-          docker restart cloudflared
-          
-
-      # - name: Wait for cloudflared to be healthy
-      #   run: |
-      #     for i in {1..120}; do
-      #       HEALTHY=$(docker inspect --format='{{.State.Health.Status}}' cloudflared 2>/dev/null || echo "unhealthy")
-      #       if [ "$HEALTHY" == "healthy" ]; then
-      #         echo "Cloudflared is healthy!"
-      #         exit 0
-      #       fi
-      #       echo "Waiting for cloudflared to be healthy... ($i/30)"
-      #       sleep 2
-      #     done
-      #     echo "Cloudflared did not become healthy in time."
-      #     exit 1
-
-
-        
-      - name: Connect cloudflared to the network
-        run: |
-          if ! docker network inspect reminder_my_custom_network | grep -q "cloudflared"; then
-            docker network connect reminder_my_custom_network cloudflared
-          else
-            echo "Container cloudflared is already connected to the network."
-          fi
 
 
       - name: Inspect my_custom_network
