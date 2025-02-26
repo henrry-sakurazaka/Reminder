@@ -374,10 +374,6 @@ jobs:
 
       - name: Show Logs   
         run: docker-compose logs app2
-        
-
-      - name: Show Logs   
-        run: docker-compose logs -f cloudflared
 
 
       - name: Check app2 status
