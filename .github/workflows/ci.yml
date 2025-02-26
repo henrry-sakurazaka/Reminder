@@ -500,9 +500,9 @@ jobs:
     
       - name: Set up Firebase credentials
         run: |
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> $GITHUB_ENV
-      
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> .env
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
 
       - name: Install dependencies
         run: |
