@@ -8,19 +8,20 @@ const bodyParser = require("body-parser");
 const path = require("path");
 const cors = require('cors');
 const dotenv = require("dotenv");
+const { environments } = require('eslint-plugin-prettier');
 
 
 if (process.env.CI !== 'true') {
   dotenv.config();
 }
 
-// CI環境では `process.env.FIREBASE_SERVICE_ACCOUNT` がJSON文字列の可能性がある
-const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-  ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-  : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
-  
+//  For CI `process.env.FIREBASE_SERVICE_ACCOUNT` がJSON文字列の可能性がある
+// const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
+//   ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
+//   : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
-// var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
+//For local environments
+var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
