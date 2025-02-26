@@ -258,14 +258,14 @@ jobs:
           docker-compose up -d cloudflared
 
 
-      - name: Wait for containers to be fully started
-        run: |
-          sleep 10  
+      # - name: Wait for containers to be fully started
+      #   run: |
+      #     sleep 10  
 
 
-      - name: Restart cloudflared
-        run: |
-          docker restart cloudflared
+      # - name: Restart cloudflared
+      #   run: |
+      #     docker restart cloudflared
 
 
       - name: Connect app2 to the network
