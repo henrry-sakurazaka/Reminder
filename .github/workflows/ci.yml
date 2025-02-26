@@ -417,10 +417,10 @@ jobs:
         run: |
           sleep 10  
 
-      - name: Connect reminder-firebase-1 to test-network2
+      - name: Connect firebase to test-network2
         run: |
-          if ! docker network inspect test-network2 | grep -q "reminder-firebase-1"; then
-            docker network connect test-network2 reminder-firebase-1
+          if ! docker network inspect test-network2 | grep -q "firebase"; then
+            docker network connect test-network2 firebase
           else
             echo "Container is already connected to the network."
           fi
