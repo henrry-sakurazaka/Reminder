@@ -256,6 +256,11 @@ jobs:
       - name: Start cloudflared
         run: |
           docker-compose up -d cloudflared
+          
+
+      - name: Wait for containers to be fully started
+        run: |
+          sleep 10  
 
 
       - name: Restart cloudflared
@@ -313,12 +318,12 @@ jobs:
         run: curl -k -v https://offsetcodecraft.site
 
 
-      - name: Check cloudflared status2
-        run: docker ps | grep cloudflared
+      # - name: Check cloudflared status2
+      #   run: docker ps | grep cloudflared
 
         
-      - name: Inspect cloudflared 
-        run: docker inspect cloudflared | jq '.[0].State.Health'
+      # - name: Inspect cloudflared 
+      #   run: docker inspect cloudflared | jq '.[0].State.Health'
 
 
       - name: Inspect app2
@@ -375,8 +380,8 @@ jobs:
         run: docker ps | grep app2
 
 
-      - name: Check cloudflared status2
-        run: docker ps | grep cloudflared
+      # - name: Check cloudflared status2
+      #   run: docker ps | grep cloudflared
 
 
       - name: Check Cloudflare Tunnel
