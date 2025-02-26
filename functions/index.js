@@ -7,10 +7,8 @@ const admin = require("firebase-admin");
 const bodyParser = require("body-parser"); 
 const path = require("path");
 const cors = require('cors');
+const dotenv = require("dotenv");
 
-if (process.env.CI !== 'true') {
-  require('dotenv').config();
-}
 
 if (process.env.CI !== 'true') {
   dotenv.config();
