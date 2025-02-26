@@ -98,7 +98,8 @@ services:
     restart: unless-stopped
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site || exit 1"]
+      # test: ["CMD", "curl", "-f", "https://offsetcodecraft.site || exit 1"]
+      test: ["CMD", "curl", "-f", "http://localhost:20241/metrics || exit 1"]
       interval: 90s
       timeout: 60s
       retries: 5
