@@ -9,8 +9,17 @@ const path = require("path");
 const cors = require('cors');
 require('dotenv').config();
 
-   
-var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
+if (process.env.CI !== 'true') {
+  dotenv.config();
+}
+
+// CI環境では `process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS` がJSON文字列の可能性がある
+const serviceAccount = process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS
+  ? JSON.parse(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS)
+  : require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
+  
+
+// var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
