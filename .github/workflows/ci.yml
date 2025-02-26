@@ -507,6 +507,12 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-key.json" >> .env
             
 
+      - name: Set up Firebase credentials
+        run: |
+          echo '${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}' > $HOME/serviceAccountKey.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/serviceAccountKey.json" >> $GITHUB_ENV
+      
+
       - name: Install dependencies
         run: |
           npm install
