@@ -419,16 +419,16 @@ jobs:
 
       - name: Connect firebase to test-network2
         run: |
-          if ! docker network inspect test-network2 | grep -q "firebase"; then
-            docker network connect test-network2 firebase
+          if ! docker network inspect reminder_my_custom_network | grep -q "firebase"; then
+            docker network connect reminder_my_custom_network firebase
           else
             echo "Container is already connected to the network."
           fi
 
-      - name: Connect reminder-playwright-1 to test-network2
+      - name: Connect reminder-playwright-1 to reminder_my_custom_network
         run: |
-          if ! docker network inspect test-network2 | grep -q "reminder-playwright-1"; then
-            docker network connect test-network2 reminder-playwright-1
+          if ! docker network inspect reminder_my_custom_network | grep -q "reminder-playwright-1"; then
+            docker network connect reminder_my_custom_network reminder-playwright-1
           else
             echo "Container is already connected to the network."
           fi
