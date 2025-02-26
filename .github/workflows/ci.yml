@@ -496,21 +496,8 @@ jobs:
 
       - name: Set up Firebase credentials
         run: |
-          echo "${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/keyfile.json
-          export VITE_GOOGLE_APPLICATION_CREDENTIALS="/tmp/keyfile.json"
-          
-
-      - name: Set up Firebase credentials
-        run: |
-          echo '${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}' > $HOME/firebase-key.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-key.json" >> $GITHUB_ENV
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/firebase-key.json" >> .env
-            
-
-      - name: Set up Firebase credentials
-        run: |
-          echo '${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}' > $HOME/serviceAccountKey.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$HOME/serviceAccountKey.json" >> $GITHUB_ENV
+          echo '${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}' > ./serviceAccountKey.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> $GITHUB_ENV
       
 
       - name: Install dependencies
