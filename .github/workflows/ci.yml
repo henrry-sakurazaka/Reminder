@@ -550,9 +550,9 @@ jobs:
    
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only functions --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
-          firebase deploy --only hosting --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
-          
+          firebase deploy --only functions --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only hosting --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
+      
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
