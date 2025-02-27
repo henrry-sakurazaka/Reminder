@@ -504,18 +504,17 @@ jobs:
       #   run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > functions/serviceAccountKey.json
              
       
-      - name: Set up Firebase credentials
-        run: |
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
-
-        
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 -d > functions/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/functions/serviceAccountKey.json" >> $GITHUB_ENV
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/functions/serviceAccountKey.json" >> fucntions/.env
           
 
+      - name: Set up Firebase credentials
+        run: |
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
+
+            
       - name: Set FIREBASE_SERVICE_ACCOUNT
         run: |
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 -d > functions/serviceAccountKey.json
