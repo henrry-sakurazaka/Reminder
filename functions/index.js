@@ -6,6 +6,7 @@ const functions = require("firebase-functions");
 const admin = require("firebase-admin");
 const bodyParser = require("body-parser"); 
 const path = require("path");
+const fs = require("fs");
 const cors = require('cors');
 const dotenv = require("dotenv");
 const { environments } = require('eslint-plugin-prettier');
@@ -16,12 +17,32 @@ if (process.env.CI !== 'true') {
 }
 
 //  For CI `process.env.FIREBASE_SERVICE_ACCOUNT` がJSON文字列の可能性がある
-const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-  ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-  : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
+// const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
+//   ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
+//   : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
 //For local environments
 // var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
+
+let serviceAccount;
+
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  try {
+    // JSON形式ならオブジェクトにパース
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  } catch (error) {
+    // JSONでない場合はファイルパスとみなして require() する
+    serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
+  }
+} else {
+  // 環境変数が未定義ならデフォルトのパスを使用
+  const defaultPath = path.join(__dirname, "serviceAccountKey.json");
+  if (fs.existsSync(defaultPath)) {
+    serviceAccount = require(defaultPath);
+  } else {
+    throw new Error("Service account credentials not found.");
+  }
+}
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
