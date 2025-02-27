@@ -566,7 +566,7 @@ jobs:
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
+          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> ./.env
           
           firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
