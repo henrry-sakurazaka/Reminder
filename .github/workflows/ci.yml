@@ -497,7 +497,7 @@ jobs:
       - name: Set Environment Variable
         run: |
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> functions/.env
-          
+
       
       - name: Set Environment Variable
         run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
@@ -507,20 +507,29 @@ jobs:
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > functions/serviceAccountKey.json
              
       
-      - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        run: |
-          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/functions/serviceAccountKey.json" >> $GITHUB_ENV
-          
-
       - name: Set up Firebase credentials
         run: |
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
           
-
+      
+      - name: Encode serviceAccountKey.json
+        run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
+      
+      - name: Decode FIREBASE_SERVICE_ACCOUNT
+        run: echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > functions/serviceAccountKey.json
+      
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
         run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
-    
       
+      - name: Check Firebase CLI
+        run: firebase --version
+      
+      - name: Debug GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
+      
+      - name: Deploy to Firebase
+        run: firebase deploy --only functions
+         
       - name: Set FIREBASE_SERVICE_ACCOUNT
         run: |
           echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json)" >> $GITHUB_ENV
