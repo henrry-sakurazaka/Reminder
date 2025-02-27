@@ -563,8 +563,8 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: functions/serviceAccountKey.json
           FIREBASE_SERVICE_ACCOUNT: functions/.env
-          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
-          FIREBASE_SERVICE_ACCOUNT: .env
+          # GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+          # FIREBASE_SERVICE_ACCOUNT: .env
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
