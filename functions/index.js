@@ -26,7 +26,7 @@ const { environments } = require('eslint-plugin-prettier');
 
 //For local environments
 // var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
-var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT); 
+var serviceAccount = require(process.env.VITE_REACT_APP_FIREBASE_API_KEY); 
 
 // let serviceAccount;
 
