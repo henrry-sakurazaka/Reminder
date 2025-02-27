@@ -512,11 +512,11 @@ jobs:
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
           
       
-      # - name: Encode serviceAccountKey.json
-      #   run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
+      - name: Encode serviceAccountKey.json
+        run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
       
-      # - name: Decode FIREBASE_SERVICE_ACCOUNT
-      #   run: echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > functions/serviceAccountKey.json
+      - name: Decode FIREBASE_SERVICE_ACCOUNT
+        run: echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > functions/serviceAccountKey.json
       
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
         run: echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
