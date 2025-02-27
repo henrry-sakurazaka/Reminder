@@ -527,12 +527,12 @@ jobs:
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
         run: echo "$VITE_GOOGLE_APPLICATION_CREDENTIALS"
       
-      - name: Set FIREBASE_SERVICE_ACCOUNT
-        run: |
-          echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json)" >> $GITHUB_ENV
-          echo "=== DEBUG INFO ==="
-          ls -la functions
-          cat functions/serviceAccountKey.json
+      # - name: Set FIREBASE_SERVICE_ACCOUNT
+      #   run: |
+      #     echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json)" >> $GITHUB_ENV
+      #     echo "=== DEBUG INFO ==="
+      #     ls -la functions
+      #     cat functions/serviceAccountKey.json
 
           
       - name: Cat by base64
