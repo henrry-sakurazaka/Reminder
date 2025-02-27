@@ -500,8 +500,8 @@ jobs:
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> .env
 
       
-      - name: Set Environment Variable
-        run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
+      # - name: Set Environment Variable
+      #   run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
        
 
       - name: Create Service Account Key
@@ -561,9 +561,9 @@ jobs:
       
       - name: Deploy to Firebase
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: functions/serviceAccountKey.json
+          VITE_GOOGLE_APPLICATION_CREDENTIALS: functions/.env
           FIREBASE_SERVICE_ACCOUNT: functions/.env
-          # GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+          # GOOGLE_APPLICATION_CREDENTIALS: .env
           # FIREBASE_SERVICE_ACCOUNT: .env
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
