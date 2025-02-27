@@ -550,8 +550,8 @@ jobs:
    
       - name: Deploy to Firebase
         run: |
-          firebase deploy --only functions --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
-          firebase deploy --only hosting --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
       
 
       - name: Log in to Docker Hub
