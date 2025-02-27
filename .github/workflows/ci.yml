@@ -495,13 +495,13 @@ jobs:
 
 
       - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > functions/serviceAccountKey.json
              echo "FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" >> .env
     
       - name: Set up Firebase credentials
         run: |
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> $GITHUB_ENV
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> .env
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=functions/serviceAccountKey.json" >> $GITHUB_ENV
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=functions/serviceAccountKey.json" >> .env
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
 
       - name: Install dependencies
