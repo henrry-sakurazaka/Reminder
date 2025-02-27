@@ -17,12 +17,13 @@ if (process.env.CI !== 'true') {
 }
 
 //  For CI `process.env.FIREBASE_SERVICE_ACCOUNT` がJSON文字列の可能性がある
-const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-  ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-  : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
+// const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
+//   ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
+//   : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
 //For local environments
 // var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
+var serviceAccount = require(JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)); 
 
 // let serviceAccount;
 
