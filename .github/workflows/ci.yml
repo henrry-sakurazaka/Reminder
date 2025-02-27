@@ -547,13 +547,21 @@ jobs:
           cd functions
           npm install
 
-   
+
       - name: Deploy to Firebase
         env:
-          VITE_FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN }}
+          GOOGLE_APPLICATION_CREDENTIALS: functions/serviceAccountKey.json
         run: |
-          firebase deploy --only functions 
-          firebase deploy --only hosting 
+          firebase deploy --only functions
+          firebase deploy --only hosting
+
+   
+      # - name: Deploy to Firebase
+      #   env:
+      #     VITE_FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN }}
+      #   run: |
+      #     firebase deploy --only functions 
+      #     firebase deploy --only hosting 
       
       # - name: Deploy to Firebase
       #   run: |
