@@ -549,9 +549,16 @@ jobs:
 
    
       - name: Deploy to Firebase
+        env:
+          VITE_FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN }}
         run: |
-          firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
-          firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only functions 
+          firebase deploy --only hosting 
+      
+      # - name: Deploy to Firebase
+      #   run: |
+      #     firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
+      #     firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
       
 
       - name: Log in to Docker Hub
