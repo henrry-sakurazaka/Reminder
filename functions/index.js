@@ -24,20 +24,21 @@ const { environments } = require('eslint-plugin-prettier');
 //   ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
 //   : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
-//For local environments
+//For local environment
 // var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
-var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT); 
+// var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
-// let serviceAccount;
+let serviceAccount;
 
-// if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-//   try {
-//     // JSON形式ならオブジェクトにパース
-//     serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-//   } catch (error) {
-//     // JSONでない場合はファイルパスとみなして require() する
-//     serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
-//   }
+if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+  try {
+    // JSON形式ならオブジェクトにパース
+    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+  } catch (error) {
+    // JSONでない場合はファイルパスとみなして require() する
+    serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
+  }
+}
 // } else {
 //   // 環境変数が未定義ならデフォルトのパスを使用
 //   const defaultPath = path.join(__dirname, "serviceAccountKey.json");
