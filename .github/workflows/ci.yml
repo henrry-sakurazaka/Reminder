@@ -519,13 +519,13 @@ jobs:
         run: echo "$FIREBASE_SERVICE_ACCOUNT" | base64 -d > functions/serviceAccountKey.json
       
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
+        run: echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
       
       - name: Check Firebase CLI
         run: firebase --version
       
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
+        run: echo "$VITE_GOOGLE_APPLICATION_CREDENTIALS"
       
       - name: Set FIREBASE_SERVICE_ACCOUNT
         run: |
@@ -533,11 +533,17 @@ jobs:
           echo "=== DEBUG INFO ==="
           ls -la functions
           cat functions/serviceAccountKey.json
+
           
-      
+      - name: Cat by base64
+        run: |
+          cat functions/serviceAccountKey.json
+
+
       - name: Install dependencies
         run: |
           npm install
+
 
       - name: Install dependencies functons
         run: |
@@ -545,12 +551,12 @@ jobs:
           npm install
 
 
-      - name: Deploy to Firebase
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: functions/serviceAccountKey.json
-        run: |
-          firebase deploy --only functions
-          firebase deploy --only hosting
+      # - name: Deploy to Firebase
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: functions/serviceAccountKey.json
+      #   run: |
+      #     firebase deploy --only functions
+      #     firebase deploy --only hosting
 
    
       # - name: Deploy to Firebase
@@ -560,10 +566,10 @@ jobs:
       #     firebase deploy --only functions 
       #     firebase deploy --only hosting 
       
-      # - name: Deploy to Firebase
-      #   run: |
-      #     firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
-      #     firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
+      - name: Deploy to Firebase
+        run: |
+          firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
+          firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
       
 
       - name: Log in to Docker Hub
