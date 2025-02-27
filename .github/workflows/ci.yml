@@ -527,9 +527,6 @@ jobs:
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
       
-      - name: Deploy to Firebase
-        run: firebase deploy --only functions
-         
       - name: Set FIREBASE_SERVICE_ACCOUNT
         run: |
           echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json)" >> $GITHUB_ENV
