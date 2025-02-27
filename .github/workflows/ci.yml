@@ -496,48 +496,45 @@ jobs:
     
       - name: Set Environment Variable
         run: |
+         
           echo "FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" >> functions/.env
       
       
-      - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > functions/serviceAccountKey.json
+      # - name: Create Service Account Key
+      #   run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > functions/serviceAccountKey.json
              
       
       - name: Set up Firebase credentials
         run: |
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
+
         
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 -d > functions/serviceAccountKey.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/functions/serviceAccountKey.json" >> $GITHUB_ENV
+          echo "GOOGLE_APPLICATION_CREDENTIALS=$GITHUB_WORKSPACE/functions/serviceAccountKey.json" >> fucntions/.env
+          
+
+      - name: Set FIREBASE_SERVICE_ACCOUNT
+        run: |
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 -d > functions/serviceAccountKey.json
+          echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json)" >> $GITHUB_ENV
+          echo "=== DEBUG INFO ==="
+          ls -la functions
+          cat functions/serviceAccountKey.json
+          
       
       - name: Install dependencies
         run: |
           npm install
-
 
       - name: Install dependencies functons
         run: |
           cd functions
           npm install
 
-
-      - name: Install dependencies functons2
-        run: |
-          cd functions
-          npm ci
-
-
-      - name: Install jq
-        run: sudo apt update && sudo apt install -y jq
-
-      
-      - name: Set Environment Variable
-        run: |
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' | jq -c . > functions/serviceAccountKey.json
-          echo "FIREBASE_SERVICE_ACCOUNT=$(echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' | jq -c .)" >> $GITHUB_ENV
-          echo "=== DEBUG INFO ==="
-          ls -la functions
-          cat functions/serviceAccountKey.json
-          
-      
+   
       - name: Deploy to Firebase
         run: |
           firebase deploy --only functions --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"
