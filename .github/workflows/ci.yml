@@ -566,6 +566,9 @@ jobs:
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> ./.env
+          
           firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
           firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
       
@@ -574,6 +577,8 @@ jobs:
         if: github.event_name == 'push'
 
         run: |
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Log in to Docker Hub
