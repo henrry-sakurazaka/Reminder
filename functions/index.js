@@ -12,9 +12,12 @@ const dotenv = require("dotenv");
 const { environments } = require('eslint-plugin-prettier');
 
 
-if (process.env.CI !== 'true') {
+
   dotenv.config();
-}
+
+// if (process.env.CI !== 'true') {
+//   dotenv.config();
+// }
 
 //  For CI `process.env.FIREBASE_SERVICE_ACCOUNT` がJSON文字列の可能性がある
 // const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
