@@ -497,7 +497,7 @@ jobs:
       - name: Set Environment Variable
         run: |
           echo "FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" >> $GITHUB_ENV
-          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> functions/.env
+          echo "FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" >> functions/.env
       
       
       - name: Create Service Account Key
@@ -506,7 +506,7 @@ jobs:
       
       - name: Set up Firebase credentials
         run: |
-          echo '${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}' >> functions/.env
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
         
       
       - name: Install dependencies
