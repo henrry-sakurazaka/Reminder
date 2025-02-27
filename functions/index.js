@@ -38,16 +38,15 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     // JSONでない場合はファイルパスとみなして require() する
     serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
   }
+} else {
+  // 環境変数が未定義ならデフォルトのパスを使用
+  const defaultPath = path.join(__dirname, "serviceAccountKey.json");
+  if (fs.existsSync(defaultPath)) {
+    serviceAccount = require(defaultPath);
+  } else {
+    throw new Error("Service account credentials not found.");
+  }
 }
-// } else {
-//   // 環境変数が未定義ならデフォルトのパスを使用
-//   const defaultPath = path.join(__dirname, "serviceAccountKey.json");
-//   if (fs.existsSync(defaultPath)) {
-//     serviceAccount = require(defaultPath);
-//   } else {
-//     throw new Error("Service account credentials not found.");
-//   }
-// }
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
