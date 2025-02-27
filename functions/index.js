@@ -19,10 +19,6 @@ const { environments } = require('eslint-plugin-prettier');
 //   dotenv.config();
 // }
 
-//  For CI `process.env.FIREBASE_SERVICE_ACCOUNT` がJSON文字列の可能性がある
-// const serviceAccount = process.env.FIREBASE_SERVICE_ACCOUNT
-//   ? JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT)
-//   : require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
 //For local environment
 // var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
