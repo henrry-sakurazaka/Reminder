@@ -523,21 +523,14 @@ jobs:
         run: echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
 
      
-      
       - name: Check Firebase CLI
         run: firebase --version
+
       
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
         run: echo "$VITE_GOOGLE_APPLICATION_CREDENTIALS"
       
-      # - name: Set FIREBASE_SERVICE_ACCOUNT
-      #   run: |
-      #     echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json)" >> $GITHUB_ENV
-      #     echo "=== DEBUG INFO ==="
-      #     ls -la functions
-      #     cat functions/serviceAccountKey.json
-
-          
+   
       - name: Cat by base64
         run: |
           cat functions/serviceAccountKey.json
@@ -571,6 +564,8 @@ jobs:
       
       - name: Deploy to Firebase
         run: |
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           firebase deploy --only functions "${{ secrets.VITE_FIREBASE_TOKEN }}"
           firebase deploy --only hosting "${{ secrets.VITE_FIREBASE_TOKEN }}"
       
