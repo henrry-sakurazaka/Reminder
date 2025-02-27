@@ -517,14 +517,27 @@ jobs:
         run: |
           cd functions
           npm install
-          
+
 
       - name: Install dependencies functons2
         run: |
           cd functions
           npm ci
 
-   
+
+      - name: Install jq
+        run: sudo apt update && sudo apt install -y jq
+
+      
+      - name: Set Environment Variable
+        run: |
+          echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' | jq -c . > functions/serviceAccountKey.json
+          echo "FIREBASE_SERVICE_ACCOUNT=$(echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' | jq -c .)" >> $GITHUB_ENV
+          echo "=== DEBUG INFO ==="
+          ls -la functions
+          cat functions/serviceAccountKey.json
+          
+      
       - name: Deploy to Firebase
         run: |
           firebase deploy --only functions --project "${{ secrets.VITE_FIREBASE_PROJECT_ID }}" --token "${{ secrets.VITE_FIREBASE_TOKEN }}"

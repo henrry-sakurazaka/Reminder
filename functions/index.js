@@ -47,6 +47,10 @@ if (process.env.FIREBASE_SERVICE_ACCOUNT) {
     throw new Error("Service account credentials not found.");
   }
 }
+console.log("=== DEBUG INFO ===");
+console.log("Current Directory:", __dirname);
+console.log("Env FIREBASE_SERVICE_ACCOUNT:", process.env.FIREBASE_SERVICE_ACCOUNT ? "Set" : "Not Set");
+
                             
 admin.initializeApp({
     credential: admin.credential.cert(serviceAccount),
