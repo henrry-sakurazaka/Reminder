@@ -512,10 +512,17 @@ jobs:
         run: |
           npm install
 
+
       - name: Install dependencies functons
         run: |
           cd functions
           npm install
+          
+
+      - name: Install dependencies functons2
+        run: |
+          cd functions
+          npm ci
 
    
       - name: Deploy to Firebase
