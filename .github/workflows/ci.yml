@@ -497,11 +497,12 @@ jobs:
       - name: Set Environment Variable
         run: |
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> functions/.env
+          
       
       - name: Set Environment Variable
-        run: echo "FIREBASE_SERVICE_ACCOUNT=$(cat functions/serviceAccountKey.json | tr '\n' ' ')" >> $GITHUB_ENV
+        run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
+
     
-      
       - name: Create Service Account Key
         run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > functions/serviceAccountKey.json
              
