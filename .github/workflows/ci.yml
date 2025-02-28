@@ -121,10 +121,10 @@ jobs:
   #         echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
           
-  #     - name: Create Service Account Key
-  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
-
-
+      # - name: Create Service Account Key
+      #   run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
+      
+     
   #     - name: Copy Service Account Key to Functions
   #       run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
 
@@ -544,7 +544,8 @@ jobs:
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "VITE_FIREBASE_TOKEN_CI=${{ secrets.VITE_FIREBASE_TOKEN_CI }}" >> .env
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> ./serviceAccountKey.json
-          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> firebase/serviceAccountKey.json
+          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> ./functions/serviceAccountKey.json
+          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> ./firebase/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
