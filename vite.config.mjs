@@ -20,7 +20,7 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     define: {
-      'process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS),
+      'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(process.env.GOOGLE_APPLICATION_CREDENTIALS),
     },
     emptyOutDir: true,
     rollupOptions: {
