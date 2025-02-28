@@ -563,6 +563,7 @@ jobs:
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "VITE_FIREBASE_TOKEN_CI=${{ secrets.VITE_FIREBASE_TOKEN_CI }}" >> .env
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
        
@@ -577,6 +578,7 @@ jobs:
           VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           FIREBASE_SERVICE_ACCOUNT: functions/serviceAccountKey.json
           VITE_FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN }}
+          VITE_FIREBASE_TOKEN_CI: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
