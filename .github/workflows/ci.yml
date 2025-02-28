@@ -550,14 +550,6 @@ jobs:
           cd functions
           npm install
 
-
-      # - name: Deploy to Firebase
-      #   env:
-      #     GOOGLE_APPLICATION_CREDENTIALS: functions/serviceAccountKey.json
-      #   run: |
-      #     firebase deploy --only functions
-      #     firebase deploy --only hosting
-
       
       - name: Deploy to Firebase
         run: |
@@ -570,13 +562,13 @@ jobs:
           # GOOGLE_APPLICATION_CREDENTIALS: .env
           # FIREBASE_SERVICE_ACCOUNT: .env
 
+
       - name: Deploy Command
         run: |
           firebase deploy 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_SERVICE_ACCOUNT: ./serviceAccountKey.json
-          FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
+        
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
