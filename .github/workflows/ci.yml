@@ -554,7 +554,11 @@ jobs:
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> firebase/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
 
-       
+
+      - name: Debug GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
+             cat ./serviceAccountKey.json
+
 
       - name: Deploy Command
         run: |
