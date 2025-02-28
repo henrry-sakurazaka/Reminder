@@ -575,10 +575,9 @@ jobs:
           firebase deploy --only functions 
           firebase deploy --only hosting 
         env:
-          VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           FIREBASE_SERVICE_ACCOUNT: functions/serviceAccountKey.json
-          VITE_FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN }}
-          VITE_FIREBASE_TOKEN_CI: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
+          FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
