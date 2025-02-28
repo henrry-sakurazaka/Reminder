@@ -523,13 +523,9 @@ jobs:
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
              cat ./serviceAccountKey.json
              cat $GOOGLE_APPLICATION_CREDENTIALS
+             file ./serviceAccountKey.json
 
-   
-      - name: Cat by base64
-        run: |
-          cat functions/serviceAccountKey.json
-
-
+             
       - name: Install dependencies
         run: |
           npm install
