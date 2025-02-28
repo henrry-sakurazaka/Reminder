@@ -517,11 +517,7 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           
-       
-      - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
-       
-
+ 
       - name: Check Firebase CLI
         run: firebase --version
 
