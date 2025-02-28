@@ -493,33 +493,36 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
-    
-      - name: Set Environment Variable
-        run: |
-          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> functions/.env
-          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> .env
-
-      
-      # - name: Set Environment Variable
-      #   run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
-       
-      - name: Set up Firebase credentials
-        run: |
-          echo "$FIREBASE_SERVICE_ACCOUNT" >> ./serviceAccountKey.json
-          echo "$FIREBASE_SERVICE_ACCOUNT" >> functions/serviceAccountKey.json
-          echo "$FIREBASE_SERVICE_ACCOUNT" >> firebase/serviceAccountKey.json
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+      - name: Check Firebase CLI
+        run: firebase --version
 
 
       - name: Set up Firebase credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
+
           
- 
-      - name: Check Firebase CLI
-        run: firebase --version
+      - name: Decode to json file
+        run: |
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 --decode > ./serviceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 --decode > ./functions/serviceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 --decode > ./firebase/serviceAccountKey.json
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+          
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> $GITHUB_ENV
+  
+           
+      - name: Debug GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
+             cat ./serviceAccountKey.json
+             cat $GOOGLE_APPLICATION_CREDENTIALS
 
    
       - name: Cat by base64
@@ -536,35 +539,6 @@ jobs:
         run: |
           cd functions
           npm install
-
-      
-      - name: Deploy to Firebase
-        run: |
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 --decode > ./serviceAccountKey.json
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 --decode > ./functions/serviceAccountKey.json
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT_B64 }}" | base64 --decode > ./firebase/serviceAccountKey.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          
-      
-      # - name: Force Set GOOGLE_APPLICATION_CREDENTIALS
-      #   run: |
-      #     echo "Setting GOOGLE_APPLICATION_CREDENTIALS"
-      #     export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)./serviceAccountKey.json
-      #     echo "GOOGLE_APPLICATION_CREDENTIALS is set to $GOOGLE_APPLICATION_CREDENTIALS"
-
-
-      - name: Set GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> $GITHUB_ENV
-    
-         
-      - name: Debug GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
-             cat ./serviceAccountKey.json
-             cat $GOOGLE_APPLICATION_CREDENTIALS
 
 
       - name: Deploy Command
