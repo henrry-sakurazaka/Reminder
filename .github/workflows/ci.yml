@@ -503,26 +503,19 @@ jobs:
       # - name: Set Environment Variable
       #   run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
        
-
-      - name: Create Service Account Key
-        run: echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > functions/serviceAccountKey.json
-             echo '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
-             
-      
-      - name: Set up Firebase credentials
-        run: |
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> functions/.env
-          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
-          
-  
-      
       - name: Set up Firebase credentials
         run: echo "$FIREBASE_SERVICE_ACCOUNT" > functions/serviceAccountKey.json
-             echo "$FIREBASE_SERVICE_ACCOUNT" > ./serviceAccountKey.json
+             echo "$FIREBASE_SERVICE_ACCOUNT" >> ./serviceAccountKey.json
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
-            
+
+      - name: Set up Firebase credentials
+        run: |
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
+          echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
+          
+       
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
         run: echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=$(pwd)/functions/serviceAccountKey.json" >> $GITHUB_ENV
        
@@ -556,19 +549,17 @@ jobs:
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "VITE_FIREBASE_TOKEN_CI=${{ secrets.VITE_FIREBASE_TOKEN_CI }}" >> .env
-          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
+          echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> ./serviceAccountKey.json
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
        
-          # GOOGLE_APPLICATION_CREDENTIALS: .env
-          # FIREBASE_SERVICE_ACCOUNT: .env
-
 
       - name: Deploy Command
         run: |
           firebase deploy 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-        
+          FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
+
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
