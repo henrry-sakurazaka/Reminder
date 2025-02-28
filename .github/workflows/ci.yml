@@ -572,11 +572,10 @@ jobs:
 
       - name: Deploy Command
         run: |
-          firebase deploy --only functions 
-          firebase deploy --only hosting 
+          firebase deploy 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_SERVICE_ACCOUNT: functions/serviceAccountKey.json
+          FIREBASE_SERVICE_ACCOUNT: ./serviceAccountKey.json
           FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
 
       - name: Log in to Docker Hub
