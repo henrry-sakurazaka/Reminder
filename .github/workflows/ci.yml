@@ -551,13 +551,17 @@ jobs:
           echo "VITE_FIREBASE_TOKEN_CI=${{ secrets.VITE_FIREBASE_TOKEN_CI }}" >> .env
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> ./serviceAccountKey.json
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
+          
        
+      - name: Debug GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS"
+    
 
       - name: Deploy Command
         run: |
           firebase deploy 
         env:
-          GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
           # FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
 
 
