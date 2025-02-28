@@ -549,24 +549,28 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          
+      
+      # - name: Force Set GOOGLE_APPLICATION_CREDENTIALS
+      #   run: |
+      #     echo "Setting GOOGLE_APPLICATION_CREDENTIALS"
+      #     export GOOGLE_APPLICATION_CREDENTIALS=$(pwd)./serviceAccountKey.json
+      #     echo "GOOGLE_APPLICATION_CREDENTIALS is set to $GOOGLE_APPLICATION_CREDENTIALS"
 
-      
-      
-      - name: Force Set GOOGLE_APPLICATION_CREDENTIALS
-        run: |
-          echo "Setting GOOGLE_APPLICATION_CREDENTIALS"
-          export GOOGLE_APPLICATION_CREDENTIALS=$PWD/serviceAccountKey.json
-          echo "GOOGLE_APPLICATION_CREDENTIALS is set to $GOOGLE_APPLICATION_CREDENTIALS"
+
+      - name: Set GOOGLE_APPLICATION_CREDENTIALS
+        run: echo "GOOGLE_APPLICATION_CREDENTIALS=./serviceAccountKey.json" >> $GITHUB_ENV
     
-
+         
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
              cat ./serviceAccountKey.json
              cat $GOOGLE_APPLICATION_CREDENTIALS
 
+
       - name: Deploy Command
         run: |
-          firebase deploy 
+          firebase deploy --debug 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
           # FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
