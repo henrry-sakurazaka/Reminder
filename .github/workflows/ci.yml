@@ -560,20 +560,23 @@ jobs:
 
       
       - name: Deploy to Firebase
-        env:
-          VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_SERVICE_ACCOUNT: functions/serviceAccountKey.json
-          # GOOGLE_APPLICATION_CREDENTIALS: .env
-          # FIREBASE_SERVICE_ACCOUNT: .env
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' > ./serviceAccountKey.json
           echo "VITE_GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.VITE_GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
-          
+       
+          # GOOGLE_APPLICATION_CREDENTIALS: .env
+          # FIREBASE_SERVICE_ACCOUNT: .env
+
+      - name: Deploy Command
+        run: |
           firebase deploy --only functions 
           firebase deploy --only hosting 
-      
+        env:
+        VITE_GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+        FIREBASE_SERVICE_ACCOUNT: functions/serviceAccountKey.json
+        VITE_FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN }}
 
       - name: Log in to Docker Hub
         if: github.event_name == 'push'
