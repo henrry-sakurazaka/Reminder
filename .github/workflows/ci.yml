@@ -558,7 +558,7 @@ jobs:
           firebase deploy 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
+          # FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
 
 
       - name: Log in to Docker Hub
