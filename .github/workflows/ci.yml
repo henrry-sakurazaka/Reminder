@@ -553,7 +553,22 @@ jobs:
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> ./serviceAccountKey.json
           echo 'FIREBASE_SERVICE_ACCOUNT=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}' >> firebase/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
-
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          
+      
+      - name: Set up Firebase credentials
+        run: |
+          echo "Before writing files"
+          ls -la
+          echo "$FIREBASE_SERVICE_ACCOUNT" > ./serviceAccountKey.json
+          echo "$FIREBASE_SERVICE_ACCOUNT" > firebase/serviceAccountKey.json
+          echo "$FIREBASE_SERVICE_ACCOUNT" > functions/serviceAccountKey.json
+          echo "After writing files"
+          ls -la
+        env:
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+    
 
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
