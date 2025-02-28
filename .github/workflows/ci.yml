@@ -504,9 +504,10 @@ jobs:
       #   run: echo "FIREBASE_SERVICE_ACCOUNT=$(base64 -w 0 functions/serviceAccountKey.json)" >> $GITHUB_ENV
        
       - name: Set up Firebase credentials
-        run: echo "$FIREBASE_SERVICE_ACCOUNT" > functions/serviceAccountKey.json
-             echo "$FIREBASE_SERVICE_ACCOUNT" >> ./serviceAccountKey.json
-             echo "$FIREBASE_SERVICE_ACCOUNT" >> firebase/serviceAccountKey.json
+        run: |
+          echo "$FIREBASE_SERVICE_ACCOUNT" >> ./serviceAccountKey.json
+          echo "$FIREBASE_SERVICE_ACCOUNT" >> functions/serviceAccountKey.json
+          echo "$FIREBASE_SERVICE_ACCOUNT" >> firebase/serviceAccountKey.json
         env:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
@@ -524,10 +525,6 @@ jobs:
       - name: Check Firebase CLI
         run: firebase --version
 
-      
-      - name: Debug GOOGLE_APPLICATION_CREDENTIALS
-        run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
-      
    
       - name: Cat by base64
         run: |
@@ -557,18 +554,6 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
       
-      - name: Set up Firebase credentials
-        run: |
-          echo "Before writing files"
-          ls -la
-          echo "$FIREBASE_SERVICE_ACCOUNT" > ./serviceAccountKey.json
-          echo "$FIREBASE_SERVICE_ACCOUNT" > firebase/serviceAccountKey.json
-          echo "$FIREBASE_SERVICE_ACCOUNT" > functions/serviceAccountKey.json
-          echo "After writing files"
-          ls -la
-        env:
-          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-    
       
       - name: Force Set GOOGLE_APPLICATION_CREDENTIALS
         run: |
