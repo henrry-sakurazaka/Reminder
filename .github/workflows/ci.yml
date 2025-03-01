@@ -504,22 +504,17 @@ jobs:
 
           
       - name: Decode to json file
+
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT2 }}" | jq '.' >> ./serviceAccountKey.json
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT2 }}" | jq '.' >> ./functions/serviceAccountKey.json
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT2 }}" | jq '.' >> ./firebase/serviceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee > ./serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee > ./functions/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee > ./firebase/serviceAccountKey.json > /dev/null
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
-        # run: |
-        #   echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
-        #   echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-        #   echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT3 }}" | base64 --decode | sudo tee > ./serviceAccountKey.json > /dev/null
-        #   echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT3 }}" | base64 --decode | sudo tee > ./functions/serviceAccountKey.json > /dev/null
-        #   echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT3 }}" | base64 --decode | sudo tee > ./firebase/serviceAccountKey.json > /dev/null
-        #   echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
+          
         env:
-          FIREBASE_SERVICE_ACCOUNT3: ${{ secrets.FIREBASE_SERVICE_ACCOUNT3 }}
+          FIREBASE_SERVICE_ACCOUNT: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
           
       - name: Set GOOGLE_APPLICATION_CREDENTIALS
