@@ -22,7 +22,4 @@ bfg-repo-cleaner/
 .cloudflared/config.yml
 config.ymlTAB
 
-
-
-
-.env
+serviceAccountKey_singleline.json
