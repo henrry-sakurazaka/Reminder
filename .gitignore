@@ -11,10 +11,14 @@ build/firebase.js
 build/firebase.js
 build/config.js
 functions/serviceAccoutnKey.json
+functions/serviceAccoutnKey2.json
 firebaseInit.js
 function/.env
 .env
 serviceAccountKey.json
+serviceAccountKey2.json
+firebase/serviceAccountKey.json
+firebase/serviceAccountKey2.json
 function/serviceAccountKey.json
 bfg-repo-cleaner/
 .cloudflared/cert.pem
