@@ -545,11 +545,6 @@ jobs:
           cd functions
           npm install
 
-      - name: Firebase CI Login
-        run: firebase use --add
-        env:
-          FIREBASE_CI_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
-      
 
       - name: Deploy Command
         run: |
