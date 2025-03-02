@@ -1,4 +1,14 @@
 {
-  "indexes": [],
-  "fieldOverrides": []
-}
+    "indexes": [
+      {
+        "collectionGroup": "tasks",
+        "queryScope": "COLLECTION",
+        "fields": [
+          { "fieldPath": "createdAt", "mode": "ASCENDING" },
+          { "fieldPath": "status", "mode": "ASCENDING" }
+        ]
+      }
+    ],
+    "fieldOverrides": []
+  }
+  
