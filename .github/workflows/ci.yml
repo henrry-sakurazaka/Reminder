@@ -551,7 +551,7 @@ jobs:
           firebase deploy --debug 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
-          # FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
+          FIREBASE_TOKEN: ${{ secrets.VITE_FIREBASE_TOKEN_CI }}
 
 
       - name: Log in to Docker Hub
