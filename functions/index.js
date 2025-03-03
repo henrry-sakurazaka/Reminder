@@ -50,7 +50,7 @@ admin.initializeApp({
 });
 
 const app = express();
-const PORT = process.env.PORT || 8080;
+const PORT = process.env.PORT || 0;
 
 // CORSのミドルウェアを設定
 const corsOptions = {
