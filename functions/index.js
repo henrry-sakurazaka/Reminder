@@ -136,7 +136,6 @@ app.get("/", (req, res) => {
 // Cloud Functions v2（Cloud Run ベース）
 // region の指定を削除
 exports.api = functions
-  .runWith({ timeoutSeconds: 60, memory: "256MB" })
   .https.onRequest(app);
 
 // ローカル実行時
