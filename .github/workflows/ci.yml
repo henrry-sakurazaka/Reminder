@@ -511,7 +511,6 @@ jobs:
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./functions/.env > /dev/null
 
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> ./functions/.env
