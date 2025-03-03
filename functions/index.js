@@ -24,6 +24,8 @@ const { environments } = require('eslint-plugin-prettier');
 // var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS); 
 // var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
+
+
 let serviceAccount;
 
 if (process.env.FIREBASE_SERVICE_ACCOUNT) {
@@ -130,7 +132,7 @@ app.post('/handleEasyLogin', (req, res) => {
       });
 });
 
-
+app.listen(8080, () => console.log('Server running...'));
 
 // app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 // const { idToken, deviceToken } = req.body;
