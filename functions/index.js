@@ -135,15 +135,16 @@ app.get("/", (req, res) => {
 
 // Cloud Functions v2（Cloud Run ベース）
 // region の指定を削除
-exports.api = functions
-  .https.onRequest(app);
+
 
 // ローカル実行時
-if (!process.env.FUNCTION_TARGET) {
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
-}
+
+// Firebase Functionsとしてエクスポート
+exports.api = functions.https.onRequest(app);
+
 
 // app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 // const { idToken, deviceToken } = req.body;
@@ -432,8 +433,5 @@ if (!process.env.FUNCTION_TARGET) {
 //         });
 // });
 
-
-// Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
 
 
