@@ -121,8 +121,8 @@ jobs:
   #         echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
           
-      # - name: Create Service Account Key
-      #   run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
+  #     - name: Create Service Account Key
+  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
       
      
   #     - name: Copy Service Account Key to Functions
@@ -256,16 +256,6 @@ jobs:
   #     - name: Start cloudflared
   #       run: |
   #         docker-compose up -d cloudflared
-
-
-  #     # - name: Wait for containers to be fully started
-  #     #   run: |
-  #     #     sleep 10  
-
-
-  #     # - name: Restart cloudflared
-  #     #   run: |
-  #     #     docker restart cloudflared
 
 
   #     - name: Connect app2 to the network
@@ -471,6 +461,36 @@ jobs:
   #       if: failure()
   #       run: cat playwright-report/output.log
 
+
+  #     - name: Set up Docker Buildx
+  #       uses: docker/setup-buildx-action@v3
+
+
+  #     - name: Cache Docker layers
+  #       uses: actions/cache@v3
+  #       with:
+  #         path: /tmp/.buildx-cache
+  #         key: ${{ runner.os }}-buildx-${{ github.sha }}
+  #         restore-keys: |
+  #           ${{ runner.os }}-buildx-
+
+
+  #     - name: Build and load Docker images
+  #       run: |
+  #         docker buildx create --use
+  #         docker buildx build --tag reminder-app2 --cache-to type=local,dest=/tmp/.buildx-cache --cache-from type=local,src=/tmp/.buildx-cache .
+  #         docker buildx build --tag reminder-firebase --cache-to type=local,dest=/tmp/.buildx-cache --cache-from type=local,src=/tmp/.buildx-cache .
+  #         docker buildx build --tag cloudflare/cloudflared --cache-to type=local,dest=/tmp/.buildx-cache --cache-from type=local,src=/tmp/.buildx-cache .
+
+        # - name: Ensure Firebase Emulator is stopped
+        #   run: |
+        #     pids=$(lsof -ti:5001,8080,9099,9199,8174) # エミュレーターのポートをチェック
+        #     if [ -n "$pids" ]; then
+        #       echo "Stopping Firebase Emulator processes..."
+        #       kill -9 $pids
+        #     fi
+
+
   #     - name: Teardown
   #       run: docker-compose down
 
@@ -552,6 +572,27 @@ jobs:
           firebase deploy --debug 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+
+
+
+
+  Deploy To Docker Hub:
+    runs-on: ubuntu-latest
+    needs:
+      - lint
+      - E2E-tests
+      - deploy
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Load cached Docker images
+        uses: actions/cache@v3
+        with:
+          path: /tmp/.buildx-cache
+          key: ${{ runner.os }}-buildx-${{ github.sha }}
+          restore-keys: |
+            ${{ runner.os }}-buildx-
 
 
       - name: Log in to Docker Hub

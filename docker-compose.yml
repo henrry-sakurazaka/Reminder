@@ -53,7 +53,7 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/firebase/serviceAccountKey.json"
     ports:
-      - "8080:8080"
+      - "7000:7000"
       - "5001:5001"
       - "5000:5000"
       - "8090:8090"
