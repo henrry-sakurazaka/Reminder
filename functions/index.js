@@ -128,6 +128,7 @@ app.post('/handleEasyLogin', (req, res) => {
       });
 });
 
+
 app.get("/", (req, res) => {
   res.send("Hello World!");
 });
@@ -431,12 +432,6 @@ exports.getTodoList = functions.https.onRequest((req, res) => {
 //         });
 // });
 
-
-// Hello World 関数
-exports.helloWorld = onRequest((request, response) => {
-    logger.info("Hello logs!", {structuredData: true});
-    response.send("Hello from Firebase!");
-});
 
 // Firebase Functionsとしてエクスポート
 exports.api = functions.https.onRequest(app);
