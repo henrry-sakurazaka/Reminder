@@ -20,28 +20,28 @@ dotenv.config();
 // }
 
 //For local environment
-// var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS); 
+var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS); 
 // var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT); 
 
-let serviceAccount;
+// let serviceAccount;
 
-if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-  try {
-    // JSON形式ならオブジェクトにパース
-    serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-  } catch (error) {
-    // JSONでない場合はファイルパスとみなして require() する
-    serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-  }
-} else {
-  // 環境変数が未定義ならデフォルトのパスを使用
-  const defaultPath = path.join(__dirname, "serviceAccountKey.json");
-  if (fs.existsSync(defaultPath)) {
-    serviceAccount = require(defaultPath);
-  } else {
-    throw new Error("Service account credentials not found.");
-  }
-}
+// if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+//   try {
+//     // JSON形式ならオブジェクトにパース
+//     serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+//   } catch (error) {
+//     // JSONでない場合はファイルパスとみなして require() する
+//     serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+//   }
+// } else {
+//   // 環境変数が未定義ならデフォルトのパスを使用
+//   const defaultPath = path.join(__dirname, "serviceAccountKey.json");
+//   if (fs.existsSync(defaultPath)) {
+//     serviceAccount = require(defaultPath);
+//   } else {
+//     throw new Error("Service account credentials not found.");
+//   }
+// }
 console.log("=== DEBUG INFO ===");
 console.log("Current Directory:", __dirname);
 console.log("Env FIREBASE_SERVICE_ACCOUNT:", process.env.FIREBASE_SERVICE_ACCOUNT ? "Set" : "Not Set");
