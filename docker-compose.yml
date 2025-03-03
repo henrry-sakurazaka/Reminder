@@ -53,13 +53,12 @@ services:
     environment:
       GOOGLE_APPLICATION_CREDENTIALS: "/firebase/serviceAccountKey.json"
     ports:
-      - "7000:7000"
       - "5001:5001"
       - "5000:5000"
-      - "8090:8090"
+      - "5020:5020"
+      - "9099:9099"
+      - "7000:7000"
       - "9199:9199"
-      - "8091:8091"
-      - "8085:8085"
     entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
     command: firebase emulators:start --only firestore,functions,auth,storage
     volumes:

@@ -567,12 +567,11 @@ jobs:
           npm install
 
 
-      - name: Deploy Command
+      - name: Deploy To Firebase
         run: |
           firebase deploy --debug 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
-
 
 
 
