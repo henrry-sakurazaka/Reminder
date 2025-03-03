@@ -10,8 +10,6 @@ const fs = require("fs");
 const cors = require('cors');
 const dotenv = require("dotenv");
 const { environments } = require('eslint-plugin-prettier');
-const PORT = 8080;
-
 
 dotenv.config();
 
@@ -52,7 +50,7 @@ admin.initializeApp({
 });
 
 const app = express();
-
+const PORT = process.env.PORT || 8080;
 
 // CORSのミドルウェアを設定
 const corsOptions = {
@@ -90,6 +88,34 @@ app.get('/', (req, res) => {
 res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
 
+  
+app.post('/handleEasyLogin', (req, res) => {
+  const { email, password } = req.body;
+
+  admin.auth().signInWithEmailAndPassword(email, password)
+      .then(userCredential => {
+          const idToken = userCredential.user.getIdToken();
+          res.status(200).send({ idToken: idToken });
+      })
+      .catch(error => {
+          res.status(400).send({ message: 'Failed to login', error: error.message });
+      });
+});
+
+
+  app.get("/", (req, res) => {
+    res.send("Hello World!");
+  });
+
+  // ローカル実行時
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+
+// Firebase Functionsとしてエクスポート
+exports.api = functions.https.onRequest(app);
+
+
 // // トークンを返すエンドポイントを追加
 // app.get('/get-token', cors(corsOptions), async (req, res) => {
 
@@ -112,38 +138,6 @@ res.sendFile(path.join(__dirname, 'build', 'index.html'));
 //       res.status(500).send(`Error fetching token: ${error.message}`);
 //     }
 //   });
-
-  
-  
-app.post('/handleEasyLogin', (req, res) => {
-  const { email, password } = req.body;
-
-  admin.auth().signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-          const idToken = userCredential.user.getIdToken();
-          res.status(200).send({ idToken: idToken });
-      })
-      .catch(error => {
-          res.status(400).send({ message: 'Failed to login', error: error.message });
-      });
-});
-
-
-app.get("/", (req, res) => {
-  res.send("Hello World!");
-});
-
-// Cloud Functions v2（Cloud Run ベース）
-// region の指定を削除
-
-
-// ローカル実行時
-  app.listen(PORT, () => {
-    console.log(`Server is running on port ${PORT}`);
-  });
-
-// Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
 
 
 // app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
