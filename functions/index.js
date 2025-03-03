@@ -10,10 +10,10 @@ const fs = require("fs");
 const cors = require('cors');
 const dotenv = require("dotenv");
 const { environments } = require('eslint-plugin-prettier');
+const PORT = 8080;
 
 
-
-  dotenv.config();
+dotenv.config();
 
 // if (process.env.CI !== 'true') {
 //   dotenv.config();
@@ -132,7 +132,24 @@ app.post('/handleEasyLogin', (req, res) => {
       });
 });
 
-app.listen(8080, () => console.log('Server running...'));
+app.get("/", (req, res) => {
+  res.send("Hello World!");
+});
+
+// Cloud Functions v2（Cloud Run ベース）
+exports.api = functions
+  .region("us-central1")
+  .runWith({ timeoutSeconds: 60, memory: "256MB" })
+  .https.onRequest(app);
+
+// ローカル実行時
+if (!process.env.FUNCTION_TARGET) {
+  app.listen(PORT, () => {
+    console.log(`Server is running on port ${PORT}`);
+  });
+}
+
+
 
 // app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 // const { idToken, deviceToken } = req.body;
