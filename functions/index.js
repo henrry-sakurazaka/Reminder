@@ -137,8 +137,8 @@ app.get("/", (req, res) => {
 });
 
 // Cloud Functions v2（Cloud Run ベース）
+// region の指定を削除
 exports.api = functions
-  .region("us-central1")
   .runWith({ timeoutSeconds: 60, memory: "256MB" })
   .https.onRequest(app);
 
@@ -148,8 +148,6 @@ if (!process.env.FUNCTION_TARGET) {
     console.log(`Server is running on port ${PORT}`);
   });
 }
-
-
 
 // app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 // const { idToken, deviceToken } = req.body;
