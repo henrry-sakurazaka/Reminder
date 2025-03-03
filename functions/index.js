@@ -44,7 +44,6 @@ var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 // }
 console.log("=== DEBUG INFO ===");
 console.log("Current Directory:", __dirname);
-console.log("Env FIREBASE_SERVICE_ACCOUNT:", process.env.FIREBASE_SERVICE_ACCOUNT ? "Set" : "Not Set");
 
                             
 admin.initializeApp({
