@@ -1,14 +1,33 @@
 {
-    "indexes": [
-      {
-        "collectionGroup": "tasks",
-        "queryScope": "COLLECTION",
-        "fields": [
-          { "fieldPath": "createdAt", "mode": "ASCENDING" },
-          { "fieldPath": "status", "mode": "ASCENDING" }
-        ]
-      }
-    ],
-    "fieldOverrides": []
-  }
-  
+  "indexes": [
+    {
+      "collectionGroup": "notifications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "notifications",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "notifications",
+          "order": "ASCENDING"
+        }
+      ]
+    },
+    {
+      "collectionGroup": "notifications",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "notificationTime",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "notificationTime",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ],
+  "fieldOverrides": []
+}
