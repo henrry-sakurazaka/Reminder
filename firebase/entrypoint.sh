@@ -24,4 +24,4 @@ sleep 10
 
 # firebase use --token "$VITE_FIREBASE_TOKEN"
 # Firebaseエミュレーターを起動する
-firebase emulators:start --only firestore,functions,firestore,auth,storage
+firebase emulators:start --only firestore,functionsディレk,auth,storage

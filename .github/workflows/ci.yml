@@ -79,6 +79,7 @@ jobs:
   #     - name: Create .env file and keys
   #       run: |
   #         echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
+  #         echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
   #         echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
   #         echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
   #         echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
