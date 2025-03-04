@@ -556,6 +556,14 @@ jobs:
              cat $GOOGLE_APPLICATION_CREDENTIALS
              file ./serviceAccountKey.json
 
+        
+      - name: Use production firebase.json
+        run: cp firebase.prod.json firebase.json
+
+            
+      - name: Check firebase.json
+        run: cat firebase.json
+
 
       - name: Install dependencies
         run: |
@@ -566,14 +574,6 @@ jobs:
         run: |
           cd functions
           npm install
-
-
-      - name: Use production firebase.json
-        run: cp firebase.prod.json firebase.json
-
-            
-      - name: Check firebase.json
-        run: cat firebase.json
             
 
       - name: Deploy To Firebase
