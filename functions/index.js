@@ -50,7 +50,9 @@ admin.initializeApp({
 });
 
 const app = express();
-const PORT = process.env.PORT || 6000;
+const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
+const PORT = isEmulator ? 6000 : process.env.PORT || 8080; 
+
 
 // CORSのミドルウェアを設定
 const corsOptions = {
@@ -100,8 +102,16 @@ app.post('/handleEasyLogin', (req, res) => {
       .catch(error => {
           res.status(400).send({ message: 'Failed to login', error: error.message });
       });
-});
+  });
 
+ 
+  if (isEmulator) {
+    console.log("Running in emulator mode");
+    process.env.FIRESTORE_EMULATOR_HOST;
+  } else {
+    console.log("Running in production mode");
+    // 本番デプロイではエミュレーターを起動しない
+  }
 
   app.get("/", (req, res) => {
     res.send("Hello World!");
@@ -112,8 +122,8 @@ app.post('/handleEasyLogin', (req, res) => {
     console.log(`Server is running on port ${PORT}`);
   });
 
-// Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
+  // Firebase Functionsとしてエクスポート
+  exports.api = functions.https.onRequest(app);
 
 
 // // トークンを返すエンドポイントを追加
