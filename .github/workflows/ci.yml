@@ -570,7 +570,11 @@ jobs:
 
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
-             cat firebase.json
+
+            
+      - name: Check firebase.json
+        run: cat firebase.json
+            
 
       - name: Deploy To Firebase
         run: |
