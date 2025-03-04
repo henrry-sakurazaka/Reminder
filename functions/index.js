@@ -51,7 +51,7 @@ admin.initializeApp({
 
 const app = express();
 const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
-const PORT = isEmulator ? 6000 : process.env.PORT || 8080; 
+const PORT = isEmulator ? 6000 : process.env.PORT || 6080; 
 
 
 // CORSのミドルウェアを設定
@@ -111,6 +111,8 @@ app.post('/handleEasyLogin', (req, res) => {
   } else {
     console.log("Running in production mode");
     // 本番デプロイではエミュレーターを起動しない
+    console.log("PORT:", process.env.PORT);
+
   }
 
   app.get("/", (req, res) => {
