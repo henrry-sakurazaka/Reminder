@@ -52,7 +52,7 @@ admin.initializeApp({
 const app = express();
 const app2 = express();
 const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
-const PORT = 8080;
+const PORT = 4300;
 const PORT2 = 6080;
 // const PORT = 8080;
 // const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
@@ -123,7 +123,7 @@ app.post('/handleEasyLogin', (req, res) => {
     res.send("Hello World!");
   });
 
-  // ローカル実行時
+  
   app.listen(PORT, () => {
     console.log(`Server is running on port ${PORT}`);
   });
