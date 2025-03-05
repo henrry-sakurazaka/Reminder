@@ -557,6 +557,10 @@ jobs:
              cat $GOOGLE_APPLICATION_CREDENTIALS
              file ./serviceAccountKey.json
 
+
+      - name: Set Firebase Config (Port)
+        run: firebase functions:config:set server.port=6080
+
         
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
@@ -571,12 +575,16 @@ jobs:
           npm install
 
 
-      - name: Install dependencies functons
+      - name: Install functons dependencies 
         run: |
           cd functions
           npm install
-            
 
+
+      - name: Check github workflows
+        run: grep -r "firebase emulators:start" .github/workflows/
+
+            
       - name: Deploy To Firebase
         run: |
           firebase deploy --debug 
