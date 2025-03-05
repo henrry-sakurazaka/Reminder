@@ -568,6 +568,10 @@ jobs:
         run: cat firebase.json
 
 
+      - name: Stop Emulators
+        run: firebase emulators:stop
+
+
       - name: Install dependencies
         run: |
           npm install
