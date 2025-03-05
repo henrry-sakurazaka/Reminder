@@ -50,8 +50,10 @@ admin.initializeApp({
 });
 
 const app = express();
+const app2 = express();
 const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
 const PORT = 8080;
+const PORT2 = 6080;
 // const PORT = 8080;
 // const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
 
@@ -73,6 +75,7 @@ const corsOptions = {
 // Express app に CORS ミドルウェアを適用
 
 app.use(express.json());
+app2.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
@@ -125,8 +128,13 @@ app.post('/handleEasyLogin', (req, res) => {
     console.log(`Server is running on port ${PORT}`);
   });
 
+  app2.listen(PORT2, () => {
+    console.log(`Server is running on port ${PORT2}`);
+  });
+
   // Firebase Functionsとしてエクスポート
   exports.api = functions.https.onRequest(app);
+  exports.api = functions.https.onRequest(app2);
 
 
 // // トークンを返すエンドポイントを追加
