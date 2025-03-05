@@ -523,7 +523,39 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
 
-          
+      - name: Create .env file and keys
+        run: |
+          echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
+          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
+          echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
+          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
+          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
+          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY}}" >> .env
+          echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.VITE_REACT_APP_FIREBASE_APP_ID }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_DATABASE_URL=${{ secrets.VITE_REACT_APP_FIREBASE_DATABASE_URL }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_PROJECT_ID=${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_MEASUREMENT_ID=${{ secrets.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID }}" >> .env
+          echo "VITE_REACT_APP_FIREBASE_STORAGE_BUCKET=${{ secrets.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET }}" >> .env
+          echo "VITE_REACT_APP_TEST_EMAIL=${{ secrets.VITE_REACT_APP_TEST_EMAIL }}" >> .env
+          echo "VITE_REACT_APP_TEST2_EMAIL=${{ secrets.VITE_REACT_APP_TEST2_EMAIL }}" >> .env
+          echo "VITE_REACT_APP_TEST_PASSWORD=${{ secrets.VITE_REACT_APP_TEST_PASSWORD }}" >> .env
+          echo "VITE_REACT_APP_TES2_PASSWORD=${{ secrets.VITE_REACT_APP_TEST2_PASSWORD }}" >> .env
+          echo "VITE_NODE_ENV=${{ secrets.VITE_NODE_ENV }}" >> .env
+          echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
+          echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
+          echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
+          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
+          echo "HOST=${{ secrets.HOST }}" >> .env
+          echo "PORT=${{ secrets.PORT }}" >> .env
+
+  
       - name: Decode to json file
 
         run: |
@@ -589,7 +621,7 @@ jobs:
             
       - name: Deploy To Firebase
         run: |
-          firebase deploy --only hosting --force
+          firebase deploy 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
