@@ -571,11 +571,6 @@ jobs:
       - name: Install dependencies
         run: |
           npm install
-          
-
-      - name: Timeout update
-        run: gcloud run services update api --timeout 300s
-
 
 
       - name: Install functons dependencies 
