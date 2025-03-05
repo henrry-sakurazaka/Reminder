@@ -577,6 +577,10 @@ jobs:
         run: |
           cd functions
           npm install
+          
+
+      - name: Build the project
+        run: npm run build
 
 
       - name: Check github workflows
