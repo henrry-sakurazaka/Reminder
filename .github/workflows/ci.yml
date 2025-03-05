@@ -532,8 +532,6 @@ jobs:
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
-          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
-          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> ./functions/.env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> ./functions/.env
 
