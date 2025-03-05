@@ -108,7 +108,6 @@ app.post('/handleEasyLogin', (req, res) => {
  
   if (isEmulator) {
     console.log("Running in emulator mode");
-    process.env.FIREBASE_EMULATOR_HOST;
   } else {
     console.log("Running in production mode");
     // 本番デプロイではエミュレーターを起動しない
