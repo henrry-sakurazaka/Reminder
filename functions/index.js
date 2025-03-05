@@ -51,7 +51,8 @@ admin.initializeApp({
 
 const app = express();
 const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
-const PORT = 8080;
+const PORT = process.env.PORT || 8080;
+// const PORT = 8080;
 // const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
 
 
