@@ -577,7 +577,7 @@ jobs:
         run: |
           cd functions
           npm install
-          
+
 
       - name: Build the project
         run: npm run build
@@ -589,7 +589,7 @@ jobs:
             
       - name: Deploy To Firebase
         run: |
-          firebase deploy --debug 
+          firebase deploy --only hosting --force
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
