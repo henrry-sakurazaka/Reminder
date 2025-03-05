@@ -569,7 +569,7 @@ jobs:
 
 
       - name: Stop Emulators
-        run: firebase emulators:stop
+        run: pkill -f "firebase emulators:start"
 
 
       - name: Install dependencies
