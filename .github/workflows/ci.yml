@@ -610,7 +610,11 @@ jobs:
           cd functions
           npm install
 
-         
+
+      - name: Configure Docker to use gcloud
+        run: gcloud auth configure-docker gcr.io
+
+
       - name: Build Docker image for app2
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA .
@@ -624,7 +628,7 @@ jobs:
             --region us-central1 \
             --platform managed \
             --allow-unauthenticated \
-            --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.FIREBASE_PROJECT_ID }}"}'
+            --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}"}'
 
 
       - name: Deploy To Firebase
