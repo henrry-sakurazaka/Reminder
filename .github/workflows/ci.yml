@@ -554,6 +554,7 @@ jobs:
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> .env
 
   
       - name: Decode to json file
@@ -597,8 +598,20 @@ jobs:
         run: cp firebase.prod.json firebase.json
 
             
-      - name: Check firebase.json
-        run: cat firebase.json
+      - name: Copy to vite.congig
+        run: cp deploy.js vite.config.mjs
+
+
+      - name: Copy to Docker-compose
+        run: cp deploy.yml docker-compose.yml
+
+            
+      - name: Check file
+        run: cat docker-comopose.yml
+
+        
+      - name: Check file
+        run: cat vite.config.mjs
 
 
       - name: Install dependencies

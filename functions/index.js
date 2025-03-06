@@ -53,7 +53,7 @@ const app = express();
 const app2 = express();
 const isEmulator = process.env.FUNCTIONS_EMULATOR === "true";
 const PORT = 4300;
-const PORT2 = 8080;
+const PORT2 = 6080;
 // const PORT = 8080;
 // const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
 
