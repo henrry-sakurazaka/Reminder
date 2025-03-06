@@ -615,6 +615,10 @@ jobs:
         run: gcloud auth configure-docker gcr.io
 
 
+      - name: Configure Docker to use gcloud2
+        run: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+
+
       - name: Build Docker image for app2
         run: |
           docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA .
