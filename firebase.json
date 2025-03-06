@@ -65,11 +65,10 @@
     ],
     "cleanUrls": true
   },
-  
+
   "functions": {
     "source": "functions", 
     "runtime": "nodejs20",  
-    "serviceAccount": "reminder3-65e84@appspot.gserviceaccount.com",
     "ignore": [
       "node_modules/**"  
     ],
