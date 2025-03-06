@@ -7,7 +7,8 @@
     "e": "reminder3-65e84",
     "deployment": "reminder3-65e84",
     "production": "reminder3-65e84",
-    "produdtion": "reminder5-f1b91"
+    "produdtion": "reminder5-f1b91",
+    "deploy": "reminder3-65e84"
   },
   "targets": {
     "reminder3-65e84": {
