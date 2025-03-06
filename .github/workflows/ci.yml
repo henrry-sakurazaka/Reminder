@@ -600,6 +600,11 @@ jobs:
         run: cat firebase.json
 
 
+      - name: Install firebase-functions
+        run: |
+          npm install firebase-functions@latest
+
+
       - name: Install dependencies
         run: |
           npm install
@@ -609,11 +614,6 @@ jobs:
         run: |
           cd functions
           npm install
-
-
-      - name: Install firebase-functions
-        run: |
-          npm install firebase-functions@latest
 
          
       - name: Build the project
