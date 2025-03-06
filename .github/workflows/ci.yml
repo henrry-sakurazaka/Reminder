@@ -598,6 +598,10 @@ jobs:
         run: cp firebase.prod.json firebase.json
 
             
+      - name: Copy to Dockerfile
+        run: cp Deployfile Dockerfile
+
+
       - name: Copy to vite.congig
         run: cp deploy.js vite.config.mjs
 
