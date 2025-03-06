@@ -607,9 +607,9 @@ jobs:
 
             
       - name: Check file
-        run: cat docker-comopose.yml
+        run: cat docker-compose.yml
 
-        
+
       - name: Check file
         run: cat vite.config.mjs
 
