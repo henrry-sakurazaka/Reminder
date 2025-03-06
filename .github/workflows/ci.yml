@@ -670,9 +670,17 @@ jobs:
             --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}"}'
 
 
-      - name: Deploy To Firebase
+      - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions, hosting --debug
+          firebase deploy --only functions --debug
+
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+
+
+      - name: Deploy To Firebase hosting
+        run: |
+          firebase deploy --only hosting --debug
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
