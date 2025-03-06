@@ -132,7 +132,7 @@ app.post('/handleEasyLogin', (req, res) => {
     console.log(`Server is running on port ${PORT2}`);
   });
 
-  // Firebase Functionsとしてエクスポート。リージョンを指定しないとCloud Runで動作することになるのを避ける為
+  // Firebase Functionsとしてエクスポート
   exports.api = functions.https.onRequest(app);
   exports.api = functions.https.onRequest(app2);
 
