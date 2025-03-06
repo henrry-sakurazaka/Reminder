@@ -672,7 +672,7 @@ jobs:
 
       - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions --debug
+          firebase deploy --only functions --project reminder3-65e84 
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
@@ -680,7 +680,7 @@ jobs:
 
       - name: Deploy To Firebase hosting
         run: |
-          firebase deploy --only hosting --debug
+          firebase deploy --only hosting --project reminder3-65e84 
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
