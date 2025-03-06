@@ -133,8 +133,8 @@ app.post('/handleEasyLogin', (req, res) => {
   });
 
   // Firebase Functionsとしてエクスポート。リージョンを指定しないとCloud Runで動作することになるのを避ける為
-  exports.api = functions.region('us-central1').https.onRequest(app);
-  exports.api = functions.region('us-central1').https.onRequest(app2);
+  exports.api = functions.https.onRequest(app);
+  exports.api = functions.https.onRequest(app2);
 
 
 // // トークンを返すエンドポイントを追加
