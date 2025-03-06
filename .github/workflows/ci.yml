@@ -611,11 +611,7 @@ jobs:
 
             
       - name: Check file
-        run: cat docker-compose.yml
-
-
-      - name: Check file
-        run: cat vite.config.mjs
+        run: cat Dockerfile
 
 
       - name: Install dependencies
@@ -676,7 +672,7 @@ jobs:
 
       - name: Deploy To Firebase
         run: |
-          firebase deploy 
+          firebase deploy --only functions, hosting
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
