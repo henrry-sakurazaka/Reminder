@@ -619,19 +619,12 @@ jobs:
         run: grep -r "firebase emulators:start" .github/workflows/
 
 
-      - name: Deploy to Cloud Run
+      - name: Deploy To Firebase
         run: |
-          gcloud run deploy api \
-            --set-env-vars=FIREBASE_CONFIG='{"projectId":"reminder3-65e84"}' \
-            --region=us-central1 \
-            --allow-unauthenticated
-    
-            
-      # - name: Deploy To Firebase
-      #   run: |
-      #     firebase deploy 
-      #   env:
-      #     GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+          firebase deploy --only hosting,functions
+
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
 
 
