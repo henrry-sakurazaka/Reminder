@@ -611,12 +611,31 @@ jobs:
           npm install
 
 
-      - name: Configure Docker to use gcloud
-        run: gcloud auth configure-docker gcr.io
+      - name: Google Cloud SDK のセットアップ
+        uses: google-github-actions/setup-gcloud@v1
+        with:
+          project_id: ${{ secrets.GCP_PROJECT_ID }}
+          service_account_key: ${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}
+          export_default_credentials: true
 
 
-      - name: Configure Docker to use gcloud2
-        run: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+      - name: gcloud auth
+        run: |
+          echo "${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > /tmp/gcp-key.json
+          gcloud auth activate-service-account --key-file=/tmp/gcp-key.json
+          gcloud auth configure-docker gcr.io
+
+
+      - name: Login to Docker
+        run: |
+          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
+
+      # - name: Configure Docker to use gcloud
+      #   run: gcloud auth configure-docker gcr.io
+
+
+      # - name: Configure Docker to use gcloud2
+      #   run: gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
 
       - name: Build Docker image for app2
