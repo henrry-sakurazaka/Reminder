@@ -611,17 +611,25 @@ jobs:
           npm install
 
          
-      - name: Build the project
-        run: npm run build
+      - name: Build Docker image for app2
+        run: |
+          docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA .
+          docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA
 
-
-      - name: Check github workflows
-        run: grep -r "firebase emulators:start" .github/workflows/
+        
+      - name: Deploy to Cloud Run
+        run: |
+          gcloud run deploy app2 \
+            --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA \
+            --region us-central1 \
+            --platform managed \
+            --allow-unauthenticated \
+            --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.FIREBASE_PROJECT_ID }}"}'
 
 
       - name: Deploy To Firebase
         run: |
-          firebase deploy --only hosting,functions
+          firebase deploy 
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
