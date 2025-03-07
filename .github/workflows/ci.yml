@@ -652,9 +652,9 @@ jobs:
       # Docker イメージをビルド＆プッシュ
       - name: Build and push Docker image
         run: |
-          docker buildx build --push -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3--65e84__us--central1__api:version_1 .
+          docker buildx build --push -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3-65e84/api3:version_1 .
 
-
+          
       - name: Configure Docker to use gcloud
         run: gcloud auth configure-docker gcr.io
 

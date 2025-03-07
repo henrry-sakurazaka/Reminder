@@ -133,7 +133,7 @@ app.post('/handleEasyLogin', (req, res) => {
   });
 
   // Firebase Functionsとしてエクスポート
-  exports.api = functions.https.onRequest(app);
+  exports.api3 = functions.https.onRequest(app);
   exports.api2 = functions.https.onRequest(app2);
 
 

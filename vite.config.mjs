@@ -71,7 +71,6 @@ export default defineConfig({
       '0.0.0.0', 
       'offsetcodecraft.site',
       '172.18.0.4',
-      "app2-280162142902.us-central1.run.app",
     ],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
