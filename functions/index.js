@@ -134,7 +134,7 @@ app.post('/handleEasyLogin', (req, res) => {
 
   // Firebase Functionsとしてエクスポート
   exports.api = functions.https.onRequest(app);
-  exports.api = functions.https.onRequest(app2);
+  exports.api2 = functions.https.onRequest(app2);
 
 
 // // トークンを返すエンドポイントを追加
