@@ -647,7 +647,7 @@ jobs:
                 --force-delete-tags --quiet
             done
 
-            
+
       # Docker にログイン
       - name: Docker login to GCR
         run: |
@@ -685,7 +685,7 @@ jobs:
 
       - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions --project reminder3-65e84 
+          firebase deploy --only functions --project reminder3-65e84 --debug 
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
@@ -693,7 +693,7 @@ jobs:
 
       - name: Deploy To Firebase hosting
         run: |
-          firebase deploy --only hosting --project reminder3-65e84 
+          firebase deploy --only hosting --project reminder3-65e84 --debug
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
