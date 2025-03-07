@@ -624,31 +624,28 @@ jobs:
           cd functions
           npm install
 
-    
-      - name: Set Up Google Cloud SDK 
-        uses: google-github-actions/setup-gcloud@v1
+      - name: Authenticate with Google Cloud
+        uses: google-github-actions/auth@v1
         with:
-          project_id: ${{ secrets.GCP_PROJECT_ID }}
-      
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+      # Google Cloud SDK をセットアップ
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          service_account_key: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          export_default_credentials: true
-    
-      
+
+      # Docker にログイン
       - name: Docker login to GCR
         run: |
-          gcloud auth activate-service-account --key-file=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
-          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-    
-        
+          gcloud auth configure-docker us-central1-docker.pkg.dev
+
+      # Docker イメージをビルド＆プッシュ
       - name: Build and push Docker image
         run: |
           docker buildx build --push -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3--65e84__us--central1__api2:version_1 .
-    
-    
+
+
       - name: Configure Docker to use gcloud
         run: gcloud auth configure-docker gcr.io
 
