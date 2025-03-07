@@ -631,7 +631,7 @@ jobs:
           credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
 
     
-      - name: Google Cloud SDK のセットアップ
+      - name: Set Up Google Cloud SDK 
         uses: google-github-actions/setup-gcloud@v1
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
@@ -672,9 +672,9 @@ jobs:
 
       - name: Cache Clear Firebase Hosting
         run: |
-          firebase hosting:disable --site=reminder3-65e84
-          firebase hosting:enable --site=reminder3-65e84
-          
+          firebase hosting:disable --site=reminder3-65e84 --force
+          firebase hosting:enable --site=reminder3-65e84 --force
+
 
       - name: Deploy To Firebase functions
         run: |
