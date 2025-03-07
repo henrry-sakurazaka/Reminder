@@ -672,8 +672,8 @@ jobs:
 
       - name: Cache Clear Firebase Hosting
         run: |
-          firebase hosting:disable --site=reminder3-65e84 --force
-          firebase hosting:enable --site=reminder3-65e84 --force
+          firebase hosting:disable --force
+          firebase hosting:enable --force
 
 
       - name: Deploy To Firebase functions
