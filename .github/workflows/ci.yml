@@ -624,12 +624,7 @@ jobs:
           cd functions
           npm install
 
-
-      - name: Auth Google Cloud Docker image
-        run: docker buildx build --push -t us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/reminder3--65e84__us--central1__api2:version_1 .
-             docker push us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/reminder3--65e84__us--central1__api2:version_1
-
-      
+    
       - name: Set Up Google Cloud SDK 
         uses: google-github-actions/setup-gcloud@v1
         with:
