@@ -623,6 +623,7 @@ jobs:
         run: |
           cd functions
           npm install
+          
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
@@ -643,7 +644,7 @@ jobs:
       # Docker イメージをビルド＆プッシュ
       - name: Build and push Docker image
         run: |
-          docker buildx build --push -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3--65e84__us--central1__api2:version_1 .
+          docker buildx build --push -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3--65e84__us--central1__api:version_1 .
 
 
       - name: Configure Docker to use gcloud
