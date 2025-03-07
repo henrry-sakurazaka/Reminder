@@ -59,8 +59,8 @@
         "function": "api"
       },
       {
-        "source": "/api2/**",
-        "function": "app2"
+        "source": "/api/**",
+        "function": "app"
       },
       {
         "source": "/{*}",
