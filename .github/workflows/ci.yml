@@ -636,6 +636,18 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
+    
+      - name: Delete old Docker images
+        run: |
+          gcloud container images list-tags us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/reminder3--65e84__us--central1__api2 \
+            --sort-by=TIMESTAMP --limit=10 --filter="NOT tags:*" --format="value(digest)" | \
+            while read digest; do
+              gcloud container images delete \
+                us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/reminder3--65e84__us--central1__api2@$digest \
+                --force-delete-tags --quiet
+            done
+
+            
       # Docker にログイン
       - name: Docker login to GCR
         run: |
