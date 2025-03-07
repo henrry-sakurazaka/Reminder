@@ -630,12 +630,12 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-       # Dockerにログイン
+      
       - name: Docker login to GCR
         run: |
           gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
 
-    # DockerイメージをビルドしてGCRにプッシュ
+   
       - name: Build and push Docker image
         run: |
           docker buildx build --push -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3--65e84__us--central1__api2:version_1 .
@@ -644,10 +644,6 @@ jobs:
                 gcloud auth configure-docker gcr.io
 
           
-      - name: Login to Docker
-        run: |
-          gcloud auth print-access-token | docker login -u oauth2accesstoken --password-stdin https://gcr.io
-
       # - name: Configure Docker to use gcloud
       #   run: gcloud auth configure-docker gcr.io
 
