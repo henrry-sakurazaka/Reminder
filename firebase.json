@@ -55,13 +55,13 @@
         "destination": "/firebase-config.js"
       },
       {
-        "source": "/api/{*}",
+        "source": "/api/**",
         "function": "api"
       },
       {
-        "source": "/api/**",
-        "function": "app"
-      },
+        "source": "/api2/**",
+        "function": "app2"
+      },   
       {
         "source": "/{*}",
         "run": {
