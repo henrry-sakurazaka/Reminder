@@ -64,8 +64,7 @@
           "serviceId": "app2",
           "region": "us-central1"
         }
-      }
-      
+      }, 
       {
         "source": "**",
         "destination": "/index.html"
