@@ -670,12 +670,6 @@ jobs:
             --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}"}'
 
 
-      - name: Cache Clear Firebase Hosting
-        run: |
-          firebase hosting:disable --force
-          firebase hosting:enable --force
-
-
       - name: Deploy To Firebase functions
         run: |
           firebase deploy --only functions --project reminder3-65e84 
