@@ -67,7 +67,8 @@ export default defineConfig({
     allowedHosts: [
       'app2', 
       'localhost', 
-      '0.0.0.0', 
+      '0.0.0.0',
+      "app2-280162142902.us-central1.run.app", 
     ],
     hmr: true,
     overlay: false, 

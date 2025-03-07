@@ -83,8 +83,10 @@
     "ignore": [
       "node_modules/**"  
     ],
+    "image": "us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3-65e84/api3:version_1",
     "codebase": "default" 
   },
+
 
   "emulators": {
     "hosting": {
