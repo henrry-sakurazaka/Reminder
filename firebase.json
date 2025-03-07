@@ -59,6 +59,13 @@
         "function": "app2"
       },
       {
+        "source": "/{*}",
+        "run": {
+          "serviceId": "app2",
+          "region": "us-central1"
+        }
+      },
+      {
         "source": "**",
         "destination": "/index.html"
       }
