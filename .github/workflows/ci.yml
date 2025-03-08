@@ -638,7 +638,13 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
 
+      - name: Clean up untagged Firebase function images
+        run: |
+          gcloud container images list-tags us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/functions --filter="NOT tags:*" --format="get(digest)" | while read -r digest; do
+            gcloud container images delete "us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/functions@$digest" --quiet --force-delete-tags
+          done
 
+    
       - name: Delete old images from Artifact Registry
         run: |
           gcloud artifacts docker images list us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/api2 \
@@ -650,6 +656,13 @@ jobs:
       - name: Authenticate Docker with Artifact Registry
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
+          
+
+      
+      - name: Update Container Redistly
+        run: |
+          firebase functions:config:set gcr_url=us-central1-docker.pkg.dev
+          firebase deploy --only functions --force
 
 
 
