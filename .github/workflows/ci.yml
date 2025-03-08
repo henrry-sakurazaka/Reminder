@@ -572,30 +572,12 @@ jobs:
           FIREBASE_SERVICE_ACCOUNT5: ${{ secrets.FIREBASE_SERVICE_ACCOUNT5 }}
 
   
-      # - name: 'gcr.io/cloud-builders/gcloud'
-      #   args:
-      #     - 'secrets'
-      #     - 'versions'
-      #     - 'add'
-      #     - 'FIREBASE_SERVICE_ACCOUNT5'
-      #     - '--data-file=.serviceAccountKey.json'
-      #   env:
-      #     - 'GOOGLE_APPLICATION_CREDENTIALS=.serviceAccountKey.json'
 
-
-  
-      # - name: 'gcr.io/cloud-builders/gcloud'
-      #   args:
-      #     - 'functions'
-      #     - 'deploy'
-      #     - 'app'
-      #     - '--runtime'
-      #     - 'nodejs14'
-      #     - '--trigger-http'
-      #     - '--region'
-      #     - 'us-central1'
-      #   env:
-      #     - 'GOOGLE_APPLICATION_CREDENTIALS=.serviceAccountKey.json'
+      - name: Authenticate with Service Account
+        run: |
+          echo "${{ FIREBASE_SERVICE_ACCOUNT5 }}" > /tmp/serviceAccountKey.json
+          gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
+          
 
 
       - name: Debug JSON output
@@ -657,13 +639,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-          
-
-
-      - name: Authenticate with Service Account
-        run: |
-          echo "${{ FIREBASE_SERVICE_ACCOUNT5 }}" > /tmp/serviceAccountKey.json
-          gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
           
 
 
