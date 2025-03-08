@@ -657,6 +657,14 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
+          
+
+
+      - name: Authenticate with Service Account
+        run: |
+          echo "${{ FIREBASE_SERVICE_ACCOUNT5 }}" > /tmp/serviceAccountKey.json
+          gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
+          
 
 
       - name: Authenticate Docker with Artifact Registry
