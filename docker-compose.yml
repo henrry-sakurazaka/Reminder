@@ -52,7 +52,7 @@ services:
     env_file:
       - .env
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: "/firebase/serviceAccountKey.json"
+      GOOGLE_APPLICATION_CREDENTIALS: "/firebase/appspot-serviceAccountKey.json"
     ports:
       - "8080:8080"
       - "5001:5001"

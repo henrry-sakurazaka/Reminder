@@ -4,12 +4,12 @@
 source .env
 
 # Firebaseエミュレーター用の環境変数を設定
-export GOOGLE_APPLICATION_CREDENTIALS="./serviceAccountKey.json"
+export GOOGLE_APPLICATION_CREDENTIALS="./appspot-serviceAccountKey.json"
 
 if [ "$ENV" != "production" ]; then
   unset GOOGLE_APPLICATION_CREDENTIALS
 else
-  export GOOGLE_APPLICATION_CREDENTIALS="./serviceAccountKey.json"
+  export GOOGLE_APPLICATION_CREDENTIALS="./appspot-serviceAccountKey.json"
 fi
 
 # Viteアプリケーションのビルド
