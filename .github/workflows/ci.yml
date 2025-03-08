@@ -657,8 +657,13 @@ jobs:
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
 
-
       
+      - name: Delete Container Redistly
+        run: |
+          firebase functions:config:unset gcr.url
+          firebase functions:config:set gcr.url=us-central1-docker.pkg.dev
+
+
       - name: Update Container Redistly
         run: |
           firebase functions:config:set gcr.url=us-central1-docker.pkg.dev
