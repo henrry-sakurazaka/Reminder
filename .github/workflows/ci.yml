@@ -688,17 +688,112 @@ jobs:
 
 
 
-      - name: Deploy to Firebase Functions
+      - name: Deploy To Firebase functions
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           firebase deploy --only functions --project reminder3-65e84 --debug 
 
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
 
-      - name: Deploy to Firebase Hosting
+      - name: Deploy To Firebase hosting
         run: |
-          export GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
           firebase deploy --only hosting --project reminder3-65e84 --debug
+
+        env:
+          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+
+
+
+      
+          
+
+      # - name: Authenticate with Google Cloud
+      #   uses: google-github-actions/auth@v1
+      #   with:
+      #     credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+
+
+      # # Google Cloud SDK をセットアップ
+      # - name: Set up Google Cloud SDK
+      #   uses: google-github-actions/setup-gcloud@v2
+      #   with:
+      #     project_id: ${{ secrets.GCP_PROJECT_ID }}
+
+    
+      # - name: Delete old images from GCR
+      #   run: |
+      #     gcloud container images list-tags us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/api2 --filter="NOT tags:*" --format="get(digest)" | while read -r digest; do
+      #       gcloud container images delete "us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/api2@$digest" --quiet --force-delete-tags
+      #     done
+      
+
+      # # Docker にログイン
+      # - name: Docker login to GCR
+      #   run: |
+      #     gcloud auth configure-docker us-central1-docker.pkg.dev
+
+
+      # # Docker イメージをビルド＆プッシュ
+      # - name: Build and push Docker image
+      #   run: |
+      #     docker buildx build --push \
+      #       -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/api3 .
+
+
+      # - name: Clean up untagged Docker images
+      #   run: |
+      #     gcloud artifacts docker images list us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts --format="get(package,version)" | \
+      #     grep -E "/sha256:" | while read -r image; do
+      #       echo "Deleting untagged image: ${image}"
+      #       gcloud artifacts docker images delete $image --quiet --delete-tags
+      #     done
+      
+
+      # - name: Deploy to Cloud Run
+      #   run: |
+      #     gcloud run deploy api3 \
+      #       --image=us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/api3 \
+      #       --region=us-central1 \
+      #       --platform=managed \
+      #       --allow-unauthenticated
+
+
+      
+      # - name: Configure Docker to use gcloud
+      #   run: gcloud auth configure-docker gcr.io
+
+      
+      # - name: Build Docker image for app2
+      #   run: |
+      #     docker build -t gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA .
+      #     docker push gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA
+
+        
+      # - name: Deploy to Cloud Run
+      #   run: |
+      #     gcloud run deploy app2 \
+      #       --image gcr.io/${{ secrets.GCP_PROJECT_ID }}/app2:$GITHUB_SHA \
+      #       --region us-central1 \
+      #       --platform managed \
+      #       --allow-unauthenticated \
+      #       --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}"}'
+
+
+      # - name: Deploy To Firebase functions
+      #   run: |
+      #     firebase deploy --only functions --project reminder3-65e84 --debug 
+
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+
+
+      # - name: Deploy To Firebase hosting
+      #   run: |
+      #     firebase deploy --only hosting --project reminder3-65e84 --debug
+
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
 
 
