@@ -610,10 +610,6 @@ jobs:
         run: cp deploy.yml docker-compose.yml
 
             
-      - name: Check file
-        run: cat Dockerfile
-
-
       - name: Install dependencies
         run: |
           npm install
@@ -660,8 +656,7 @@ jobs:
       
       - name: Delete Container Redistly
         run: |
-          firebase functions:config:unset gcr.url
-          firebase functions:config:set gcr.url=us-central1-docker.pkg.dev
+          gcloud container images delete gcr.io/${{ secrets.GCP_PROJECT_ID }}/gcf --force-delete-tags --quiet
 
 
       - name: Update Container Redistly
