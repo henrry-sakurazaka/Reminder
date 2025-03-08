@@ -640,7 +640,12 @@ jobs:
             gcloud container images delete "us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/functions@$digest" --quiet --force-delete-tags
           done
 
+      - name: Deploy API3 to Cloud Run
+        run: |
+          gcloud run deploy api2 --image=us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/reminder3-65e84/api3 --region=us-central1
+
     
+  
       - name: Delete old images from Artifact Registry
         run: |
           gcloud artifacts docker images list us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/api2 \
@@ -654,9 +659,9 @@ jobs:
           gcloud auth configure-docker us-central1-docker.pkg.dev
 
       
-      - name: Delete Container Redistly
-        run: |
-          gcloud container images delete gcr.io/${{ secrets.GCP_PROJECT_ID }}/gcf --force-delete-tags --quiet
+      # - name: Delete Container Redistly
+      #   run: |
+      #     gcloud container images delete gcr.io/${{ secrets.GCP_PROJECT_ID }}/gcf --force-delete-tags --quiet
 
 
       - name: Update Container Redistly
