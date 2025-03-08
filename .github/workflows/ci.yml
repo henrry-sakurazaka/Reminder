@@ -656,12 +656,12 @@ jobs:
       - name: Authenticate Docker with Artifact Registry
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
-          
+
 
       
       - name: Update Container Redistly
         run: |
-          firebase functions:config:set gcr_url=us-central1-docker.pkg.dev
+          firebase functions:config:set gcr.url=us-central1-docker.pkg.dev
           firebase deploy --only functions --force
 
 
