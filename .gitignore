@@ -29,3 +29,7 @@ config.ymlTAB
 serviceAccountKey_singleline.json
 serviceAccountKey_singleline.json
 encoded_correct.txt
+encoded2_correct.txt
+appspot-serviceAccountKey.json
+firebase/appspot-serviceAccountKey.json
+functions/appspot-serviceAccountKey.json
