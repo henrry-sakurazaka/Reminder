@@ -689,6 +689,12 @@ jobs:
             --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}"}'
 
 
+      - name: Set Firebase Project
+        run: |
+          firebase use reminder3-65e84
+
+          
+          
       - name: Deploy To Firebase functions
         run: |
           firebase deploy --only functions --project reminder3-65e84 --debug 
