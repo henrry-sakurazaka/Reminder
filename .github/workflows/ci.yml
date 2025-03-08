@@ -666,7 +666,7 @@ jobs:
             --allow-unauthenticated
 
 
-      - name: Build and push Docker image for App2
+      - name: Build and push Docker image to GC Docker for App2
         run: |
           docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/app2:$GITHUB_SHA .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/app2:$GITHUB_SHA
