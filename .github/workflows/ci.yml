@@ -567,7 +567,6 @@ jobs:
           echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT5 }}" | base64 --decode | sudo tee .env > /dev/null
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> ./functions/.env
-
         env:
           FIREBASE_SERVICE_ACCOUNT5: ${{ secrets.FIREBASE_SERVICE_ACCOUNT5 }}
 
@@ -575,7 +574,7 @@ jobs:
 
       - name: Authenticate with Service Account
         run: |
-          echo "${{ FIREBASE_SERVICE_ACCOUNT5 }}" > /tmp/serviceAccountKey.json
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT5 }}" > /tmp/serviceAccountKey.json
           gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
           
 
