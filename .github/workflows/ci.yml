@@ -634,26 +634,6 @@ jobs:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
 
-      - name: Clean up untagged Firebase function images
-        run: |
-          gcloud container images list-tags us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/functions --filter="NOT tags:*" --format="get(digest)" | while read -r digest; do
-            gcloud container images delete "us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/functions@$digest" --quiet --force-delete-tags
-          done
-
-      - name: Deploy API3 to Cloud Run
-        run: |
-          gcloud run deploy api2 --image=us-central1-docker.pkg.dev/reminder3-65e84/gcf-artifacts/reminder3-65e84/api3 --region=us-central1
-
-    
-  
-      - name: Delete old images from Artifact Registry
-        run: |
-          gcloud artifacts docker images list us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/api2 \
-          --filter="tags:''" --format="get(package)" | while read -r image; do
-            gcloud artifacts docker images delete "us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/$image" --quiet
-          done
-
-
       - name: Authenticate Docker with Artifact Registry
         run: |
           gcloud auth configure-docker us-central1-docker.pkg.dev
@@ -664,10 +644,10 @@ jobs:
       #     gcloud container images delete gcr.io/${{ secrets.GCP_PROJECT_ID }}/gcf --force-delete-tags --quiet
 
 
-      - name: Update Container Redistly
-        run: |
-          firebase functions:config:set gcr.url=us-central1-docker.pkg.dev
-          firebase deploy --only functions --force
+      # - name: Update Container Redistly
+      #   run: |
+      #     firebase functions:config:set gcr.url=us-central1-docker.pkg.dev
+      #     firebase deploy --only functions --force
 
 
 
@@ -675,7 +655,6 @@ jobs:
         run: |
           docker buildx build --push \
             -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/api3:latest .
-
 
 
       - name: Deploy API3 to Cloud Run
@@ -687,12 +666,10 @@ jobs:
             --allow-unauthenticated
 
 
-
       - name: Build and push Docker image for App2
         run: |
           docker build -t us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/app2:$GITHUB_SHA .
           docker push us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/app2:$GITHUB_SHA
-
 
 
       - name: Deploy App2 to Cloud Run
@@ -703,7 +680,6 @@ jobs:
             --platform managed \
             --allow-unauthenticated \
             --set-env-vars=FIREBASE_CONFIG='{"projectId":"${{ secrets.VITE_REACT_APP_FIREBASE_PROJECT_ID }}"}'
-
 
 
       - name: Deploy To Firebase functions
