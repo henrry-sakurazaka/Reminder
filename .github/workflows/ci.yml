@@ -693,11 +693,6 @@ jobs:
         run: |
           firebase use reminder3-65e84
 
-
-      - name: Cache Clear
-        run: firebase hosting:cache:purge --project reminder3-65e84
-
-
           
       - name: Deploy To Firebase functions
         run: |
