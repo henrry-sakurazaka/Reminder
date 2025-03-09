@@ -123,7 +123,7 @@ jobs:
 
           
   #     - name: Create Service Account Key
-  #       run: echo "${{ secrets.CHJY7_FIREBASE_ACCOUNT }}" > ./serviceAccountKey.json
+  #       run: echo "${{ secrets.CHJY7_SERVICE_ACCOUNT }}" > ./serviceAccountKey.json
       
      
   #     - name: Copy Service Account Key to Functions
@@ -561,20 +561,20 @@ jobs:
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-          echo "${{ secrets.CHJY7_FIREBASE_ACCOUNT }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
-          echo "${{ secrets.CHJY7_FIREBASE_ACCOUNT }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.CHJY7_FIREBASE_ACCOUNT }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.CHJY7_FIREBASE_ACCOUNT }}" | base64 --decode | sudo tee .env > /dev/null
+          echo "${{ secrets.CHJY7_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
+          echo "${{ secrets.CHJY7_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.CHJY7_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.CHJY7_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee .env > /dev/null
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> ./functions/.env
         env:
-          CHJY7_FIREBASE_ACCOUNT: ${{ secrets.CHJY7_FIREBASE_ACCOUNT }}
+          CHJY7_SERVICE_ACCOUNT: ${{ secrets.CHJY7_SERVICE_ACCOUNT }}
 
   
           
       - name: Authenticate with Service Account
         run: |
-          echo "${{ secrets.CHJY7_FIREBASE_ACCOUNT }}" | base64 --decode | sudo tee /tmp/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.CHJY7_SERVICE_ACCOUNT }}" | base64 --decode | sudo tee /tmp/serviceAccountKey.json > /dev/null
           gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/serviceAccountKey.json" >> $GITHUB_ENV
       
@@ -630,7 +630,7 @@ jobs:
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.CHJY7_FIREBASE_ACCOUNT }}
+          credentials_json: ${{ secrets.CHJY7_SERVICE_ACCOUNT }}
 
 
 
