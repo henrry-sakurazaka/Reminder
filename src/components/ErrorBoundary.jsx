@@ -16,7 +16,7 @@ class ErrorBoundary extends Component {
   }
 
   componentDidCatch(error, errorInfo) {
-    console.error("Caught by ErrorBoundary:", error, errorInfo);
+    console.error('Caught by ErrorBoundary:', error, errorInfo);
   }
 
   render() {

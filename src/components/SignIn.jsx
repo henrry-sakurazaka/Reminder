@@ -1,10 +1,8 @@
-
-
-import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; 
-import "./SignIn.css";
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
+import './SignIn.css';
 
 // const axios = require("axios");
 
@@ -48,11 +46,10 @@ import "./SignIn.css";
 //   console.log('Safari detected. FCM is not supported.');
 // }
 
-
 function SignIn() {
   const [formData, setFormData] = useState({
-    email: "",
-    password: "",
+    email: '',
+    password: '',
   });
   const { email, password } = formData;
   const navigate = useNavigate();
@@ -63,7 +60,7 @@ function SignIn() {
   //   try {
   //     // Service Workerの準備ができるまで待つ
   //     const registration = await navigator.serviceWorker.ready;
-  
+
   //     // // PushManagerでのサブスクリプション
   //     // const subscription = await registration.pushManager.subscribe({
   //     //   userVisibleOnly: true,
@@ -71,18 +68,17 @@ function SignIn() {
   //     // });
   //     const pushManagerToken = subscription.endpoint;
   //     console.log('PushManager Subscription Token:', pushManagerToken);
-  
+
   //     // Firebase Cloud Messagingのトークン取得
   //     const currentToken = await getToken(messaging, { vapidKey: vapidKey });
   //     console.log("FCM Token:", currentToken);
-      
+
   //         return currentToken;
   //       } catch (error) {
   //         console.error('Error getting device token:', error);
   //         return null;
   //       }
   //     };
-    
 
   // // サーバーにトークンを送信する関数
   // const sendTokensToServer = async (idToken, deviceToken) => {
@@ -120,7 +116,7 @@ function SignIn() {
         email,
         password
       );
-      if(userCredential) {
+      if (userCredential) {
         navigate('/Example');
       }
 
@@ -132,35 +128,33 @@ function SignIn() {
       //   }
       //   navigate("/Example");
       // }
-     
     } catch (error) {
       console.log(error);
     }
-     
   };
 
-  const getColor = () => "rgba(40, 147, 247, 0.772)";
+  const getColor = () => 'rgba(40, 147, 247, 0.772)';
   const spans = [1, 2, 3, 4, 5]; // spanの数だけ適当な配列を作成fi
-  
+
   const navigationHandler = () => {
-    navigate('/UserAuth')
-}
-  
+    navigate('/UserAuth');
+  };
 
   return (
     <>
-      
       <div className="decoration">
-          {spans.map((_, index) => (
-          <span 
-              key={index} 
-              className="slash2" 
-              style={{ backgroundColor: getColor() }}
+        {spans.map((_, index) => (
+          <span
+            key={index}
+            className="slash2"
+            style={{ backgroundColor: getColor() }}
           ></span>
-          ))}
+        ))}
       </div>
-      <span className="back" onClick={navigationHandler}>Back To Auth</span>
-  
+      <span className="back" onClick={navigationHandler}>
+        Back To Auth
+      </span>
+
       <div className="auth-container">
         <div className="outline-container">
           <form onSubmit={onSubmit}>
@@ -191,9 +185,7 @@ function SignIn() {
         </div>
       </div>
     </>
-    
   );
 }
 
 export default SignIn;
-

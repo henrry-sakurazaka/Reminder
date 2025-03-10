@@ -1,13 +1,13 @@
 'use strict';
 
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function (event) {
   const options = {
-      body: event.data.text(),
-      icon: 'icon.png',
-      badge: 'badge.png'
+    body: event.data.text(),
+    icon: 'icon.png',
+    badge: 'badge.png',
   };
   event.waitUntil(
-      self.registration.showNotification('Notification Title', options)
+    self.registration.showNotification('Notification Title', options)
   );
 });
 
@@ -47,16 +47,14 @@ self.addEventListener('push', function(event) {
 //   event.waitUntil(clients.claim());
 // });
 
-
-
 // self.addEventListener('push', event => {
 //   const data = event.data.json();
 
 //    // メインスクリプトからオプションを受け取る
-//    const options = { 
-//     body: data.body, 
-//     icon: data.icon, 
-//     tag: data.tag 
+//    const options = {
+//     body: data.body,
+//     icon: data.icon,
+//     tag: data.tag
 //   };
 
 //   event.waitUntil(
@@ -74,14 +72,12 @@ self.addEventListener('push', function(event) {
 //   );
 // });
 
-
 // self.addEventListener('notificationclick', function(event) {
 //   event.notification.close();
 //   event.waitUntil(
 //       clients.openWindow('https://reminder3-65e84.web.app')
 //   );
 // });
-
 
 // onBackgroundMessage(messaging,(payload) => {
 //   console.log('[firebase-messaging-sw.js] Received background message ', payload);

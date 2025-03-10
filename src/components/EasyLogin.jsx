@@ -1,11 +1,10 @@
-import React, { useEffect } from "react";
-import { useNavigate } from "react-router-dom";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../firebase"; 
+import React, { useEffect } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { signInWithEmailAndPassword } from 'firebase/auth';
+import { auth } from '../firebase';
 // import { getMessaging, getToken } from "firebase/messaging";
 // import axios from "axios";
-import "./logging.css";
-
+import './logging.css';
 
 // Firebase Messagingの初期化
 // const messaging = getMessaging(app);
@@ -20,38 +19,36 @@ import "./logging.css";
 //   }
 //   return outputArray;
 // };
- // 指定したユーザー情報
- const easyLoginUser = {
+// 指定したユーザー情報
+const easyLoginUser = {
   email: import.meta.env.VITE_REACT_APP_TEST_EMAIL,
-  password: import.meta.env.VITE_REACT_APP_TEST_PASSWORD
+  password: import.meta.env.VITE_REACT_APP_TEST_PASSWORD,
 };
 
 // const vapidKey = process.env.VITE_REACT_APP_VAPID_KEY;
 
- const EasyLogin = () => {
+const EasyLogin = () => {
   const navigate = useNavigate();
-      const handleEasyLogin = async () => {
-          
-          const userCredential = await signInWithEmailAndPassword(
-            auth,
-            easyLoginUser.email,
-            easyLoginUser.password
-          );
-          if(userCredential) {
-            navigate('/Example');
-          }
-      }; 
+  const handleEasyLogin = async () => {
+    const userCredential = await signInWithEmailAndPassword(
+      auth,
+      easyLoginUser.email,
+      easyLoginUser.password
+    );
+    if (userCredential) {
+      navigate('/Example');
+    }
+  };
 
-    useEffect(() => {
-      handleEasyLogin();
-    }, []);
+  useEffect(() => {
+    handleEasyLogin();
+  }, []);
 
   return (
     <div className="login-container">
       <div className="logging-in">Logging in...</div>
     </div>
-  )
- }
-
+  );
+};
 
 export default EasyLogin;

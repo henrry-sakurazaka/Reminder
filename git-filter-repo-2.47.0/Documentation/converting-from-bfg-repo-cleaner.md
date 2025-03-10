@@ -5,10 +5,10 @@ and want to learn how to convert over to using filter-repo.
 
 ## Table of Contents
 
-  * [Half-hearted conversions](#half-hearted-conversions)
-  * [Intention of "equivalent" commands](#intention-of-equivalent-commands)
-  * [Basic Differences](#basic-differences)
-  * [Cheat Sheet: Conversion of Examples from BFG](#cheat-sheet-conversion-of-examples-from-bfg)
+- [Half-hearted conversions](#half-hearted-conversions)
+- [Intention of "equivalent" commands](#intention-of-equivalent-commands)
+- [Basic Differences](#basic-differences)
+- [Cheat Sheet: Conversion of Examples from BFG](#cheat-sheet-conversion-of-examples-from-bfg)
 
 ## Half-hearted conversions
 
@@ -24,21 +24,21 @@ filter-repo which has a number of capabilities lacking in bfg-ish.
 
 BFG and filter-repo have a few differences, highlighted in the Basic
 Differences section below, that make it hard to get commands that
-behave identically.  Rather than focusing on matching BFG output as
+behave identically. Rather than focusing on matching BFG output as
 exactly as possible, I treat the BFG examples as idiomatic ways to
 solve a certain type of problem with BFG, and express how one would
-idiomatically solve the same problem in filter-repo.  Sometimes that
+idiomatically solve the same problem in filter-repo. Sometimes that
 means the results are not identical, but they are largely the same in
 each case.
 
 ## Basic Differences
 
 BFG operates directly on tree objects, which have no notion of their
-leading path.  Thus, it has no way of differentiating between
-'README.md' at the toplevel versus in some subdirectory.  You simply
-operate on the basename of files and directories.  This precludes
+leading path. Thus, it has no way of differentiating between
+'README.md' at the toplevel versus in some subdirectory. You simply
+operate on the basename of files and directories. This precludes
 doing things like renaming files and directories or other bigger
-restructures.  By directly operating on trees, it also runs into
+restructures. By directly operating on trees, it also runs into
 problems with loose vs. packed objects, loose vs. packed refs, not
 understanding replace refs or grafts, and not understanding the index
 and working tree as another data source.
@@ -46,15 +46,15 @@ and working tree as another data source.
 With `git filter-repo`, you are essentially given an editing tool to
 operate on the [fast-export](https://git-scm.com/docs/git-fast-export)
 serialization of a repo, which operates on filenames including their
-full paths from the toplevel of the repo.  Directories are not
+full paths from the toplevel of the repo. Directories are not
 separately specified, so any directory-related filtering is done by
-checking the leading path of each file.  Further, you aren't limited
+checking the leading path of each file. Further, you aren't limited
 to the pre-defined filtering types, python callbacks which operate on
 the data structures from the fast-export stream can be provided to do
-just about anything you want.  By leveraging fast-export and
+just about anything you want. By leveraging fast-export and
 fast-import, filter-repo gains automatic handling of objects and refs
 whether they are packed or not, automatic handling of replace refs and
-grafts, and future features that may appear.  It also tries hard to
+grafts, and future features that may appear. It also tries hard to
 provide a full rewrite solution, so it takes care of additional
 important concerns such as updating the index and working tree and
 running an automatic gc for the user afterwards.
@@ -63,21 +63,22 @@ The "protection" and "privacy" defaults in BFG are something I
 fundamentally disagreed with for a variety of reasons; see the
 comments at the top of the
 [bfg-ish](../contrib/filter-repo-demos/bfg-ish) script if you want
-details.  The bfg-ish script implemented these protection and privacy
+details. The bfg-ish script implemented these protection and privacy
 options since it was designed to act like BFG, but still flipped the
-default to the opposite of what BFG chose.  I left the "protection"
-and "non-private" features out of filter-repo entirely.  This means a
+default to the opposite of what BFG chose. I left the "protection"
+and "non-private" features out of filter-repo entirely. This means a
 number of things with filter-repo:
-  * any filters you specify will also be applied to HEAD, so that you
-    don't have a weird disconnect from your history transformations
-    only being applied to most commits
-  * `[formerly OLDHASH]` references are not munged into commit
-    messages; the replace refs that filter-repo adds are a much
-    cleaner way of looking up commits by old commit hashes.
-  * `Former-commit-id:` footers are not added to commit messages; the
-    replace refs that filter-repo adds are a much cleaner way of
-    looking up commits by old commit hashes.
-  * History is not littered with `<filename>.REMOVED.git-id` files.
+
+- any filters you specify will also be applied to HEAD, so that you
+  don't have a weird disconnect from your history transformations
+  only being applied to most commits
+- `[formerly OLDHASH]` references are not munged into commit
+  messages; the replace refs that filter-repo adds are a much
+  cleaner way of looking up commits by old commit hashes.
+- `Former-commit-id:` footers are not added to commit messages; the
+  replace refs that filter-repo adds are a much cleaner way of
+  looking up commits by old commit hashes.
+- History is not littered with `<filename>.REMOVED.git-id` files.
 
 BFG expects you to specify the repository to rewrite as its final
 argument, whereas filter-repo expects you to cd into the repo and then
@@ -122,7 +123,7 @@ becomes
 ```
 
 The `--replace-text` was a really clever idea that the BFG came up
-with and I just implemented mostly as-is within filter-repo.  Sadly,
+with and I just implemented mostly as-is within filter-repo. Sadly,
 BFG didn't document the format of files passed to --replace text very
 well, but I added more detail in the filter-repo documentation.
 
@@ -133,7 +134,7 @@ etc. for replacement strings whereas BFG used "$1", "$2", "$3", etc.
 The reason for this difference is simply that python used backslashes
 in its regex format while scala used dollar signs, and both tools
 wanted to just pass along the strings unmodified to the underlying
-language.  (Since bfg-ish attempts to emulate the BFG, it accepts
+language. (Since bfg-ish attempts to emulate the BFG, it accepts
 "$1", "$2" and so forth and translates them to "\1", "\2", etc. so
 that filter-repo/python will understand it.)
 
@@ -150,7 +151,7 @@ becomes
 ```
 
 Yes, that glob will handle .git directories one or more directories
-deep; it's a git-style glob rather than a shell-style glob.  Also, the
+deep; it's a git-style glob rather than a shell-style glob. Also, the
 `--path .git` was added because `--path-glob '*/.git'` won't match a
 directory named .git in the toplevel directory since it has a '/'
 character in the glob expression (though I would hope the repository

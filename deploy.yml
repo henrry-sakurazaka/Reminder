@@ -9,10 +9,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
+          cpus: '0.5'
           memory: 512M
     ports:
-      - "8080:8080"
+      - '8080:8080'
     volumes:
       - .:/app2
       - /app2/node_modules # 監視対象から除外
@@ -21,9 +21,9 @@ services:
       # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
     entrypoint: ./entrypoint.sh
-    environment: 
+    environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
-      VITE_HTTPS: "true"
+      VITE_HTTPS: 'true'
       command: vite --https
       VITE_PORT: ${VITE_PORT}
       VITE_HOST: ${VITE_HOST}
@@ -31,7 +31,6 @@ services:
       PORT: 3000
     networks:
       - my_custom_network
-
 
   networks:
     my_custom_network:
