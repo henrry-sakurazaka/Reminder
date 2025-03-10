@@ -23,8 +23,6 @@ jobs:
       - name: Run ESLint with auto-fix
         run: npx eslint src/ --fix
 
-
-
   prettier:
     name: Check Code Formatting
     runs-on: ubuntu-latest
@@ -444,14 +442,6 @@ jobs:
           docker buildx build --tag reminder-firebase --cache-to type=local,dest=/tmp/.buildx-cache --cache-from type=local,src=/tmp/.buildx-cache .
           docker buildx build --tag cloudflare/cloudflared --cache-to type=local,dest=/tmp/.buildx-cache --cache-from type=local,src=/tmp/.buildx-cache .
 
-  - name: Ensure Firebase Emulator is stopped
-    run: |
-      pids=$(lsof -ti:5001,8080,9099,9199,8174) # エミュレーターのポートをチェック
-      if [ -n "$pids" ]; then
-        echo "Stopping Firebase Emulator processes..."
-        kill -9 $pids
-      fi
-
       - name: Teardown
         run: docker-compose down
 
@@ -543,9 +533,9 @@ jobs:
 
       - name: Debug GOOGLE_APPLICATION_CREDENTIALS
         run: echo "$GOOGLE_APPLICATION_CREDENTIALS"
-             cat ./serviceAccountKey.json
-             cat $GOOGLE_APPLICATION_CREDENTIALS
-             file ./serviceAccountKey.json
+          cat ./serviceAccountKey.json
+          cat $GOOGLE_APPLICATION_CREDENTIALS
+          file ./serviceAccountKey.json
 
       - name: Set Firebase Config (Port)
         run: firebase functions:config:set server.port=6080
