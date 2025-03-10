@@ -113943,13 +113943,11 @@
                   u.push(e.batchId);
                   for (const n of e.mutations) i = i.add(n.key);
                 }
-                return t.localDocuments
-                  .getDocuments(e, i)
-                  .next((e) => ({
-                    hs: e,
-                    removedBatchIds: r,
-                    addedBatchIds: u,
-                  }));
+                return t.localDocuments.getDocuments(e, i).next((e) => ({
+                  hs: e,
+                  removedBatchIds: r,
+                  addedBatchIds: u,
+                }));
               });
           }
         );
