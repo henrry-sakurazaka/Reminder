@@ -694,20 +694,20 @@ jobs:
           firebase use reminder3-65e84
 
           
-      - name: Deploy To Firebase functions
-        run: |
-          firebase deploy --only functions --project reminder3-65e84 --debug 
+      # - name: Deploy To Firebase functions
+      #   run: |
+      #     firebase deploy --only functions --project reminder3-65e84 --debug 
 
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
 
-      - name: Deploy To Firebase hosting
-        run: |
-          firebase deploy --only hosting --project reminder3-65e84 --debug
+      # - name: Deploy To Firebase hosting
+      #   run: |
+      #     firebase deploy --only hosting --project reminder3-65e84 --debug
 
-        env:
-          GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
+      #   env:
+      #     GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
 
           
