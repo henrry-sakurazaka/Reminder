@@ -137,8 +137,8 @@ function SignUp() {
           todos: convertedData,
         };
         // サインアップ成功時にtodoListを保存する
-         await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
-       
+        await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
+
         navigate('/Example');
       } else {
         return (
