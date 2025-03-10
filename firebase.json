@@ -6,88 +6,22 @@
       "**/.*",
       "**/node_modules/**"
     ],
-    "site": "reminder3-65e84",
-    
-    "headers": [
-      {
-        "source": "/worker.js",
-        "headers": [
-          {
-            "key": "Content-Type",
-            "value": "application/javascript"
-          },
-          {
-            "key": "Cache-Control",
-            "value": "no-cache, no-store, must-revalidate"
-          },
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "https://reminder3-65e84.web.app,http://localhost:3000, https://offsetcodecraft.site"
-          }
-        ]
-      },
-      {
-        "source": "/firebase-messaging-sw.js",
-        "headers": [
-          {
-            "key": "Content-Type",
-            "value": "application/javascript"
-          },
-          {
-            "key": "Cache-Control",
-            "value": "no-cache, no-store, must-revalidate"
-          }
-        ]
-      }   
-    ],
-    
     "rewrites": [
-      {
-        "source": "/worker.js",
-        "destination": "/worker.js"
-      },
-      {
-        "source": "/firebase-messaging-sw.js",
-        "destination": "/worker.js"
-      },
-      {
-        "source": "/firebase-config.js",
-        "destination": "/firebase-config.js"
-      },
-      {
-        "source": "/api/{*}",
-        "function": "api"
-      },
-      {
-        "source": "/api2/**",
-        "function": "app2"
-      },
-      {
-        "source": "/{*}",
-        "run": {
-          "serviceId": "app2",
-          "region": "us-central1"
-        }
-      },
       {
         "source": "**",
         "destination": "/index.html"
       }
-    ],
-    "cleanUrls": true
+    ]
   },
-
   "functions": {
-    "source": "functions", 
-    "runtime": "nodejs20",  
+    "source": "functions",
+    "runtime": "nodejs20",
     "ignore": [
-      "node_modules/**"  
+      "node_modules/**"
     ],
     "image": "us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3-65e84/api3:version_1",
-    "codebase": "default" 
+    "codebase": "default"
   },
-
-
   "emulators": {
     "hosting": {
       "port": 5000
@@ -108,11 +42,9 @@
       "port": 9199
     }
   },
-
   "storage": {
     "rules": "storage.rules"
   },
- 
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
@@ -120,6 +52,4 @@
   "database": {
     "rules": "/database.rules.json"
   }
-
- 
 }
