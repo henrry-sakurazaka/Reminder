@@ -9,7 +9,6 @@
 
 Docker Hubを訪れて、プロジェクトに関連するイメージやその詳細を確認してください。
 
-
 # Create React App でのプロジェクトの始め方
 
 このプロジェクトは [Create React App](https://github.com/facebook/create-react-app) を使って作成されました。
@@ -21,10 +20,13 @@ Docker Hubを訪れて、プロジェクトに関連するイメージやその�
 ### `npm start`
 
 ### `docker-compose up`
+
 ### `docker-compose up -d`
+
 コンテナを起動し、E2Eテストまで実行します。
 
 Viteで起動
+
 ### `npm run dev`
 
 アプリを開発モードで実行します。\
@@ -87,4 +89,3 @@ Reactについて学ぶには、[React のドキュメント](https://reactjs.or
 ### `npm run build` がミニファイに失敗する
 
 このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-

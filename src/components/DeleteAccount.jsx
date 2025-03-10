@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { getAuth, reauthenticateWithCredential, EmailAuthProvider } from 'firebase/auth';
+import {
+  getAuth,
+  reauthenticateWithCredential,
+  EmailAuthProvider,
+} from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import "./delete.css";
-
+import './delete.css';
 
 const DeleteAccount = () => {
   const [showReauthenticateForm, setShowReauthenticateForm] = useState(false);
@@ -31,12 +34,13 @@ const DeleteAccount = () => {
         await user.delete();
         setMessage('ユーザーアカウントが削除されました');
         setTimeout(() => navigate('/UserAuth'), 3000);
-
       } catch (error) {
         if (error.code === 'auth/requires-recent-login') {
           setShowReauthenticateForm(true);
         } else {
-          setMessage(`アカウント削除中にエラーが発生しました: ${error.message}`);
+          setMessage(
+            `アカウント削除中にエラーが発生しました: ${error.message}`
+          );
           setTimeout(() => navigate('/UserAuth', 10000));
         }
       }
@@ -55,32 +59,35 @@ const DeleteAccount = () => {
   return (
     <div>
       {showReauthenticateForm ? (
-        <div className='auth-container'>
-        <div className='outline-container'>
-          <h2>再認証</h2>
-          <form onSubmit={handleReauthentication}>
-            <div>
-              <label>
-                Password:
-                <input className='form-input'
-                  type="password"
-                  value={password}
-                  onChange={(e) => setPassword(e.target.value)}
-                  required
-                />
-              </label>
-            </div>
-            <button className='form-button'type="submit">Reauth</button>
-          </form>
-          <p>{message}</p>
-        </div>
+        <div className="auth-container">
+          <div className="outline-container">
+            <h2>再認証</h2>
+            <form onSubmit={handleReauthentication}>
+              <div>
+                <label>
+                  Password:
+                  <input
+                    className="form-input"
+                    type="password"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
+                    required
+                  />
+                </label>
+              </div>
+              <button className="form-button" type="submit">
+                Reauth
+              </button>
+            </form>
+            <p>{message}</p>
+          </div>
         </div>
       ) : (
-        <div className='auth-container'>
-            <div className='outline-container'>
-                <h2>アカウント削除中...</h2>
-                <p className='message'>{message}</p>
-            </div>
+        <div className="auth-container">
+          <div className="outline-container">
+            <h2>アカウント削除中...</h2>
+            <p className="message">{message}</p>
+          </div>
         </div>
       )}
     </div>

@@ -4,7 +4,6 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import path, { resolve } from 'path';
 import * as dotenv from 'dotenv';
 
-
 if (process.env.CI !== 'true') {
   dotenv.config();
 }
@@ -18,14 +17,20 @@ export default defineConfig({
   build: {
     outDir: resolve(__dirname, 'dist'),
     define: {
-      'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(process.env.GOOGLE_APPLICATION_CREDENTIALS),
+      'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
+        process.env.GOOGLE_APPLICATION_CREDENTIALS
+      ),
     },
     emptyOutDir: true,
     rollupOptions: {
       output: {
         manualChunks(id) {
           if (id.includes('node_modules')) {
-            const moduleName = id.toString().split('node_modules/')[1].split('/')[0].toString();
+            const moduleName = id
+              .toString()
+              .split('node_modules/')[1]
+              .split('/')[0]
+              .toString();
 
             if (moduleName === 'firebase') return 'firebase';
             if (['react', 'react-dom'].includes(moduleName)) return 'vendor';
@@ -46,7 +51,7 @@ export default defineConfig({
   resolve: {
     alias: {
       '@': path.resolve(__dirname, 'src'),
-      'components': path.resolve(__dirname, 'src/components'),
+      components: path.resolve(__dirname, 'src/components'),
     },
   },
   plugins: [
@@ -59,26 +64,31 @@ export default defineConfig({
     loader: 'jsx',
   },
   optimizeDeps: {
-    include: ['@firebase/app', '@firebase/analytics', '@firebase/database', '@firebase/installations'],
+    include: [
+      '@firebase/app',
+      '@firebase/analytics',
+      '@firebase/database',
+      '@firebase/installations',
+    ],
   },
   server: {
     host: '0.0.0.0',
     port: 8080,
     allowedHosts: [
-      'app2', 
-      'localhost', 
+      'app2',
+      'localhost',
       '0.0.0.0',
-      "app2-280162142902.us-central1.run.app", 
+      'app2-280162142902.us-central1.run.app',
     ],
     hmr: true,
-    overlay: false, 
+    overlay: false,
     cors: true,
   },
 
   reporter: [
-    ['list'], 
-    ['html', { outputFolder: './custom-test-results' }]
-    ['html', { outputDir: '/app2/test-results' }],
+    ['list'],
+    ['html', { outputFolder: './custom-test-results' }][
+      ('html', { outputDir: '/app2/test-results' })
+    ],
   ],
-  
 });

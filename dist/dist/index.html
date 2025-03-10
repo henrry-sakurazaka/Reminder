@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
@@ -16,7 +16,7 @@
   <body>
     <noscript>You need to enable JavaScript to run this app.</noscript>
     <div id="root"></div>
-  
+
     <script type="module" src="./firebase.js"></script>
     <script type="module" src="/src/main.jsx"></script>
 
@@ -26,7 +26,10 @@
         navigator.serviceWorker
           .register('/worker.js', { type: 'module' })
           .then((registration) => {
-            console.log('Service Worker registered with scope:', registration.scope);
+            console.log(
+              'Service Worker registered with scope:',
+              registration.scope
+            );
           })
           .catch((err) => {
             console.log('Service Worker registration failed:', err);

@@ -9,10 +9,10 @@ services:
     deploy:
       resources:
         limits:
-          cpus: "0.5"
+          cpus: '0.5'
           memory: 512M
     ports:
-      - "3000:3000"
+      - '3000:3000'
     volumes:
       - .:/app2
       - /app2/node_modules # 監視対象から除外
@@ -22,14 +22,14 @@ services:
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
     entrypoint: ./entrypoint.sh
     healthcheck:
-      test: ["CMD-SHELL", "curl -k -v http://localhost:3000 || exit 1"]
+      test: ['CMD-SHELL', 'curl -k -v http://localhost:3000 || exit 1']
       interval: 90s
       timeout: 60s
       retries: 5
       start_period: 60s
-    environment: 
+    environment:
       VITE_NODE_ENV: ${VITE_NODE_ENV}
-      VITE_HTTPS: "true"
+      VITE_HTTPS: 'true'
       command: vite --https
       VITE_PORT: ${VITE_PORT}
       VITE_HOST: ${VITE_HOST}
@@ -43,7 +43,7 @@ services:
       #   ipv4_address: 192.168.100.100
     # extra_hosts:
     #   - "cloudflared:192.168.100.3"
-  
+
   firebase:
     container_name: firebase
     build:
@@ -52,22 +52,22 @@ services:
     env_file:
       - .env
     environment:
-      GOOGLE_APPLICATION_CREDENTIALS: "/firebase/serviceAccountKey.json"
+      GOOGLE_APPLICATION_CREDENTIALS: '/firebase/serviceAccountKey.json'
     ports:
-      - "8080:8080"
-      - "5001:5001"
-      - "5000:5000"
-      - "5020:5020"
-      - "9099:9099"
-      - "7000:7000"
-      - "9199:9199"
-    entrypoint: ["/bin/bash", "/firebase/entrypoint.sh"]
+      - '8080:8080'
+      - '5001:5001'
+      - '5000:5000'
+      - '5020:5020'
+      - '9099:9099'
+      - '7000:7000'
+      - '9199:9199'
+    entrypoint: ['/bin/bash', '/firebase/entrypoint.sh']
     command: firebase emulators:start --only firestore,functions,auth,storage
     volumes:
-      - ./storage.rules:/firebase/storage.rules 
+      - ./storage.rules:/firebase/storage.rules
     networks:
       - my_custom_network
-  
+
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
@@ -90,36 +90,35 @@ services:
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
       #Setting for local environment
       # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
-    entrypoint: ["/home/nonroot/.cloudflared/entrypoint.sh"]
+    entrypoint: ['/home/nonroot/.cloudflared/entrypoint.sh']
     environment:
-      - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}  
+      - CLOUDFLARE_API_TOKEN=${VITE_CLOUDFLARE_API_TOKEN}
       - TUNNEL_ORIGIN_CERT=/home/nonroot/.cloudflared/cert.pem
       - TUNNEL_ID=${TUNNEL_ID}
       - VITE_CLOUDFLARE_TUNNEL_TOKEN=${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     restart: unless-stopped
     command: tunnel run --token ${VITE_CLOUDFLARE_TUNNEL_TOKEN}
     healthcheck:
-      test: ["CMD", "curl", "-f", "https://offsetcodecraft.site"]
+      test: ['CMD', 'curl', '-f', 'https://offsetcodecraft.site']
       interval: 90s
       timeout: 60s
       retries: 5
       start_period: 90s
     networks:
       - my_custom_network
-       
+
     #   my_custom_network:
     # #     ipv4_address: 192.168.100.3
     # # extra_hosts:
     # #   - "app2:192.168.100.100"
 
-    
     # nginx:
   #   image: nginx:latest
   #   ports:
   #     - "80:80"
   #   depends_on:
-  #     app2: 
-  #       condition: service_healthy 
+  #     app2:
+  #       condition: service_healthy
   #   volumes:
   #     - ./nginx.conf:/etc/nginx/nginx.conf
   #     # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
@@ -140,7 +139,7 @@ services:
 
   playwright:
     container_name: reminder-playwright-1
-    image: mcr.microsoft.com/playwright:v1.49.0-jammy   
+    image: mcr.microsoft.com/playwright:v1.49.0-jammy
     depends_on:
       app2:
         condition: service_healthy
@@ -161,13 +160,12 @@ services:
     command: npx playwright test
     networks:
       - my_custom_network
-            
+
 networks:
   my_custom_network:
     driver: bridge
   # my_custom_network:
   #   driver: bridge
-    # ipam:
-    #   config:
-    #     - subnet: 192.168.100.0/24
-
+  # ipam:
+  #   config:
+  #     - subnet: 192.168.100.0/24

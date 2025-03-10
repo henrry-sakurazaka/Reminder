@@ -1,1 +1,81 @@
-import{initializeApp as a}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";import{getAuth as f,GoogleAuthProvider as d}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";import{getFirestore as m}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js";import{getDatabase as u}from"https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";(function(){const i=document.createElement("link").relList;if(i&&i.supports&&i.supports("modulepreload"))return;for(const e of document.querySelectorAll('link[rel="modulepreload"]'))n(e);new MutationObserver(e=>{for(const t of e)if(t.type==="childList")for(const r of t.addedNodes)r.tagName==="LINK"&&r.rel==="modulepreload"&&n(r)}).observe(document,{childList:!0,subtree:!0});function s(e){const t={};return e.integrity&&(t.integrity=e.integrity),e.referrerPolicy&&(t.referrerPolicy=e.referrerPolicy),e.crossOrigin==="use-credentials"?t.credentials="include":e.crossOrigin==="anonymous"?t.credentials="omit":t.credentials="same-origin",t}function n(e){if(e.ep)return;e.ep=!0;const t=s(e);fetch(e.href,t)}})();const p={apiKey:"AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA",authDomain:"reminder3-65e84.firebaseapp.com",projectId:"reminder3-65e84",storageBucket:"reminder3-65e84.appspot.com",messagingSenderId:"280162142902",appId:"1:280162142902:web:4fed1bc9d4b35e75963417",measurementId:"G-C0NL3GWNWZ"},c=a(p);f(c);u(c);m(c);new d;function l(){const o=JSON.parse(localStorage.getItem("tasks"))||[];o.forEach(i=>{const s=new Date(i.notificationTime).getTime(),n=new Date().getTime(),e=i.isNotified;if(s<=n&&!e){g(i);const t=o.filter(r=>r.id!==i.id);localStorage.setItem("tasks",JSON.stringify(t))}})}const g=o=>{Notification.permission==="granted"?new Notification("Reminder",{body:`Task: ${o.content}`,icon:"/favicon.png",tag:"unique-notification-id"}):Notification.permission!=="denied"&&Notification.requestPermission().then(i=>{i==="granted"&&new Notification("Reminder",{body:`Task: ${o.content}`,tag:"unique-notification-id"})})};setInterval(l,6e4);
+import { initializeApp as a } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js';
+import {
+  getAuth as f,
+  GoogleAuthProvider as d,
+} from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js';
+import { getFirestore as m } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore.js';
+import { getDatabase as u } from 'https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js';
+(function () {
+  const i = document.createElement('link').relList;
+  if (i && i.supports && i.supports('modulepreload')) return;
+  for (const e of document.querySelectorAll('link[rel="modulepreload"]')) n(e);
+  new MutationObserver((e) => {
+    for (const t of e)
+      if (t.type === 'childList')
+        for (const r of t.addedNodes)
+          r.tagName === 'LINK' && r.rel === 'modulepreload' && n(r);
+  }).observe(document, { childList: !0, subtree: !0 });
+  function s(e) {
+    const t = {};
+    return (
+      e.integrity && (t.integrity = e.integrity),
+      e.referrerPolicy && (t.referrerPolicy = e.referrerPolicy),
+      e.crossOrigin === 'use-credentials'
+        ? (t.credentials = 'include')
+        : e.crossOrigin === 'anonymous'
+          ? (t.credentials = 'omit')
+          : (t.credentials = 'same-origin'),
+      t
+    );
+  }
+  function n(e) {
+    if (e.ep) return;
+    e.ep = !0;
+    const t = s(e);
+    fetch(e.href, t);
+  }
+})();
+const p = {
+    apiKey: 'AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA',
+    authDomain: 'reminder3-65e84.firebaseapp.com',
+    projectId: 'reminder3-65e84',
+    storageBucket: 'reminder3-65e84.appspot.com',
+    messagingSenderId: '280162142902',
+    appId: '1:280162142902:web:4fed1bc9d4b35e75963417',
+    measurementId: 'G-C0NL3GWNWZ',
+  },
+  c = a(p);
+f(c);
+u(c);
+m(c);
+new d();
+function l() {
+  const o = JSON.parse(localStorage.getItem('tasks')) || [];
+  o.forEach((i) => {
+    const s = new Date(i.notificationTime).getTime(),
+      n = new Date().getTime(),
+      e = i.isNotified;
+    if (s <= n && !e) {
+      g(i);
+      const t = o.filter((r) => r.id !== i.id);
+      localStorage.setItem('tasks', JSON.stringify(t));
+    }
+  });
+}
+const g = (o) => {
+  Notification.permission === 'granted'
+    ? new Notification('Reminder', {
+        body: `Task: ${o.content}`,
+        icon: '/favicon.png',
+        tag: 'unique-notification-id',
+      })
+    : Notification.permission !== 'denied' &&
+      Notification.requestPermission().then((i) => {
+        i === 'granted' &&
+          new Notification('Reminder', {
+            body: `Task: ${o.content}`,
+            tag: 'unique-notification-id',
+          });
+      });
+};
+setInterval(l, 6e4);

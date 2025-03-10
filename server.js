@@ -4,11 +4,10 @@
 // const admin = require('firebase-admin');
 // const path = require('path');
 // const cors = require('cors')({origin: true});
-// const axios = require('axios'); 
+// const axios = require('axios');
 // const serviceAccount = require('./functions/reminder-b4527-firebase-adminsdk-bta94-ca32803afb.json');
 // const app = express();
 // const PORT = process.env.PORT || 5000;
-
 
 // // Firebase Admin SDK の初期化
 
@@ -39,10 +38,9 @@
 // };
 // app.use(cors(corsOptions));
 
-
 // // app.use(cors(
 // //   {
-// //     origin: 'https://reminder-b4527.web.app', 
+// //     origin: 'https://reminder-b4527.web.app',
 // //     methods: 'GET,HEAD,PUT,PATCH,POST,DELETE',
 // //     credentials: true,
 // //   }
@@ -53,7 +51,6 @@
 // // app.use(cors(corsOptions));
 
 // const corsHandler = cors({ origin: 'https://reminder-b4527.web.app' });
-
 
 // // ルートハンドラー
 // app.get('/', (req, res) => {
@@ -68,7 +65,7 @@
 //     return res.status(400).send('UID is required');
 //   }
 //   try {
-    
+
 //     const tokenSnapshot = await admin.database().ref('tokens').child(uid).get();
 
 //     if (!tokenSnapshot.exists()) {
@@ -110,24 +107,23 @@
 //   }
 // });
 
-
 // exports.sendNotification = functions.https.onRequest((req, res) => {
 //   corsHandler(req, res, async () => {
 
 //       // Preflightリクエストの処理
-      
+
 //       if (req.method === 'OPTIONS') {
 //           res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
 //           res.set('Access-Control-Allow-Methods', 'GET, POST');
 //           res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
 //           res.status(204).send('');
-          
+
 //       } else {
 //         cors(req, res, () => {
 //           res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
 //           res.set('Access-Control-Allow-Methods', 'GET, POST');
-//           res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
+//           res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 //           res.status(204).send('');
 //         });
 //       }
@@ -154,7 +150,7 @@
 //           await admin.messaging().send(token, payload);
 //           res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
 //           res.status(200).send({ success: true, response });
-          
+
 //       } catch (error) {
 //           console.error('Error sending notification:', error);
 //           res.set('Access-Control-Allow-Origin', 'https://reminder-b4527.web.app');
@@ -208,7 +204,7 @@
 //     res.status(500).send(`Error sending notification: ${error.message}`);
 //   }
 // });
- 
+
 //   // /send-notification エンドポイントを追加
 // app.post('/send-notification', async (req, res) => {
 //   const { token, message } = req.body;
@@ -253,7 +249,6 @@
 //   }
 // });
 
-
 // // const PORT = process.env.PORT || 3000;
 // app.listen(PORT, () => {
 //   console.log(`Server is running on port ${PORT}`);
@@ -268,8 +263,8 @@ const app = express();
 
 // const corsOptions = {
 //   origin: [
-//       'https://reminder3-65e84.web.app', 
-//       'http://localhost:3000', 
+//       'https://reminder3-65e84.web.app',
+//       'http://localhost:3000',
 //       'https://offsetcodecraft.site'
 //     ],
 //   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
@@ -278,7 +273,7 @@ const app = express();
 //   optionsSuccessStatus: 204,
 // };
 
-dotenv.config(); 
+dotenv.config();
 
 // ミドルウェア
 app.use(express.json());
@@ -295,5 +290,3 @@ app.get('/', (req, res) => {
 app.listen(PORT, HOST, () => {
   console.log('Server is running on port 3000');
 });
-
-

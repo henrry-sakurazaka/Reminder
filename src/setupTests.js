@@ -3,7 +3,6 @@ import '@testing-library/jest-dom';
 import { TextEncoder, TextDecoder } from 'text-encoding';
 import fetch from 'node-fetch';
 
-
 // Polyfill for fetch
 globalThis.fetch = fetch;
 
@@ -79,11 +78,10 @@ jest.mock('firebase/messaging', () => {
   };
 });
 
-jest.mock("firebase/auth", () => ({
+jest.mock('firebase/auth', () => ({
   getAuth: jest.fn(() => ({})),
   onAuthStateChanged: jest.fn((auth, callback) => callback(null)),
 }));
-
 
 global.window = Object.create(window);
 global.window.addEventListener = jest.fn();
