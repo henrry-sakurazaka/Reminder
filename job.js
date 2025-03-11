@@ -8,7 +8,6 @@
 // import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-database.js";
 // import { getMessaging, getToken, onMessage } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js";
 
-
 // // importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js');
 // // importScripts('https://www.gstatic.com/firebasejs/10.12.2/firebase-messaging.js');
 
@@ -109,7 +108,6 @@
 //     console.log('An error occurred while retrieving token. ', err);
 //   });
 // };
-
 
 // onBackgroundMessage(messaging,(payload) => {
 //   console.log('[firebase-messaging-sw.js] Received background message ', payload);

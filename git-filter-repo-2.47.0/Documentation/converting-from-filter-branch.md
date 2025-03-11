@@ -5,20 +5,20 @@ to learn how to convert over to using filter-repo.
 
 ## Table of Contents
 
-  * [Half-hearted conversions](#half-hearted-conversions)
-  * [Intention of "equivalent" commands](#intention-of-equivalent-commands)
-  * [Basic Differences](#basic-differences)
-  * [Cheat Sheet: Conversion of Examples from the filter-branch manpage](#cheat-sheet-conversion-of-examples-from-the-filter-branch-manpage)
-  * [Cheat Sheet: Additional conversion examples](#cheat-sheet-additional-conversion-examples)
+- [Half-hearted conversions](#half-hearted-conversions)
+- [Intention of "equivalent" commands](#intention-of-equivalent-commands)
+- [Basic Differences](#basic-differences)
+- [Cheat Sheet: Conversion of Examples from the filter-branch manpage](#cheat-sheet-conversion-of-examples-from-the-filter-branch-manpage)
+- [Cheat Sheet: Additional conversion examples](#cheat-sheet-additional-conversion-examples)
 
 ## Half-hearted conversions
 
 You can switch nearly any `git filter-branch` command to use
 filter-repo under the covers by just replacing the `git filter-branch`
 part of the command with
-[`filter-lamely`](../contrib/filter-repo-demos/filter-lamely).  The
+[`filter-lamely`](../contrib/filter-repo-demos/filter-lamely). The
 git.git regression testsuite passes when I swap out the filter-branch
-script with filter-lamely, for example.  (However, the filter-branch
+script with filter-lamely, for example. (However, the filter-branch
 tests are not very comprehensive, so don't rely on that too much.)
 
 Doing a half-hearted conversion has nearly all of the drawbacks of
@@ -32,8 +32,8 @@ switching to direct filter-repo commands.
 ## Intention of "equivalent" commands
 
 filter-branch and filter-repo have different defaults, as highlighted
-in the Basic Differences section below.  As such, getting a command
-which behaves identically is not possible.  Also, sometimes the
+in the Basic Differences section below. As such, getting a command
+which behaves identically is not possible. Also, sometimes the
 filter-branch manpage lies, e.g. it says "suppose you want to...from
 all commits" and then uses a command line like "git filter-branch
 ... HEAD", which only operates on commits in the current branch rather
@@ -55,13 +55,13 @@ copy into your desired end state.
 
 With `git filter-repo`, you are essentially given an editing tool to
 operate on the [fast-export](https://git-scm.com/docs/git-fast-export)
-serialization of a repo.  That means there is an input stream of all
+serialization of a repo. That means there is an input stream of all
 the contents of the repository, and rather than specifying filters in
 the form of commands to run, you usually employ a number of common
 pre-defined filters that provide various ways to slice, dice, or
 modify the repo based on its components (such as pathnames, file
-content, user names or emails, etc.)  That makes common operations
-easier, even if it's not as versatile as shell callbacks.  For cases
+content, user names or emails, etc.) That makes common operations
+easier, even if it's not as versatile as shell callbacks. For cases
 where more complexity or special casing is needed, filter-repo
 provides python callbacks that can operate on the data structures
 populated from the fast-export stream to do just about anything you
@@ -69,10 +69,10 @@ want.
 
 filter-branch defaults to working on a subset of the repository, and
 requires you to specify a branch or branches, meaning you need to
-specify `-- --all` to modify all commits.  filter-repo by contrast
+specify `-- --all` to modify all commits. filter-repo by contrast
 defaults to rewriting everything, and you need to specify `--refs
 <rev-list-args>` if you want to limit to just a certain set of
-branches or range of commits.  (Though any `<rev-list-args>` that
+branches or range of commits. (Though any `<rev-list-args>` that
 begin with a hyphen are not accepted by filter-repo as they look like
 the start of different options.)
 
@@ -93,9 +93,11 @@ performance:
 ```shell
   git filter-branch --tree-filter 'rm filename' HEAD
 ```
+
 ```shell
   git filter-branch --tree-filter 'rm -f filename' HEAD
 ```
+
 ```shell
   git filter-branch --index-filter 'git rm --cached --ignore-unmatch filename' HEAD
 ```
@@ -146,21 +148,24 @@ very subtle ways) becomes
 The filter-branch manual provided one example with three different
 commands that could be used to achieve it, though the first of them
 had limited applicability (only when the repo had a single initial
-commit).  These three examples were:
+commit). These three examples were:
+
 ```shell
   git filter-branch --parent-filter 'sed "s/^\$/-p <graft-id>/"' HEAD
 ```
+
 ```shell
   git filter-branch --parent-filter \
       'test $GIT_COMMIT = <commit-id> && echo "-p <graft-id>" || cat' HEAD
 ```
+
 ```shell
   git replace --graft $commit-id $graft-id
   git filter-branch $graft-id..HEAD
 ```
 
 git-replace did not exist when the original two examples were written,
-but it is clear that the last example is far easier to understand.  As
+but it is clear that the last example is far easier to understand. As
 such, filter-repo just uses the same mechanism:
 
 ```shell
@@ -177,9 +182,9 @@ WARNING: This is a BAD example for BOTH filter-branch and filter-repo.
 It does not remove the changes the user made from the repo, it just
 removes the commit in question while smashing the changes from it into
 any subsequent commits as though the subsequent authors had been
-responsible for those changes as well.  `git rebase` is likely to be a
+responsible for those changes as well. `git rebase` is likely to be a
 better fit for what you really want if you are looking at this
-example.  (See also [this explanation of the differences between
+example. (See also [this explanation of the differences between
 rebase and
 filter-repo](https://github.com/newren/git-filter-repo/issues/62#issuecomment-597725502))
 
@@ -274,7 +279,6 @@ or
 (and as a bonus both filter-repo alternatives will fix tagger emails
 too, unlike the filter-branch example)
 
-
 ### Restricting to a range
 
 The partial examples
@@ -282,9 +286,11 @@ The partial examples
 ```shell
   git filter-branch ... C..H
 ```
+
 ```shell
   git filter-branch ... C..H ^D
 ```
+
 ```shell
   git filter-branch ... D..H ^C
 ```
@@ -294,9 +300,11 @@ become
 ```shell
   git filter-repo ... --refs C..H
 ```
+
 ```shell
   git filter-repo ... --refs C..H ^D
 ```
+
 ```shell
   git filter-repo ... --refs D..H ^C
 ```
@@ -321,17 +329,18 @@ filter-branch:
 ```
 
 though it has the disadvantage of running on every c file for every
-commit in history, even if some commits do not modify any c files.  This
+commit in history, even if some commits do not modify any c files. This
 means this kind of command can be excruciatingly slow.
 
 The same functionality is slightly more involved in filter-repo for
 two reasons:
-  - fast-export and fast-import split file contents and file names into
-    completely different data structures that aren't normally available
-    together
-  - to run a program on a file, you'll need to write the contents to the
-    a file, execute the program on that file, and then read the contents
-    of the file back in
+
+- fast-export and fast-import split file contents and file names into
+  completely different data structures that aren't normally available
+  together
+- to run a program on a file, you'll need to write the contents to the
+  a file, execute the program on that file, and then read the contents
+  of the file back in
 
 ```shell
   git filter-repo --file-info-callback '
@@ -354,7 +363,7 @@ two reasons:
 However, one can write a script that uses filter-repo as a library to
 simplify this, while also gaining filter-repo's automatic handling of
 other concerns like rewriting commit IDs in commit messages or pruning
-commits that become empty.  In fact, one of the [contrib
+commits that become empty. In fact, one of the [contrib
 demos](../contrib/filter-repo-demos),
 [lint-history](../contrib/filter-repo-demos/lint-history), was
 specifically written to make this kind of case really easy:

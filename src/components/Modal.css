@@ -1,92 +1,91 @@
 @charset "utf-8";
 
 .modalParent .modal {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    width: 250px;
-    height: 396px;
-    border: 1px solid rgb(48, 48, 219);
-    border-radius: 8px;
-    z-index: 10;
-    
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  width: 250px;
+  height: 396px;
+  border: 1px solid rgb(48, 48, 219);
+  border-radius: 8px;
+  z-index: 10;
 }
 .switch-container {
-    width: 100%;
-    position: absolute;
-    top: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    display: block;
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
 }
 
 .switch-container2 {
-    width: 100%;
-    position: absolute;
-    top: 40px;
-    left: 50%;
-    transform: translateX(-50%);
-    display: block;
+  width: 100%;
+  position: absolute;
+  top: 40px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: block;
 }
 
 .time-picker-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
 }
 
 .message-container {
-    width: 200px;
-    height: 200px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
-    border: 1px solid rgb(48, 48, 219);
-    background-color: rgb(48, 48, 219);
-    column-gap: 16px;
+  width: 200px;
+  height: 200px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  border: 1px solid rgb(48, 48, 219);
+  background-color: rgb(48, 48, 219);
+  column-gap: 16px;
 }
 
 .message {
-    margin: 0;
+  margin: 0;
 }
 
 .btn-container {
-    position: absolute;
-    bottom: 36px;
+  position: absolute;
+  bottom: 36px;
 }
 .set-btn {
-    width: 96px;
-    height: 40px;
-    border-radius: 40px;
-    font-size: 16px;
-    font-weight: bold;
-    color: rgb(40, 147, 247, 0.772);
-    background-color: #ccc;
-    outline: none;
+  width: 96px;
+  height: 40px;
+  border-radius: 40px;
+  font-size: 16px;
+  font-weight: bold;
+  color: rgb(40, 147, 247, 0.772);
+  background-color: #ccc;
+  outline: none;
 }
 
 .warning-message {
-    position: absolute;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
-    z-index: 1000;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
 }
 .warning {
-    color: rgb(246, 246, 137)
+  color: rgb(246, 246, 137);
 }
 
 .successful {
-    z-index: 1000;
-    position: absolute;
+  z-index: 1000;
+  position: absolute;
 }
 .set-message {
-    color:  rgb(40, 147, 247, 0.772);
+  color: rgb(40, 147, 247, 0.772);
 }

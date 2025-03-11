@@ -1,67 +1,61 @@
-
-
-import React from "react";
-import { useEffect, useState, useMemo} from 'react';
+import React from 'react';
+import { useEffect, useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { checkAuthentication } from './checkAuthentication';
-import { createContext, useContext} from "react";
-import { firestore} from "../firebase";
-import { collection, doc, addDoc} from 'firebase/firestore';
+import { createContext, useContext } from 'react';
+import { firestore } from '../firebase';
+import { collection, doc, addDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 
-
-
 const todoList = [
-    {
-      title: "Make a restaurant reservation",
-      description: "user tasks",
-      type: "string",
-      id: 1,
-      content: "Make a restaurant reservation",
-      editing: false,
-      completed: false,
-      reserve: false,
-      editingLock: false,
-      editingColor: false,
-      editingDateTime: false
-    },
-    { 
-      title: "send a letter",
-      description: "user tasks",
-      type: "string",
-      id: 2,
-      content: "send a letter",
-      editing: false,
-      completed: false,
-      reserve: false,
-      editingLock: false,
-      editingColor: false,
-      editingDateTime: false
-    },
-    {
-      title: "buy flowers",
-      description: "user tasks",
-      type: "string",
-      id: 3,
-      content: "buy flowers",
-      editing: false,
-      completed: false,
-      reserve: false,
-      editingLock: false,
-      editingColor: false,
-      editingDateTime: false
-    }
-  ]
+  {
+    title: 'Make a restaurant reservation',
+    description: 'user tasks',
+    type: 'string',
+    id: 1,
+    content: 'Make a restaurant reservation',
+    editing: false,
+    completed: false,
+    reserve: false,
+    editingLock: false,
+    editingColor: false,
+    editingDateTime: false,
+  },
+  {
+    title: 'send a letter',
+    description: 'user tasks',
+    type: 'string',
+    id: 2,
+    content: 'send a letter',
+    editing: false,
+    completed: false,
+    reserve: false,
+    editingLock: false,
+    editingColor: false,
+    editingDateTime: false,
+  },
+  {
+    title: 'buy flowers',
+    description: 'user tasks',
+    type: 'string',
+    id: 3,
+    content: 'buy flowers',
+    editing: false,
+    completed: false,
+    reserve: false,
+    editingLock: false,
+    editingColor: false,
+    editingDateTime: false,
+  },
+];
 
 const FirstAddLogic = createContext();
 
 const FirstAddTodosProvider = ({ children }) => {
-
-  const navigate = useNavigate(); 
+  const navigate = useNavigate();
   const [authenticated, setAuthenticated] = useState(false); // authenticatedを状態として宣言
   const [savedToDatabase, setSavedToDatabase] = useState(false); // 初回保存フラグ
-  
-  
+
   const todosConverter2 = useMemo(() => {
     return {
       toFirestore: (todoList) => {
@@ -79,21 +73,20 @@ const FirstAddTodosProvider = ({ children }) => {
             reserve: todo.reserve,
             editingLock: todo.editingLock,
             editingColor: todo.editingColor,
-            editingDateTime: todo.editingDateTime
+            editingDateTime: todo.editingDateTime,
           };
         });
         return firestoreData;
-      }
+      },
     };
   }, []);
-  
- console.log('authenticated', authenticated);
+
+  console.log('authenticated', authenticated);
 
   useEffect(() => {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
         navigate('/UserAuth'); // ログインしていない場合は認証ページにリダイレクト
-        
       } else {
         // 初回のみデータベースに保存する条件を設定
         if (!savedToDatabase) {
@@ -102,8 +95,8 @@ const FirstAddTodosProvider = ({ children }) => {
           // 初回保存フラグを立てる
           setSavedToDatabase(true);
         }
-        if(savedToDatabase) {
-            navigate('/Example');
+        if (savedToDatabase) {
+          navigate('/Example');
         }
         setAuthenticated(true);
       }
@@ -111,34 +104,30 @@ const FirstAddTodosProvider = ({ children }) => {
   }, [navigate]);
 
   // データベースにtodosを保存する関数
-       const saveNewDataToFirestore =  async () => {
-          console.log('yes')
-              try {    
-                  const todoCollectionRef = collection(firestore, 'todoList2');
-                  const newDocRef = doc(todoCollectionRef, 'newTask');    
-                  
-                  const converter = todosConverter2.toFirestore(todoList);
-                  await addDoc(newDocRef, converter);
-             //   await setDoc(newDocRef, converter);    
-                  console.log('First data saved to Firestore:');   
-            
-            } catch (error) {
-              console.error('Error saving First data to Firestore:', error);
-            }
-        };
+  const saveNewDataToFirestore = async () => {
+    console.log('yes');
+    try {
+      const todoCollectionRef = collection(firestore, 'todoList2');
+      const newDocRef = doc(todoCollectionRef, 'newTask');
 
-    FirstAddTodosProvider.propTypes = {
-      children: PropTypes.node.isRequired,
-    };
+      const converter = todosConverter2.toFirestore(todoList);
+      await addDoc(newDocRef, converter);
+      //   await setDoc(newDocRef, converter);
+      console.log('First data saved to Firestore:');
+    } catch (error) {
+      console.error('Error saving First data to Firestore:', error);
+    }
+  };
 
-    return (
-        <FirstAddTodosProvider value= { todoList }>
-            { children }
-        </FirstAddTodosProvider>
-    )
-}
+  FirstAddTodosProvider.propTypes = {
+    children: PropTypes.node.isRequired,
+  };
 
+  return (
+    <FirstAddTodosProvider value={todoList}>{children}</FirstAddTodosProvider>
+  );
+};
 
 const useFirstAddLogic = () => useContext(FirstAddLogic);
 
-export { useFirstAddLogic , FirstAddTodosProvider };
+export { useFirstAddLogic, FirstAddTodosProvider };

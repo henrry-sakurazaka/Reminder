@@ -1,59 +1,140 @@
-
 const express = require('express');
-const {onRequest} = require("firebase-functions/v2/https");
-const logger = require("firebase-functions/logger");
-const functions = require("firebase-functions");
-const admin = require("firebase-admin");
-const bodyParser = require("body-parser"); 
-const path = require("path");
+const { onRequest } = require('firebase-functions/v2/https');
+const logger = require('firebase-functions/logger');
+const functions = require('firebase-functions/v2');
+const admin = require('firebase-admin');
+const bodyParser = require('body-parser');
+const path = require('path');
+const fs = require('fs');
 const cors = require('cors');
-require('dotenv').config();
+const dotenv = require('dotenv');
+const { environments } = require('eslint-plugin-prettier');
 
-   
-var serviceAccount = require(process.env.VITE_GOOGLE_APPLICATION_CREDENTIALS); 
-                            
+dotenv.config();
+
+// if (process.env.CI !== 'true') {
+//   dotenv.config();
+// }
+
+//For local environment
+var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+// var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
+
+// let serviceAccount;
+
+// if (process.env.FIREBASE_SERVICE_ACCOUNT) {
+//   try {
+//     // JSON形式ならオブジェクトにパース
+//     serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
+//   } catch (error) {
+//     // JSONでない場合はファイルパスとみなして require() する
+//     serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+//   }
+// } else {
+//   // 環境変数が未定義ならデフォルトのパスを使用
+//   const defaultPath = path.join(__dirname, "serviceAccountKey.json");
+//   if (fs.existsSync(defaultPath)) {
+//     serviceAccount = require(defaultPath);
+//   } else {
+//     throw new Error("Service account credentials not found.");
+//   }
+// }
+console.log('=== DEBUG INFO ===');
+console.log('Current Directory:', __dirname);
+
 admin.initializeApp({
-    credential: admin.credential.cert(serviceAccount),
-    databaseURL: process.env.VITE_MYAPP_DATABASE_URL
+  credential: admin.credential.cert(serviceAccount),
+  databaseURL: process.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
 });
 
 const app = express();
-
+const app2 = express();
+const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
+const PORT = 4300;
+const PORT2 = 6080;
+// const PORT = 8080;
+// const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
 
 // CORSのミドルウェアを設定
 const corsOptions = {
-    origin: ['https://reminder3-65e84.web.app', 'https://localhost'],
-    methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-    allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
-    credentials: true,
-    optionsSuccessStatus: 204,
-  };
-
+  origin: [
+    'https://reminder3-65e84.web.app',
+    'http://localhost:3000',
+    'https://offsetcodecraft.site',
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Access-Control-Allow-Origin',
+  ],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
 // Express app に CORS ミドルウェアを適用
 
 app.use(express.json());
+app2.use(express.json());
 app.use(express.static(path.join(__dirname, 'build')));
 app.use(bodyParser.json());
 app.use(cors(corsOptions));
 
-// // サービスワーカーを登録し、トークンを取得
-// registerServiceWorkerAndRequestToken();
-
-
 // 静的ファイルを正しいMIMEタイプで配信するための設定
-app.use(express.static(path.join(__dirname, 'public'), {
-  setHeaders: (res, path) => {
-    if (path.endsWith('.js')) {
-      res.setHeader('Content-Type', 'application/javascript');
-    }
-  }
-}));
-
+app.use(
+  express.static(path.join(__dirname, 'public'), {
+    setHeaders: (res, path) => {
+      if (path.endsWith('.js')) {
+        res.setHeader('Content-Type', 'application/javascript');
+      }
+    },
+  })
+);
 
 app.get('/', (req, res) => {
-res.sendFile(path.join(__dirname, 'build', 'index.html'));
+  res.sendFile(path.join(__dirname, 'build', 'index.html'));
 });
+
+app.post('/handleEasyLogin', (req, res) => {
+  const { email, password } = req.body;
+
+  admin
+    .auth()
+    .signInWithEmailAndPassword(email, password)
+    .then((userCredential) => {
+      const idToken = userCredential.user.getIdToken();
+      res.status(200).send({ idToken: idToken });
+    })
+    .catch((error) => {
+      res
+        .status(400)
+        .send({ message: 'Failed to login', error: error.message });
+    });
+});
+
+if (isEmulator) {
+  console.log('Running in emulator mode');
+} else {
+  console.log('Running in production mode');
+  // 本番デプロイではエミュレーターを起動しない
+  console.log('PORT:', process.env.PORT);
+}
+
+app.get('/', (req, res) => {
+  res.send('Hello World!');
+});
+
+app.listen(PORT, () => {
+  console.log(`Server is running on port ${PORT}`);
+});
+
+app2.listen(PORT2, () => {
+  console.log(`Server is running on port ${PORT2}`);
+});
+
+// Firebase Functionsとしてエクスポート
+exports.api3 = functions.https.onRequest(app);
+exports.api2 = functions.https.onRequest(app2);
 
 // // トークンを返すエンドポイントを追加
 // app.get('/get-token', cors(corsOptions), async (req, res) => {
@@ -63,41 +144,23 @@ res.sendFile(path.join(__dirname, 'build', 'index.html'));
 //       return res.status(400).send('UID is required');
 //     }
 //     try {
-      
+
 //       const tokenSnapshot = await admin.database().ref('tokens').child(uid).get();
-  
+
 //       if (!tokenSnapshot.exists()) {
 //         return res.status(404).send('Token not found');
 //       }
-  
+
 //       const deviceToken = tokenSnapshot.val().deviceToken;
 //       res.status(200).json({ token: deviceToken });
 //     } catch (error) {
-  
+
 //       res.status(500).send(`Error fetching token: ${error.message}`);
 //     }
 //   });
 
-  
-  
-app.post('/handleEasyLogin', (req, res) => {
-  const { email, password } = req.body;
-
-  admin.auth().signInWithEmailAndPassword(email, password)
-      .then(userCredential => {
-          const idToken = userCredential.user.getIdToken();
-          res.status(200).send({ idToken: idToken });
-      })
-      .catch(error => {
-          res.status(400).send({ message: 'Failed to login', error: error.message });
-      });
-});
-
-
-
 // app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
 // const { idToken, deviceToken } = req.body;
-
 
 // // トークンを保存する処理を実装する
 // res.status(200).send('Tokens saved successfully');
@@ -111,11 +174,10 @@ app.post('/handleEasyLogin', (req, res) => {
 //     await admin.database().ref('tokens').child(uid).set({
 //       deviceToken: deviceToken,
 //     });
-  
 
 //     res.status(200).send('Tokens saved successfully');
 //   } catch (error) {
-  
+
 //     res.status(500).send(`Error saving tokens: ${error.message}`);
 //   }
 // });
@@ -138,7 +200,6 @@ app.post('/handleEasyLogin', (req, res) => {
 //     return res.status(500).send('Internal Server Error');
 //   }
 // });
-
 
 // app.post('/send-notification', cors(corsOptions), async (req, res) => {
 // const idToken = req.headers.authorization?.split('Bearer ')[1]; // Authorizationヘッダーからトークンを取得
@@ -165,16 +226,13 @@ app.post('/handleEasyLogin', (req, res) => {
 //     //         body: message.body,
 //     //     },
 //     // };
-    
-  
-    
+
 //     res.status(200).send('Notification sent successfully');
 // } catch (error) {
 //     console.error(error); // エラーをログに出力
 //     res.status(500).send(`Error sending notification: ${error.message}`);
 // }
 // });
-
 
 // exports.api = functions.https.onRequest(app);
 
@@ -214,10 +272,8 @@ app.post('/handleEasyLogin', (req, res) => {
 //         res.set('Access-Control-Allow-Origin', '*');
 //       }
 //       res.status(200).send('Token registered successfully');
-  
-   
-// });
 
+// });
 
 // // データベースの特定の場所を監視するトリガー関数を定義する
 // exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
@@ -229,13 +285,11 @@ app.post('/handleEasyLogin', (req, res) => {
 //         // 変更を処理する
 //         // ここにプッシュ通知の送信などの処理を追加します
 
-    
-      
 //         // 処理が完了したことを示すPromiseを返す
 //         return Promise.resolve();
 //     });
 
-    // const firestore = admin.firestore();
+// const firestore = admin.firestore();
 
 // exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{todoId}')
 //     .onUpdate(async (change, context) => {
@@ -244,7 +298,7 @@ app.post('/handleEasyLogin', (req, res) => {
 //         if (beforeData.someField !== afterData.someField) {
 //           console.log('Field has changed:', beforeData.someField, 'to', afterData.someField);
 //         }
-        
+
 //         // データの変更をチェック
 //         if (beforeData.notificationTime !== afterData.notificationTime) {
 //             const payload = {
@@ -271,18 +325,17 @@ app.post('/handleEasyLogin', (req, res) => {
 //         return null;
 //     });
 
-
 // // 通知を送信する関数
 // exports.sendNotification = functions.https.onRequest((req, res) => {
 //         cors(corsOptions)(req, res, async  () => {
-//             try {  
-               
+//             try {
+
 //                 const idToken = req.headers.authorization?.split('Bearer ')[1];
 
 //                 if (!idToken) {
 //                   return res.status(403).json({ error: 'Authorization header missing' });
 //                 }
-          
+
 //                 // Firebase Auth トークンを検証
 //                 // const decodedToken = await admin.auth().verifyIdToken(idToken);
 //                 // const uid = decodedToken.uid; // デコードされたトークンから UID を取得
@@ -297,26 +350,25 @@ app.post('/handleEasyLogin', (req, res) => {
 //                 }
 //                 };
 //                // Preflightリクエストの処理
-      
+
 //                 if (req.method === 'OPTIONS') {
 //                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
 //                     res.set('Access-Control-Allow-Methods', 'GET, POST');
 //                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
 //                     res.status(204).send('');
-                    
+
 //                 } else {
 //                 cors(req, res, () => {
 //                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
 //                     res.set('Access-Control-Allow-Methods', 'GET, POST');
-//                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization'); 
+//                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 //                     res.status(204).send('');
 //                 });
 //                 }
-       
+
 //                 const response = await admin.messaging().sendToTopic(topic, payload);
 
-                
 //                 return res.status(200).json({ message: "Successfully sent message", response: response });
 //             } catch (error) {
 //             res.status(500).json({error:`Error sending notification2: ${error.message}`});
@@ -349,21 +401,21 @@ app.post('/handleEasyLogin', (req, res) => {
 //   });
 
 // データを取得する関数
-exports.getTodoList = functions.https.onRequest((req, res) => {
-    const db = admin.firestore();
-    db.collection('todoList3').get()
-        .then(snapshot => {
-            let data = [];
-            snapshot.forEach(doc => {
-                data.push(doc.data());
-            });
-            res.status(200).send(data);
-        })
-        .catch(error => {
-            console.error("Error accessing Firestore: ", error);
-            res.status(500).send("Error accessing Firestore");
-        });
-});
+// exports.getTodoList = functions.https.onRequest((req, res) => {
+//     const db = admin.firestore();
+//     db.collection('todoList3').get()
+//         .then(snapshot => {
+//             let data = [];
+//             snapshot.forEach(doc => {
+//                 data.push(doc.data());
+//             });
+//             res.status(200).send(data);
+//         })
+//         .catch(error => {
+//             console.error("Error accessing Firestore: ", error);
+//             res.status(500).send("Error accessing Firestore");
+//         });
+// });
 
 // // データを取得する関数
 // exports.myFunction = functions.https.onRequest((req, res) => {
@@ -381,15 +433,3 @@ exports.getTodoList = functions.https.onRequest((req, res) => {
 //             res.status(500).send("Error accessing Firestore");
 //         });
 // });
-
-
-// Hello World 関数
-exports.helloWorld = onRequest((request, response) => {
-    logger.info("Hello logs!", {structuredData: true});
-    response.send("Hello from Firebase!");
-});
-
-// Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
-
-
