@@ -1,18 +1,15 @@
 'use strict';
 
-
-self.addEventListener('push', function(event) {
+self.addEventListener('push', function (event) {
   const options = {
-      body: event.data.text(),
-      icon: 'icon.png',
-      badge: 'badge.png'
+    body: event.data.text(),
+    icon: 'icon.png',
+    badge: 'badge.png',
   };
   event.waitUntil(
-      self.registration.showNotification('Notification Title', options)
+    self.registration.showNotification('Notification Title', options)
   );
 });
-
-
 
 // self.addEventListener('notificationclick', function(event) {
 //   event.notification.close();
@@ -20,7 +17,6 @@ self.addEventListener('push', function(event) {
 //       clients.openWindow('https://reminder3-65e84.web.app')
 //   );
 // });
-
 
 // onBackgroundMessage(messaging,(payload) => {
 //   console.log('[firebase-messaging-sw.js] Received background message ', payload);

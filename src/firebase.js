@@ -1,9 +1,9 @@
 /* eslint-disable no-console */
 
-import { initializeApp, getApps, getApp} from "firebase/app";
-import { getAuth , GoogleAuthProvider} from "firebase/auth";
-import { getFirestore } from "firebase/firestore";
-import { ref, set } from "firebase/database"; // Realtime Databaseをインポート
+import { initializeApp, getApps, getApp } from 'firebase/app';
+import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getFirestore } from 'firebase/firestore';
+import { ref, set } from 'firebase/database'; // Realtime Databaseをインポート
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
@@ -11,11 +11,22 @@ const firebaseConfig = {
   authDomain: import.meta.env.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN,
   projectId: import.meta.env.VITE_REACT_APP_FIREBASE_PROJECT_ID,
   storageBucket: import.meta.env.VITE_REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: import.meta.env.VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
+  messagingSenderId: import.meta.env
+    .VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
+  databaseURL: import.meta.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
 };
 
+// // Firebase Admin SDKの初期化
+// const serviceAccount = require('./serviceAccountKey.json'); // サービスアカウントの認証情報ファイルのパス
+
+// if (getApps().length === 0) {
+//   admin.initializeApp({
+//     credential: admin.credential.cert(serviceAccount),
+//     databaseURL: import.meta.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
+//   });
+// }
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
@@ -39,7 +50,6 @@ const provider = new GoogleAuthProvider();
 //   console.error("Error checking analytics support: ", error);
 // });
 
-
 function checkForNotificationsAndTrigger() {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
   tasks.forEach((task) => {
@@ -50,23 +60,23 @@ function checkForNotificationsAndTrigger() {
     if (notificationTime <= currentTime && !unNotified) {
       showNotification(task);
       // 通知後にタスクをローカルストレージから削除
-      const updatedTasks = tasks.filter(t => t.id !== task.id);
+      const updatedTasks = tasks.filter((t) => t.id !== task.id);
       localStorage.setItem('tasks', JSON.stringify(updatedTasks));
     }
   });
 }
 
 const showNotification = (task) => {
-  if (Notification.permission === "granted") {
-    new Notification("Reminder", {
+  if (Notification.permission === 'granted') {
+    new Notification('Reminder', {
       body: `Task: ${task.content}`, // タスクの内容を表示
       icon: '/favicon.png', // アイコンを追加する場合の例
       tag: 'unique-notification-id', // 一意のタグを設定
     });
-  } else if (Notification.permission !== "denied") {
-    Notification.requestPermission().then(permission => {
-      if (permission === "granted") {
-        new Notification("Reminder", {
+  } else if (Notification.permission !== 'denied') {
+    Notification.requestPermission().then((permission) => {
+      if (permission === 'granted') {
+        new Notification('Reminder', {
           body: `Task: ${task.content}`, // タスクの内容を表示
           tag: 'unique-notification-id', // 一意のタグを設定
         });
@@ -81,7 +91,7 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // const sendTokenToServer = async (token) => {
 //   try {
 //     const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
-    
+
 //       method: 'POST',
 //       headers: {
 //         'Content-Type': 'application/json',
@@ -99,7 +109,6 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 //     console.error('トークンの送信中にエラーが発生しました:', error);
 //   }
 // };
-
 
 // export const registerServiceWorkerAndRequestToken = async () => {
 //   if ('serviceWorker' in navigator) {
@@ -129,7 +138,6 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 //   }
 // };
 
-
 // export const requestForToken = () => {
 //   getToken(messaging, { vapidKey: vapidKey}).then((currentToken) => {
 //     if (currentToken) {
@@ -147,8 +155,5 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // サービスワーカーを登録し、トークンを取得
 // registerServiceWorkerAndRequestToken();
 
-
-
-export { app, auth, firestore, provider, ref, set}; // dbもエクスポートする
+export { app, auth, firestore, provider, ref, set }; // dbもエクスポートする
 export default firebaseConfig;
-

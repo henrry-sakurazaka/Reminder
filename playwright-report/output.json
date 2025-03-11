@@ -27,10 +27,7 @@
           "outputFolder": "/app/playwright-test-results"
         }
       ],
-      [
-        "list",
-        null
-      ],
+      ["list", null],
       [
         "html",
         {
@@ -53,9 +50,7 @@
         "name": "",
         "testDir": "/app/tests",
         "testIgnore": [],
-        "testMatch": [
-          "**/*.@(spec|test).?(c|m)[jt]s?(x)"
-        ],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
         "timeout": 30000
       }
     ],

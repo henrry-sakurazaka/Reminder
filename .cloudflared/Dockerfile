@@ -36,18 +36,23 @@ RUN mkdir -p /home/nonroot/.cloudflared
 # nonroot ユーザーを作成
 RUN useradd -m -u 1000 -s /bin/sh nonroot
 
+# COPY .cloudflared /home/nonroot/.cloudflared
+
+# RUN chmod -R 755 /home/nonroot/.cloudflared && \
+#     chown -R nonroot:nonroot /home/nonroot/.cloudflared
+
 # 必要なファイルをコピー
 COPY .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
 COPY .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
 COPY .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
-# COPY .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
+COPY .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 USER root
 
 RUN chmod 755 /home/nonroot/.cloudflared/entrypoint.sh
 RUN chmod 644 /home/nonroot/.cloudflared/config.yml
 RUN chmod 644 /home/nonroot/.cloudflared/cert.pem
-# RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+RUN chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
 RUN chown -R nonroot:nonroot /home/nonroot/.cloudflared 
 

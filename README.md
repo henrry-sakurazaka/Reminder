@@ -2,13 +2,12 @@
 
 このプロジェクトのDockerイメージは、[Docker Hub](https://hub.docker.com/repositories/henrry301)で公開されています。ここでは、以下の情報を確認できます：
 
-- **リポジトリ名**: `henrry301/app`
-- **タグ**: `app2,app3` タグを含む各イメージのバージョン。
+- **リポジトリ名**: `henrry301/reminder`
+- **タグ**: `1,2,3,playwright:v1.49.0-jammy` タグを含む各イメージのバージョン。
 - **イメージの履歴**: イメージのビルド履歴や変更履歴を確認できます。
 - **ダウンロード回数**: このイメージがどれだけダウンロードされたかを確認できます。
 
 Docker Hubを訪れて、プロジェクトに関連するイメージやその詳細を確認してください。
-
 
 # Create React App でのプロジェクトの始め方
 
@@ -19,6 +18,16 @@ Docker Hubを訪れて、プロジェクトに関連するイメージやその�
 プロジェクトディレクトリ内で、以下のコマンドを実行できます。
 
 ### `npm start`
+
+### `docker-compose up`
+
+### `docker-compose up -d`
+
+コンテナを起動し、E2Eテストまで実行します。
+
+Viteで起動
+
+### `npm run dev`
 
 アプリを開発モードで実行します。\
 ブラウザで [http://localhost:3000](http://localhost:3000) を開いて確認してください。
@@ -80,4 +89,3 @@ Reactについて学ぶには、[React のドキュメント](https://reactjs.or
 ### `npm run build` がミニファイに失敗する
 
 このセクションはここに移動しました: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
-

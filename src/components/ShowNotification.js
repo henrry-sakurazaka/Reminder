@@ -6,7 +6,7 @@
 //     tasks.forEach((task) => {
 //       const notificationTime = new Date(task.notificationTime).getTime();
 //       const currentTime = new Date().getTime();
-  
+
 //       if (notificationTime <= currentTime) {
 //         showNotification(task);
 //         // 通知後にタスクをローカルストレージから削除
@@ -15,7 +15,7 @@
 //       }
 //     });
 //   }
-  
+
 //  const showNotification = (task) => {
 //     if (Notification.permission === "granted") {
 //       new Notification("Reminder", {
@@ -36,4 +36,3 @@
 //   };
 //   // タイマーで定期的にチェックする
 //   setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェック
-  
