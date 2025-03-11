@@ -24,7 +24,6 @@ jobs:
         run: npx eslint src/ --fix
 
   prettier:
-    name: Check Code Formatting
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
