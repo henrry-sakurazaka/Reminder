@@ -101,7 +101,7 @@ const Edit = ({ todo }) => {
               : 'grey',
         }}
       >
-        i
+        
       </span>
 
       <button
