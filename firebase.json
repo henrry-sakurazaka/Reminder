@@ -1,94 +1,47 @@
 {
   "hosting": {
     "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
-    "site": "reminder3-65e84",
-    
-    "headers": [
-      {
-        "source": "/worker.js",
-        "headers": [
-          {
-            "key": "Content-Type",
-            "value": "application/javascript"
-          },
-          {
-            "key": "Cache-Control",
-            "value": "no-cache, no-store, must-revalidate"
-          },
-          {
-            "key": "Access-Control-Allow-Origin",
-            "value": "https://reminder3-65e84.web.app"
-          }
-        ]
-      },
-      {
-        "source": "/firebase-messaging-sw.js",
-        "headers": [
-          {
-            "key": "Content-Type",
-            "value": "application/javascript"
-          },
-          {
-            "key": "Cache-Control",
-            "value": "no-cache, no-store, must-revalidate"
-          }
-        ]
-      }   
-    ],
-    
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
-      {
-        "source": "/worker.js",
-        "destination": "/worker.js"
-      },
-      {
-        "source": "/firebase-messaging-sw.js",
-        "destination": "/worker.js"
-      },
-      {
-        "source": "/firebase-config.js",
-        "destination": "/firebase-config.js"
-      },
-      {
-        "source": "/api/**",
-        "function": "app"
-      },
       {
         "source": "**",
         "destination": "/index.html"
       }
-    ],
-    "cleanUrls": true
+    ]
   },
-  "functions": {
-    "source": "functions", 
-    "runtime": "nodejs18",  
-    "ignore": [
-      "node_modules/**"  
-    ],
-    "codebase": "default" 
-  },
-
+  "functions": [
+    {
+      "source": "functions",
+      "runtime": "nodejs20",
+      "ignore": ["node_modules/**"],
+      "image": "us-central1-docker.pkg.dev/${{ secrets.GCP_PROJECT_ID }}/gcf-artifacts/reminder3-65e84/api3:version_1",
+      "codebase": "default"
+    },
+    {
+      "source": "my-functions",
+      "codebase": "functions",
+      "ignore": [
+        "node_modules",
+        ".git",
+        "firebase-debug.log",
+        "firebase-debug.*.log",
+        "*.local"
+      ],
+      "predeploy": ["npm --prefix \"$RESOURCE_DIR\" run lint"]
+    }
+  ],
   "emulators": {
     "hosting": {
       "port": 5000
     },
     "pubsub": {
-      "port": 8085
-    },
-    "datastore": {
-      "port": 8091
+      "port": 5020
     },
     "functions": {
       "port": 5001
     },
     "firestore": {
-      "port": 8080
+      "port": 7000
     },
     "auth": {
       "port": 9099
@@ -97,11 +50,9 @@
       "port": 9199
     }
   },
-
   "storage": {
     "rules": "storage.rules"
   },
- 
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
@@ -109,6 +60,4 @@
   "database": {
     "rules": "/database.rules.json"
   }
-
- 
 }

@@ -9,7 +9,6 @@ export function checkAuthentication() {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         resolve(true); // ユーザーが認証済み
-  
       } else {
         resolve(false); // ユーザーが認証されていない
       }
@@ -25,7 +24,7 @@ export function PrivateRoute({ children }) {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
         navigate('/UserAuth');
-      } 
+      }
     });
   }, [navigate]);
 

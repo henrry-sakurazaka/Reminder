@@ -37,7 +37,8 @@ RUN chmod +x /firebase/entrypoint.sh
 ENTRYPOINT ["/firebase/entrypoint.sh"]
 
 # Firebaseエミュレーターを使用するためのポートを指定
-EXPOSE 8070 5001 5000 8090 9199 8091 8085
+EXPOSE 7000 5001 5000 5020 9199 9090 9000
 
 # Firebaseエミュレーターを起動するコマンドをデフォルトで設定
-CMD ["firebase", "emulators:start", "--only","firestore,functions,auth,database,storege"]
+CMD ["firebase", "emulators:start --port=9000", "--only","firestore,functions,auth,database,storege"]
+

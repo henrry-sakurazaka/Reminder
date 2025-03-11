@@ -1,0 +1,37 @@
+services:
+  app2:
+    container_name: app2
+    build:
+      context: .
+      dockerfile: Dockerfile
+    env_file:
+      - .env
+    deploy:
+      resources:
+        limits:
+          cpus: '0.5'
+          memory: 512M
+    ports:
+      - '8080:8080'
+    volumes:
+      - .:/app2
+      - /app2/node_modules # 監視対象から除外
+      - /app2/dist # 監視対象から除外
+      # - ./server.key.pem:/etc/ssl/private/server.key.pem
+      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
+      - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
+    entrypoint: ./entrypoint.sh
+    environment:
+      VITE_NODE_ENV: ${VITE_NODE_ENV}
+      VITE_HTTPS: 'true'
+      command: vite --https
+      VITE_PORT: ${VITE_PORT}
+      VITE_HOST: ${VITE_HOST}
+      HOST: 0.0.0.0
+      PORT: 3000
+    networks:
+      - my_custom_network
+
+  networks:
+    my_custom_network:
+      driver: bridge

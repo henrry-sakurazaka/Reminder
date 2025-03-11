@@ -101,9 +101,8 @@ WORKDIR /app2
 COPY package.json package-lock.json ./
 RUN npm install
 
-
 # デフォルトコマンド
-CMD ["npx", "playwright", "test", "npm", "run", "dev", "ngrok", "http", "3000", "app", "--", "--host", "0.0.0.0", "cloudflare", "tunnel", "offsetcodecraft.site", "node", "server.js"]
+CMD ["npx", "playwright", "test", "npm", "run", "dev", "http", "3000", "app", "--", "--host", "0.0.0.0", "cloudflare", "tunnel", "offsetcodecraft.site", "node", "server.js"]
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
