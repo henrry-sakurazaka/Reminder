@@ -100,9 +100,7 @@ const Edit = ({ todo }) => {
               ? 'yellow'
               : 'grey',
         }}
-      >
-        
-      </span>
+      ></span>
 
       <button
         className="compBtn"
