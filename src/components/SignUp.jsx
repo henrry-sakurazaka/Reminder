@@ -127,12 +127,12 @@ function SignUp() {
         );
         const user = userCredential.user;
 
-        await updateProfile(user,{displayName: name,});
+        await updateProfile(user, { displayName: name });
 
         // await updateProfile(auth.currentUser, {
         //   displayName: name,
         // });
-        
+
         const convertedData = todosConverter2.toFirestore(todoList);
         const dataWithUid = {
           todoId: user.uid,
