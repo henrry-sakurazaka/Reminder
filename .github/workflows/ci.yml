@@ -614,12 +614,17 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      # - name: Build Docker Images
+      #   run: |
+      #     docker build -f ./Dockerfile -t henrry301/reminder:1 .
+      #     docker build -f ./firebase/Dockerfile -t henrry301/reminder:2 ./firebase
+      #     docker build -f ./Dockerfile -t henrry301/playwright:v1.49.0-jammy .
+      #     docker build -f ./.cloudflared/Dockerfile -t henrry301/reminder:3 ./.cloudflared
+
       - name: Build Docker Images
         run: |
-          docker build -f ./Dockerfile -t henrry301/reminder:1 .
-          docker build -f ./firebase/Dockerfile -t henrry301/reminder:2 ./firebase
-          docker build -f ./Dockerfile -t henrry301/playwright:v1.49.0-jammy .
-          docker build -f ./.cloudflared/Dockerfile -t henrry301/reminder:3 ./.cloudflared
+          docker compose build
+          
 
       - name: Setting env file
         run: |
