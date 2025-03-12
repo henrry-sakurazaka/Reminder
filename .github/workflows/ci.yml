@@ -606,7 +606,7 @@ jobs:
 
   docker-hub:
     runs-on: ubuntu-latest
-    needs:
+    # needs:
       # - lint
       # - E2E-tests
       # - deploy
