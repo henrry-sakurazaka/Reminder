@@ -607,9 +607,9 @@ jobs:
   docker-hub:
     runs-on: ubuntu-latest
     # needs:
-      # - lint
-      # - E2E-tests
-      # - deploy
+    #   - lint
+    #   - E2E-tests
+    #   - deploy
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
