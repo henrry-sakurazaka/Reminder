@@ -616,20 +616,18 @@ jobs:
 
       - name: Build Docker Images
         run: |
-          docker build -t reminder-app2 .
-          docker build -t reminder-firebase ./functions
-          docker build -t mcr.microsoft.com/playwright ./playwright
-          docker build -t cloudflare/cloudflared ./cloudflared
-      
-      - name: Log in to Docker Hub
-        if: github.event_name == 'push'
+          docker build -f ./Dockerfile -t henrry301/reminder:1 .
+          docker build -f ./firebase/Dockerfile -t henrry301/reminder:2 ./firebase
+          docker build -f ./Dockerfile -t henrry301/playwright:v1.49.0-jammy .
+          docker build -f ./.cloudflared/Dockerfile -t henrry301/reminder:3 ./.cloudflared
 
+      - name: Log in to Docker Hub
         run: |
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
-      - name: Log in to Docker Hub
+      - name: Push to Docker Hub
         run: |
           echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
           docker tag reminder-app2 henrry301/reminder:1
