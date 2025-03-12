@@ -621,11 +621,10 @@ jobs:
           docker build -f ./Dockerfile -t henrry301/playwright:v1.49.0-jammy .
           docker build -f ./.cloudflared/Dockerfile -t henrry301/reminder:3 ./.cloudflared
 
-      - name: Log in to Docker Hub
+      - name: Setting env file
         run: |
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
 
       - name: Push to Docker Hub
         run: |

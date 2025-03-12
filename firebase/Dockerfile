@@ -28,10 +28,11 @@ RUN npm install
 
 RUN npm install -g firebase-tools
 
+# スクリプトを実行可能にする
+RUN chmod +x firebase/entrypoint.sh
+
 COPY ./firebase/entrypoint.sh /firebase/entrypoint.sh
 
-# スクリプトを実行可能にする
-RUN chmod +x /firebase/entrypoint.sh
 
 # entrypoint.shを実行するように設定
 ENTRYPOINT ["/firebase/entrypoint.sh"]
