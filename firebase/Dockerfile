@@ -13,7 +13,7 @@ ENV PATH="$JAVA_HOME/bin:$PATH"
 WORKDIR /firebase
 
 # プロジェクトのルートディレクトリからfirebase.jsonをコピー
-COPY ../firebase.json ./  
+COPY ./firebase.json ./  
 
 # Firebaseの設定ファイルとスクリプトをコピー
 COPY . .
