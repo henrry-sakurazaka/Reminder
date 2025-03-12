@@ -23,8 +23,10 @@ RUN npm install --global vite
 
 # package.json と package-lock.json をコピーして依存関係をインストール
 COPY package*.json ./
-RUN npm ci
+
+RUN rm -rf package-lock.json node_modules
 RUN npm install
+RUN npm ci
 
 RUN npm install -g firebase-tools
 
