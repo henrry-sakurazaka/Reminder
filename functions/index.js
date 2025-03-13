@@ -133,8 +133,8 @@ app2.listen(PORT2, () => {
 });
 
 // Firebase Functionsとしてエクスポート
-exports.api7 = functions.https.onRequest(app);
-exports.api5 = functions.https.onRequest(app2);
+exports.api = functions.https.onRequest(app);
+exports.api2 = functions.https.onRequest(app2);
 
 // // トークンを返すエンドポイントを追加
 // app.get('/get-token', cors(corsOptions), async (req, res) => {
