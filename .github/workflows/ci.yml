@@ -562,7 +562,7 @@ jobs:
 
       - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions --project reminder3-65e84 --debug
+          firebase deploy --only functions --project reminder3-65e84 --reset
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
