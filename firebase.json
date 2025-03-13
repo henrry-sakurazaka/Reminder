@@ -19,7 +19,9 @@
         "firebase-debug.log",
         "firebase-debug.*.log",
         "*.local"
-      ]
+      ],
+      "runtime": "nodejs20",
+      "v1": true
     }
   ],
   "emulators": {
