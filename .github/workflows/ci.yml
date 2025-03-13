@@ -538,11 +538,13 @@ jobs:
 
       - name: Install dependencies
         run: |
+          rm -rf package-lock.json node_modules
           npm install
 
       - name: Install functons dependencies
         run: |
           cd functions
+          rm -rf package-lock.json node_modules
           npm install
 
       - name: Authenticate with Google Cloud
@@ -558,6 +560,10 @@ jobs:
       - name: Set Firebase Project
         run: |
           firebase use reminder3-65e84
+
+      - name: Build For Deploy
+        run: |
+          npm run build
 
       - name: Deploy To Firebase functions
         run: |
