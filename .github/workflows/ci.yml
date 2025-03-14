@@ -546,6 +546,8 @@ jobs:
           cd functions
           rm -rf package-lock.json node_modules
           npm install
+          npm ci
+          cd ..
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
