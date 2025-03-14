@@ -13,6 +13,7 @@
     {
       "source": "functions",
       "codebase": "functions",
+      "serviceAccount": "gcf-admin-replacement@reminder3-65e84.iam.gserviceaccount.com",
       "ignore": [
         "node_modules",
         ".git",
