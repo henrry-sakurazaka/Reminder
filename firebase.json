@@ -20,7 +20,7 @@
         "firebase-debug.*.log",
         "*.local"
       ],
-      "runtime": "nodejs18",
+      "runtime": "nodejs20",
       "v1": true
     }
   ],
