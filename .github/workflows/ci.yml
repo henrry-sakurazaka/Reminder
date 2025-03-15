@@ -571,8 +571,6 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
-
-
   # docker-hub:
   #   runs-on: ubuntu-latest
   #   needs:
