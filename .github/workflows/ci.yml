@@ -526,7 +526,6 @@ jobs:
 
       # - name: Set Firebase Config (Port)
       #   run: firebase functions:config:unset gcr.url server.port=6080
-      
 
       - name: Clear Build Cache
         run: |
@@ -536,7 +535,7 @@ jobs:
           --allow-unauthenticated \
           --service-account=gcf-admin-replacement@reminder3-65e84.iam.gserviceaccount.com \
           --clear-build-env-vars
-
+          --project=reminder3-65e84
 
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
