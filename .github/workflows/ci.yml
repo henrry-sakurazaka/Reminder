@@ -526,11 +526,10 @@ jobs:
 
       # - name: Set Firebase Config (Port)
       #   run: firebase functions:config:unset gcr.url server.port=6080
-      
+
       - name: Stash Path
         run: |
           export PATH=$(echo $PATH | sed -e 's|:/reminder/git-filter-repo-2.47.0||g')
-
 
       - name: Clear Build Cache
         run: |
@@ -538,10 +537,9 @@ jobs:
           --region=us-central1 \
           --trigger-http \
           --allow-unauthenticated \
-          --service-account=gcf-admin-replacement@***.iam.gserviceaccount.com \
+          --service-account=${{ secrets.GCF_SERVICE_ACCOUNT }} \
           --clear-build-env-vars \
           --project=reminder3-65e84
-
 
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
