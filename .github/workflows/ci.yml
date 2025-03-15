@@ -523,7 +523,9 @@ jobs:
 
       # - name: Set Firebase Config (Port)
       #   run: firebase functions:config:set server.port=6080
-      firebase functions:config:unset gcr.url server.port=6080
+
+      - name: Set Firebase Config (Port)
+        run: firebase functions:config:unset gcr.url server.port=6080
 
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
