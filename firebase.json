@@ -9,21 +9,14 @@
       }
     ]
   },
-  "functions": [
-    {
-      "source": "functions",
-      "codebase": "functions",
-      "ignore": [
-        "node_modules",
-        ".git",
-        "firebase-debug.log",
-        "firebase-debug.*.log",
-        "*.local"
-      ],
-      "runtime": "nodejs20",
-      "v1": true
-    }
-  ],
+
+  "functions": {
+    "source": "functions",
+    "runtime": "nodejs20",
+    "ignore": ["node_modules/**"],
+    "codebase": "default"
+  },
+  
   "emulators": {
     "hosting": {
       "port": 5000

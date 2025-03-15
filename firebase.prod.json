@@ -67,6 +67,7 @@
     "ignore": ["node_modules/**"],
     "codebase": "default"
   },
+  
 
   "storage": {
     "rules": "storage.rules"

@@ -50,8 +50,8 @@ admin.initializeApp({
 const app = express();
 const app2 = express();
 const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
-const PORT = 4300;
-const PORT2 = 6080;
+const PORT = 4200;
+const PORT2 = 6060;
 // const PORT = 8080;
 // const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
 
@@ -133,8 +133,8 @@ app2.listen(PORT2, () => {
 });
 
 // Firebase Functionsとしてエクスポート
-exports.api = functions.https.onRequest(app);
-exports.api2 = functions.https.onRequest(app2);
+exports.api10 = functions.https.onRequest(app);
+exports.api11 = functions.https.onRequest(app2);
 
 // // トークンを返すエンドポイントを追加
 // app.get('/get-token', cors(corsOptions), async (req, res) => {
