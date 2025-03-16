@@ -14,9 +14,7 @@
       "role": "projects/reminder3-65e84/roles/CustomRole354"
     },
     {
-      "members": [
-        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
-      ],
+      "members": ["serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"],
       "role": "projects/reminder3-65e84/roles/CustomRole532"
     },
     {
@@ -27,9 +25,7 @@
       "role": "projects/reminder3-65e84/roles/CustomRole543"
     },
     {
-      "members": [
-        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
-      ],
+      "members": ["serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"],
       "role": "projects/reminder3-65e84/roles/CustomRole552"
     },
     {
@@ -219,9 +215,7 @@
         "expression": "request.time < timestamp('2025-12-31T23:59:59Z')",
         "title": "developer-connect-connection-setup"
       },
-      "members": [
-        "user:vasto.mar3xc@gmail.com"
-      ],
+      "members": ["user:vasto.mar3xc@gmail.com"],
       "role": "roles/datastore.owner"
     },
     {
