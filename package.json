@@ -3,7 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "type": "module",
-  "homepage": "https://reminder3-65e84.web.app",
+  "homepage": "https://reminder5-27ef0.web.app",
   "dependencies": {
     "@firebase/analytics": "^0.10.9",
     "@firebase/app": "^0.10.15",

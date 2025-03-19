@@ -1,29 +1,29 @@
 import {
   g as Ce,
-  i as Ne,
-  a as ze,
-  b as _,
-  c as Ge,
-  G as Ye,
-  o as J,
+  i as ke,
+  a as Ge,
+  b as X,
+  c as ze,
+  G as Ke,
+  o as $,
   s as ee,
-  d as W,
-  e as Ke,
-  f as _e,
-  h as X,
+  d as J,
+  e as Ye,
+  f as Xe,
+  h as _,
   q as je,
-  w as fe,
+  w as he,
   T as ye,
   j as Te,
-  k as Qe,
-  u as Xe,
-  l as ke,
-  m as Ze,
+  k as Ze,
+  u as _e,
+  l as Ne,
+  m as Qe,
   n as et,
   p as Se,
   E as tt,
   r as st,
-} from './firebase-9MA3VULY.js';
+} from './firebase-wawmpWM2.js';
 import './vite-plugin-node-polyfills-CYF0W5wK.js';
 import { r as n, j as e, d as it, b as nt } from './vendor-BEztx3UH.js';
 import { B as ot } from './react-router-dom-Djf-viZn.js';
@@ -70,19 +70,19 @@ import './@floating-ui-C_tFKrs3.js';
   }
 })();
 const De = {
-    apiKey: 'AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA',
-    authDomain: 'reminder3-65e84.firebaseapp.com',
-    projectId: 'reminder3-65e84',
-    storageBucket: 'reminder3-65e84.firebasestorage.app',
+    apiKey: 'AIzaSyAYV9vGuuJW0As2r6kZnDmEXdRWPBWWR4c',
+    authDomain: 'reminder5-27ef0.firebaseapp.com',
+    projectId: 'reminder5-27ef0',
+    storageBucket: 'reminder5-27ef0.firebasestorage.app',
     messagingSenderId: void 0,
-    appId: '1:280162142902:web:4fed1bc9d4b35e75963417',
-    measurementId: '280162142902',
+    appId: '1:230818023391:web:1813670f0600a50839266a',
+    measurementId: 'G-41WKE3E4T3',
     databaseURL: 'https://reminder3-65e84-default-rtdb.firebaseio.com',
   },
-  we = Ce().length ? ze() : Ne(De),
-  O = _(we),
-  E = Ge(we);
-new Ye();
+  we = Ce().length ? Ge() : ke(De),
+  O = X(we),
+  E = ze(we);
+new Ke();
 function lt() {
   const t = JSON.parse(localStorage.getItem('tasks')) || [];
   t.forEach((i) => {
@@ -216,32 +216,32 @@ const Ee = n.createContext(),
     const [i, s] = n.useReducer(mt, { todoList: [] }),
       [a, o] = n.useState([]),
       [r, l] = n.useState(!1),
-      [g, h] = n.useState(!1),
+      [g, f] = n.useState(!1),
       [T, x] = n.useState(!1),
       [m, p] = n.useState(!1),
       [S, D] = n.useState(!1),
       [v, R] = n.useState(!1),
       [q, C] = n.useState(!1),
-      [y, k] = n.useState(!1),
-      [f, d] = n.useState(!1),
+      [y, N] = n.useState(!1),
+      [h, d] = n.useState(!1),
       [j, u] = n.useState(''),
-      [I, Q] = n.useState(''),
-      [G, M] = n.useState(!1),
+      [I, Z] = n.useState(''),
+      [z, M] = n.useState(!1),
       [F, se] = n.useState(!1),
-      [H, ie] = n.useState(!1),
+      [B, ie] = n.useState(!1),
       [ne, oe] = n.useState(!1),
-      [Y, ae] = n.useState(),
+      [K, ae] = n.useState(),
       [w, re] = n.useState(),
       [ce, le] = n.useState(),
       [de, ue] = n.useState(),
       [me, U] = n.useState(),
-      [B, pe] = n.useState(),
+      [H, pe] = n.useState(),
       [ge, b] = n.useState(),
-      [N, V] = n.useState(),
-      [z, $] = n.useState(),
-      [he, Be] = n.useState(!1),
-      [Ve, $e] = n.useState(),
-      [Je, We] = n.useState(!1);
+      [k, W] = n.useState(),
+      [G, V] = n.useState(),
+      [fe, He] = n.useState(!1),
+      [We, Ve] = n.useState(),
+      [$e, Je] = n.useState(!1);
     return e.jsx(Ee.Provider, {
       value: {
         todos: i,
@@ -256,29 +256,29 @@ const Ee = n.createContext(),
         modalOpen: r,
         setModalOpen: l,
         displayTimePicker: y,
-        setDisplayTimePicker: k,
-        displayDatePicker: f,
+        setDisplayTimePicker: N,
+        displayDatePicker: h,
         setDisplayDatePicker: d,
         isDateSet: g,
-        setIsDateSet: h,
+        setIsDateSet: f,
         isTimeSet: q,
         setIsTimeSet: C,
         enteredTodo: j,
         setEnteredTodo: u,
         fireTodo: I,
-        setFireTodo: Q,
+        setFireTodo: Z,
         todosData: a,
         setTodosData: o,
         todoList: ut,
-        selectedDate: G,
+        selectedDate: z,
         setSelectedDate: M,
         selectedTime: F,
         setSelectedTime: se,
         AddTodosExecuted: ne,
         setAddTodosExecuted: oe,
-        completedDateTimeSetting: H,
+        completedDateTimeSetting: B,
         setCompletedDateTimeSetting: ie,
-        notificationDocId: Y,
+        notificationDocId: K,
         setNotificationDocId: ae,
         isSubmitting: w,
         setIsSubmitting: re,
@@ -286,22 +286,22 @@ const Ee = n.createContext(),
         setIsDocRef: ue,
         reserveModeTodo: me,
         setReserveModeTodo: U,
-        reserveModeId: B,
+        reserveModeId: H,
         setReserveModeId: pe,
         todoId: ge,
         setTodoId: b,
-        todoContent: N,
-        setTodoContent: V,
-        Todo: z,
-        setTodo: $,
-        shouldHandleNotifications: he,
-        setShouldHandleNotifications: Be,
+        todoContent: k,
+        setTodoContent: W,
+        Todo: G,
+        setTodo: V,
+        shouldHandleNotifications: fe,
+        setShouldHandleNotifications: He,
         isSubmitting2: ce,
         setIsSubmitting2: le,
-        agree: Ve,
-        setAgree: $e,
-        isSet: Je,
-        setIsSet: We,
+        agree: We,
+        setAgree: Ve,
+        isSet: $e,
+        setIsSet: Je,
       },
       children: e.jsx(Ae.Provider, { value: s, children: t }),
     });
@@ -314,7 +314,7 @@ const L = () => n.useContext(Ee),
     const { todos: i, todoList: s, AddTodosExecuted: a } = L(),
       [o, r] = n.useState(),
       [l, g] = n.useState(!0),
-      [h, T] = n.useState([]),
+      [f, T] = n.useState([]),
       [x, m] = n.useState(!1),
       [p, S] = n.useState(),
       D = te(),
@@ -322,15 +322,15 @@ const L = () => n.useContext(Ee),
       [R, q] = n.useState(),
       C = n.useRef(null);
     n.useEffect(() => {
-      const f = J(O, (d) => {
+      const h = $(O, (d) => {
         d ? q(d.uid) : console.log('No user is signed in');
       });
-      return () => f();
+      return () => h();
     }, []);
     const y = n.useMemo(
         () => ({
-          toFirestore: (f) => {
-            const d = Object.values(f),
+          toFirestore: (h) => {
+            const d = Object.values(h),
               j = {};
             return (
               d.forEach((u, I) => {
@@ -355,10 +355,10 @@ const L = () => n.useContext(Ee),
         }),
         []
       ),
-      k = n.useMemo(
+      N = n.useMemo(
         () => ({
-          fromFirestore: (f) =>
-            Object.values(f).map((u) => ({
+          fromFirestore: (h) =>
+            Object.values(h).map((u) => ({
               title: u.title,
               description: u.description,
               type: u.type,
@@ -377,7 +377,7 @@ const L = () => n.useContext(Ee),
       );
     return (
       n.useEffect(() => {
-        const f = async () => {
+        const h = async () => {
             if (!R) {
               console.log('');
               return;
@@ -385,28 +385,28 @@ const L = () => n.useContext(Ee),
             try {
               const j = y.toFirestore(i),
                 u = { todoId: v.uid, todos: j };
-              await ee(W(E, 'todoList3', v.uid), u);
+              await ee(J(E, 'todoList3', v.uid), u);
             } catch (j) {
               console.error('Error adding todoList to Firestore:', j);
             } finally {
               g(!1);
             }
           },
-          d = J(O, (j) => {
+          d = $(O, (j) => {
             j
-              ? f(i, j.uid)
+              ? h(i, j.uid)
               : console.log('User signed out or not yet logged in');
           });
         return () => d();
       }, [D, i, E, y]),
       n.useEffect(() => {
-        const f = async (j) => {
+        const h = async (j) => {
             try {
-              const u = W(E, 'todoList3', j),
-                I = await Ke(u);
+              const u = J(E, 'todoList3', j),
+                I = await Ye(u);
               if (I.exists()) {
-                const G = I.data().todos || [],
-                  M = k.fromFirestore(G);
+                const z = I.data().todos || [],
+                  M = N.fromFirestore(z);
                 r(!0);
                 const F = Array.isArray(M) ? M : [M];
                 F !== null &&
@@ -422,32 +422,32 @@ const L = () => n.useContext(Ee),
               g(!1);
             }
           },
-          d = J(O, (j) => {
-            x ? console.log('User signed out') : f(j.uid);
+          d = $(O, (j) => {
+            x ? console.log('User signed out') : h(j.uid);
           });
         return () => d();
-      }, [k, D]),
+      }, [N, D]),
       n.useEffect(() => {
         a &&
           (async () => {
             try {
               const d = y.toFirestore(i),
                 j = { todoId: v.uid, todos: d };
-              await ee(W(E, 'todoList3', v.uid), j);
+              await ee(J(E, 'todoList3', v.uid), j);
             } catch (d) {
               console.error('Error adding todoList to Firestore:', d);
             } finally {
               g(!1);
             }
           })();
-      }, [a, D, i, k, y]),
+      }, [a, D, i, N, y]),
       e.jsx(Pe.Provider, {
         value: {
           data: o,
           setData: r,
           loading: l,
           setLoading: g,
-          fetchedData: h,
+          fetchedData: f,
           setFetchedData: T,
           todoList: s,
           user: v,
@@ -509,13 +509,13 @@ const pt = () => n.useContext(Pe),
       })
     );
   },
-  K = ({
+  Y = ({
     handleTimeChange: t,
     inputTime: i,
     shouldHandleNotifications: s,
     timeCheck: a,
   }) => {
-    K.propTypes = {
+    Y.propTypes = {
       handleTimeChange: c.func.isRequired,
       inputTime: c.string.isRequired,
       shouldHandleNotifications: c.bool,
@@ -561,13 +561,13 @@ const pt = () => n.useContext(Pe),
       })
     );
   },
-  Z = ({
+  Q = ({
     isDate: t,
     handleDateChange: i,
     shouldHandleNotifications: s,
     timeCheck: a,
   }) => {
-    Z.propTypes = {
+    Q.propTypes = {
       isDate: c.instanceOf(Date).isRequired,
       handleDateChange: c.func.isRequired,
       shouldHandleNotifications: c.bool,
@@ -658,8 +658,8 @@ const pt = () => n.useContext(Pe),
       })
     );
   };
-Ce().length || Ne(De);
-const be = _(),
+Ce().length || ke(De);
+const be = X(),
   xe = ({
     shouldHandleNotifications: t = !1,
     completedDateTimeSetting: i = !1,
@@ -682,27 +682,27 @@ const be = _(),
       }),
       localStorage.clear();
     const [a, o] = n.useState();
-    J(be, (l) => {
+    $(be, (l) => {
       l && l.getIdToken(!0);
     }),
       n.useEffect(() => {
-        const l = J(be, (g) => {
+        const l = $(be, (g) => {
           g && o(g.uid);
         });
         return () => l();
       }, []);
     const r = async (l) => {
-      await Xe(W(E, 'notifications', l), { isNotified: !0 });
+      await _e(J(E, 'notifications', l), { isNotified: !0 });
     };
     return (
       n.useEffect(() => {
         if (i && t && s) {
           const l = async () => {
-              const h = X(E, 'notifications'),
+              const f = _(E, 'notifications'),
                 T = je(
-                  h,
-                  fe('notificationTime', '>=', ye.now()),
-                  fe('isNotified', '==', !1)
+                  f,
+                  he('notificationTime', '>=', ye.now()),
+                  he('isNotified', '==', !1)
                 ),
                 m = (await Te(T)).docs.map((p) => ({
                   ...p.data(),
@@ -715,8 +715,8 @@ const be = _(),
                   (await r(p.id),
                   localStorage.setItem('tasks', JSON.stringify(m)));
             },
-            g = _e(X(E, 'notifications'), (h) => {
-              const x = h.docs
+            g = Xe(_(E, 'notifications'), (f) => {
+              const x = f.docs
                 .map((m) => ({
                   ...m.data(),
                   id: m.id,
@@ -731,15 +731,15 @@ const be = _(),
       }, [i, t, a, s]),
       n.useEffect(() => {
         (async () => {
-          const g = X(E, 'notifications'),
-            h = je(g, fe('notificationTime', '<', ye.now())),
-            T = await Te(h);
+          const g = _(E, 'notifications'),
+            f = je(g, he('notificationTime', '<', ye.now())),
+            T = await Te(f);
           for (const x of T.docs) {
             const m = x.id,
               S = x.data().notificationTime.toDate(),
               D = new Date().getTime();
             new Date(S).getTime() + 24 * 60 * 60 * 1e3 <= D &&
-              (await Qe(W(E, 'notifications', m)));
+              (await Ze(J(E, 'notifications', m)));
           }
         })();
       }, []),
@@ -763,7 +763,7 @@ const be = _(),
       [s, a] = n.useState(new Date()),
       [o, r] = n.useState(new Date()),
       [l, g] = n.useState(''),
-      [h, T] = n.useState(s),
+      [f, T] = n.useState(s),
       [x, m] = n.useState(o),
       [p, S] = n.useState(!1),
       [D, v] = n.useState(!0),
@@ -771,29 +771,29 @@ const be = _(),
       {
         isDateChecked: C,
         isTimeChecked: y,
-        setIsDateChecked: k,
-        setIsTimeChecked: f,
+        setIsDateChecked: N,
+        setIsTimeChecked: h,
         isContainerDateCheck: d,
         setContainerDateCheck: j,
         isContainerTimeCheck: u,
         setContainerTimeCheck: I,
-        modalOpen: Q,
-        setIsTimeSet: G,
+        modalOpen: Z,
+        setIsTimeSet: z,
         setIsDateSet: M,
         setSelectedDate: F,
         setSelectedTime: se,
-        completedDateTimeSetting: H,
+        completedDateTimeSetting: B,
         setCompletedDateTimeSetting: ie,
         setNotificationDocId: ne,
         isSubmitting: oe,
-        setIsSubmitting: Y,
+        setIsSubmitting: K,
         setIsDocRef: ae,
         shouldHandleNotifications: w,
         setShouldHandleNotifications: re,
       } = L();
     n.useEffect(() => {
-      const b = J(O, (N) => {
-        N && q(N.uid);
+      const b = $(O, (k) => {
+        k && q(k.uid);
       });
       return () => b();
     }, []),
@@ -811,10 +811,10 @@ const be = _(),
           });
       },
       le = (b) => {
-        k(!b);
+        N(!b);
       },
       de = (b) => {
-        f(!b);
+        h(!b);
       },
       ue = (b) => {
         j(!0), I(!1), F(!0);
@@ -823,68 +823,68 @@ const be = _(),
         I(!0), j(!1), se(!0);
       },
       U = (b) => {
-        const N = new Date(b.target.value);
-        a(N), M(!0);
+        const k = new Date(b.target.value);
+        a(k), M(!0);
       },
-      B = (b) => {
-        const { value: N } = b.target,
-          [V, z] = N.split(':'),
-          $ = new Date();
-        $.setHours(parseInt(V), parseInt(z), 0, 0), r($), g(N), G(!0), S(!0);
+      H = (b) => {
+        const { value: k } = b.target,
+          [W, G] = k.split(':'),
+          V = new Date();
+        V.setHours(parseInt(W), parseInt(G), 0, 0), r(V), g(k), z(!0), S(!0);
       },
       pe = async (b) => {
         if (!oe) {
-          if ((Y(!0), s && o && p && b.content && b.id)) {
-            const N = new Date(s);
-            N.setHours(o.getHours(), o.getMinutes(), 0, 0);
+          if ((K(!0), s && o && p && b.content && b.id)) {
+            const k = new Date(s);
+            k.setHours(o.getHours(), o.getMinutes(), 0, 0);
             try {
-              const V = {
+              const W = {
                   title: 'Reminder',
                   description:
                     'Time is approaching, receive to push notification..',
                   type: 'string',
-                  notificationTime: N,
+                  notificationTime: k,
                   todoId: R,
                   content: b.content,
                   id: b.id,
                   isNotified: !1,
                 },
-                z = rt(),
-                $ = W(X(E, 'notifications'), z);
-              await ee($, V);
-              const he = { ...b, notification: !0 };
-              i({ type: 'todo/notification', todo: he }),
-                ne(z),
-                ae($),
+                G = rt(),
+                V = J(_(E, 'notifications'), G);
+              await ee(V, W);
+              const fe = { ...b, notification: !0 };
+              i({ type: 'todo/notification', todo: fe }),
+                ne(G),
+                ae(V),
                 ie(!0),
                 re(!0);
-            } catch (V) {
+            } catch (W) {
               console.error(
                 'Error writing notification data to Firestore: ',
-                V
+                W
               );
             } finally {
-              Y(!1);
+              K(!1);
             }
-          } else Y(!1);
+          } else K(!1);
           try {
-            const N = await Notification.requestPermission();
-            N === 'granted'
+            const k = await Notification.requestPermission();
+            k === 'granted'
               ? console.log('')
               : console.warn(
-                  N === 'denied'
+                  k === 'denied'
                     ? 'Notification permission denied'
                     : 'Notification permission dismissed'
                 );
-          } catch (N) {
-            console.error('Failed to request permission:', N);
+          } catch (k) {
+            console.error('Failed to request permission:', k);
           }
         }
       };
     n.useEffect(() => {
       const b = document.querySelector('.modal');
       (b.style.alignItems = 'center'),
-        (s !== h || o !== x) && (s !== h || o !== x) && (T(s), m(o));
+        (s !== f || o !== x) && (s !== f || o !== x) && (T(s), m(o));
     }, [s, o]);
     const ge = () => {
       if (w)
@@ -896,16 +896,16 @@ const be = _(),
           }),
         });
     };
-    return Q
+    return Z
       ? e.jsxs(
           'div',
           {
             className: 'modal',
             style: {
               backgroundColor:
-                w && H && p ? 'transparent' : 'rgba(40, 147, 247, 0.772)',
+                w && B && p ? 'transparent' : 'rgba(40, 147, 247, 0.772)',
               border:
-                w && H && p
+                w && B && p
                   ? '1px solid rgb(8, 232, 158)'
                   : '1px solid rgb(48, 48, 219)',
             },
@@ -934,9 +934,9 @@ const be = _(),
                 }),
               }),
               C && y && u
-                ? e.jsx(K, {
+                ? e.jsx(Y, {
                     className: 'MyTimePicker',
-                    onChange: B,
+                    onChange: H,
                     selected: o,
                     label: 'MyTimePicker',
                     inputVariant: 'outlined',
@@ -946,12 +946,12 @@ const be = _(),
                     isTime: o,
                     inputTime: l,
                     setInputTime: g,
-                    handleTimeChange: B,
+                    handleTimeChange: H,
                     shouldHandleNotifications: w,
                     timeCheck: p,
                   })
                 : C && y && d
-                  ? e.jsx(Z, {
+                  ? e.jsx(Q, {
                       onChange: U,
                       selected: s,
                       isDate: s,
@@ -962,9 +962,9 @@ const be = _(),
                       timeCheck: p,
                     })
                   : C && y
-                    ? e.jsx(K, {
+                    ? e.jsx(Y, {
                         isTime: o,
-                        handleTimeChange: B,
+                        handleTimeChange: H,
                         inputTime: l,
                         setInputTime: g,
                         inputVariant: 'outlined',
@@ -973,16 +973,16 @@ const be = _(),
                         autoOk: !0,
                       })
                     : C
-                      ? e.jsx(Z, {
+                      ? e.jsx(Q, {
                           onChange: U,
                           selected: s,
                           isDate: s,
                           handleDateChange: U,
                         })
                       : y
-                        ? e.jsx(K, {
+                        ? e.jsx(Y, {
                             isTime: o,
-                            handleTimeChange: B,
+                            handleTimeChange: H,
                             inputTime: l,
                             inputVariant: 'outlined',
                             showTodayButton: !0,
@@ -991,7 +991,7 @@ const be = _(),
                             setInputTime: g,
                           })
                         : d
-                          ? e.jsx(Z, {
+                          ? e.jsx(Q, {
                               onChange: U,
                               selected: s,
                               isDate: s,
@@ -999,9 +999,9 @@ const be = _(),
                               handleDateChange: U,
                             })
                           : u
-                            ? e.jsx(K, {
+                            ? e.jsx(Y, {
                                 isTime: o,
-                                handleTimeChange: B,
+                                handleTimeChange: H,
                                 inputTime: l,
                                 inputVariant: 'outlined',
                                 showTodayButton: !0,
@@ -1014,7 +1014,7 @@ const be = _(),
                                   className: 'message-container',
                                   style: {
                                     backgroundColor:
-                                      !d && !u && w && H && p
+                                      !d && !u && w && B && p
                                         ? 'rgb(8, 232, 158)'
                                         : 'rgb(48, 48, 219)',
                                   },
@@ -1048,11 +1048,11 @@ const be = _(),
                     },
                     children: w ? 'DONE' : 'SET',
                   }),
-                  H &&
+                  B &&
                     w &&
                     e.jsx(xe, {
                       shouldHandleNotifications: w,
-                      completedDateTimeSetting: H,
+                      completedDateTimeSetting: B,
                       todo: t,
                     }),
                 ],
@@ -1085,7 +1085,7 @@ const be = _(),
         setIsTimeChecked: r,
         setContainerDateCheck: l,
         setContainerTimeCheck: g,
-        modalOpen: h,
+        modalOpen: f,
         Todo: T,
         setTodo: x,
         setShouldHandleNotifications: m,
@@ -1108,11 +1108,11 @@ const be = _(),
       y = (d) => {
         v({ type: 'todo/delete', todo: d });
       },
-      k = (d) => {
+      N = (d) => {
         const j = { ...d, completed: !0 };
         v({ type: 'complete2', todo: j });
       },
-      f = (d) => {
+      h = (d) => {
         const j = !d.editingColor,
           u = {
             ...d,
@@ -1129,11 +1129,11 @@ const be = _(),
           s(d),
           a(d.id),
           x(d),
-          !h && o(!1),
-          !h && r(!1),
-          !h && l(!1),
-          !h && g(!1),
-          !h && m(!1);
+          !f && o(!1),
+          !f && r(!1),
+          !f && l(!1),
+          !f && g(!1),
+          !f && m(!1);
       };
     return e.jsxs(
       'div',
@@ -1142,7 +1142,7 @@ const be = _(),
         children: [
           e.jsx('span', {
             className: 'circleI',
-            onClick: () => f(t),
+            onClick: () => h(t),
             style: {
               color:
                 p && t.editingColor && t.editingDateTime && t.editingLock
@@ -1152,7 +1152,7 @@ const be = _(),
           }),
           e.jsx('button', {
             className: 'compBtn',
-            onClick: () => k(t),
+            onClick: () => N(t),
             onDoubleClick: () => y(t),
             style: { color: t.completed ? 'rgb(8, 232, 158)' : 'none' },
             children: t.completed ? 'Completed' : 'Complete',
@@ -1172,7 +1172,7 @@ const be = _(),
                   children: t.content,
                 }),
           }),
-          h && t.id == T.id
+          f && t.id == T.id
             ? e.jsx(
                 'div',
                 {
@@ -1203,7 +1203,7 @@ const be = _(),
           }),
     });
   },
-  ht = () => {
+  ft = () => {
     const t = te(),
       { enteredTodo: i, setEnteredTodo: s, setAddTodosExecuted: a } = L(),
       o = () => {
@@ -1267,7 +1267,7 @@ const be = _(),
       ],
     });
   },
-  ft = () => e.jsxs(e.Fragment, { children: [e.jsx(gt, {}), e.jsx(ht, {})] }),
+  ht = () => e.jsxs(e.Fragment, { children: [e.jsx(gt, {}), e.jsx(ft, {})] }),
   xt = () => {
     const { modalOpen: t, timeCheck: i } = L(),
       s = [1, 2, 3, 4, 5],
@@ -1327,7 +1327,7 @@ const be = _(),
                 className: 'out-line',
                 children: [
                   e.jsx('h2', { className: 'title', children: 'Reminder' }),
-                  e.jsx(ft, {}),
+                  e.jsx(ht, {}),
                 ],
               }),
             ],
@@ -1354,10 +1354,10 @@ const be = _(),
   },
   Ue = () =>
     e.jsx(e.Fragment, { children: e.jsx(Ie, { children: e.jsx(jt, {}) }) }),
-  yt = _();
+  yt = X();
 function Me() {
   return new Promise((t) => {
-    const i = J(yt, (s) => {
+    const i = $(yt, (s) => {
       t(!!s), i();
     });
   });
@@ -1373,8 +1373,8 @@ function Tt({ children: t }) {
     t
   );
 }
-const bt = _(),
-  He = () => {
+const bt = X(),
+  Be = () => {
     const t = A();
     let i = 5,
       s = [];
@@ -1387,8 +1387,8 @@ const bt = _(),
       g = () => {
         t('/SignIn');
       },
-      h = () => {
-        ke(bt)
+      f = () => {
+        Ne(bt)
           .then(() => {
             o(!0), localStorage.clear();
           })
@@ -1447,7 +1447,7 @@ const bt = _(),
                   e.jsx('span', {
                     id: 'SO',
                     className: 'select-auth sign-out',
-                    onClick: () => h(),
+                    onClick: () => f(),
                     children: 'Sign Out',
                   }),
                   e.jsx('span', {
@@ -1481,7 +1481,7 @@ function vt() {
     }, [t]),
     e.jsx(e.Fragment, {
       children: e.jsx('div', {
-        children: e.jsx(Tt, { children: i ? e.jsx(Ue, {}) : e.jsx(He, {}) }),
+        children: e.jsx(Tt, { children: i ? e.jsx(Ue, {}) : e.jsx(Be, {}) }),
       }),
     })
   );
@@ -1490,12 +1490,12 @@ function Ct() {
   const t = A();
   n.useEffect(() => {
     (async () => {
-      await ke(O), setTimeout(() => t('/UserAuth'), 1e4);
+      await Ne(O), setTimeout(() => t('/UserAuth'), 1e4);
     })(),
       localStorage.clear();
   }, [t]);
 }
-const Nt = [
+const kt = [
   {
     title: 'Make a restaurant reservation',
     description: 'user tasks',
@@ -1539,31 +1539,31 @@ const Nt = [
     notification: !1,
   },
 ];
-function kt() {
+function Nt() {
   const [t, i] = n.useState(!1),
     s = n.useMemo(
       () => ({
         toFirestore: (C) => {
           const y = Object.values(C),
-            k = {};
+            N = {};
           return (
-            y.forEach((f, d) => {
-              k[d.toString()] = {
-                title: f.title,
-                description: f.description,
-                type: f.type,
-                id: f.id,
-                content: f.content,
-                editing: f.editing,
-                completed: f.completed,
-                reserve: f.reserve,
-                editingLock: f.editingLock,
-                editingColor: f.editingColor,
-                editingDateTime: f.editingDateTime,
-                notification: f.notification,
+            y.forEach((h, d) => {
+              N[d.toString()] = {
+                title: h.title,
+                description: h.description,
+                type: h.type,
+                id: h.id,
+                content: h.content,
+                editing: h.editing,
+                completed: h.completed,
+                reserve: h.reserve,
+                editingLock: h.editingLock,
+                editingColor: h.editingColor,
+                editingDateTime: h.editingDateTime,
+                notification: h.notification,
               };
             }),
-            k
+            N
           );
         },
       }),
@@ -1571,7 +1571,7 @@ function kt() {
     ),
     [a, o] = n.useState({ name: '', email: '', password: '' }),
     { name: r, email: l, password: g } = a,
-    h = A(),
+    f = A(),
     T = [1, 2, 3, 4, 5],
     x = () => 'rgba(40, 147, 247, 0.772)',
     m = (C) => {
@@ -1581,16 +1581,16 @@ function kt() {
       i(!0);
     },
     S = () => {
-      h('/Terms');
+      f('/Terms');
     },
     D = () => {
-      h('/Terms2');
+      f('/Terms2');
     },
     v = () => {
-      h('/PrivacyPolicy');
+      f('/PrivacyPolicy');
     },
     R = () => {
-      h('/UserAuth');
+      f('/UserAuth');
     },
     q = async (C) => {
       C.preventDefault();
@@ -1598,11 +1598,11 @@ function kt() {
         if (g.length < 6)
           throw new Error('Password must be at least 6 characters long.');
         if (t) {
-          const k = (await Ze(O, l, g)).user;
-          await et(k, { displayName: r });
-          const f = s.toFirestore(Nt),
-            d = { todoId: k.uid, agreement: t, todos: f };
-          await ee(W(E, 'todoList3', k.uid), d), h('/Example');
+          const N = (await Qe(O, l, g)).user;
+          await et(N, { displayName: r });
+          const h = s.toFirestore(kt),
+            d = { todoId: N.uid, agreement: t, todos: h };
+          await ee(J(E, 'todoList3', N.uid), d), f('/Example');
         } else
           return e.jsx('div', {
             children: e.jsx('h2', {
@@ -1747,7 +1747,7 @@ function St() {
       }
     },
     g = () => 'rgba(40, 147, 247, 0.772)',
-    h = [1, 2, 3, 4, 5],
+    f = [1, 2, 3, 4, 5],
     T = () => {
       o('/UserAuth');
     };
@@ -1755,7 +1755,7 @@ function St() {
     children: [
       e.jsx('div', {
         className: 'decoration',
-        children: h.map((x, m) =>
+        children: f.map((x, m) =>
           e.jsx(
             'span',
             { className: 'slash2', style: { backgroundColor: g() } },
@@ -1830,8 +1830,8 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
     const [t, i] = n.useState(!1),
       [s, a] = n.useState(''),
       [o, r] = n.useState(''),
-      g = _().currentUser,
-      h = A(),
+      g = X().currentUser,
+      f = A(),
       T = async (m) => {
         if ((m.preventDefault(), g))
           try {
@@ -1846,16 +1846,16 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
           try {
             await g.delete(),
               r('ユーザーアカウントが削除されました'),
-              setTimeout(() => h('/UserAuth'), 3e3);
+              setTimeout(() => f('/UserAuth'), 3e3);
           } catch (m) {
             m.code === 'auth/requires-recent-login'
               ? i(!0)
               : (r(`アカウント削除中にエラーが発生しました: ${m.message}`),
-                setTimeout(() => h('/UserAuth', 1e4)));
+                setTimeout(() => f('/UserAuth', 1e4)));
           }
         else
           r('サインインしているユーザーがいません'),
-            setTimeout(() => h('/UserAuth'), 1e4);
+            setTimeout(() => f('/UserAuth'), 1e4);
       };
     return (
       n.useEffect(() => {
@@ -1971,9 +1971,9 @@ function Pt() {
         children: [
           e.jsx(P, { path: '/', element: e.jsx(vt, {}) }),
           e.jsx(P, { path: '/Example', element: e.jsx(Ue, {}) }),
-          e.jsx(P, { path: '/UserAuth', element: e.jsx(He, {}) }),
+          e.jsx(P, { path: '/UserAuth', element: e.jsx(Be, {}) }),
           e.jsx(P, { path: '/SignOut', element: e.jsx(Ct, {}) }),
-          e.jsx(P, { path: '/SignUp', element: e.jsx(kt, {}) }),
+          e.jsx(P, { path: '/SignUp', element: e.jsx(Nt, {}) }),
           e.jsx(P, { path: '/SignIn', element: e.jsx(St, {}) }),
           e.jsx(P, { path: '/EasyLogin', element: e.jsx(Dt, {}) }),
           e.jsx(P, { path: '/DeleteAccount', element: e.jsx(wt, {}) }),
