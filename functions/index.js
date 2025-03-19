@@ -58,7 +58,7 @@ const PORT2 = 6060;
 // CORSのミドルウェアを設定
 const corsOptions = {
   origin: [
-    'https://reminder3-65e84.web.app',
+    'https://reminder5-27ef0.web.app',
     'http://localhost:3000',
     'https://offsetcodecraft.site',
   ],
@@ -237,7 +237,7 @@ exports.api11 = functions.https.onRequest(app2);
 // exports.api = functions.https.onRequest(app);
 
 // exports.registerToken = functions.https.onRequest((req, res) => {
-//   const allowedOrigins = ['https://reminder3-65e84.web.app', 'http://localhost3000'];
+//   const allowedOrigins = ['https://reminder5-27ef0.web.app', 'http://localhost3000'];
 
 //   const origin = req.headers.origin;
 
@@ -352,7 +352,7 @@ exports.api11 = functions.https.onRequest(app2);
 //                // Preflightリクエストの処理
 
 //                 if (req.method === 'OPTIONS') {
-//                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
+//                     res.set('Access-Control-Allow-Origin', ['https://reminder5-27ef0.web.app', 'http://localhost3000']);
 //                     res.set('Access-Control-Allow-Methods', 'GET, POST');
 //                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
@@ -360,7 +360,7 @@ exports.api11 = functions.https.onRequest(app2);
 
 //                 } else {
 //                 cors(req, res, () => {
-//                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
+//                     res.set('Access-Control-Allow-Origin', ['https://reminder5-27ef0.web.app', 'http://localhost3000']);
 //                     res.set('Access-Control-Allow-Methods', 'GET, POST');
 //                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 //                     res.status(204).send('');

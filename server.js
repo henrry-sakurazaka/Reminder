@@ -263,7 +263,7 @@ const app = express();
 
 // const corsOptions = {
 //   origin: [
-//       'https://reminder3-65e84.web.app',
+//       'https://reminder5-27ef0.web.app',
 //       'http://localhost:3000',
 //       'https://offsetcodecraft.site'
 //     ],

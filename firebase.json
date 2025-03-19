@@ -5,18 +5,16 @@
     "rewrites": [
       {
         "source": "**",
-        "destination": "./index.html"
+        "destination": "/index.html"
       }
     ]
   },
-
   "functions": {
     "source": "functions",
     "runtime": "nodejs20",
     "ignore": ["node_modules/**"],
     "codebase": "default"
   },
-
   "emulators": {
     "hosting": {
       "port": 5000
