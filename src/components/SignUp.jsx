@@ -141,6 +141,7 @@ function SignUp() {
         };
         // サインアップ成功時にtodoListを保存する
         await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
+        await setDoc(doc(firestore, 'notifications', user.uid), {});
 
         navigate('/Example');
       } else {

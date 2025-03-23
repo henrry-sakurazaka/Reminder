@@ -1,16 +1,18 @@
 import { useEffect, useState } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
 import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { useTodos } from '../context/TodoContext';
 import {
   collection,
   query,
   where,
   getDocs,
-  onSnapshot,
   deleteDoc,
   doc,
   Timestamp,
   updateDoc,
+  orderBy,
+  collectionGroup,
 } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import firebaseConfig from '../firebase';
@@ -29,10 +31,6 @@ const NotificationHandler = ({
   todo = {},
 }) => {
   NotificationHandler.propTypes = {
-    todo: PropTypes.object,
-  };
-
-  NotificationHandler.propTypes = {
     todo: PropTypes.shape({
       id: PropTypes.number,
       content: PropTypes.string,
@@ -41,15 +39,27 @@ const NotificationHandler = ({
       completed: PropTypes.bool,
       editingDateTime: PropTypes.bool,
       editingLock: PropTypes.bool,
+      docId: PropTypes.string,
     }).isRequired,
     children: PropTypes.node,
     shouldHandleNotifications: PropTypes.bool,
     completedDateTimeSetting: PropTypes.bool,
   };
 
+  const {
+    docId,
+    Todo2,
+    setTodo2,
+    completedTask,
+    completedTask2,
+    setCompletedTask2,
+  } = useTodos();
+
   localStorage.clear();
 
   const [uid, setUid] = useState();
+  const [authUser, setAuthUser] = useState(null);
+  const [shouldNotificaion, setShouldNotification] = useState(false);
 
   onAuthStateChanged(auth, (user) => {
     if (user) {
@@ -60,74 +70,76 @@ const NotificationHandler = ({
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
+        const currentUser = auth.currentUser;
+        setAuthUser(currentUser);
         setUid(user.uid);
+        setTodo2(todo);
+        setShouldNotification(true);
       }
     });
-
     return () => unsubscribe();
   }, []);
 
-  const updateNotificationStatus = async (docID) => {
-    await updateDoc(doc(firestore, 'notifications', docID), {
+  const updateNotificationStatus = async () => {
+    await updateDoc(doc(firestore, 'notifications', docId), {
       isNotified: true,
     });
   };
 
   useEffect(() => {
-    if (completedDateTimeSetting && shouldHandleNotifications && todo) {
-      const fetchAndStoreNotifications = async () => {
-        const timersCollection = collection(firestore, 'notifications');
-        const q = query(
-          timersCollection,
-          where('notificationTime', '>=', Timestamp.now()),
-          where('isNotified', '==', false)
-        );
-        const querySnapshot = await getDocs(q);
-        const tasks = querySnapshot.docs.map((doc) => {
-          return {
-            ...doc.data(),
-            id: doc.id,
-            notificationTime: doc.data().notificationTime.toDate(), // タイムスタンプをDate型に変換
-            isNotified: doc.data().isNotified,
+    const updateUidFunctions = async () => {
+      await updateDoc(doc(firestore, 'notifications', docId), {
+        docId: docId,
+      });
+    };
+    return () => updateUidFunctions();
+  }, [completedDateTimeSetting, shouldHandleNotifications]);
+
+  useEffect(() => {
+    if (shouldNotificaion) {
+      const unsubscribe2 = onAuthStateChanged(auth, (user) => {
+        if (user) {
+          const fetchAndStoreNotifications = async () => {
+            const timersCollection = collectionGroup(
+              firestore,
+              'notifications'
+            );
+            const q = query(
+              timersCollection,
+              where('todoId', '==', uid),
+              where('docId', '==', docId),
+              where('isNotified', '==', false),
+              where('notificationTime', '>=', Timestamp.now()),
+              orderBy('notificationTime'),
+              orderBy('__name__')
+            );
+            const querySnapshot = await getDocs(q);
+            const tasks = querySnapshot.docs.map((doc) => {
+              return {
+                ...doc.data(),
+                id: doc.id,
+                notificationTime: doc.data().notificationTime?.toDate(), // タイムスタンプをDate型に変換
+                isNotified: doc.data().isNotified,
+              };
+            });
+            const unNotifiedTask = tasks.filter((task) => !task.isNotified);
+            localStorage.setItem('tasks', JSON.stringify(unNotifiedTask));
           };
-        });
-        for (const task of tasks) {
-          if (!task.isNotified) {
-            await updateNotificationStatus(task.id);
-            localStorage.setItem('tasks', JSON.stringify(tasks)); // ローカルストレージに保存
-          }
+          fetchAndStoreNotifications(user);
         }
-      };
-
-      // Firestoreのデータ変更を監視し、ローカルストレージを更新
-      const unsubscribe = onSnapshot(
-        collection(firestore, 'notifications'),
-        (snapshot) => {
-          const tasks = snapshot.docs.map((doc) => {
-            return {
-              ...doc.data(),
-              id: doc.id,
-              notificationTime: doc.data().notificationTime.toDate(), // タイムスタンプをDate型に変換
-              isNotified: doc.data().isNotified,
-            };
-          });
-          const unNotifiedTask = tasks.filter((task) => !task.isNotified);
-          localStorage.setItem('tasks', JSON.stringify(unNotifiedTask)); // ローカルストレージを更新
-        }
-      );
-
-      fetchAndStoreNotifications();
-
-      return () => unsubscribe();
+      });
+      return () => unsubscribe2();
     }
-  }, [completedDateTimeSetting, shouldHandleNotifications, uid, todo]);
+  }, [shouldNotificaion, Todo2, completedTask2]);
 
   useEffect(() => {
     const monitorTimer = async () => {
       const timersCollection = collection(firestore, 'notifications');
       const q = query(
         timersCollection,
-        where('notificationTime', '<', Timestamp.now())
+        where('notificationTime', '<', Timestamp.now()),
+        orderBy('notificationTime'),
+        orderBy('__name__')
       );
       const querySnapshot = await getDocs(q);
 
@@ -135,21 +147,22 @@ const NotificationHandler = ({
       for (const snapshot of querySnapshot.docs) {
         const docID = snapshot.id;
         const docData = snapshot.data();
-        const notificationTime = docData.notificationTime.toDate(); // Firestore の Timestamp を Date に変換
+        const notificationTime = docData.notificationTime?.toDate(); // Firestore の Timestamp を Date に変換
         const currentTime = new Date().getTime();
         const oneDayAfterNotification =
           new Date(notificationTime).getTime() + 24 * 60 * 60 * 1000;
 
+        if (notificationTime <= currentTime || completedTask) {
+          updateNotificationStatus();
+          setCompletedTask2(true);
+        }
         if (oneDayAfterNotification <= currentTime) {
           await deleteDoc(doc(firestore, 'notifications', docID));
-          // console.log(`Notification with ID ${docID} deleted from Firestore.`);
         }
       }
     };
-
     monitorTimer();
-  }, []);
-
+  }, [completedDateTimeSetting, shouldHandleNotifications, completedTask]);
   return null;
 };
 
