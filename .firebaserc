@@ -1,27 +1,28 @@
 {
   "projects": {
-    "default": "reminder3-65e84",
-    "main": "reminder3-65e84",
-    "reminder": "reminder3-65e84",
-    "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder3-65e84",
-    "e": "reminder3-65e84",
-    "deployment": "reminder3-65e84",
-    "production": "reminder3-65e84",
+    "default": "reminder5-27ef0",
+    "main": "reminder5-27ef0",
+    "reminder": "reminder5-27ef0",
+    "'/Users/Tsp33786/Desktop/trial html/MY WEB SIGHT/reminder'": "reminder5-27ef0",
+    "e": "reminder5-27ef0",
+    "deployment": "reminder5-27ef0",
+    "production": "reminder5-27ef0",
     "produdtion": "reminder5-f1b91",
-    "deploy": "reminder3-65e84"
+    "deploy": "reminder5-27ef0",
+    "productions": "reminder5-27ef0"
   },
   "targets": {
-    "reminder3-65e84": {
+    "reminder5-27ef0": {
       "hosting": {
         "reminder": [
-          "reminder3-65e84",
+          "reminder5-27ef0",
           "site"
         ]
       }
     }
   },
   "etags": {
-    "reminder3-65e84": {
+    "reminder5-27ef0": {
       "extensionInstances": {}
     }
   },

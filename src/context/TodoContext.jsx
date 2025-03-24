@@ -138,10 +138,14 @@ const TodoProvider = ({ children }) => {
   const [todoId, setTodoId] = useState();
   const [todoContent, setTodoContent] = useState();
   const [Todo, setTodo] = useState();
+  const [Todo2, setTodo2] = useState();
   const [shouldHandleNotifications, setShouldHandleNotifications] =
     useState(false);
   const [agree, setAgree] = useState();
   const [isSet, setIsSet] = useState(false);
+  const [docId, setDocId] = useState();
+  const [completedTask, setCompletedTask] = useState(false);
+  const [completedTask2, setCompletedTask2] = useState(false);
 
   return (
     <TodoContext.Provider
@@ -204,6 +208,14 @@ const TodoProvider = ({ children }) => {
         setAgree,
         isSet,
         setIsSet,
+        docId,
+        setDocId,
+        Todo2,
+        setTodo2,
+        completedTask,
+        setCompletedTask,
+        completedTask2,
+        setCompletedTask2,
       }}
     >
       <TodoDispatchContext.Provider value={dispatch}>
