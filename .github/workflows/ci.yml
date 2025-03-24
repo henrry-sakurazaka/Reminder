@@ -543,6 +543,7 @@ jobs:
           cd functions
           rm -rf package-lock.json node_modules
           npm install firebase-functions@3
+          npm install firebase-admin@11
           npm ci
           cd ..
 
