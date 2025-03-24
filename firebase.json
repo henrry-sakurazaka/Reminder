@@ -9,17 +9,7 @@
       }
     ]
   },
-  "functions": {
-    "source": "functions",
-    "runtime": "nodejs18",
-    "region": "us-central1",
-    "ignore": ["node_modules/**"],
-    "codebase": "default",
-    "deployOptions": {
-      "minInstances": 1
-    },
-    "gen": "1"
-  },
+
   "emulators": {
     "hosting": {
       "port": 5000

@@ -259,7 +259,11 @@ import express from 'express';
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
+const PORT2 = 4200;
+const PORT3 = 6060;
 const app = express();
+const app2 = express();
+const app3 = express();
 
 // const corsOptions = {
 //   origin: [
@@ -290,3 +294,14 @@ app.get('/', (req, res) => {
 app.listen(PORT, HOST, () => {
   console.log('Server is running on port 3000');
 });
+
+app2.listen(PORT2, () => {
+  console.log(`Server is running on port ${PORT2}`);
+});
+app3.listen(PORT3, () => {
+  console.log(`Server is running on port ${PORT3}`);
+});
+
+// Firebase Functionsとしてエクスポート
+exports.apiX = functions.https.onRequest(app2);
+exports.api17 = functions.https.onRequest(app3);
