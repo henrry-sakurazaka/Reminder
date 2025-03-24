@@ -21147,16 +21147,15 @@ function Kf(n, e, t) {
     it(_u, '4.7.3', 'esm2017');
 })();
 var th = {
-  NVM_INC: '/Users/Tsp33786/.nvm/versions/node/v18.14.2/include/node',
+  NVM_INC: '/Users/Tsp33786/.nvm/versions/node/v20.14.0/include/node',
   TERM_PROGRAM: 'vscode',
-  NODE: '/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin/node',
+  NODE: '/Users/Tsp33786/.nvm/versions/node/v20.14.0/bin/node',
   INIT_CWD: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder',
   NVM_CD_FLAGS: '-q',
   TERM: 'xterm-256color',
   SHELL: '/bin/zsh',
-  npm_config_metrics_registry: 'https://registry.npmjs.org/',
   TMPDIR: '/var/folders/st/3drj07vj2yq_7f9m4xljxrv40000gn/T/',
-  npm_config_global_prefix: '/Users/Tsp33786/.nvm/versions/node/v18.14.2',
+  npm_config_global_prefix: '/Users/Tsp33786/.nvm/versions/node/v20.14.0',
   DOCKER_HOST: 'unix:///Users/Tsp33786/.docker/run/docker.sock',
   TERM_PROGRAM_VERSION: '1.96.4',
   ZDOTDIR: '/Users/Tsp33786',
@@ -21171,12 +21170,12 @@ var th = {
   USER: 'Tsp33786',
   COMMAND_MODE: 'unix2003',
   npm_config_globalconfig:
-    '/Users/Tsp33786/.nvm/versions/node/v18.14.2/etc/npmrc',
-  SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.YkZWCUdaV9/Listeners',
+    '/Users/Tsp33786/.nvm/versions/node/v20.14.0/etc/npmrc',
+  SSH_AUTH_SOCK: '/private/tmp/com.apple.launchd.bu1n8gWp9o/Listeners',
   __CF_USER_TEXT_ENCODING: '0x1F5:0x1:0xE',
   npm_execpath:
-    '/Users/Tsp33786/.nvm/versions/node/v18.14.2/lib/node_modules/npm/bin/npm-cli.js',
-  PATH: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/node_modules/.bin:/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/node_modules/.bin:/Users/Tsp33786/Desktop/trial_html/node_modules/.bin:/Users/Tsp33786/Desktop/node_modules/.bin:/Users/Tsp33786/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/Users/Tsp33786/.nvm/versions/node/v18.14.2/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin:/usr/local/opt/openjdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin:/usr/local/opt/openjdk/bin',
+    '/Users/Tsp33786/.nvm/versions/node/v20.14.0/lib/node_modules/npm/bin/npm-cli.js',
+  PATH: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/node_modules/.bin:/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/node_modules/.bin:/Users/Tsp33786/Desktop/trial_html/node_modules/.bin:/Users/Tsp33786/Desktop/node_modules/.bin:/Users/Tsp33786/node_modules/.bin:/Users/node_modules/.bin:/node_modules/.bin:/Users/Tsp33786/.nvm/versions/node/v20.14.0/lib/node_modules/npm/node_modules/@npmcli/run-script/lib/node-gyp-bin:/Users/Tsp33786/.nvm/versions/node/v20.14.0/bin:/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin:/usr/local/opt/openjdk/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin:/usr/local/opt/openjdk/bin',
   npm_package_json:
     '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/package.json',
   _: '/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/node_modules/.bin/vite',
@@ -21190,10 +21189,11 @@ var th = {
   EDITOR: 'vi',
   npm_package_name: 'reminder',
   LANG: 'ja_JP.UTF-8',
+  npm_config_npm_version: '10.9.0',
   VSCODE_GIT_ASKPASS_EXTRA_ARGS: '',
   XPC_FLAGS: '0x0',
   npm_config_node_gyp:
-    '/Users/Tsp33786/.nvm/versions/node/v18.14.2/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js',
+    '/Users/Tsp33786/.nvm/versions/node/v20.14.0/lib/node_modules/npm/node_modules/node-gyp/bin/node-gyp.js',
   npm_package_version: '0.1.0',
   XPC_SERVICE_NAME: '0',
   VSCODE_INJECTION: '1',
@@ -21206,14 +21206,14 @@ var th = {
   npm_lifecycle_script: 'vite build',
   VSCODE_GIT_IPC_HANDLE:
     '/var/folders/st/3drj07vj2yq_7f9m4xljxrv40000gn/T/vscode-git-26efef4505.sock',
-  NVM_BIN: '/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin',
-  npm_config_user_agent: 'npm/9.6.5 node/v18.14.2 darwin x64 workspaces/false',
+  NVM_BIN: '/Users/Tsp33786/.nvm/versions/node/v20.14.0/bin',
+  npm_config_user_agent: 'npm/10.9.0 node/v20.14.0 darwin x64 workspaces/false',
   VSCODE_GIT_ASKPASS_NODE:
     '/Applications/Visual Studio Code.app/Contents/Frameworks/Code Helper (Plugin).app/Contents/MacOS/Code Helper (Plugin)',
   GIT_ASKPASS:
     '/Applications/Visual Studio Code.app/Contents/Resources/app/extensions/git/dist/askpass.sh',
-  npm_node_execpath: '/Users/Tsp33786/.nvm/versions/node/v18.14.2/bin/node',
-  npm_config_prefix: '/Users/Tsp33786/.nvm/versions/node/v18.14.2',
+  npm_node_execpath: '/Users/Tsp33786/.nvm/versions/node/v20.14.0/bin/node',
+  npm_config_prefix: '/Users/Tsp33786/.nvm/versions/node/v20.14.0',
   COLORTERM: 'truecolor',
   NODE_ENV: 'production',
   VITE_HTTPS: 'true',
@@ -21235,7 +21235,9 @@ var th = {
   VITE_REACT_APP_FIREBASE_STORAGE_BUCKET: 'reminder3-65e84.firebasestorage.app',
   VITE_REACT_APP_FIREBASE_MEASUREMENT_ID: '280162142902',
   VITE_REACT_APP_TEST_EMAIL: 'Peace.875136D.time@gmail.com',
-  VITE_REACT_APP_TEST_PASSWORD: '57tqw7y6m',
+  VITE_REACT_APP_TEST2_EMAIL: 'lirejax453@makroyal.com',
+  VITE_REACT_APP_TEST_PASSWORD: '57tqw-7y6m',
+  VITE_REACT_APP_TEST2_PASSWORD: '87r7-zgv3',
   VITE_NODE_ENV: 'production',
   VITE_HOST: '0.0.0.0',
   VITE_PORT: '3000',
@@ -21246,6 +21248,8 @@ var th = {
   TUNNEL_ID: '6e89def9-410d-41b2-a1de-89c64bf332f6',
   HOST: '0.0.0.0',
   PORT: '3000',
+  GCP_PROJECT_ID: 'reminder3-65e84',
+  DEPLOY_PORT: '8080',
 };
 const nh = '@firebase/database',
   ih = '1.0.8';

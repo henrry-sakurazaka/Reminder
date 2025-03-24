@@ -3,7 +3,7 @@ import { defineConfig } from 'file:///app2/node_modules/vite/dist/node/index.js'
 import react from 'file:///app2/node_modules/@vitejs/plugin-react/dist/index.mjs';
 import { nodePolyfills } from 'file:///app2/node_modules/vite-plugin-node-polyfills/dist/index.js';
 import path, { resolve } from 'path';
-import * as dotenv from 'file:///app2/node_modules/dotenv/lib/main.js';
+import dotenv from 'dotenv';
 var __vite_injected_original_dirname = '/app2';
 
 if (process.env.CI !== 'true') {

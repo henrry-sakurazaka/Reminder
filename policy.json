@@ -1,0 +1,503 @@
+{
+  "bindings": [
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/CustomRole"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/CustomRole354"
+    },
+    {
+      "members": ["serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"],
+      "role": "projects/reminder3-65e84/roles/CustomRole532"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/CustomRole543"
+    },
+    {
+      "members": ["serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"],
+      "role": "projects/reminder3-65e84/roles/CustomRole552"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/CustomRole645"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/CustomRole843"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/CustomRole894"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "projects/reminder3-65e84/roles/Customdatastore.indexes.create"
+    },
+    {
+      "members": [
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/artifactregistry.admin"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp('2025-12-31T23:59:59Z')",
+        "title": "'developer-connect-connection-setup'"
+      },
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/artifactregistry.admin"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp(\"2024-07-22T08:28:02.158Z\")",
+        "title": "developer-connect-connection-setup"
+      },
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/artifactregistry.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "roles/artifactregistry.reader"
+    },
+    {
+      "members": [
+        "serviceAccount:service-280162142902@gcp-sa-artifactregistry.iam.gserviceaccount.com"
+      ],
+      "role": "roles/artifactregistry.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/artifactregistry.writer"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/billing.projectManager"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902@cloudbuild.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/cloudbuild.builds.builder"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@gcp-sa-cloudbuild.iam.gserviceaccount.com"
+      ],
+      "role": "roles/cloudbuild.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/cloudconfig.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902-compute@developer.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/clouddeploy.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902-compute@developer.gserviceaccount.com",
+        "serviceAccount:app-engine-default-service-acc@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/cloudfunctions.admin"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp('2025-12-31T23:59:59Z')",
+        "title": "developer-connect-connection-setup"
+      },
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/cloudfunctions.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:github-action-777067774@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/cloudfunctions.developer"
+    },
+    {
+      "members": [
+        "deleted:serviceAccount:service-280162142902@gcf-admin-robot.iam.gserviceaccount.com?uid=108574408929923768647",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/cloudfunctions.serviceAgent"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp('2025-12-31T23:59:59Z')",
+        "title": "developer-connect-connection-setup"
+      },
+      "members": [
+        "serviceAccount:gcf-admin-replacement@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/cloudfunctions.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:service-280162142902@compute-system.iam.gserviceaccount.com"
+      ],
+      "role": "roles/compute.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@containerregistry.iam.gserviceaccount.com"
+      ],
+      "role": "roles/containerregistry.ServiceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/datastore.owner"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp('2025-12-31T23:59:59Z')",
+        "title": "developer-connect-connection-setup"
+      },
+      "members": ["user:vasto.mar3xc@gmail.com"],
+      "role": "roles/datastore.owner"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/datastore.user"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:firebase-app-hosting-compute@reminder3-65e84.iam.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/developerconnect.readTokenAccessor"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902-compute@developer.gserviceaccount.com",
+        "serviceAccount:280162142902@cloudservices.gserviceaccount.com",
+        "serviceAccount:app-engine-default-service-acc@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:github-action-777067774-remind@reminder3-65e84.iam.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/editor"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:github-action-777067774-re-349@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebase.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:firebase-service-account@firebase-sa-management.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@gcp-sa-firebase.iam.gserviceaccount.com"
+      ],
+      "role": "roles/firebase.managementServiceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:firebase-app-hosting-compute@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "roles/firebase.sdkAdminServiceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebase.viewer"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:firebase-app-hosting-compute@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/firebaseapphosting.computeRunner"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:github-action-777067774@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebaseauth.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:github-action-777067774@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebasehosting.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebasehosting.viewer"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@gcp-sa-firebasemods.iam.gserviceaccount.com"
+      ],
+      "role": "roles/firebasemods.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebasenotifications.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebaserules.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:service-280162142902@firebase-rules.iam.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/firebaserules.system"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@gcp-sa-firebasestorage.iam.gserviceaccount.com"
+      ],
+      "role": "roles/firebasestorage.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@gcp-sa-firestore.iam.gserviceaccount.com"
+      ],
+      "role": "roles/firestore.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/iam.operationViewer"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/iam.principalAccessBoundaryViewer"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "roles/iam.securityAdmin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/iam.securityReviewer"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902-compute@developer.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/iam.serviceAccountAdmin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/iam.serviceAccountCreator"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/iam.serviceAccountDeleter"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902-compute@developer.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/iam.serviceAccountKeyAdmin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/iam.serviceAccountTokenCreator"
+    },
+    {
+      "members": [
+        "serviceAccount:280162142902-compute@developer.gserviceaccount.com",
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/iam.serviceAccountUser"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp('2025-12-31T23:59:59Z')",
+        "title": "developer-connect-connection-setup"
+      },
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/iam.serviceAccountUser"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:github-action-777067774-remind@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/owner"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com",
+        "user:vasto.mar3xc@gmail.com"
+      ],
+      "role": "roles/run.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:service-280162142902@serverless-robot-prod.iam.gserviceaccount.com"
+      ],
+      "role": "roles/run.serviceAgent"
+    },
+    {
+      "members": [
+        "serviceAccount:github-action-777067774@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/run.viewer"
+    },
+    {
+      "condition": {
+        "expression": "request.time < timestamp(\"2024-07-22T08:28:02.158Z\")",
+        "title": "developer-connect-connection-setup"
+      },
+      "members": [
+        "serviceAccount:service-280162142902@gcp-sa-devconnect.iam.gserviceaccount.com"
+      ],
+      "role": "roles/secretmanager.admin"
+    },
+    {
+      "members": [
+        "serviceAccount:github-action-777067774@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/serviceusage.apiKeysViewer"
+    },
+    {
+      "members": [
+        "serviceAccount:github-action-777067774@reminder3-65e84.iam.gserviceaccount.com"
+      ],
+      "role": "roles/serviceusage.serviceUsageConsumer"
+    },
+    {
+      "members": [
+        "serviceAccount:firebase-adminsdk-chjy7@reminder3-65e84.iam.gserviceaccount.com",
+        "serviceAccount:reminder3-65e84@appspot.gserviceaccount.com"
+      ],
+      "role": "roles/storage.admin"
+    }
+  ],
+  "etag": "BwYwXtFLLBs=",
+  "version": 3
+}

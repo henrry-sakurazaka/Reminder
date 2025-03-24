@@ -61,6 +61,9 @@ const Modal = ({ todo }) => {
     setIsDocRef,
     shouldHandleNotifications,
     setShouldHandleNotifications,
+    setDocId,
+    Todo2,
+    setTodo2,
   } = useTodos();
 
   useEffect(() => {
@@ -137,6 +140,9 @@ const Modal = ({ todo }) => {
       dateTime.setHours(isTime.getHours(), isTime.getMinutes(), 0, 0);
 
       try {
+        // 一意のIDを生成
+        const uuidv = uuidv4();
+        setDocId(uuidv);
         const notificationData = {
           title: 'Reminder',
           description: 'Time is approaching, receive to push notification..',
@@ -146,12 +152,11 @@ const Modal = ({ todo }) => {
           content: todo.content,
           id: todo.id,
           isNotified: false,
+          docId: 'xxx',
         };
 
-        // 一意のIDを生成
-        const docId = uuidv4();
         // Firestoreのコレクション参照
-        const docRef = doc(collection(firestore, 'notifications'), docId);
+        const docRef = doc(collection(firestore, 'notifications'), uuidv);
         await setDoc(docRef, notificationData);
         // 非同期でドキュメントを追加し、その結果を待機
         const newTodo = {
@@ -159,10 +164,11 @@ const Modal = ({ todo }) => {
           notification: true,
         };
         dispatch({ type: 'todo/notification', todo: newTodo });
-        setNotificationDocId(docId);
+        setNotificationDocId(uid);
         setIsDocRef(docRef);
         setCompletedDateTimeSetting(true);
         setShouldHandleNotifications(true);
+        setTodo2(todo);
       } catch (error) {
         console.error('Error writing notification data to Firestore: ', error);
       } finally {
@@ -361,7 +367,7 @@ const Modal = ({ todo }) => {
           <NotificationHandler
             shouldHandleNotifications={shouldHandleNotifications}
             completedDateTimeSetting={completedDateTimeSetting}
-            todo={todo}
+            todo={Todo2}
           />
         )}
       </div>

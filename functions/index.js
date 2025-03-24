@@ -1,23 +1,23 @@
-const express = require('express');
-const { onRequest } = require('firebase-functions/v2/https');
-const logger = require('firebase-functions/logger');
-const functions = require('firebase-functions/v2');
-const admin = require('firebase-admin');
-const bodyParser = require('body-parser');
-const path = require('path');
-const fs = require('fs');
-const cors = require('cors');
-const dotenv = require('dotenv');
-const { environments } = require('eslint-plugin-prettier');
+// const express = require('express');
+// const { onRequest } = require('firebase-functions/v2/https');
+// const logger = require('firebase-functions/logger');
+// const functions = require('firebase-functions/v2');
+// const admin = require('firebase-admin');
+// const bodyParser = require('body-parser');
+// const path = require('path');
+// const fs = require('fs');
+// const cors = require('cors');
+// const dotenv = require('dotenv');
+// const { environments } = require('eslint-plugin-prettier');
 
-dotenv.config();
+// dotenv.config();
 
 // if (process.env.CI !== 'true') {
 //   dotenv.config();
 // }
 
 //For local environment
-var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
+// var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 // var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
 
 // let serviceAccount;
@@ -39,102 +39,102 @@ var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
 //     throw new Error("Service account credentials not found.");
 //   }
 // }
-console.log('=== DEBUG INFO ===');
-console.log('Current Directory:', __dirname);
+// console.log('=== DEBUG INFO ===');
+// console.log('Current Directory:', __dirname);
 
-admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount),
-  databaseURL: process.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
-});
+// admin.initializeApp({
+//   credential: admin.credential.cert(serviceAccount),
+//   databaseURL: process.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
+// });
 
-const app = express();
-const app2 = express();
-const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
-const PORT = 4300;
-const PORT2 = 6080;
+// const app = express();
+// const app2 = express();
+// const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
+// const PORT = 4200;
+// const PORT2 = 6060;
 // const PORT = 8080;
 // const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
 
 // CORSのミドルウェアを設定
-const corsOptions = {
-  origin: [
-    'https://reminder3-65e84.web.app',
-    'http://localhost:3000',
-    'https://offsetcodecraft.site',
-  ],
-  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-  allowedHeaders: [
-    'Content-Type',
-    'Authorization',
-    'Access-Control-Allow-Origin',
-  ],
-  credentials: true,
-  optionsSuccessStatus: 204,
-};
+// const corsOptions = {
+//   origin: [
+//     'https://reminder5-27ef0.web.app',
+//     'http://localhost:3000',
+//     'https://offsetcodecraft.site',
+//   ],
+//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+//   allowedHeaders: [
+//     'Content-Type',
+//     'Authorization',
+//     'Access-Control-Allow-Origin',
+//   ],
+//   credentials: true,
+//   optionsSuccessStatus: 204,
+// };
 
 // Express app に CORS ミドルウェアを適用
 
-app.use(express.json());
-app2.use(express.json());
-app.use(express.static(path.join(__dirname, 'build')));
-app.use(bodyParser.json());
-app.use(cors(corsOptions));
+// app.use(express.json());
+// app2.use(express.json());
+// app.use(express.static(path.join(__dirname, 'build')));
+// app.use(bodyParser.json());
+// app.use(cors(corsOptions));
 
 // 静的ファイルを正しいMIMEタイプで配信するための設定
-app.use(
-  express.static(path.join(__dirname, 'public'), {
-    setHeaders: (res, path) => {
-      if (path.endsWith('.js')) {
-        res.setHeader('Content-Type', 'application/javascript');
-      }
-    },
-  })
-);
+// app.use(
+//   express.static(path.join(__dirname, 'public'), {
+//     setHeaders: (res, path) => {
+//       if (path.endsWith('.js')) {
+//         res.setHeader('Content-Type', 'application/javascript');
+//       }
+//     },
+//   })
+// );
 
-app.get('/', (req, res) => {
-  res.sendFile(path.join(__dirname, 'build', 'index.html'));
-});
+// app.get('/', (req, res) => {
+//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// });
 
-app.post('/handleEasyLogin', (req, res) => {
-  const { email, password } = req.body;
+// app.post('/handleEasyLogin', (req, res) => {
+//   const { email, password } = req.body;
 
-  admin
-    .auth()
-    .signInWithEmailAndPassword(email, password)
-    .then((userCredential) => {
-      const idToken = userCredential.user.getIdToken();
-      res.status(200).send({ idToken: idToken });
-    })
-    .catch((error) => {
-      res
-        .status(400)
-        .send({ message: 'Failed to login', error: error.message });
-    });
-});
+//   admin
+//     .auth()
+//     .signInWithEmailAndPassword(email, password)
+//     .then((userCredential) => {
+//       const idToken = userCredential.user.getIdToken();
+//       res.status(200).send({ idToken: idToken });
+//     })
+//     .catch((error) => {
+//       res
+//         .status(400)
+//         .send({ message: 'Failed to login', error: error.message });
+//     });
+// });
 
-if (isEmulator) {
-  console.log('Running in emulator mode');
-} else {
-  console.log('Running in production mode');
-  // 本番デプロイではエミュレーターを起動しない
-  console.log('PORT:', process.env.PORT);
-}
+// if (isEmulator) {
+//   console.log('Running in emulator mode');
+// } else {
+//   console.log('Running in production mode');
+//   // 本番デプロイではエミュレーターを起動しない
+//   console.log('PORT:', process.env.PORT);
+// }
 
-app.get('/', (req, res) => {
-  res.send('Hello World!');
-});
+// app.get('/', (req, res) => {
+//   res.send('Hello World!');
+// });
 
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
-});
+// app.listen(PORT, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// });
 
-app2.listen(PORT2, () => {
-  console.log(`Server is running on port ${PORT2}`);
-});
+// app2.listen(PORT2, () => {
+//   console.log(`Server is running on port ${PORT2}`);
+// });
 
-// Firebase Functionsとしてエクスポート
-exports.api3 = functions.https.onRequest(app);
-exports.api2 = functions.https.onRequest(app2);
+// // Firebase Functionsとしてエクスポート
+// exports.apiX = functions.https.onRequest(app);
+// exports.api17 = functions.https.onRequest(app2);
 
 // // トークンを返すエンドポイントを追加
 // app.get('/get-token', cors(corsOptions), async (req, res) => {
@@ -237,7 +237,7 @@ exports.api2 = functions.https.onRequest(app2);
 // exports.api = functions.https.onRequest(app);
 
 // exports.registerToken = functions.https.onRequest((req, res) => {
-//   const allowedOrigins = ['https://reminder3-65e84.web.app', 'http://localhost3000'];
+//   const allowedOrigins = ['https://reminder5-27ef0.web.app', 'http://localhost3000'];
 
 //   const origin = req.headers.origin;
 
@@ -352,7 +352,7 @@ exports.api2 = functions.https.onRequest(app2);
 //                // Preflightリクエストの処理
 
 //                 if (req.method === 'OPTIONS') {
-//                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
+//                     res.set('Access-Control-Allow-Origin', ['https://reminder5-27ef0.web.app', 'http://localhost3000']);
 //                     res.set('Access-Control-Allow-Methods', 'GET, POST');
 //                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 
@@ -360,7 +360,7 @@ exports.api2 = functions.https.onRequest(app2);
 
 //                 } else {
 //                 cors(req, res, () => {
-//                     res.set('Access-Control-Allow-Origin', ['https://reminder3-65e84.web.app', 'http://localhost3000']);
+//                     res.set('Access-Control-Allow-Origin', ['https://reminder5-27ef0.web.app', 'http://localhost3000']);
 //                     res.set('Access-Control-Allow-Methods', 'GET, POST');
 //                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
 //                     res.status(204).send('');
