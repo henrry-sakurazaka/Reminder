@@ -2,28 +2,44 @@
   "indexes": [
     {
       "collectionGroup": "notifications",
-      "queryScope": "COLLECTION",
+      "queryScope": "COLLECTION_GROUP",
       "fields": [
         {
-          "fieldPath": "notifications",
+          "fieldPath": "todoId",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "notifications",
+          "fieldPath": "docId",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "isNotified",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "notificationTime",
           "order": "ASCENDING"
         }
       ]
     },
     {
-      "collectionGroup": "notifications",
+      "collectionGroup": "todoList3",
       "queryScope": "COLLECTION",
       "fields": [
         {
-          "fieldPath": "notificationTime",
+          "fieldPath": "todoId",
           "order": "ASCENDING"
         },
         {
-          "fieldPath": "notificationTime",
+          "fieldPath": "notification",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "content",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "id",
           "order": "ASCENDING"
         }
       ]

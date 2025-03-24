@@ -31,6 +31,7 @@ const Edit = ({ todo }) => {
     setTodo,
     setShouldHandleNotifications,
     isSet,
+    setCompletedTask,
   } = useTodos();
 
   const [editingContent, setEditingContent] = useState(todo.content);
@@ -55,12 +56,15 @@ const Edit = ({ todo }) => {
 
   const complete = (todo) => {
     dispatch({ type: 'todo/delete', todo });
+    setCompletedTask(true);
   };
 
   const complete2 = (todo) => {
     const neoTodo2 = { ...todo, completed: true };
     dispatch({ type: 'complete2', todo: neoTodo2 });
+    setCompletedTask(true);
   };
+
   const toggleReseveMode = (todo) => {
     const newEditingColor = !todo.editingColor;
     const neoTodo7 = {
@@ -100,7 +104,10 @@ const Edit = ({ todo }) => {
               ? 'yellow'
               : 'grey',
         }}
-      ></span>
+      >
+        {' '}
+        i{' '}
+      </span>
 
       <button
         className="compBtn"
