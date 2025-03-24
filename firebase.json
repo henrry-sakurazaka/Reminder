@@ -1,7 +1,11 @@
 {
   "hosting": {
     "public": "build",
-    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
     "rewrites": [
       {
         "source": "**",
@@ -11,8 +15,10 @@
   },
   "functions": {
     "source": "functions",
-    "runtime": "nodejs20",
-    "ignore": ["node_modules/**"],
+    "runtime": "nodejs18",
+    "ignore": [
+      "node_modules/**"
+    ],
     "codebase": "default"
   },
   "emulators": {
