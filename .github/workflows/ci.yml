@@ -556,9 +556,9 @@ jobs:
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Set Firebase Project
-        run: |
-          firebase use reminder5-27ef0
+      # - name: Set Firebase Project
+      #   run: |
+      #     firebase use reminder5-27ef0
 
       - name: Build For Deploy
         run: |
