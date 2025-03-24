@@ -14,7 +14,11 @@
     "runtime": "nodejs18",
     "region": "us-central1",
     "ignore": ["node_modules/**"],
-    "codebase": "default"
+    "codebase": "default",
+    "deployOptions": {
+      "minInstances": 1
+    },
+    "gen": "1"
   },
   "emulators": {
     "hosting": {
