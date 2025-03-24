@@ -442,7 +442,7 @@ jobs:
       - name: Set up Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '18'
 
       - name: Install Firebase CLI
         run: npm install -g firebase-tools@latest
@@ -567,7 +567,7 @@ jobs:
 
       - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions
+          firebase deploy --only functions --debug
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
