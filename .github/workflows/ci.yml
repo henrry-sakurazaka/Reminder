@@ -135,7 +135,7 @@ jobs:
   #         echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
   #     - name: Create Service Account Key
-  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" > ./serviceAccountKey.json
+  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" > ./serviceAccountKey.json
 
   #     - name: Copy Service Account Key to Functions
   #       run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
@@ -492,18 +492,18 @@ jobs:
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" | base64 --decode | sudo tee .env > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee .env > /dev/null
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> ./functions/.env
         env:
-          FIREBASE_SERVICE_ACCOUNT7: ${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}
+          FIREBASE_SERVICE_ACCOUNT9: ${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}
 
       - name: Authenticate with Service Account
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" | base64 --decode | sudo tee /tmp/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee /tmp/serviceAccountKey.json > /dev/null
           gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/serviceAccountKey.json" >> $GITHUB_ENV
 
@@ -549,7 +549,7 @@ jobs:
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
@@ -566,7 +566,7 @@ jobs:
 
       - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions --project reminder5-27ef0 --force --debug
+          firebase deploy --only functions --project reminder5-27ef0 --debug
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
@@ -601,7 +601,7 @@ jobs:
   #         echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
   #     - name: Create Service Account Key
-  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT7 }}" > ./serviceAccountKey.json
+  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" > ./serviceAccountKey.json
 
   #     - name: Copy Service Account Key to Functions
   #       run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
@@ -717,3 +717,7 @@ jobs:
   #         docker push henrry301/reminder:2
   #         docker push henrry301/reminder:3
   #         docker push henrry301/playwright:v1.49.0-jammy
+
+
+ 
+  
