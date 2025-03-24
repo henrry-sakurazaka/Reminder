@@ -1,11 +1,7 @@
 {
   "hosting": {
     "public": "build",
-    "ignore": [
-      "firebase.json",
-      "**/.*",
-      "**/node_modules/**"
-    ],
+    "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
     "rewrites": [
       {
         "source": "**",
@@ -16,9 +12,8 @@
   "functions": {
     "source": "functions",
     "runtime": "nodejs18",
-    "ignore": [
-      "node_modules/**"
-    ],
+    "region": "us-central1",
+    "ignore": ["node_modules/**"],
     "codebase": "default"
   },
   "emulators": {

@@ -542,7 +542,7 @@ jobs:
         run: |
           cd functions
           rm -rf package-lock.json node_modules
-          npm install
+          npm install firebase-functions@3
           npm ci
           cd ..
 
@@ -566,7 +566,7 @@ jobs:
 
       - name: Deploy To Firebase functions
         run: |
-          firebase deploy --only functions --project reminder5-27ef0 --debug
+          firebase deploy --only functions --runtime=nodejs18
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
