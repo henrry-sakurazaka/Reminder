@@ -104,7 +104,8 @@ const Edit = ({ todo }) => {
               ? 'yellow'
               : 'grey',
         }}
-      >i
+      >
+        i
       </span>
 
       <button
