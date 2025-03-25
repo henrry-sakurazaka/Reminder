@@ -9,7 +9,6 @@
       }
     ]
   },
-
   "emulators": {
     "hosting": {
       "port": 5000
