@@ -431,10 +431,10 @@ jobs:
 
   # deploy:
   #   runs-on: ubuntu-latest
-  #   # needs:
-  #   #   - lint
-  #   #   - E2E-tests
-  #   #   - prettier
+  #   needs:
+  #     - lint
+  #     - E2E-tests
+  #     - prettier
   #   steps:
   #     - name: Checkout code
   #       uses: actions/checkout@v4
@@ -442,7 +442,7 @@ jobs:
   #     - name: Set up Node.js
   #       uses: actions/setup-node@v4
   #       with:
-  #         node-version: '18'
+  #         node-version: '20'
 
   #     - name: Install Firebase CLI
   #       run: npm install -g firebase-tools@latest
@@ -538,15 +538,6 @@ jobs:
   #         rm -rf package-lock.json node_modules
   #         npm install
 
-  #     - name: Install functons dependencies
-  #       run: |
-  #         cd functions
-  #         rm -rf package-lock.json node_modules
-  #         npm install firebase-functions@3
-  #         npm install firebase-admin@11
-  #         npm ci
-  #         cd ..
-
   #     - name: Authenticate with Google Cloud
   #       uses: google-github-actions/auth@v1
   #       with:
@@ -557,17 +548,13 @@ jobs:
   #       with:
   #         project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-  #     # - name: Set Firebase Project
-  #     #   run: |
-  #     #     firebase use reminder5-27ef0
-
   #     - name: Build For Deploy
   #       run: |
   #         npm run build
 
-  #     - name: Deploy To Firebase functions
+  #     - name: Deploy To Firebase
   #       run: |
-  #         firebase deploy --only functions --debug
+  #         firebase deploy
 
   #       env:
   #         GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
@@ -576,6 +563,7 @@ jobs:
     runs-on: ubuntu-latest
     needs:
       - lint
+      - prettier
       - E2E-tests
     steps:
       - name: Checkout code
