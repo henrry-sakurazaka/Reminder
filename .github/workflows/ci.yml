@@ -678,7 +678,6 @@ jobs:
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
 
-    
       - name: Build Docker Images
         run: |
           docker compose build
