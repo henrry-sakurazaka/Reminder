@@ -13,6 +13,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
+
+      - name: Use production firebase.json
+        run: cp firebase.prod.json firebase.json
+
+      - name: Copy to Dockerfile
+        run: cp Deployfile Dockerfile
+
+      - name: Copy to vite.congig
+        run: cp deploy.js vite.config.mjs
+
+      - name: Copy to Docker-compose
+        run: cp deploy.yml docker-compose.yml
+
       - run: npm ci && npm run build
       - uses: FirebaseExtended/action-hosting-deploy@v0
         with:
