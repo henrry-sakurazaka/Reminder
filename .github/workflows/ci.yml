@@ -678,13 +678,7 @@ jobs:
           echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
           echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
 
-      # - name: Build Docker Images
-      #   run: |
-      #     docker build -f ./Dockerfile -t henrry301/reminder:1 .
-      #     docker build -f ./firebase/Dockerfile -t henrry301/reminder:2 ./firebase
-      #     docker build -f ./Dockerfile -t henrry301/playwright:v1.49.0-jammy .
-      #     docker build -f ./.cloudflared/Dockerfile -t henrry301/reminder:3 ./.cloudflared
-
+    
       - name: Build Docker Images
         run: |
           docker compose build
