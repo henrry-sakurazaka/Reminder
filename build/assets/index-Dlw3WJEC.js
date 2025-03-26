@@ -1,36 +1,37 @@
 import {
-  g as Ce,
-  i as ke,
-  a as Ge,
-  b as X,
-  c as ze,
-  G as Ke,
-  o as $,
-  s as ee,
-  d as J,
-  e as Ye,
-  f as Xe,
-  h as _,
-  q as je,
-  w as he,
-  T as ye,
-  j as Te,
-  k as Ze,
-  u as _e,
-  l as Ne,
-  m as Qe,
-  n as et,
-  p as Se,
-  E as tt,
-  r as st,
-} from './firebase-wawmpWM2.js';
+  g as Ne,
+  i as De,
+  a as st,
+  b as Q,
+  c as it,
+  G as nt,
+  o as W,
+  s as Z,
+  d as U,
+  e as ot,
+  f as at,
+  q as Ce,
+  h as ee,
+  w as Y,
+  T as be,
+  j as ve,
+  u as ke,
+  k as we,
+  l as rt,
+  m as Ee,
+  n as ct,
+  p as lt,
+  r as Ie,
+  E as dt,
+  t as ut,
+} from './firebase-KD7rklqF.js';
 import './vite-plugin-node-polyfills-CYF0W5wK.js';
-import { r as n, j as e, d as it, b as nt } from './vendor-BEztx3UH.js';
-import { B as ot } from './react-router-dom-Djf-viZn.js';
-import { P as c } from './prop-types-BiVUseAU.js';
-import { D as at } from './react-datepicker-C0NVZxc2.js';
-import { v as rt } from './uuid-BKT09osN.js';
-import { u as A, a as ct, b as P } from './react-router-BqYFP2zy.js';
+import { r as i, j as e, d as mt, b as pt } from './vendor-BEztx3UH.js';
+import { B as gt } from './react-router-dom-Djf-viZn.js';
+import { P as l } from './prop-types-BiVUseAU.js';
+import { D as ht } from './react-datepicker-C0NVZxc2.js';
+import { v as ft } from './uuid-BKT09osN.js';
+import { u as R, a as xt, b as L } from './react-router-BqYFP2zy.js';
 import './tslib-BGVaTf34.js';
 import './idb-BXWtuYvb.js';
 import './scheduler-DYLXRpC5.js';
@@ -40,36 +41,36 @@ import './date-fns-DXCimDFB.js';
 import './react-onclickoutside-D9wCJI1E.js';
 import './@floating-ui-C_tFKrs3.js';
 (function () {
-  const i = document.createElement('link').relList;
-  if (i && i.supports && i.supports('modulepreload')) return;
+  const n = document.createElement('link').relList;
+  if (n && n.supports && n.supports('modulepreload')) return;
   for (const o of document.querySelectorAll('link[rel="modulepreload"]')) a(o);
   new MutationObserver((o) => {
-    for (const r of o)
-      if (r.type === 'childList')
-        for (const l of r.addedNodes)
-          l.tagName === 'LINK' && l.rel === 'modulepreload' && a(l);
+    for (const c of o)
+      if (c.type === 'childList')
+        for (const u of c.addedNodes)
+          u.tagName === 'LINK' && u.rel === 'modulepreload' && a(u);
   }).observe(document, { childList: !0, subtree: !0 });
   function s(o) {
-    const r = {};
+    const c = {};
     return (
-      o.integrity && (r.integrity = o.integrity),
-      o.referrerPolicy && (r.referrerPolicy = o.referrerPolicy),
+      o.integrity && (c.integrity = o.integrity),
+      o.referrerPolicy && (c.referrerPolicy = o.referrerPolicy),
       o.crossOrigin === 'use-credentials'
-        ? (r.credentials = 'include')
+        ? (c.credentials = 'include')
         : o.crossOrigin === 'anonymous'
-          ? (r.credentials = 'omit')
-          : (r.credentials = 'same-origin'),
-      r
+          ? (c.credentials = 'omit')
+          : (c.credentials = 'same-origin'),
+      c
     );
   }
   function a(o) {
     if (o.ep) return;
     o.ep = !0;
-    const r = s(o);
-    fetch(o.href, r);
+    const c = s(o);
+    fetch(o.href, c);
   }
 })();
-const De = {
+const Ae = {
     apiKey: 'AIzaSyAYV9vGuuJW0As2r6kZnDmEXdRWPBWWR4c',
     authDomain: 'reminder5-27ef0.firebaseapp.com',
     projectId: 'reminder5-27ef0',
@@ -77,26 +78,26 @@ const De = {
     messagingSenderId: void 0,
     appId: '1:230818023391:web:1813670f0600a50839266a',
     measurementId: 'G-41WKE3E4T3',
-    databaseURL: 'https://reminder3-65e84-default-rtdb.firebaseio.com',
+    databaseURL: 'https://reminder5-27ef0.firebaseio.com',
   },
-  we = Ce().length ? Ge() : ke(De),
-  O = X(we),
-  E = ze(we);
-new Ke();
-function lt() {
+  Pe = Ne().length ? st() : De(Ae),
+  O = Q(Pe),
+  P = it(Pe);
+new nt();
+function jt() {
   const t = JSON.parse(localStorage.getItem('tasks')) || [];
-  t.forEach((i) => {
-    const s = new Date(i.notificationTime).getTime(),
+  t.forEach((n) => {
+    const s = new Date(n.notificationTime).getTime(),
       a = new Date().getTime(),
-      o = i.isNotified;
+      o = n.isNotified;
     if (s <= a && !o) {
-      dt(i);
-      const r = t.filter((l) => l.id !== i.id);
-      localStorage.setItem('tasks', JSON.stringify(r));
+      yt(n);
+      const c = t.filter((u) => u.id !== n.id);
+      localStorage.setItem('tasks', JSON.stringify(c));
     }
   });
 }
-const dt = (t) => {
+const yt = (t) => {
   Notification.permission === 'granted'
     ? new Notification('Reminder', {
         body: `Task: ${t.content}`,
@@ -104,18 +105,18 @@ const dt = (t) => {
         tag: 'unique-notification-id',
       })
     : Notification.permission !== 'denied' &&
-      Notification.requestPermission().then((i) => {
-        i === 'granted' &&
+      Notification.requestPermission().then((n) => {
+        n === 'granted' &&
           new Notification('Reminder', {
             body: `Task: ${t.content}`,
             tag: 'unique-notification-id',
           });
       });
 };
-setInterval(lt, 6e4);
-const Ee = n.createContext(),
-  Ae = n.createContext(),
-  ut = [
+setInterval(jt, 6e4);
+const Re = i.createContext(),
+  Le = i.createContext(),
+  Tt = [
     {
       title: 'Make a restaurant reservation',
       description: 'user tasks',
@@ -162,25 +163,25 @@ const Ee = n.createContext(),
       shouldHandleNotifications: !1,
     },
   ],
-  mt = (t, i) => {
-    switch (i.type) {
+  Ct = (t, n) => {
+    switch (n.type) {
       case 'todo/add':
-        return [...t, i.todo];
+        return [...t, n.todo];
       case 'todo/delete':
-        return t.filter((s) => s.id !== i.todo.id);
+        return t.filter((s) => s.id !== n.todo.id);
       case 'todo/update':
         return t.map((s) =>
-          s.id === i.todo.id ? { ...s, ...i.todo } : { ...s }
+          s.id === n.todo.id ? { ...s, ...n.todo } : { ...s }
         );
       case 'todo/complete':
         return t.map((s) =>
-          s.id === i.todo.id ? { ...s, ...i.todo } : { ...s }
+          s.id === n.todo.id ? { ...s, ...n.todo } : { ...s }
         );
       case 'todo/reset':
         return [];
       case 'todo/reserve':
         return t.map((s) =>
-          s.id === i.todo.id
+          s.id === n.todo.id
             ? { ...s, editingLock: !0 }
             : { ...s, editingLock: !1 }
         );
@@ -197,14 +198,14 @@ const Ee = n.createContext(),
             : { ...s, editingDateTime: !1 }
         );
       case 'FETCH_TODOS':
-        return i.payload;
+        return n.payload;
       case 'complete2':
         return t.map((s) =>
-          s.id === i.todo.id ? { ...s, completed: !0 } : { ...s }
+          s.id === n.todo.id ? { ...s, completed: !0 } : { ...s }
         );
       case 'todo/notification':
         return t.map((s) =>
-          s.id === i.todo.id
+          s.id === n.todo.id
             ? { ...s, notification: !0, shouldHandleNotifications: !0 }
             : { ...s }
         );
@@ -212,268 +213,280 @@ const Ee = n.createContext(),
         return t;
     }
   },
-  Ie = ({ children: t }) => {
-    const [i, s] = n.useReducer(mt, { todoList: [] }),
-      [a, o] = n.useState([]),
-      [r, l] = n.useState(!1),
-      [g, f] = n.useState(!1),
-      [T, x] = n.useState(!1),
-      [m, p] = n.useState(!1),
-      [S, D] = n.useState(!1),
-      [v, R] = n.useState(!1),
-      [q, C] = n.useState(!1),
-      [y, N] = n.useState(!1),
-      [h, d] = n.useState(!1),
-      [j, u] = n.useState(''),
-      [I, Z] = n.useState(''),
-      [z, M] = n.useState(!1),
-      [F, se] = n.useState(!1),
-      [B, ie] = n.useState(!1),
-      [ne, oe] = n.useState(!1),
-      [K, ae] = n.useState(),
-      [w, re] = n.useState(),
-      [ce, le] = n.useState(),
-      [de, ue] = n.useState(),
-      [me, U] = n.useState(),
-      [H, pe] = n.useState(),
-      [ge, b] = n.useState(),
-      [k, W] = n.useState(),
-      [G, V] = n.useState(),
-      [fe, He] = n.useState(!1),
-      [We, Ve] = n.useState(),
-      [$e, Je] = n.useState(!1);
-    return e.jsx(Ee.Provider, {
+  qe = ({ children: t }) => {
+    const [n, s] = i.useReducer(Ct, { todoList: [] }),
+      [a, o] = i.useState([]),
+      [c, u] = i.useState(!1),
+      [p, h] = i.useState(!1),
+      [k, C] = i.useState(!1),
+      [y, g] = i.useState(!1),
+      [w, E] = i.useState(!1),
+      [I, j] = i.useState(!1),
+      [D, T] = i.useState(!1),
+      [f, b] = i.useState(!1),
+      [m, x] = i.useState(!1),
+      [d, r] = i.useState(''),
+      [S, M] = i.useState(''),
+      [J, V] = i.useState(!1),
+      [F, ne] = i.useState(!1),
+      [_, oe] = i.useState(!1),
+      [ae, re] = i.useState(!1),
+      [z, ce] = i.useState(),
+      [A, le] = i.useState(),
+      [de, ue] = i.useState(),
+      [me, pe] = i.useState(),
+      [ge, he] = i.useState(),
+      [fe, xe] = i.useState(),
+      [B, $] = i.useState(),
+      [je, ye] = i.useState(),
+      [v, N] = i.useState(),
+      [H, K] = i.useState(),
+      [G, Te] = i.useState(!1),
+      [Ge, Je] = i.useState(),
+      [ze, Ke] = i.useState(!1),
+      [Ye, Xe] = i.useState(),
+      [Ze, Qe] = i.useState(!1),
+      [et, tt] = i.useState(!1);
+    return e.jsx(Re.Provider, {
       value: {
-        todos: i,
-        isDateChecked: T,
-        setIsDateChecked: x,
-        isTimeChecked: m,
-        setIsTimeChecked: p,
-        isContainerTimeCheck: v,
-        setContainerTimeCheck: R,
-        isContainerDateCheck: S,
-        setContainerDateCheck: D,
-        modalOpen: r,
-        setModalOpen: l,
-        displayTimePicker: y,
-        setDisplayTimePicker: N,
-        displayDatePicker: h,
-        setDisplayDatePicker: d,
-        isDateSet: g,
-        setIsDateSet: f,
-        isTimeSet: q,
-        setIsTimeSet: C,
-        enteredTodo: j,
-        setEnteredTodo: u,
-        fireTodo: I,
-        setFireTodo: Z,
+        todos: n,
+        isDateChecked: k,
+        setIsDateChecked: C,
+        isTimeChecked: y,
+        setIsTimeChecked: g,
+        isContainerTimeCheck: I,
+        setContainerTimeCheck: j,
+        isContainerDateCheck: w,
+        setContainerDateCheck: E,
+        modalOpen: c,
+        setModalOpen: u,
+        displayTimePicker: f,
+        setDisplayTimePicker: b,
+        displayDatePicker: m,
+        setDisplayDatePicker: x,
+        isDateSet: p,
+        setIsDateSet: h,
+        isTimeSet: D,
+        setIsTimeSet: T,
+        enteredTodo: d,
+        setEnteredTodo: r,
+        fireTodo: S,
+        setFireTodo: M,
         todosData: a,
         setTodosData: o,
-        todoList: ut,
-        selectedDate: z,
-        setSelectedDate: M,
+        todoList: Tt,
+        selectedDate: J,
+        setSelectedDate: V,
         selectedTime: F,
-        setSelectedTime: se,
-        AddTodosExecuted: ne,
-        setAddTodosExecuted: oe,
-        completedDateTimeSetting: B,
-        setCompletedDateTimeSetting: ie,
-        notificationDocId: K,
-        setNotificationDocId: ae,
-        isSubmitting: w,
-        setIsSubmitting: re,
-        isDocRef: de,
-        setIsDocRef: ue,
-        reserveModeTodo: me,
-        setReserveModeTodo: U,
-        reserveModeId: H,
-        setReserveModeId: pe,
-        todoId: ge,
-        setTodoId: b,
-        todoContent: k,
-        setTodoContent: W,
-        Todo: G,
-        setTodo: V,
-        shouldHandleNotifications: fe,
-        setShouldHandleNotifications: He,
-        isSubmitting2: ce,
-        setIsSubmitting2: le,
-        agree: We,
-        setAgree: Ve,
-        isSet: $e,
-        setIsSet: Je,
+        setSelectedTime: ne,
+        AddTodosExecuted: ae,
+        setAddTodosExecuted: re,
+        completedDateTimeSetting: _,
+        setCompletedDateTimeSetting: oe,
+        notificationDocId: z,
+        setNotificationDocId: ce,
+        isSubmitting: A,
+        setIsSubmitting: le,
+        isDocRef: me,
+        setIsDocRef: pe,
+        reserveModeTodo: ge,
+        setReserveModeTodo: he,
+        reserveModeId: fe,
+        setReserveModeId: xe,
+        todoId: B,
+        setTodoId: $,
+        todoContent: je,
+        setTodoContent: ye,
+        Todo: v,
+        setTodo: N,
+        shouldHandleNotifications: G,
+        setShouldHandleNotifications: Te,
+        isSubmitting2: de,
+        setIsSubmitting2: ue,
+        agree: Ge,
+        setAgree: Je,
+        isSet: ze,
+        setIsSet: Ke,
+        docId: Ye,
+        setDocId: Xe,
+        Todo2: H,
+        setTodo2: K,
+        completedTask: Ze,
+        setCompletedTask: Qe,
+        completedTask2: et,
+        setCompletedTask2: tt,
       },
-      children: e.jsx(Ae.Provider, { value: s, children: t }),
+      children: e.jsx(Le.Provider, { value: s, children: t }),
     });
   };
-Ie.propTypes = { children: c.node.isRequired };
-const L = () => n.useContext(Ee),
-  te = () => n.useContext(Ae),
-  Pe = n.createContext(),
-  Re = ({ children: t }) => {
-    const { todos: i, todoList: s, AddTodosExecuted: a } = L(),
-      [o, r] = n.useState(),
-      [l, g] = n.useState(!0),
-      [f, T] = n.useState([]),
-      [x, m] = n.useState(!1),
-      [p, S] = n.useState(),
-      D = te(),
-      v = O.currentUser,
-      [R, q] = n.useState(),
-      C = n.useRef(null);
-    n.useEffect(() => {
-      const h = $(O, (d) => {
-        d ? q(d.uid) : console.log('No user is signed in');
+qe.propTypes = { children: l.node.isRequired };
+const q = () => i.useContext(Re),
+  ie = () => i.useContext(Le),
+  Fe = i.createContext(),
+  Oe = ({ children: t }) => {
+    const { todos: n, todoList: s, AddTodosExecuted: a } = q(),
+      [o, c] = i.useState(),
+      [u, p] = i.useState(!0),
+      [h, k] = i.useState([]),
+      [C, y] = i.useState(!1),
+      [g, w] = i.useState(),
+      E = ie(),
+      I = O.currentUser,
+      [j, D] = i.useState(),
+      T = i.useRef(null);
+    i.useEffect(() => {
+      const m = W(O, (x) => {
+        x ? D(x.uid) : console.log('No user is signed in');
       });
-      return () => h();
+      return () => m();
     }, []);
-    const y = n.useMemo(
+    const f = i.useMemo(
         () => ({
-          toFirestore: (h) => {
-            const d = Object.values(h),
-              j = {};
+          toFirestore: (m) => {
+            const x = Object.values(m),
+              d = {};
             return (
-              d.forEach((u, I) => {
-                j[I.toString()] = {
-                  title: u.title,
-                  description: u.description,
-                  type: u.type,
-                  id: u.id,
-                  content: u.content,
-                  editing: u.editing,
-                  completed: u.completed,
-                  reserve: u.reserve,
-                  editingLock: u.editingLock,
-                  editingColor: u.editingColor,
-                  editingDateTime: u.editingDateTime,
-                  notification: u.notification,
+              x.forEach((r, S) => {
+                d[S.toString()] = {
+                  title: r.title,
+                  description: r.description,
+                  type: r.type,
+                  id: r.id,
+                  content: r.content,
+                  editing: r.editing,
+                  completed: r.completed,
+                  reserve: r.reserve,
+                  editingLock: r.editingLock,
+                  editingColor: r.editingColor,
+                  editingDateTime: r.editingDateTime,
+                  notification: r.notification,
                 };
               }),
-              j
+              d
             );
           },
         }),
         []
       ),
-      N = n.useMemo(
+      b = i.useMemo(
         () => ({
-          fromFirestore: (h) =>
-            Object.values(h).map((u) => ({
-              title: u.title,
-              description: u.description,
-              type: u.type,
-              id: u.id,
-              content: u.content,
-              editing: u.editing,
-              completed: u.completed,
-              reserve: u.reserve,
-              editingLock: u.editingLock,
-              editingColor: u.editingColor,
-              editingDateTime: u.editingDateTime,
-              notification: u.notification,
+          fromFirestore: (m) =>
+            Object.values(m).map((r) => ({
+              title: r.title,
+              description: r.description,
+              type: r.type,
+              id: r.id,
+              content: r.content,
+              editing: r.editing,
+              completed: r.completed,
+              reserve: r.reserve,
+              editingLock: r.editingLock,
+              editingColor: r.editingColor,
+              editingDateTime: r.editingDateTime,
+              notification: r.notification,
             })),
         }),
         []
       );
     return (
-      n.useEffect(() => {
-        const h = async () => {
-            if (!R) {
+      i.useEffect(() => {
+        const m = async () => {
+            if (!j) {
               console.log('');
               return;
             }
             try {
-              const j = y.toFirestore(i),
-                u = { todoId: v.uid, todos: j };
-              await ee(J(E, 'todoList3', v.uid), u);
-            } catch (j) {
-              console.error('Error adding todoList to Firestore:', j);
-            } finally {
-              g(!1);
-            }
-          },
-          d = $(O, (j) => {
-            j
-              ? h(i, j.uid)
-              : console.log('User signed out or not yet logged in');
-          });
-        return () => d();
-      }, [D, i, E, y]),
-      n.useEffect(() => {
-        const h = async (j) => {
-            try {
-              const u = J(E, 'todoList3', j),
-                I = await Ye(u);
-              if (I.exists()) {
-                const z = I.data().todos || [],
-                  M = N.fromFirestore(z);
-                r(!0);
-                const F = Array.isArray(M) ? M : [M];
-                F !== null &&
-                  F.length > 0 &&
-                  (T(F),
-                  r(!0),
-                  (C.current = F),
-                  D({ type: 'FETCH_TODOS', payload: F || [] }));
-              }
-            } catch (u) {
-              console.error('Error fetching todoList to Firestore:', u);
-            } finally {
-              g(!1);
-            }
-          },
-          d = $(O, (j) => {
-            x ? console.log('User signed out') : h(j.uid);
-          });
-        return () => d();
-      }, [N, D]),
-      n.useEffect(() => {
-        a &&
-          (async () => {
-            try {
-              const d = y.toFirestore(i),
-                j = { todoId: v.uid, todos: d };
-              await ee(J(E, 'todoList3', v.uid), j);
+              const d = f.toFirestore(n),
+                r = { todoId: I.uid, todos: d };
+              await Z(U(P, 'todoList3', I.uid), r);
             } catch (d) {
               console.error('Error adding todoList to Firestore:', d);
             } finally {
-              g(!1);
+              p(!1);
+            }
+          },
+          x = W(O, (d) => {
+            d
+              ? m(n, d.uid)
+              : console.log('User signed out or not yet logged in');
+          });
+        return () => x();
+      }, [E, n, P, f]),
+      i.useEffect(() => {
+        const m = async (d) => {
+            try {
+              const r = U(P, 'todoList3', d),
+                S = await ot(r);
+              if (S.exists()) {
+                const J = S.data().todos || [],
+                  V = b.fromFirestore(J);
+                c(!0);
+                const F = Array.isArray(V) ? V : [V];
+                F !== null &&
+                  F.length > 0 &&
+                  (k(F),
+                  c(!0),
+                  (T.current = F),
+                  E({ type: 'FETCH_TODOS', payload: F || [] }));
+              }
+            } catch (r) {
+              console.error('Error fetching todoList to Firestore:', r);
+            } finally {
+              p(!1);
+            }
+          },
+          x = W(O, (d) => {
+            C ? console.log('User signed out') : m(d.uid);
+          });
+        return () => x();
+      }, [b, E]),
+      i.useEffect(() => {
+        a &&
+          (async () => {
+            try {
+              const x = f.toFirestore(n),
+                d = { todoId: I.uid, todos: x };
+              await Z(U(P, 'todoList3', I.uid), d);
+            } catch (x) {
+              console.error('Error adding todoList to Firestore:', x);
+            } finally {
+              p(!1);
             }
           })();
-      }, [a, D, i, N, y]),
-      e.jsx(Pe.Provider, {
+      }, [a, E, n, b, f]),
+      e.jsx(Fe.Provider, {
         value: {
           data: o,
-          setData: r,
-          loading: l,
-          setLoading: g,
-          fetchedData: f,
-          setFetchedData: T,
+          setData: c,
+          loading: u,
+          setLoading: p,
+          fetchedData: h,
+          setFetchedData: k,
           todoList: s,
-          user: v,
-          uid: R,
-          firestore: E,
-          convertdedNotificationData: p,
-          setComvertedNotificationData: S,
-          setTodosChanged: m,
+          user: I,
+          uid: j,
+          firestore: P,
+          convertdedNotificationData: g,
+          setComvertedNotificationData: w,
+          setTodosChanged: y,
         },
         children: t,
       })
     );
   };
-Re.propTypes = { children: c.node.isRequired };
-const pt = () => n.useContext(Pe),
-  Le = ({
+Oe.propTypes = { children: l.node.isRequired };
+const bt = () => i.useContext(Fe),
+  Ue = ({
     handleTimeCheckboxChange: t,
-    shouldHandleNotifications: i,
+    shouldHandleNotifications: n,
     timeCheck: s,
   }) => {
-    Le.propTypes = {
-      handleTimeCheckboxChange: c.func.isRequired,
-      shouldHandleNotifications: c.bool.isRequired,
-      timeCheck: c.bool.isRequired,
+    Ue.propTypes = {
+      handleTimeCheckboxChange: l.func.isRequired,
+      shouldHandleNotifications: l.bool.isRequired,
+      timeCheck: l.bool.isRequired,
     };
-    const { isTimeChecked: a, setIsTimeChecked: o } = L();
+    const { isTimeChecked: a, setIsTimeChecked: o } = q();
     return (
       (t = () => {
         o(!a);
@@ -485,7 +498,7 @@ const pt = () => n.useContext(Pe),
             e.jsx('h4', {
               className: 'time',
               style: {
-                color: i && s ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)',
+                color: n && s ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)',
               },
               children: 'TIME',
             }),
@@ -500,7 +513,7 @@ const pt = () => n.useContext(Pe),
                 }),
                 e.jsx('span', {
                   className: 'slider round',
-                  style: { color: i ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)' },
+                  style: { color: n ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)' },
                 }),
               ],
             }),
@@ -509,23 +522,23 @@ const pt = () => n.useContext(Pe),
       })
     );
   },
-  Y = ({
+  X = ({
     handleTimeChange: t,
-    inputTime: i,
+    inputTime: n,
     shouldHandleNotifications: s,
     timeCheck: a,
   }) => {
-    Y.propTypes = {
-      handleTimeChange: c.func.isRequired,
-      inputTime: c.string.isRequired,
-      shouldHandleNotifications: c.bool,
-      timeCheck: c.bool,
+    X.propTypes = {
+      handleTimeChange: l.func.isRequired,
+      inputTime: l.string.isRequired,
+      shouldHandleNotifications: l.bool,
+      timeCheck: l.bool,
     };
-    const { setDisplayTimePicker: o, setDisplayDatePicker: r } = L();
+    const { setDisplayTimePicker: o, setDisplayDatePicker: c } = q();
     return (
-      n.useEffect(() => {
-        o(!0), r(!1);
-      }, [o, r]),
+      i.useEffect(() => {
+        o(!0), c(!1);
+      }, [o, c]),
       e.jsxs('div', {
         className: 'time-picker-container',
         style: {
@@ -541,10 +554,10 @@ const pt = () => n.useContext(Pe),
           e.jsx('input', {
             className: 'MyTimePicker',
             onChange: t,
-            selected: i,
+            selected: n,
             label: 'MyTimePicker',
             type: 'time',
-            value: i,
+            value: n,
             style: {
               width: '160px',
               padding: '6px',
@@ -555,33 +568,33 @@ const pt = () => n.useContext(Pe),
           }),
           e.jsxs('p', {
             style: { color: s && a ? 'rgb(8, 232, 158)' : ' rgb(48, 48, 219)' },
-            children: ['Selected time: ', i],
+            children: ['Selected time: ', n],
           }),
         ],
       })
     );
   },
-  Q = ({
+  se = ({
     isDate: t,
-    handleDateChange: i,
+    handleDateChange: n,
     shouldHandleNotifications: s,
     timeCheck: a,
   }) => {
-    Q.propTypes = {
-      isDate: c.instanceOf(Date).isRequired,
-      handleDateChange: c.func.isRequired,
-      shouldHandleNotifications: c.bool,
-      timeCheck: c.bool,
+    se.propTypes = {
+      isDate: l.instanceOf(Date).isRequired,
+      handleDateChange: l.func.isRequired,
+      shouldHandleNotifications: l.bool,
+      timeCheck: l.bool,
     };
     const {
       selectedDate: o,
-      setDisplayDatePicker: r,
-      setDisplayTimePicker: l,
-    } = L();
+      setDisplayDatePicker: c,
+      setDisplayTimePicker: u,
+    } = q();
     return (
-      n.useEffect(() => {
-        r(!0), l(!1);
-      }, [l, r]),
+      i.useEffect(() => {
+        c(!0), u(!1);
+      }, [u, c]),
       e.jsxs('div', {
         className: 'date-picker-container',
         style: {
@@ -594,11 +607,11 @@ const pt = () => n.useContext(Pe),
             style: { color: s && a ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)' },
             children: 'Date Picker',
           }),
-          e.jsx(at, {
+          e.jsx(ht, {
             className: 'DateTimePicker custom',
             label: 'DateTimePicker',
             inputVariant: 'outlined',
-            onChange: i,
+            onChange: n,
             selected: t,
             showTodayButton: !0,
             ampm: !1,
@@ -616,17 +629,17 @@ const pt = () => n.useContext(Pe),
       })
     );
   },
-  qe = ({
+  Me = ({
     handleDateCheckboxChange: t,
-    shouldHandleNotifications: i,
+    shouldHandleNotifications: n,
     timeCheck: s,
   }) => {
-    qe.propTypes = {
-      handleDateCheckboxChange: c.func.isRequired,
-      shouldHandleNotifications: c.bool.isRequired,
-      timeCheck: c.bool.isRequired,
+    Me.propTypes = {
+      handleDateCheckboxChange: l.func.isRequired,
+      shouldHandleNotifications: l.bool.isRequired,
+      timeCheck: l.bool.isRequired,
     };
-    const { isDateChecked: a, setIsDateChecked: o } = L();
+    const { isDateChecked: a, setIsDateChecked: o } = q();
     return (
       (t = () => {
         o(!a);
@@ -637,7 +650,7 @@ const pt = () => n.useContext(Pe),
           children: [
             e.jsx('h4', {
               style: {
-                color: i && s ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)',
+                color: n && s ? 'rgb(8, 232, 158)' : 'rgb(48, 48, 219)',
               },
               children: 'DATE',
             }),
@@ -658,150 +671,180 @@ const pt = () => n.useContext(Pe),
       })
     );
   };
-Ce().length || ke(De);
-const be = X(),
-  xe = ({
+Ne().length || De(Ae);
+const te = Q(),
+  Be = ({
     shouldHandleNotifications: t = !1,
-    completedDateTimeSetting: i = !1,
+    completedDateTimeSetting: n = !1,
     todo: s = {},
   }) => {
-    (xe.propTypes = { todo: c.object }),
-      (xe.propTypes = {
-        todo: c.shape({
-          id: c.number,
-          content: c.string,
-          editing: c.bool,
-          editingColor: c.bool,
-          completed: c.bool,
-          editingDateTime: c.bool,
-          editingLock: c.bool,
-        }).isRequired,
-        children: c.node,
-        shouldHandleNotifications: c.bool,
-        completedDateTimeSetting: c.bool,
-      }),
-      localStorage.clear();
-    const [a, o] = n.useState();
-    $(be, (l) => {
-      l && l.getIdToken(!0);
+    Be.propTypes = {
+      todo: l.shape({
+        id: l.number,
+        content: l.string,
+        editing: l.bool,
+        editingColor: l.bool,
+        completed: l.bool,
+        editingDateTime: l.bool,
+        editingLock: l.bool,
+        docId: l.string,
+      }).isRequired,
+      children: l.node,
+      shouldHandleNotifications: l.bool,
+      completedDateTimeSetting: l.bool,
+    };
+    const {
+      docId: a,
+      Todo2: o,
+      setTodo2: c,
+      completedTask: u,
+      completedTask2: p,
+      setCompletedTask2: h,
+    } = q();
+    localStorage.clear();
+    const [k, C] = i.useState(),
+      [y, g] = i.useState(null),
+      [w, E] = i.useState(!1);
+    W(te, (j) => {
+      j && j.getIdToken(!0);
     }),
-      n.useEffect(() => {
-        const l = $(be, (g) => {
-          g && o(g.uid);
+      i.useEffect(() => {
+        const j = W(te, (D) => {
+          if (D) {
+            const T = te.currentUser;
+            g(T), C(D.uid), c(s), E(!0);
+          }
         });
-        return () => l();
+        return () => j();
       }, []);
-    const r = async (l) => {
-      await _e(J(E, 'notifications', l), { isNotified: !0 });
+    const I = async () => {
+      await ke(U(P, 'notifications', a), { isNotified: !0 });
     };
     return (
-      n.useEffect(() => {
-        if (i && t && s) {
-          const l = async () => {
-              const f = _(E, 'notifications'),
-                T = je(
-                  f,
-                  he('notificationTime', '>=', ye.now()),
-                  he('isNotified', '==', !1)
-                ),
-                m = (await Te(T)).docs.map((p) => ({
-                  ...p.data(),
-                  id: p.id,
-                  notificationTime: p.data().notificationTime.toDate(),
-                  isNotified: p.data().isNotified,
-                }));
-              for (const p of m)
-                p.isNotified ||
-                  (await r(p.id),
-                  localStorage.setItem('tasks', JSON.stringify(m)));
-            },
-            g = Xe(_(E, 'notifications'), (f) => {
-              const x = f.docs
-                .map((m) => ({
-                  ...m.data(),
-                  id: m.id,
-                  notificationTime: m.data().notificationTime.toDate(),
-                  isNotified: m.data().isNotified,
-                }))
-                .filter((m) => !m.isNotified);
-              localStorage.setItem('tasks', JSON.stringify(x));
-            });
-          return l(), () => g();
+      i.useEffect(() => {
+        const j = async () => {
+          await ke(U(P, 'notifications', a), { docId: a });
+        };
+        return () => j();
+      }, [n, t]),
+      i.useEffect(() => {
+        if (w) {
+          const j = W(te, (D) => {
+            D &&
+              (async () => {
+                const f = at(P, 'notifications'),
+                  b = Ce(
+                    f,
+                    Y('todoId', '==', k),
+                    Y('docId', '==', a),
+                    Y('isNotified', '==', !1),
+                    Y('notificationTime', '>=', be.now()),
+                    ee('notificationTime'),
+                    ee('__name__')
+                  ),
+                  d = (await ve(b)).docs
+                    .map((r) => {
+                      var S;
+                      return {
+                        ...r.data(),
+                        id: r.id,
+                        notificationTime:
+                          (S = r.data().notificationTime) == null
+                            ? void 0
+                            : S.toDate(),
+                        isNotified: r.data().isNotified,
+                      };
+                    })
+                    .filter((r) => !r.isNotified);
+                localStorage.setItem('tasks', JSON.stringify(d));
+              })();
+          });
+          return () => j();
         }
-      }, [i, t, a, s]),
-      n.useEffect(() => {
+      }, [w, o, p]),
+      i.useEffect(() => {
         (async () => {
-          const g = _(E, 'notifications'),
-            f = je(g, he('notificationTime', '<', ye.now())),
-            T = await Te(f);
-          for (const x of T.docs) {
-            const m = x.id,
-              S = x.data().notificationTime.toDate(),
-              D = new Date().getTime();
-            new Date(S).getTime() + 24 * 60 * 60 * 1e3 <= D &&
-              (await Ze(J(E, 'notifications', m)));
+          var b;
+          const D = we(P, 'notifications'),
+            T = Ce(
+              D,
+              Y('notificationTime', '<', be.now()),
+              ee('notificationTime'),
+              ee('__name__')
+            ),
+            f = await ve(T);
+          for (const m of f.docs) {
+            const x = m.id,
+              r = (b = m.data().notificationTime) == null ? void 0 : b.toDate(),
+              S = new Date().getTime(),
+              M = new Date(r).getTime() + 24 * 60 * 60 * 1e3;
+            (r <= S || u) && (I(), h(!0)),
+              M <= S && (await rt(U(P, 'notifications', x)));
           }
         })();
-      }, []),
+      }, [n, t, u]),
       null
     );
   },
-  Fe = ({ todo: t }) => {
-    Fe.propTypes = {
-      todo: c.shape({
-        id: c.number,
-        content: c.string,
-        editing: c.bool,
-        editingColor: c.bool,
-        completed: c.bool,
-        editingDateTime: c.bool,
-        editingLock: c.bool,
+  He = ({ todo: t }) => {
+    He.propTypes = {
+      todo: l.shape({
+        id: l.number,
+        content: l.string,
+        editing: l.bool,
+        editingColor: l.bool,
+        completed: l.bool,
+        editingDateTime: l.bool,
+        editingLock: l.bool,
       }).isRequired,
-      children: c.node,
+      children: l.node,
     };
-    const i = te(),
-      [s, a] = n.useState(new Date()),
-      [o, r] = n.useState(new Date()),
-      [l, g] = n.useState(''),
-      [f, T] = n.useState(s),
-      [x, m] = n.useState(o),
-      [p, S] = n.useState(!1),
-      [D, v] = n.useState(!0),
-      [R, q] = n.useState(),
+    const n = ie(),
+      [s, a] = i.useState(new Date()),
+      [o, c] = i.useState(new Date()),
+      [u, p] = i.useState(''),
+      [h, k] = i.useState(s),
+      [C, y] = i.useState(o),
+      [g, w] = i.useState(!1),
+      [E, I] = i.useState(!0),
+      [j, D] = i.useState(),
       {
-        isDateChecked: C,
-        isTimeChecked: y,
-        setIsDateChecked: N,
-        setIsTimeChecked: h,
-        isContainerDateCheck: d,
-        setContainerDateCheck: j,
-        isContainerTimeCheck: u,
-        setContainerTimeCheck: I,
-        modalOpen: Z,
-        setIsTimeSet: z,
-        setIsDateSet: M,
+        isDateChecked: T,
+        isTimeChecked: f,
+        setIsDateChecked: b,
+        setIsTimeChecked: m,
+        isContainerDateCheck: x,
+        setContainerDateCheck: d,
+        isContainerTimeCheck: r,
+        setContainerTimeCheck: S,
+        modalOpen: M,
+        setIsTimeSet: J,
+        setIsDateSet: V,
         setSelectedDate: F,
-        setSelectedTime: se,
-        completedDateTimeSetting: B,
-        setCompletedDateTimeSetting: ie,
-        setNotificationDocId: ne,
-        isSubmitting: oe,
-        setIsSubmitting: K,
-        setIsDocRef: ae,
-        shouldHandleNotifications: w,
-        setShouldHandleNotifications: re,
-      } = L();
-    n.useEffect(() => {
-      const b = $(O, (k) => {
-        k && q(k.uid);
+        setSelectedTime: ne,
+        completedDateTimeSetting: _,
+        setCompletedDateTimeSetting: oe,
+        setNotificationDocId: ae,
+        isSubmitting: re,
+        setIsSubmitting: z,
+        setIsDocRef: ce,
+        shouldHandleNotifications: A,
+        setShouldHandleNotifications: le,
+        setDocId: de,
+        Todo2: ue,
+        setTodo2: me,
+      } = q();
+    i.useEffect(() => {
+      const v = W(O, (N) => {
+        N && D(N.uid);
       });
-      return () => b();
+      return () => v();
     }, []),
-      n.useEffect(() => {
-        'Notification' in window || v(!1);
+      i.useEffect(() => {
+        'Notification' in window || I(!1);
       }, []);
-    const ce = () => {
-        if (!D)
+    const pe = () => {
+        if (!E)
           return e.jsx('div', {
             className: 'warning-message',
             children: e.jsx('p', {
@@ -810,84 +853,87 @@ const be = X(),
             }),
           });
       },
-      le = (b) => {
-        N(!b);
+      ge = (v) => {
+        b(!v);
       },
-      de = (b) => {
-        h(!b);
+      he = (v) => {
+        m(!v);
       },
-      ue = (b) => {
-        j(!0), I(!1), F(!0);
+      fe = (v) => {
+        d(!0), S(!1), F(!0);
       },
-      me = (b) => {
-        I(!0), j(!1), se(!0);
+      xe = (v) => {
+        S(!0), d(!1), ne(!0);
       },
-      U = (b) => {
-        const k = new Date(b.target.value);
-        a(k), M(!0);
+      B = (v) => {
+        const N = new Date(v.target.value);
+        a(N), V(!0);
       },
-      H = (b) => {
-        const { value: k } = b.target,
-          [W, G] = k.split(':'),
-          V = new Date();
-        V.setHours(parseInt(W), parseInt(G), 0, 0), r(V), g(k), z(!0), S(!0);
+      $ = (v) => {
+        const { value: N } = v.target,
+          [H, K] = N.split(':'),
+          G = new Date();
+        G.setHours(parseInt(H), parseInt(K), 0, 0), c(G), p(N), J(!0), w(!0);
       },
-      pe = async (b) => {
-        if (!oe) {
-          if ((K(!0), s && o && p && b.content && b.id)) {
-            const k = new Date(s);
-            k.setHours(o.getHours(), o.getMinutes(), 0, 0);
+      je = async (v) => {
+        if (!re) {
+          if ((z(!0), s && o && g && v.content && v.id)) {
+            const N = new Date(s);
+            N.setHours(o.getHours(), o.getMinutes(), 0, 0);
             try {
-              const W = {
+              const H = ft();
+              de(H);
+              const K = {
                   title: 'Reminder',
                   description:
                     'Time is approaching, receive to push notification..',
                   type: 'string',
-                  notificationTime: k,
-                  todoId: R,
-                  content: b.content,
-                  id: b.id,
+                  notificationTime: N,
+                  todoId: j,
+                  content: v.content,
+                  id: v.id,
                   isNotified: !1,
+                  docId: 'xxx',
                 },
-                G = rt(),
-                V = J(_(E, 'notifications'), G);
-              await ee(V, W);
-              const fe = { ...b, notification: !0 };
-              i({ type: 'todo/notification', todo: fe }),
-                ne(G),
-                ae(V),
-                ie(!0),
-                re(!0);
-            } catch (W) {
+                G = U(we(P, 'notifications'), H);
+              await Z(G, K);
+              const Te = { ...v, notification: !0 };
+              n({ type: 'todo/notification', todo: Te }),
+                ae(j),
+                ce(G),
+                oe(!0),
+                le(!0),
+                me(v);
+            } catch (H) {
               console.error(
                 'Error writing notification data to Firestore: ',
-                W
+                H
               );
             } finally {
-              K(!1);
+              z(!1);
             }
-          } else K(!1);
+          } else z(!1);
           try {
-            const k = await Notification.requestPermission();
-            k === 'granted'
+            const N = await Notification.requestPermission();
+            N === 'granted'
               ? console.log('')
               : console.warn(
-                  k === 'denied'
+                  N === 'denied'
                     ? 'Notification permission denied'
                     : 'Notification permission dismissed'
                 );
-          } catch (k) {
-            console.error('Failed to request permission:', k);
+          } catch (N) {
+            console.error('Failed to request permission:', N);
           }
         }
       };
-    n.useEffect(() => {
-      const b = document.querySelector('.modal');
-      (b.style.alignItems = 'center'),
-        (s !== f || o !== x) && (s !== f || o !== x) && (T(s), m(o));
+    i.useEffect(() => {
+      const v = document.querySelector('.modal');
+      (v.style.alignItems = 'center'),
+        (s !== h || o !== C) && (s !== h || o !== C) && (k(s), y(o));
     }, [s, o]);
-    const ge = () => {
-      if (w)
+    const ye = () => {
+      if (A)
         return e.jsx('div', {
           className: 'successful',
           children: e.jsx('h3', {
@@ -896,47 +942,47 @@ const be = X(),
           }),
         });
     };
-    return Z
+    return M
       ? e.jsxs(
           'div',
           {
             className: 'modal',
             style: {
               backgroundColor:
-                w && B && p ? 'transparent' : 'rgba(40, 147, 247, 0.772)',
+                A && _ && g ? 'transparent' : 'rgba(40, 147, 247, 0.772)',
               border:
-                w && B && p
+                A && _ && g
                   ? '1px solid rgb(8, 232, 158)'
                   : '1px solid rgb(48, 48, 219)',
             },
             children: [
-              ce(),
+              pe(),
               e.jsx('div', {
                 className: 'switch-container',
-                onClick: () => ue(),
-                children: e.jsx(qe, {
-                  handleDateCheckboxChange: le,
-                  isChecked: C,
-                  shouldHandleNotifications: w,
-                  inputTime: l,
-                  timeCheck: p,
+                onClick: () => fe(),
+                children: e.jsx(Me, {
+                  handleDateCheckboxChange: ge,
+                  isChecked: T,
+                  shouldHandleNotifications: A,
+                  inputTime: u,
+                  timeCheck: g,
                 }),
               }),
               e.jsx('div', {
                 className: 'switch-container2',
-                onClick: () => me(),
-                children: e.jsx(Le, {
-                  handleTimeCheckboxChange: de,
-                  isChecked: y,
-                  shouldHandleNotifications: w,
-                  inputTime: l,
-                  timeCheck: p,
+                onClick: () => xe(),
+                children: e.jsx(Ue, {
+                  handleTimeCheckboxChange: he,
+                  isChecked: f,
+                  shouldHandleNotifications: A,
+                  inputTime: u,
+                  timeCheck: g,
                 }),
               }),
-              C && y && u
-                ? e.jsx(Y, {
+              T && f && r
+                ? e.jsx(X, {
                     className: 'MyTimePicker',
-                    onChange: H,
+                    onChange: $,
                     selected: o,
                     label: 'MyTimePicker',
                     inputVariant: 'outlined',
@@ -944,77 +990,77 @@ const be = X(),
                     ampm: !1,
                     autoOk: !0,
                     isTime: o,
-                    inputTime: l,
-                    setInputTime: g,
-                    handleTimeChange: H,
-                    shouldHandleNotifications: w,
-                    timeCheck: p,
+                    inputTime: u,
+                    setInputTime: p,
+                    handleTimeChange: $,
+                    shouldHandleNotifications: A,
+                    timeCheck: g,
                   })
-                : C && y && d
-                  ? e.jsx(Q, {
-                      onChange: U,
+                : T && f && x
+                  ? e.jsx(se, {
+                      onChange: B,
                       selected: s,
                       isDate: s,
                       inputVariant: 'outlined',
-                      handleDateChange: U,
-                      shouldHandleNotifications: w,
-                      inputTime: l,
-                      timeCheck: p,
+                      handleDateChange: B,
+                      shouldHandleNotifications: A,
+                      inputTime: u,
+                      timeCheck: g,
                     })
-                  : C && y
-                    ? e.jsx(Y, {
+                  : T && f
+                    ? e.jsx(X, {
                         isTime: o,
-                        handleTimeChange: H,
-                        inputTime: l,
-                        setInputTime: g,
+                        handleTimeChange: $,
+                        inputTime: u,
+                        setInputTime: p,
                         inputVariant: 'outlined',
                         showTodayButton: !0,
                         ampm: !1,
                         autoOk: !0,
                       })
-                    : C
-                      ? e.jsx(Q, {
-                          onChange: U,
+                    : T
+                      ? e.jsx(se, {
+                          onChange: B,
                           selected: s,
                           isDate: s,
-                          handleDateChange: U,
+                          handleDateChange: B,
                         })
-                      : y
-                        ? e.jsx(Y, {
+                      : f
+                        ? e.jsx(X, {
                             isTime: o,
-                            handleTimeChange: H,
-                            inputTime: l,
+                            handleTimeChange: $,
+                            inputTime: u,
                             inputVariant: 'outlined',
                             showTodayButton: !0,
                             ampm: !1,
                             autoOk: !0,
-                            setInputTime: g,
+                            setInputTime: p,
                           })
-                        : d
-                          ? e.jsx(Q, {
-                              onChange: U,
+                        : x
+                          ? e.jsx(se, {
+                              onChange: B,
                               selected: s,
                               isDate: s,
                               inputVariant: 'outlined',
-                              handleDateChange: U,
+                              handleDateChange: B,
                             })
-                          : u
-                            ? e.jsx(Y, {
+                          : r
+                            ? e.jsx(X, {
                                 isTime: o,
-                                handleTimeChange: H,
-                                inputTime: l,
+                                handleTimeChange: $,
+                                inputTime: u,
                                 inputVariant: 'outlined',
                                 showTodayButton: !0,
                                 ampm: !1,
                                 autoOk: !0,
-                                setInputTime: g,
+                                setInputTime: p,
                               })
                             : e.jsx(e.Fragment, {
                                 children: e.jsxs('div', {
                                   className: 'message-container',
                                   style: {
                                     backgroundColor:
-                                      !d && !u && w && B && p
+                                      !x && !r && A && _ && g
                                         ? 'rgb(8, 232, 158)'
                                         : 'rgb(48, 48, 219)',
                                   },
@@ -1039,101 +1085,102 @@ const be = X(),
                 children: [
                   e.jsx('button', {
                     className: 'set-btn',
-                    onClick: () => pe(t),
+                    onClick: () => je(t),
                     style: {
                       color:
-                        w && p
+                        A && g
                           ? 'rgb(8, 232, 158)'
                           : 'rgb(40, 147, 247, 0.772)',
                     },
-                    children: w ? 'DONE' : 'SET',
+                    children: A ? 'DONE' : 'SET',
                   }),
-                  B &&
-                    w &&
-                    e.jsx(xe, {
-                      shouldHandleNotifications: w,
-                      completedDateTimeSetting: B,
-                      todo: t,
+                  _ &&
+                    A &&
+                    e.jsx(Be, {
+                      shouldHandleNotifications: A,
+                      completedDateTimeSetting: _,
+                      todo: ue,
                     }),
                 ],
               }),
-              ge(),
+              ye(),
             ],
           },
           t.id
         )
       : null;
   },
-  Oe = ({ todo: t }) => {
-    Oe.propTypes = {
-      todo: c.shape({
-        id: c.number.isRequired,
-        content: c.string.isRequired,
-        editing: c.bool.isRequired,
-        editingColor: c.bool,
-        completed: c.bool,
-        editingDateTime: c.bool,
-        editingLock: c.bool,
+  We = ({ todo: t }) => {
+    We.propTypes = {
+      todo: l.shape({
+        id: l.number.isRequired,
+        content: l.string.isRequired,
+        editing: l.bool.isRequired,
+        editingColor: l.bool,
+        completed: l.bool,
+        editingDateTime: l.bool,
+        editingLock: l.bool,
       }).isRequired,
-      children: c.node,
+      children: l.node,
     };
     const {
-        setModalOpen: i,
+        setModalOpen: n,
         setReserveModeTodo: s,
         setReserveModeId: a,
         setIsDateChecked: o,
-        setIsTimeChecked: r,
-        setContainerDateCheck: l,
-        setContainerTimeCheck: g,
-        modalOpen: f,
-        Todo: T,
-        setTodo: x,
-        setShouldHandleNotifications: m,
-        isSet: p,
-      } = L(),
-      [S, D] = n.useState(t.content),
-      v = te(),
-      R = (d) => {
-        D(d.target.value);
+        setIsTimeChecked: c,
+        setContainerDateCheck: u,
+        setContainerTimeCheck: p,
+        modalOpen: h,
+        Todo: k,
+        setTodo: C,
+        setShouldHandleNotifications: y,
+        isSet: g,
+        setCompletedTask: w,
+      } = q(),
+      [E, I] = i.useState(t.content),
+      j = ie(),
+      D = (d) => {
+        I(d.target.value);
       },
-      q = () => {
+      T = () => {
         const d = { ...t, editing: !t.editing };
-        v({ type: 'todo/update', todo: d });
+        j({ type: 'todo/update', todo: d });
       },
-      C = (d) => {
+      f = (d) => {
         d.preventDefault();
-        const j = { ...t, editing: !t.editing, content: S };
-        v({ type: 'todo/update', todo: j });
+        const r = { ...t, editing: !t.editing, content: E };
+        j({ type: 'todo/update', todo: r });
       },
-      y = (d) => {
-        v({ type: 'todo/delete', todo: d });
+      b = (d) => {
+        j({ type: 'todo/delete', todo: d }), w(!0);
       },
-      N = (d) => {
-        const j = { ...d, completed: !0 };
-        v({ type: 'complete2', todo: j });
+      m = (d) => {
+        const r = { ...d, completed: !0 };
+        j({ type: 'complete2', todo: r }), w(!0);
       },
-      h = (d) => {
-        const j = !d.editingColor,
-          u = {
+      x = (d) => {
+        const r = !d.editingColor,
+          S = {
             ...d,
             editingDateTime: !0,
-            editingColor: j,
+            editingColor: r,
             editingLock: !0,
             id: d.id,
             content: d.content,
           };
-        v({ type: 'todo/reserve', todo: u }),
-          v({ type: 'todo/reserveColor', todo: u }),
-          v({ type: 'todo/editingDateTime', todo: u }),
-          i((I) => !I),
+        j({ type: 'todo/reserve', todo: S }),
+          j({ type: 'todo/reserveColor', todo: S }),
+          j({ type: 'todo/editingDateTime', todo: S }),
+          n((M) => !M),
           s(d),
           a(d.id),
-          x(d),
-          !f && o(!1),
-          !f && r(!1),
-          !f && l(!1),
-          !f && g(!1),
-          !f && m(!1);
+          C(d),
+          !h && o(!1),
+          !h && c(!1),
+          !h && u(!1),
+          !h && p(!1),
+          !h && y(!1);
       };
     return e.jsxs(
       'div',
@@ -1142,29 +1189,30 @@ const be = X(),
         children: [
           e.jsx('span', {
             className: 'circleI',
-            onClick: () => h(t),
+            onClick: () => x(t),
             style: {
               color:
-                p && t.editingColor && t.editingDateTime && t.editingLock
+                g && t.editingColor && t.editingDateTime && t.editingLock
                   ? 'yellow'
                   : 'grey',
             },
+            children: 'i',
           }),
           e.jsx('button', {
             className: 'compBtn',
-            onClick: () => N(t),
-            onDoubleClick: () => y(t),
+            onClick: () => m(t),
+            onDoubleClick: () => b(t),
             style: { color: t.completed ? 'rgb(8, 232, 158)' : 'none' },
             children: t.completed ? 'Completed' : 'Complete',
           }),
           e.jsx('form', {
-            onSubmit: C,
+            onSubmit: f,
             style: { display: 'inline' },
             children: t.editing
-              ? e.jsx('input', { type: 'text', value: S, onChange: R })
+              ? e.jsx('input', { type: 'text', value: E, onChange: D })
               : e.jsx('span', {
                   className: 'content',
-                  onDoubleClick: q,
+                  onDoubleClick: T,
                   style: {
                     textDecoration: t.completed ? 'line-through' : 'none',
                     color: t.completed ? 'rgb(8, 232, 158)' : 'none',
@@ -1172,12 +1220,12 @@ const be = X(),
                   children: t.content,
                 }),
           }),
-          f && t.id == T.id
+          h && t.id == k.id
             ? e.jsx(
                 'div',
                 {
                   className: 'modal-container',
-                  children: e.jsx(Fe, { todo: T }),
+                  children: e.jsx(He, { todo: k }),
                 },
                 t.id
               )
@@ -1187,9 +1235,9 @@ const be = X(),
       t.id
     );
   },
-  gt = () => {
-    const { todos: t } = L(),
-      { data: i, loading: s } = pt();
+  vt = () => {
+    const { todos: t } = q(),
+      { data: n, loading: s } = bt();
     return e.jsx(e.Fragment, {
       children: s
         ? e.jsx('div', { children: 'Loading...' })
@@ -1197,22 +1245,22 @@ const be = X(),
             children:
               Array.isArray(t) &&
               t.length > 0 &&
-              i &&
+              n &&
               t &&
-              t.map((a) => (a && a.id ? e.jsx(Oe, { todo: a }, a.id) : null)),
+              t.map((a) => (a && a.id ? e.jsx(We, { todo: a }, a.id) : null)),
           }),
     });
   },
-  ft = () => {
-    const t = te(),
-      { enteredTodo: i, setEnteredTodo: s, setAddTodosExecuted: a } = L(),
+  kt = () => {
+    const t = ie(),
+      { enteredTodo: n, setEnteredTodo: s, setAddTodosExecuted: a } = q(),
       o = () => {
-        const l = {
-          title: i,
-          description: i,
+        const u = {
+          title: n,
+          description: n,
           type: 'string',
           id: Math.floor(Math.random() * 1e5),
-          content: i,
+          content: n,
           editing: !1,
           completed: !1,
           reserve: !1,
@@ -1221,20 +1269,20 @@ const be = X(),
           editingDateTime: !1,
           notification: !1,
         };
-        t({ type: 'todo/add', todo: l, editing: !1 }), s(''), a(!0);
+        t({ type: 'todo/add', todo: u, editing: !1 }), s(''), a(!0);
       },
-      r = () => {
+      c = () => {
         t({ type: 'todo/reset', todo: [] });
       };
     return e.jsxs('div', {
       children: [
         e.jsx('input', {
           type: 'text',
-          value: i,
+          value: n,
           id: 'task',
           name: 'task',
-          onChange: (l) => {
-            s(l.target.value);
+          onChange: (u) => {
+            s(u.target.value);
           },
         }),
         e.jsxs('div', {
@@ -1253,7 +1301,7 @@ const be = X(),
             }),
             e.jsx('button', {
               className: 'reset2',
-              onClick: () => r(),
+              onClick: () => c(),
               children: e.jsx('div', {
                 className: 'reset',
                 children: e.jsx('img', {
@@ -1267,12 +1315,12 @@ const be = X(),
       ],
     });
   },
-  ht = () => e.jsxs(e.Fragment, { children: [e.jsx(gt, {}), e.jsx(ft, {})] }),
-  xt = () => {
-    const { modalOpen: t, timeCheck: i } = L(),
+  St = () => e.jsxs(e.Fragment, { children: [e.jsx(vt, {}), e.jsx(kt, {})] }),
+  Nt = () => {
+    const { modalOpen: t, timeCheck: n } = q(),
       s = [1, 2, 3, 4, 5],
       a = () =>
-        i && t
+        n && t
           ? 'rgb(8, 232, 158)'
           : t
             ? 'rgba(40, 147, 247, 0.772)'
@@ -1282,11 +1330,11 @@ const be = X(),
         e.jsx('div', { className: 'triangle' }),
         e.jsx('div', {
           className: 'decoration',
-          children: s.map((o, r) =>
+          children: s.map((o, c) =>
             e.jsx(
               'span',
               { className: 'slash', style: { backgroundColor: a() } },
-              r
+              c
             )
           ),
         }),
@@ -1300,7 +1348,7 @@ const be = X(),
                   className: 'big-text',
                   style: {
                     color:
-                      i && t
+                      n && t
                         ? 'rgb(8, 232, 158)'
                         : t
                           ? 'rgba(40, 147, 247, 0.772)'
@@ -1327,7 +1375,7 @@ const be = X(),
                 className: 'out-line',
                 children: [
                   e.jsx('h2', { className: 'title', children: 'Reminder' }),
-                  e.jsx(ht, {}),
+                  e.jsx(St, {}),
                 ],
               }),
             ],
@@ -1336,67 +1384,67 @@ const be = X(),
       ],
     });
   },
-  jt = () => {
-    const t = A(),
-      i = () => {
+  Dt = () => {
+    const t = R(),
+      n = () => {
         t('/UserAuth');
       };
     return e.jsxs(e.Fragment, {
       children: [
         e.jsx('span', {
           className: 'back',
-          onClick: i,
+          onClick: n,
           children: 'Back to Auth',
         }),
-        e.jsx(Re, { children: e.jsx(xt, {}) }),
+        e.jsx(Oe, { children: e.jsx(Nt, {}) }),
       ],
     });
   },
-  Ue = () =>
-    e.jsx(e.Fragment, { children: e.jsx(Ie, { children: e.jsx(jt, {}) }) }),
-  yt = X();
-function Me() {
+  Ve = () =>
+    e.jsx(e.Fragment, { children: e.jsx(qe, { children: e.jsx(Dt, {}) }) }),
+  wt = Q();
+function _e() {
   return new Promise((t) => {
-    const i = $(yt, (s) => {
-      t(!!s), i();
+    const n = W(wt, (s) => {
+      t(!!s), n();
     });
   });
 }
-function Tt({ children: t }) {
-  const i = A();
+function Et({ children: t }) {
+  const n = R();
   return (
-    n.useEffect(() => {
-      Me().then((s) => {
-        s || i('/UserAuth');
+    i.useEffect(() => {
+      _e().then((s) => {
+        s || n('/UserAuth');
       });
-    }, [i]),
+    }, [n]),
     t
   );
 }
-const bt = X(),
-  Be = () => {
-    const t = A();
-    let i = 5,
+const It = Q(),
+  $e = () => {
+    const t = R();
+    let n = 5,
       s = [];
-    for (let p = 0; p < i; p++) s.push(p);
-    const [a, o] = n.useState(!1),
-      r = () => '#fff',
-      l = () => {
+    for (let g = 0; g < n; g++) s.push(g);
+    const [a, o] = i.useState(!1),
+      c = () => '#fff',
+      u = () => {
         t('/SignUp');
       },
-      g = () => {
+      p = () => {
         t('/SignIn');
       },
-      f = () => {
-        Ne(bt)
+      h = () => {
+        Ee(It)
           .then(() => {
             o(!0), localStorage.clear();
           })
-          .catch((p) => {
-            console.error('ログアウトエラー:', p);
+          .catch((g) => {
+            console.error('ログアウトエラー:', g);
           });
       },
-      T = () => {
+      k = () => {
         if (a)
           return e.jsx('div', {
             className: 'sign-out2',
@@ -1404,21 +1452,21 @@ const bt = X(),
           });
         setTimeout(() => o(!1), 5e3);
       },
-      x = () => {
+      C = () => {
         t('/EasyLogin');
       },
-      m = () => {
+      y = () => {
         t('/DeleteAccount');
       };
     return e.jsxs(e.Fragment, {
       children: [
         e.jsx('div', {
           className: 'decoration',
-          children: s.map((p, S) =>
+          children: s.map((g, w) =>
             e.jsx(
               'span',
-              { className: 'slash', style: { backgroundColor: r() } },
-              S
+              { className: 'slash', style: { backgroundColor: c() } },
+              w
             )
           ),
         }),
@@ -1435,67 +1483,67 @@ const bt = X(),
                   e.jsx('span', {
                     id: 'SU',
                     className: 'select-auth sign-up',
-                    onClick: () => l(),
+                    onClick: () => u(),
                     children: 'Sign Up',
                   }),
                   e.jsx('span', {
                     id: 'SI',
                     className: 'select-auth sign-in',
-                    onClick: () => g(),
+                    onClick: () => p(),
                     children: 'Sign In',
                   }),
                   e.jsx('span', {
                     id: 'SO',
                     className: 'select-auth sign-out',
-                    onClick: () => f(),
+                    onClick: () => h(),
                     children: 'Sign Out',
                   }),
                   e.jsx('span', {
                     className: 'select-auth easy-login',
-                    onClick: () => x(),
+                    onClick: () => C(),
                     children: 'お試しログイン',
                   }),
                   e.jsx('span', {
                     id: 'DA',
                     className: 'select-auth delete-account',
-                    onClick: () => m(),
+                    onClick: () => y(),
                     children: 'Delete Account',
                   }),
                 ],
               }),
             }),
-            T(),
+            k(),
           ],
         }),
       ],
     });
   };
-function vt() {
-  const t = A(),
-    [i, s] = n.useState(!1);
+function At() {
+  const t = R(),
+    [n, s] = i.useState(!1);
   return (
-    n.useEffect(() => {
-      Me().then((a) => {
+    i.useEffect(() => {
+      _e().then((a) => {
         a ? s(!0) : t('/UserAuth');
       });
     }, [t]),
     e.jsx(e.Fragment, {
       children: e.jsx('div', {
-        children: e.jsx(Tt, { children: i ? e.jsx(Ue, {}) : e.jsx(Be, {}) }),
+        children: e.jsx(Et, { children: n ? e.jsx(Ve, {}) : e.jsx($e, {}) }),
       }),
     })
   );
 }
-function Ct() {
-  const t = A();
-  n.useEffect(() => {
+function Pt() {
+  const t = R();
+  i.useEffect(() => {
     (async () => {
-      await Ne(O), setTimeout(() => t('/UserAuth'), 1e4);
+      await Ee(O), setTimeout(() => t('/UserAuth'), 1e4);
     })(),
       localStorage.clear();
   }, [t]);
 }
-const kt = [
+const Rt = [
   {
     title: 'Make a restaurant reservation',
     description: 'user tasks',
@@ -1539,83 +1587,85 @@ const kt = [
     notification: !1,
   },
 ];
-function Nt() {
-  const [t, i] = n.useState(!1),
-    s = n.useMemo(
+function Lt() {
+  const [t, n] = i.useState(!1),
+    s = i.useMemo(
       () => ({
-        toFirestore: (C) => {
-          const y = Object.values(C),
-            N = {};
+        toFirestore: (T) => {
+          const f = Object.values(T),
+            b = {};
           return (
-            y.forEach((h, d) => {
-              N[d.toString()] = {
-                title: h.title,
-                description: h.description,
-                type: h.type,
-                id: h.id,
-                content: h.content,
-                editing: h.editing,
-                completed: h.completed,
-                reserve: h.reserve,
-                editingLock: h.editingLock,
-                editingColor: h.editingColor,
-                editingDateTime: h.editingDateTime,
-                notification: h.notification,
+            f.forEach((m, x) => {
+              b[x.toString()] = {
+                title: m.title,
+                description: m.description,
+                type: m.type,
+                id: m.id,
+                content: m.content,
+                editing: m.editing,
+                completed: m.completed,
+                reserve: m.reserve,
+                editingLock: m.editingLock,
+                editingColor: m.editingColor,
+                editingDateTime: m.editingDateTime,
+                notification: m.notification,
               };
             }),
-            N
+            b
           );
         },
       }),
       []
     ),
-    [a, o] = n.useState({ name: '', email: '', password: '' }),
-    { name: r, email: l, password: g } = a,
-    f = A(),
-    T = [1, 2, 3, 4, 5],
-    x = () => 'rgba(40, 147, 247, 0.772)',
-    m = (C) => {
-      o({ ...a, [C.target.id]: C.target.value });
+    [a, o] = i.useState({ name: '', email: '', password: '' }),
+    { name: c, email: u, password: p } = a,
+    h = R(),
+    k = [1, 2, 3, 4, 5],
+    C = () => 'rgba(40, 147, 247, 0.772)',
+    y = (T) => {
+      o({ ...a, [T.target.id]: T.target.value });
     },
-    p = () => {
-      i(!0);
+    g = () => {
+      n(!0);
     },
-    S = () => {
-      f('/Terms');
+    w = () => {
+      h('/Terms');
     },
-    D = () => {
-      f('/Terms2');
+    E = () => {
+      h('/Terms2');
     },
-    v = () => {
-      f('/PrivacyPolicy');
+    I = () => {
+      h('/PrivacyPolicy');
     },
-    R = () => {
-      f('/UserAuth');
+    j = () => {
+      h('/UserAuth');
     },
-    q = async (C) => {
-      C.preventDefault();
+    D = async (T) => {
+      T.preventDefault();
       try {
-        if (g.length < 6)
+        if (p.length < 6)
           throw new Error('Password must be at least 6 characters long.');
         if (t) {
-          const N = (await Qe(O, l, g)).user;
-          await et(N, { displayName: r });
-          const h = s.toFirestore(kt),
-            d = { todoId: N.uid, agreement: t, todos: h };
-          await ee(J(E, 'todoList3', N.uid), d), f('/Example');
+          const b = (await ct(O, u, p)).user;
+          await lt(b, { displayName: c });
+          const m = s.toFirestore(Rt),
+            x = { todoId: b.uid, agreement: t, todos: m };
+          await Z(U(P, 'todoList3', b.uid), x),
+            await Z(U(P, 'notifications', b.uid), {}),
+            h('/Example');
         } else
           return e.jsx('div', {
             children: e.jsx('h2', {
               children: 'Agreement Required 利用規約に同意が必要です。',
             }),
           });
-      } catch (y) {
-        alert(y.message),
-          y.code === 'auth/email-already-in-use'
+      } catch (f) {
+        alert(f.message),
+          f.code === 'auth/email-already-in-use'
             ? alert(
                 'This email is already in use. Please use a different email.'
               )
-            : (console.error('Error signing up:', y.message), alert(y.message));
+            : (console.error('Error signing up:', f.message), alert(f.message));
       }
     };
   return e.jsxs(e.Fragment, {
@@ -1623,17 +1673,17 @@ function Nt() {
       e.jsx('div', { className: 'triangle' }),
       e.jsx('div', {
         className: 'decoration',
-        children: T.map((C, y) =>
+        children: k.map((T, f) =>
           e.jsx(
             'span',
-            { className: 'slash', style: { backgroundColor: x() } },
-            y
+            { className: 'slash', style: { backgroundColor: C() } },
+            f
           )
         ),
       }),
       e.jsx('span', {
         className: 'back',
-        onClick: R,
+        onClick: j,
         children: 'Back To Auth',
       }),
       e.jsx('div', {
@@ -1641,15 +1691,15 @@ function Nt() {
         children: e.jsx('div', {
           className: 'outline-container',
           children: e.jsxs('form', {
-            onSubmit: q,
+            onSubmit: D,
             children: [
               e.jsx('input', {
                 type: 'text',
                 placeholder: 'Name',
                 id: 'name',
-                value: r,
+                value: c,
                 required: !0,
-                onChange: m,
+                onChange: y,
                 className: 'form-input',
                 autoComplete: 'name',
               }),
@@ -1657,9 +1707,9 @@ function Nt() {
                 type: 'email',
                 placeholder: 'Email',
                 id: 'email',
-                value: l,
+                value: u,
                 required: !0,
-                onChange: m,
+                onChange: y,
                 className: 'form-input',
                 autoComplete: 'email',
               }),
@@ -1667,9 +1717,9 @@ function Nt() {
                 type: 'password',
                 placeholder: 'Password',
                 id: 'password',
-                value: g,
+                value: p,
                 required: !0,
-                onChange: m,
+                onChange: y,
                 className: 'form-input',
                 autoComplete: 'current-password',
               }),
@@ -1678,17 +1728,17 @@ function Nt() {
                 children: [
                   e.jsx('li', {
                     className: 'terms',
-                    onClick: () => S(),
+                    onClick: () => w(),
                     children: 'Terms of Service Japanese',
                   }),
                   e.jsx('li', {
                     className: 'terms2',
-                    onClick: () => D(),
+                    onClick: () => E(),
                     children: 'Terms of Service English',
                   }),
                   e.jsx('li', {
                     className: 'policy',
-                    onClick: () => v(),
+                    onClick: () => I(),
                     children: 'PrivacyPolicy',
                   }),
                   e.jsx('p', {
@@ -1703,7 +1753,7 @@ function Nt() {
                   e.jsx('input', {
                     type: 'checkbox',
                     className: 'agree-check',
-                    onClick: () => p(),
+                    onClick: () => g(),
                   }),
                   e.jsx('div', {
                     className: 'agree-container',
@@ -1731,41 +1781,41 @@ function Nt() {
     ],
   });
 }
-function St() {
-  const [t, i] = n.useState({ email: '', password: '' }),
+function qt() {
+  const [t, n] = i.useState({ email: '', password: '' }),
     { email: s, password: a } = t,
-    o = A(),
-    r = (x) => {
-      i({ ...t, [x.target.id]: x.target.value });
+    o = R(),
+    c = (C) => {
+      n({ ...t, [C.target.id]: C.target.value });
     },
-    l = async (x) => {
-      x.preventDefault();
+    u = async (C) => {
+      C.preventDefault();
       try {
-        (await Se(O, s, a)) && o('/Example');
-      } catch (m) {
-        console.log(m);
+        (await Ie(O, s, a)) && o('/Example');
+      } catch (y) {
+        console.log(y);
       }
     },
-    g = () => 'rgba(40, 147, 247, 0.772)',
-    f = [1, 2, 3, 4, 5],
-    T = () => {
+    p = () => 'rgba(40, 147, 247, 0.772)',
+    h = [1, 2, 3, 4, 5],
+    k = () => {
       o('/UserAuth');
     };
   return e.jsxs(e.Fragment, {
     children: [
       e.jsx('div', {
         className: 'decoration',
-        children: f.map((x, m) =>
+        children: h.map((C, y) =>
           e.jsx(
             'span',
-            { className: 'slash2', style: { backgroundColor: g() } },
-            m
+            { className: 'slash2', style: { backgroundColor: p() } },
+            y
           )
         ),
       }),
       e.jsx('span', {
         className: 'back',
-        onClick: T,
+        onClick: k,
         children: 'Back To Auth',
       }),
       e.jsx('div', {
@@ -1773,7 +1823,7 @@ function St() {
         children: e.jsx('div', {
           className: 'outline-container',
           children: e.jsxs('form', {
-            onSubmit: l,
+            onSubmit: u,
             children: [
               e.jsx('input', {
                 type: 'email',
@@ -1781,7 +1831,7 @@ function St() {
                 id: 'email',
                 value: s,
                 required: !0,
-                onChange: r,
+                onChange: c,
                 className: 'form-input',
                 autoComplete: 'email',
               }),
@@ -1791,7 +1841,7 @@ function St() {
                 id: 'password',
                 value: a,
                 required: !0,
-                onChange: r,
+                onChange: c,
                 className: 'form-input',
                 autoComplete: 'current-password',
               }),
@@ -1807,15 +1857,15 @@ function St() {
     ],
   });
 }
-const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
-  Dt = () => {
-    const t = A(),
-      i = async () => {
-        (await Se(O, ve.email, ve.password)) && t('/Example');
+const Se = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
+  Ft = () => {
+    const t = R(),
+      n = async () => {
+        (await Ie(O, Se.email, Se.password)) && t('/Example');
       };
     return (
-      n.useEffect(() => {
-        i();
+      i.useEffect(() => {
+        n();
       }, []),
       e.jsx('div', {
         className: 'login-container',
@@ -1826,40 +1876,40 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
       })
     );
   },
-  wt = () => {
-    const [t, i] = n.useState(!1),
-      [s, a] = n.useState(''),
-      [o, r] = n.useState(''),
-      g = X().currentUser,
-      f = A(),
-      T = async (m) => {
-        if ((m.preventDefault(), g))
+  Ot = () => {
+    const [t, n] = i.useState(!1),
+      [s, a] = i.useState(''),
+      [o, c] = i.useState(''),
+      p = Q().currentUser,
+      h = R(),
+      k = async (y) => {
+        if ((y.preventDefault(), p))
           try {
-            const p = tt.credential(g.email, s);
-            await st(g, p), await x();
-          } catch (p) {
-            r(`再認証中にエラーが発生しました: ${p.message}`);
+            const g = dt.credential(p.email, s);
+            await ut(p, g), await C();
+          } catch (g) {
+            c(`再認証中にエラーが発生しました: ${g.message}`);
           }
       },
-      x = async () => {
-        if (g)
+      C = async () => {
+        if (p)
           try {
-            await g.delete(),
-              r('ユーザーアカウントが削除されました'),
-              setTimeout(() => f('/UserAuth'), 3e3);
-          } catch (m) {
-            m.code === 'auth/requires-recent-login'
-              ? i(!0)
-              : (r(`アカウント削除中にエラーが発生しました: ${m.message}`),
-                setTimeout(() => f('/UserAuth', 1e4)));
+            await p.delete(),
+              c('ユーザーアカウントが削除されました'),
+              setTimeout(() => h('/UserAuth'), 3e3);
+          } catch (y) {
+            y.code === 'auth/requires-recent-login'
+              ? n(!0)
+              : (c(`アカウント削除中にエラーが発生しました: ${y.message}`),
+                setTimeout(() => h('/UserAuth', 1e4)));
           }
         else
-          r('サインインしているユーザーがいません'),
-            setTimeout(() => f('/UserAuth'), 1e4);
+          c('サインインしているユーザーがいません'),
+            setTimeout(() => h('/UserAuth'), 1e4);
       };
     return (
-      n.useEffect(() => {
-        t || x();
+      i.useEffect(() => {
+        t || C();
       }, [t]),
       e.jsx('div', {
         children: t
@@ -1870,7 +1920,7 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
                 children: [
                   e.jsx('h2', { children: '再認証' }),
                   e.jsxs('form', {
-                    onSubmit: T,
+                    onSubmit: k,
                     children: [
                       e.jsx('div', {
                         children: e.jsxs('label', {
@@ -1880,7 +1930,7 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
                               className: 'form-input',
                               type: 'password',
                               value: s,
-                              onChange: (m) => a(m.target.value),
+                              onChange: (y) => a(y.target.value),
                               required: !0,
                             }),
                           ],
@@ -1910,9 +1960,9 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
       })
     );
   },
-  Et = () => {
-    const t = A(),
-      i = () => {
+  Ut = () => {
+    const t = R(),
+      n = () => {
         t('/SignUp');
       };
     return e.jsxs('div', {
@@ -1922,13 +1972,13 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
           href: 'https://www.privacypolicies.com/live/d955508c-375b-408d-8206-18852254e629',
           children: 'PrivacyPolicy',
         }),
-        e.jsx('nav', { onClick: () => i(), children: 'Back to Sign Up' }),
+        e.jsx('nav', { onClick: () => n(), children: 'Back to Sign Up' }),
       ],
     });
   },
-  At = () => {
-    const t = A(),
-      i = () => {
+  Mt = () => {
+    const t = R(),
+      n = () => {
         t('/SignUp');
       };
     return e.jsxs('div', {
@@ -1940,13 +1990,13 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
           width: '100%',
           height: '1000px',
         }),
-        e.jsx('nav', { onClick: () => i(), children: 'Back to Sign Up' }),
+        e.jsx('nav', { onClick: () => n(), children: 'Back to Sign Up' }),
       ],
     });
   },
-  It = () => {
-    const t = A(),
-      i = () => {
+  Bt = () => {
+    const t = R(),
+      n = () => {
         t('/SignUp');
       };
     return e.jsxs('div', {
@@ -1958,32 +2008,32 @@ const ve = { email: 'Peace.875136D.time@gmail.com', password: '57tqw-7y6m' },
           width: '100%',
           height: '1000px',
         }),
-        e.jsx('nav', { onClick: () => i(), children: 'Back to Sign Up' }),
+        e.jsx('nav', { onClick: () => n(), children: 'Back to Sign Up' }),
       ],
     });
   };
-function Pt() {
+function Ht() {
   return e.jsx('div', {
     className: 'App',
-    children: e.jsx(ot, {
+    children: e.jsx(gt, {
       future: { v7_startTransition: !0, v7_relativeSplatPath: !0 },
-      children: e.jsxs(ct, {
+      children: e.jsxs(xt, {
         children: [
-          e.jsx(P, { path: '/', element: e.jsx(vt, {}) }),
-          e.jsx(P, { path: '/Example', element: e.jsx(Ue, {}) }),
-          e.jsx(P, { path: '/UserAuth', element: e.jsx(Be, {}) }),
-          e.jsx(P, { path: '/SignOut', element: e.jsx(Ct, {}) }),
-          e.jsx(P, { path: '/SignUp', element: e.jsx(Nt, {}) }),
-          e.jsx(P, { path: '/SignIn', element: e.jsx(St, {}) }),
-          e.jsx(P, { path: '/EasyLogin', element: e.jsx(Dt, {}) }),
-          e.jsx(P, { path: '/DeleteAccount', element: e.jsx(wt, {}) }),
-          e.jsx(P, { path: '/PrivacyPolicy', element: e.jsx(Et, {}) }),
-          e.jsx(P, { path: '/Terms', element: e.jsx(At, {}) }),
-          e.jsx(P, { path: '/Terms2', element: e.jsx(It, {}) }),
+          e.jsx(L, { path: '/', element: e.jsx(At, {}) }),
+          e.jsx(L, { path: '/Example', element: e.jsx(Ve, {}) }),
+          e.jsx(L, { path: '/UserAuth', element: e.jsx($e, {}) }),
+          e.jsx(L, { path: '/SignOut', element: e.jsx(Pt, {}) }),
+          e.jsx(L, { path: '/SignUp', element: e.jsx(Lt, {}) }),
+          e.jsx(L, { path: '/SignIn', element: e.jsx(qt, {}) }),
+          e.jsx(L, { path: '/EasyLogin', element: e.jsx(Ft, {}) }),
+          e.jsx(L, { path: '/DeleteAccount', element: e.jsx(Ot, {}) }),
+          e.jsx(L, { path: '/PrivacyPolicy', element: e.jsx(Ut, {}) }),
+          e.jsx(L, { path: '/Terms', element: e.jsx(Mt, {}) }),
+          e.jsx(L, { path: '/Terms2', element: e.jsx(Bt, {}) }),
         ],
       }),
     }),
   });
 }
-const Rt = it(document.getElementById('root'));
-Rt.render(e.jsx(nt.StrictMode, { children: e.jsx(Pt, {}) }));
+const Wt = mt(document.getElementById('root'));
+Wt.render(e.jsx(pt.StrictMode, { children: e.jsx(Ht, {}) }));
