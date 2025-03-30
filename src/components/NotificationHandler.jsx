@@ -156,7 +156,7 @@ const NotificationHandler = ({
           updateNotificationStatus();
           setCompletedTask2(true);
         }
-        if (oneDayAfterNotification <= currentTime) {
+        if (oneDayAfterNotification >= currentTime) {
           await deleteDoc(doc(firestore, 'notifications', docID));
         }
       }
