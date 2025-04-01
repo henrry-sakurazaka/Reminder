@@ -19,14 +19,12 @@ RUN apt-get update && apt-get install -y \
 # COPY server.key.pem /etc/ssl/private/
 COPY nginx.conf /etc/nginx/nginx.conf
 
-# Javaが正しくインストールされているか確認
 RUN java -version
 
 FROM node:20
 
 WORKDIR /usr/src/app2
 
-# 必要なファイルをコピー
 COPY package*.json ./
 
 # npmのキャッシュをクリアし、依存関係をインストール
