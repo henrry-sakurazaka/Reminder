@@ -125,7 +125,7 @@ const AsyncContextProvider = ({ children }) => {
         // ドキュメントが存在する場合のみ処理を続行
         if (snapshot.exists()) {
           const data2 = snapshot.data();
-          const datatodos = data2.todos || []; // todos配列にアクセス
+          const datatodos = data2.todos || [];
           const getData = GetConverter.fromFirestore(datatodos);
           setData(true);
           // getData がオブジェクトである場合、配列にラップする
