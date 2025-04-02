@@ -235,7 +235,6 @@ const Modal = ({ todo }) => {
         <SelectSwitch
           handleDateCheckboxChange={handleDateCheckboxChange}
           isChecked={isDateChecked}
-          // handleCheckboxChange={handleDateCheckboxChange}
           shouldHandleNotifications={shouldHandleNotifications}
           inputTime={inputTime}
           timeCheck={timeCheck}
@@ -245,7 +244,6 @@ const Modal = ({ todo }) => {
         <SSwitch2
           handleTimeCheckboxChange={handleTimeCheckboxChange}
           isChecked={isTimeChecked}
-          // handleCheckboxChange={handleTimeCheckboxChange}
           shouldHandleNotifications={shouldHandleNotifications}
           inputTime={inputTime}
           timeCheck={timeCheck}
