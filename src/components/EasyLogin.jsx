@@ -19,7 +19,7 @@ import './logging.css';
 //   }
 //   return outputArray;
 // };
-// 指定したユーザー情報
+
 const easyLoginUser = {
   email: import.meta.env.VITE_REACT_APP_TEST_EMAIL,
   password: import.meta.env.VITE_REACT_APP_TEST_PASSWORD,
