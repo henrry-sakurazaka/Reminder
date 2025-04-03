@@ -70,12 +70,6 @@
     ],
     "cleanUrls": true
   },
-  "functions": {
-    "source": "functions",
-    "runtime": "nodejs20",
-    "ignore": ["node_modules/**"],
-    "codebase": "default"
-  },
 
   "storage": {
     "rules": "storage.rules"
