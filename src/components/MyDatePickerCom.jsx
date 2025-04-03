@@ -14,8 +14,8 @@ const MyDatePickerCom = ({
   MyDatePickerCom.propTypes = {
     isDate: PropTypes.instanceOf(Date).isRequired, // Date型の値
     handleDateChange: PropTypes.func.isRequired, // 関数
-    shouldHandleNotifications: PropTypes.bool, // ブール型
-    timeCheck: PropTypes.bool, // ブール型
+    shouldHandleNotifications: PropTypes.bool,
+    timeCheck: PropTypes.bool,
   };
   const { selectedDate, setDisplayDatePicker, setDisplayTimePicker } =
     useTodos();
