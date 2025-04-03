@@ -12,7 +12,7 @@ services:
           cpus: '0.5'
           memory: 512M
     ports:
-      - '8080:8080'
+      - '3000:3000'
     volumes:
       - .:/app2
       - /app2/node_modules # 監視対象から除外

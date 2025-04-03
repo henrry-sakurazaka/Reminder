@@ -73,13 +73,8 @@ export default defineConfig({
   },
   server: {
     host: '0.0.0.0',
-    port: 8080,
-    allowedHosts: [
-      'app2',
-      'localhost',
-      '0.0.0.0',
-      'app2-280162142902.us-central1.run.app',
-    ],
+    port: 3000,
+    allowedHosts: ['app2', 'localhost', '0.0.0.0'],
     hmr: true,
     overlay: false,
     cors: true,
