@@ -155,7 +155,6 @@ const Modal = ({ todo }) => {
           docId: 'xxx',
         };
 
-        // Firestoreのコレクション参照
         const docRef = doc(collection(firestore, 'notifications'), uuidv);
         await setDoc(docRef, notificationData);
         // 非同期でドキュメントを追加し、その結果を待機
@@ -184,10 +183,8 @@ const Modal = ({ todo }) => {
         console.log('');
       } else if (permission === 'denied') {
         console.warn('Notification permission denied');
-        // 通知の許可が拒否された場合の処理
       } else {
         console.warn('Notification permission dismissed');
-        // ユーザーが許可の決定を延期した場合の処理
       }
     } catch (error) {
       console.error('Failed to request permission:', error);
