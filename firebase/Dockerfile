@@ -40,5 +40,5 @@ ENTRYPOINT ["/firebase/entrypoint.sh"]
 EXPOSE 7000 5001 5000 5020 9199 9090 9000
 
 # Firebaseエミュレーターを起動するコマンドをデフォルトで設定
-CMD ["firebase", "emulators:start --port=9000", "--only","firestore,functions,auth,database,storege"]
+CMD ["firebase", "emulators:start --port=9000", "--only","firestore,auth,database,storege"]
 
