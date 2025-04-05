@@ -102,13 +102,13 @@ COPY package.json package-lock.json ./
 RUN npm install
 
 # デフォルトコマンド
-CMD ["npx", "npm", "run", "dev", "http", "8080", "app", "--", "--host", "0.0.0.0", "node", "server.js"]
+CMD ["npx", "npm", "run", "dev", "http", "3000", "app2", "--", "--host", "0.0.0.0", "node", "server.js"]
 
 # エントリーポイントスクリプトをコンテナにコピーして実行権限を付与
 COPY ./entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
 
-EXPOSE 8080
+EXPOSE 3000
 
 # # エントリーポイントを指定
 # ENTRYPOINT ["/bin/sh", "/entrypoint.sh"]
