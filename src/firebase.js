@@ -145,5 +145,5 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // サービスワーカーを登録し、トークンを取得
 // registerServiceWorkerAndRequestToken();
 
-export { app, auth, firestore, provider, ref, set }; // dbもエクスポートする
+export { app, auth, firestore, provider, ref, set };
 export default firebaseConfig;
