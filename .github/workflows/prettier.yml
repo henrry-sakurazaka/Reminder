@@ -3,7 +3,7 @@ name: Prettier Check
 on:
   pull_request:
     branches:
-      - originMaster2 
+      - originMaster2
 
 jobs:
   prettier:
