@@ -21,7 +21,7 @@ const firebaseConfig = {
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const firestore = getFirestore(app); // Firestoreのインスタンスを取得
+const firestore = getFirestore(app);
 // const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
 
