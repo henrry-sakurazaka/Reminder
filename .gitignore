@@ -5,10 +5,7 @@ server.cert.pem
 functions/**/node_modules/
 functions/.firebase
 functions/node_modules
-public/firebase.js
 public/firebase-config.js
-build/firebase.js
-build/firebase.js
 build/config.js
 functions/serviceAccoutnKey.json
 functions/serviceAccoutnKey2.json
@@ -26,7 +23,6 @@ bfg-repo-cleaner/
 .cloudflared/offsetcodecraft.site.json
 .cloudflared/config.yml
 config.ymlTAB
-
 serviceAccountKey_singleline.json
 serviceAccountKey_singleline.json
 encoded_correct.txt
