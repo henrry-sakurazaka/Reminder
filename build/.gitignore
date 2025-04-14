@@ -1,2 +1,4 @@
-firebase
+
+build/assets/
+build/dist/
 worker

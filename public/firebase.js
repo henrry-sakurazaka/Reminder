@@ -3,7 +3,7 @@
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
-import { ref, set } from 'firebase/database';
+import { ref, set } from 'firebase/database'; // Realtime Databaseをインポート
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
 
 const firebaseConfig = {
@@ -15,13 +15,12 @@ const firebaseConfig = {
     .VITE_REACT_APP_FIREBASE_MESSAGING_SENDER_ID,
   appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
-  databaseURL: import.meta.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
 };
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
-const firestore = getFirestore(app);
+const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 // const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
 
@@ -145,5 +144,5 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // サービスワーカーを登録し、トークンを取得
 // registerServiceWorkerAndRequestToken();
 
-export { app, auth, firestore, provider, ref, set };
+export { app, auth, firestore, provider, ref, set }; // dbもエクスポートする
 export default firebaseConfig;
