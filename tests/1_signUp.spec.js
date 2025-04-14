@@ -62,5 +62,5 @@ test('サインアップ機能のテスト', async ({ page }) => {
   await expect(page.locator('span.important')).toHaveText('Agreed');
 
   await page.click('button.form-button');
-  await expect(page).toHaveURL(`${baseUrl}/Example`, { timeout: 30000 });
+  await expect(page).toHaveURL(`${baseUrl}/Example`, { timeout: 7000 });
 });
