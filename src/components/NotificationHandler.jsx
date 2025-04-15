@@ -152,7 +152,7 @@ const NotificationHandler = ({
         const oneDayAfterNotification =
           new Date(notificationTime).getTime() + 24 * 60 * 60 * 1000;
 
-        if (notificationTime > currentTime || completedTask) {
+        if (notificationTime < currentTime || completedTask) {
           updateNotificationStatus();
           setCompletedTask2(true);
         }
