@@ -12,7 +12,6 @@ functions/serviceAccoutnKey2.json
 firebaseInit.js
 functions/.env
 .env
-!build/
 build/assets/
 build/dist/
 serviceAccountKey.json
