@@ -16,7 +16,7 @@ const firebaseConfig = {
   appId: import.meta.env.VITE_REACT_APP_FIREBASE_APP_ID,
   measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
-console.log('apiKey', firebaseConfig.apiKey);
+
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
@@ -66,7 +66,7 @@ const showNotification = (task) => {
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
         new Notification('Reminder', {
-          body: `Task: ${task.content}`, // タスクの内容を表示
+          body: `Task: ${task.content}`,
           tag: 'unique-notification-id', // 一意のタグを設定
         });
       }
