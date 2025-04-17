@@ -1,7 +1,0 @@
-node_modules
-npm-debug.log
-docker-compose.yml
-Dockerfile
-.git
-.cache
-.env
