@@ -13,6 +13,7 @@ import {
   updateDoc,
   orderBy,
   collectionGroup,
+  addDoc,
 } from 'firebase/firestore';
 import { firestore } from '../firebase';
 import firebaseConfig from '../firebase';
@@ -107,7 +108,7 @@ const NotificationHandler = ({
             const q = query(
               timersCollection,
               where('todoId', '==', uid),
-              where('docId', '==', docId),
+              // where('docId', '==', docId),
               where('isNotified', '==', false),
               where('notificationTime', '>=', Timestamp.now()),
               orderBy('notificationTime'),
@@ -122,15 +123,35 @@ const NotificationHandler = ({
                 isNotified: doc.data().isNotified,
               };
             });
-            const unNotifiedTask = tasks.filter((task) => !task.isNotified);
-            localStorage.setItem('tasks', JSON.stringify(unNotifiedTask));
+            const unNotifiedTasks = tasks.filter((task) => !task.isNotified);
+            const setNotifications = () => {
+              const existingTasks = localStorage.getItem('tasks') || [];
+              unNotifiedTasks.forEach((task) => {
+                const alreadeyExists = existingTasks.some(
+                  (t) => t.id === task.id
+                );
+                if (!alreadeyExists) {
+                  existingTasks.push(task);
+                  localStorage.setItem('tasks', JSON.stringify(existingTasks));
+                  console.log('exisitingTasks', existingTasks);
+                  console.log('pushed task');
+                }
+              });
+            };
+            setNotifications();
           };
           fetchAndStoreNotifications(user);
         }
       });
       return () => unsubscribe2();
     }
-  }, [shouldNotificaion, Todo2, completedTask2]);
+  }, [
+    shouldNotificaion,
+    Todo2,
+    completedTask2,
+    completedDateTimeSetting,
+    shouldHandleNotifications,
+  ]);
 
   useEffect(() => {
     const monitorTimer = async () => {
@@ -152,7 +173,7 @@ const NotificationHandler = ({
         const oneDayAfterNotification =
           new Date(notificationTime).getTime() + 24 * 60 * 60 * 1000;
 
-        if (notificationTime < currentTime || completedTask) {
+        if (notificationTime > currentTime || completedTask) {
           updateNotificationStatus();
           setCompletedTask2(true);
         }
@@ -162,7 +183,12 @@ const NotificationHandler = ({
       }
     };
     monitorTimer();
-  }, [completedDateTimeSetting, shouldHandleNotifications, completedTask]);
+  }, [
+    completedDateTimeSetting,
+    shouldHandleNotifications,
+    Todo2,
+    completedTask,
+  ]);
   return null;
 };
 
