@@ -74,7 +74,13 @@ export default defineConfig({
   server: {
     host: '0.0.0.0',
     port: 3000,
-    allowedHosts: ['app2', 'localhost', '0.0.0.0'],
+    allowedHosts: [
+      'app2',
+      'localhost',
+      '0.0.0.0',
+      'reminder5-27ef0',
+      'offsetcodecraft.site',
+    ],
     hmr: true,
     overlay: false,
     cors: true,

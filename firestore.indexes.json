@@ -8,10 +8,7 @@
           "fieldPath": "todoId",
           "order": "ASCENDING"
         },
-        {
-          "fieldPath": "docId",
-          "order": "ASCENDING"
-        },
+
         {
           "fieldPath": "isNotified",
           "order": "ASCENDING"

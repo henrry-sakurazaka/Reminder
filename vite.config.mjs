@@ -12,7 +12,6 @@ export default defineConfig({
   define: {
     'process.env': process.env,
   },
-  // base: '/app2/',
   base: './',
   root: __dirname,
   build: {
@@ -81,6 +80,7 @@ export default defineConfig({
       '0.0.0.0',
       'offsetcodecraft.site',
       '172.18.0.4',
+      'reminder5-27ef0',
     ],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
