@@ -1,0 +1,6 @@
+runtime: nodejs20 # ここは使用するランタイムに応じて変更
+env: standard
+
+handlers:
+  - url: /.* # アプリケーション全体を処理
+    script: auto

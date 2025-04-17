@@ -1,0 +1,531 @@
+{
+  "config": {
+    "configFile": "/app/playwright.config.mjs",
+    "rootDir": "/app/tests",
+    "forbidOnly": false,
+    "fullyParallel": false,
+    "globalSetup": null,
+    "globalTeardown": null,
+    "globalTimeout": 0,
+    "grep": {},
+    "grepInvert": null,
+    "maxFailures": 0,
+    "metadata": {
+      "actualWorkers": 2
+    },
+    "preserveOutput": "always",
+    "reporter": [
+      [
+        "json",
+        {
+          "outputFile": "playwright-report/output.json"
+        }
+      ],
+      [
+        "html",
+        {
+          "outputFolder": "/app/playwright-test-results"
+        }
+      ],
+      ["list", null],
+      [
+        "html",
+        {
+          "outputFolder": "/Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results"
+        }
+      ]
+    ],
+    "reportSlowTests": {
+      "max": 5,
+      "threshold": 15000
+    },
+    "quiet": false,
+    "projects": [
+      {
+        "outputDir": "/app/test-results",
+        "repeatEach": 1,
+        "retries": 1,
+        "metadata": {},
+        "id": "",
+        "name": "",
+        "testDir": "/app/tests",
+        "testIgnore": [],
+        "testMatch": ["**/*.@(spec|test).?(c|m)[jt]s?(x)"],
+        "timeout": 30000
+      }
+    ],
+    "shard": null,
+    "updateSnapshots": "missing",
+    "version": "1.49.0",
+    "workers": 2,
+    "webServer": null
+  },
+  "suites": [
+    {
+      "title": "1_signIn-out.spec.js",
+      "file": "1_signIn-out.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "ログインテスト",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 0,
+                  "status": "failed",
+                  "duration": 13,
+                  "error": {
+                    "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-F2RHXz --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=172\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115730.088764:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115736.634080:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115736.961991:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115802.916482:WARNING:sandbox_linux.cc(430)] InitializeSandbox() called with multiple threads in process gpu-process.\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115803.300947:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)\u001b[22m\n",
+                    "stack": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-F2RHXz --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=172\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115730.088764:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115736.634080:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115736.961991:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115802.916482:WARNING:sandbox_linux.cc(430)] InitializeSandbox() called with multiple threads in process gpu-process.\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115803.300947:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)\u001b[22m\n"
+                  },
+                  "errors": [
+                    {
+                      "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-F2RHXz --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=172\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115730.088764:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115736.634080:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115736.961991:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115802.916482:WARNING:sandbox_linux.cc(430)] InitializeSandbox() called with multiple threads in process gpu-process.\u001b[22m\n\u001b[2m  - [pid=172][err] [1220/115803.300947:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)\u001b[22m\n"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-20T11:55:49.662Z",
+                  "attachments": []
+                },
+                {
+                  "workerIndex": 3,
+                  "status": "timedOut",
+                  "duration": 31282,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded while setting up \"page\".\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded while setting up \"page\".\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded while setting up \"page\".\u001b[39m"
+                    },
+                    {
+                      "message": "Error: browserContext.newPage: Test timeout of 30000ms exceeded."
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-12-20T11:58:52.379Z",
+                  "attachments": []
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "a2059f1c8646ab365fe3-08004d127f032873f968",
+          "file": "1_signIn-out.spec.js",
+          "line": 10,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "2_modal.spec.js",
+      "file": "2_modal.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "タスクをフォームに入力して出力を確認",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 1,
+                  "status": "failed",
+                  "duration": 13,
+                  "error": {
+                    "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-vg5gOf --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=173\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115730.088737:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115736.634144:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115736.962118:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115802.916526:WARNING:sandbox_linux.cc(430)] InitializeSandbox() called with multiple threads in process gpu-process.\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115803.300960:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)\u001b[22m\n",
+                    "stack": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-vg5gOf --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=173\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115730.088737:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115736.634144:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115736.962118:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115802.916526:WARNING:sandbox_linux.cc(430)] InitializeSandbox() called with multiple threads in process gpu-process.\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115803.300960:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)\u001b[22m\n"
+                  },
+                  "errors": [
+                    {
+                      "message": "TimeoutError: browserType.launch: Timeout 180000ms exceeded.\nCall log:\n\u001b[2m  - <launching> /ms-playwright/chromium_headless_shell-1148/chrome-linux/headless_shell --disable-field-trial-config --disable-background-networking --disable-background-timer-throttling --disable-backgrounding-occluded-windows --disable-back-forward-cache --disable-breakpad --disable-client-side-phishing-detection --disable-component-extensions-with-background-pages --disable-component-update --no-default-browser-check --disable-default-apps --disable-dev-shm-usage --disable-extensions --disable-features=ImprovedCookieControls,LazyFrameLoading,GlobalMediaControls,DestroyProfileOnBrowserClose,MediaRouter,DialMediaRouteProvider,AcceptCHFrame,AutoExpandDetailsElement,CertificateTransparencyComponentUpdater,AvoidUnnecessaryBeforeUnloadCheckSync,Translate,HttpsUpgrades,PaintHolding,ThirdPartyStoragePartitioning,LensOverlay,PlzDedicatedWorker --allow-pre-commit-input --disable-hang-monitor --disable-ipc-flooding-protection --disable-popup-blocking --disable-prompt-on-repost --disable-renderer-backgrounding --force-color-profile=srgb --metrics-recording-only --no-first-run --enable-automation --password-store=basic --use-mock-keychain --no-service-autorun --export-tagged-pdf --disable-search-engine-choice-screen --unsafely-disable-devtools-self-xss-warnings --headless --hide-scrollbars --mute-audio --blink-settings=primaryHoverType=2,availableHoverTypes=2,primaryPointerType=4,availablePointerTypes=4 --no-sandbox --ignore-certificate-errors --user-data-dir=/tmp/playwright_chromiumdev_profile-vg5gOf --remote-debugging-pipe --no-startup-window\u001b[22m\n\u001b[2m  - <launched> pid=173\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115730.088737:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115736.634144:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115736.962118:ERROR:bus.cc(407)] Failed to connect to the bus: Failed to connect to socket /run/dbus/system_bus_socket: No such file or directory\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115802.916526:WARNING:sandbox_linux.cc(430)] InitializeSandbox() called with multiple threads in process gpu-process.\u001b[22m\n\u001b[2m  - [pid=173][err] [1220/115803.300960:WARNING:viz_main_impl.cc(85)] VizNullHypothesis is disabled (not a warning)\u001b[22m\n"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-20T11:55:49.657Z",
+                  "attachments": []
+                },
+                {
+                  "workerIndex": 2,
+                  "status": "timedOut",
+                  "duration": 31280,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded while setting up \"page\".\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded while setting up \"page\".\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded while setting up \"page\".\u001b[39m"
+                    },
+                    {
+                      "message": "Error: browserContext.newPage: Test timeout of 30000ms exceeded."
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-12-20T11:58:52.390Z",
+                  "attachments": []
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "7ad7888f22c22b5a6b37-4a6197287e6a7e334650",
+          "file": "2_modal.spec.js",
+          "line": 15,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "3_edit.spec.js",
+      "file": "3_edit.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "タスクをフォームを入力して出力を確認",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 1200000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 4,
+                  "status": "failed",
+                  "duration": 33814,
+                  "error": {
+                    "message": "Error: page.goto: net::ERR_SOCKET_NOT_CONNECTED at https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\nCall log:\n\u001b[2m  - navigating to \"https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\", waiting until \"networkidle\"\u001b[22m\n",
+                    "stack": "Error: page.goto: net::ERR_SOCKET_NOT_CONNECTED at https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\nCall log:\n\u001b[2m  - navigating to \"https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\", waiting until \"networkidle\"\u001b[22m\n\n    at /app/tests/3_edit.spec.js:23:18",
+                    "location": {
+                      "file": "/app/tests/3_edit.spec.js",
+                      "column": 18,
+                      "line": 23
+                    },
+                    "snippet": "  21 |       \n  22 |       await page.waitForTimeout(5000);   \n> 23 |       await page.goto(`${baseUrl}/UserAuth`, {\n     |                  ^\n  24 |         waitUntil: 'networkidle',\n  25 |         timeout: 60000,\n  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/3_edit.spec.js",
+                        "column": 18,
+                        "line": 23
+                      },
+                      "message": "Error: page.goto: net::ERR_SOCKET_NOT_CONNECTED at https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\nCall log:\n\u001b[2m  - navigating to \"https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\", waiting until \"networkidle\"\u001b[22m\n\n\n  21 |       \n  22 |       await page.waitForTimeout(5000);   \n> 23 |       await page.goto(`${baseUrl}/UserAuth`, {\n     |                  ^\n  24 |         waitUntil: 'networkidle',\n  25 |         timeout: 60000,\n  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n    at /app/tests/3_edit.spec.js:23:18"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-20T11:59:49.974Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/3_edit-タスクをフォームを入力して出力を確認/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/3_edit.spec.js",
+                    "column": 18,
+                    "line": 23
+                  }
+                },
+                {
+                  "workerIndex": 7,
+                  "status": "failed",
+                  "duration": 38288,
+                  "error": {
+                    "message": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n",
+                    "stack": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n    at /app/tests/3_edit.spec.js:28:18",
+                    "location": {
+                      "file": "/app/tests/3_edit.spec.js",
+                      "column": 18,
+                      "line": 28
+                    },
+                    "snippet": "  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  27 |       }); \n> 28 |       await page.click('span#SI', { timeout: 30000 });\n     |                  ^\n  29 |       await page.waitForTimeout(5000); \n  30 |       await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  31 |       await page.waitForTimeout(5000); "
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/3_edit.spec.js",
+                        "column": 18,
+                        "line": 28
+                      },
+                      "message": "TimeoutError: page.click: Timeout 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  27 |       }); \n> 28 |       await page.click('span#SI', { timeout: 30000 });\n     |                  ^\n  29 |       await page.waitForTimeout(5000); \n  30 |       await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  31 |       await page.waitForTimeout(5000); \n    at /app/tests/3_edit.spec.js:28:18"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-12-20T12:00:25.410Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/3_edit-タスクをフォームを入力して出力を確認-retry1/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/3_edit.spec.js",
+                    "column": 18,
+                    "line": 28
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "f01057d7661885a83c03-9da0f5b8e0e172c0845f",
+          "file": "3_edit.spec.js",
+          "line": 17,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "4_deleteAccount.spec.js",
+      "file": "4_deleteAccount.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "アカウント削除のテスト",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 5,
+                  "status": "timedOut",
+                  "duration": 30933,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/app/tests/4_deleteAccount.spec.js",
+                        "column": 16,
+                        "line": 23
+                      },
+                      "message": "Error: page.goto: net::ERR_ABORTED; maybe frame was detached?\nCall log:\n\u001b[2m  - navigating to \"https://eb75-240f-c7-2c6a-1-5008-edb2-f0b3-bec8.ngrok-free.app/UserAuth\", waiting until \"networkidle\"\u001b[22m\n\n\n  21 |     const password = process.env.VITE_REACT_APP_TEST_PASSWORD; \n  22 |\n> 23 |     await page.goto(`${baseUrl}/UserAuth`, {\n     |                ^\n  24 |         waitUntil: 'networkidle',\n  25 |         timeout: 60000,\n  26 |         ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n    at /app/tests/4_deleteAccount.spec.js:23:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-20T11:59:49.972Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/4_deleteAccount-アカウント削除のテスト/video.webm"
+                    }
+                  ]
+                },
+                {
+                  "workerIndex": 6,
+                  "status": "timedOut",
+                  "duration": 31185,
+                  "error": {
+                    "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m",
+                    "stack": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                  },
+                  "errors": [
+                    {
+                      "message": "\u001b[31mTest timeout of 30000ms exceeded.\u001b[39m"
+                    },
+                    {
+                      "location": {
+                        "file": "/app/tests/4_deleteAccount.spec.js",
+                        "column": 16,
+                        "line": 29
+                      },
+                      "message": "Error: page.click: Test timeout of 30000ms exceeded.\nCall log:\n\u001b[2m  - waiting for locator('span#SI')\u001b[22m\n\n\n  27 |       });\n  28 |\n> 29 |     await page.click('span#SI', { timeout: 30000 });\n     |                ^\n  30 |     await page.waitForTimeout(5000); \n  31 |     await expect(page).toHaveURL(`${baseUrl}/SignIn`);\n  32 |     \n    at /app/tests/4_deleteAccount.spec.js:29:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-12-20T12:00:22.501Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/4_deleteAccount-アカウント削除のテスト-retry1/video.webm"
+                    }
+                  ]
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "9714527d5e13ca36954a-749a2e59f2368848c173",
+          "file": "4_deleteAccount.spec.js",
+          "line": 11,
+          "column": 3
+        }
+      ]
+    },
+    {
+      "title": "5_signUp.spec.js",
+      "file": "5_signUp.spec.js",
+      "column": 0,
+      "line": 0,
+      "specs": [
+        {
+          "title": "サインアップ機能のテスト",
+          "ok": false,
+          "tags": [],
+          "tests": [
+            {
+              "timeout": 30000,
+              "annotations": [],
+              "expectedStatus": "passed",
+              "projectId": "",
+              "projectName": "",
+              "results": [
+                {
+                  "workerIndex": 8,
+                  "status": "failed",
+                  "duration": 6164,
+                  "error": {
+                    "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n",
+                    "stack": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n    at /app/tests/5_signUp.spec.js:21:16",
+                    "location": {
+                      "file": "/app/tests/5_signUp.spec.js",
+                      "column": 16,
+                      "line": 21
+                    },
+                    "snippet": "  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  20 |     });\n> 21 |     await page.click('span.#SU', { timeout: 30000 });\n     |                ^\n  22 |     await expect(page).toHaveURL(`${baseUrl}/SignUp`);\n  23 |\n  24 |     await page.waitForTimeout(5000); // 必要に応じて時間を調整"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/5_signUp.spec.js",
+                        "column": 16,
+                        "line": 21
+                      },
+                      "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n\n  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  20 |     });\n> 21 |     await page.click('span.#SU', { timeout: 30000 });\n     |                ^\n  22 |     await expect(page).toHaveURL(`${baseUrl}/SignUp`);\n  23 |\n  24 |     await page.waitForTimeout(5000); // 必要に応じて時間を調整\n    at /app/tests/5_signUp.spec.js:21:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 0,
+                  "startTime": "2024-12-20T12:00:55.338Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/5_signUp-サインアップ機能のテスト/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/5_signUp.spec.js",
+                    "column": 16,
+                    "line": 21
+                  }
+                },
+                {
+                  "workerIndex": 9,
+                  "status": "failed",
+                  "duration": 6444,
+                  "error": {
+                    "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n",
+                    "stack": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n    at /app/tests/5_signUp.spec.js:21:16",
+                    "location": {
+                      "file": "/app/tests/5_signUp.spec.js",
+                      "column": 16,
+                      "line": 21
+                    },
+                    "snippet": "  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  20 |     });\n> 21 |     await page.click('span.#SU', { timeout: 30000 });\n     |                ^\n  22 |     await expect(page).toHaveURL(`${baseUrl}/SignUp`);\n  23 |\n  24 |     await page.waitForTimeout(5000); // 必要に応じて時間を調整"
+                  },
+                  "errors": [
+                    {
+                      "location": {
+                        "file": "/app/tests/5_signUp.spec.js",
+                        "column": 16,
+                        "line": 21
+                      },
+                      "message": "Error: page.click: Unexpected token \"#SU\" while parsing selector \"span.#SU\"\nCall log:\n\u001b[2m  - waiting for span.#SU\u001b[22m\n\n\n  19 |       ignoreHTTPSErrors: true, // これで証明書エラーを無視します\n  20 |     });\n> 21 |     await page.click('span.#SU', { timeout: 30000 });\n     |                ^\n  22 |     await expect(page).toHaveURL(`${baseUrl}/SignUp`);\n  23 |\n  24 |     await page.waitForTimeout(5000); // 必要に応じて時間を調整\n    at /app/tests/5_signUp.spec.js:21:16"
+                    }
+                  ],
+                  "stdout": [],
+                  "stderr": [],
+                  "retry": 1,
+                  "startTime": "2024-12-20T12:01:03.890Z",
+                  "attachments": [
+                    {
+                      "name": "video",
+                      "contentType": "video/webm",
+                      "path": "/app/test-results/5_signUp-サインアップ機能のテスト-retry1/video.webm"
+                    }
+                  ],
+                  "errorLocation": {
+                    "file": "/app/tests/5_signUp.spec.js",
+                    "column": 16,
+                    "line": 21
+                  }
+                }
+              ],
+              "status": "unexpected"
+            }
+          ],
+          "id": "2488f497cd1e8cf83cd2-646ba9916408def70b47",
+          "file": "5_signUp.spec.js",
+          "line": 10,
+          "column": 3
+        }
+      ]
+    }
+  ],
+  "errors": [],
+  "stats": {
+    "startTime": "2024-12-20T11:55:29.834Z",
+    "duration": 340656.75299999997,
+    "expected": 0,
+    "skipped": 0,
+    "unexpected": 5,
+    "flaky": 0
+  }
+}
