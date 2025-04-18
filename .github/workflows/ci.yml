@@ -465,7 +465,7 @@ jobs:
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
 
-      - name: Create .env file and keys
+      - name: Create .env and .env.production files
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
@@ -497,6 +497,10 @@ jobs:
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> .env
+      
+          # 同じ内容を .env.production にコピー
+          cp .env .env.production
+      
 
       - name: Decode to json file
         run: |
