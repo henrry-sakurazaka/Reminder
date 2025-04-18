@@ -1,6 +1,6 @@
 import React from 'react';
 import { createRoot } from 'react-dom/client';
-import './firebaseInit'; // Firebase初期化のインポート
+// import './firebaseInit.js'; // Firebase初期化のインポート
 import App from './App';
 import reportWebVitals from './reportWebVitals';
 
