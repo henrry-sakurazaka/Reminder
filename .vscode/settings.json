@@ -1,0 +1,10 @@
+{
+  "files.exclude": {
+    ".github": false
+  },
+  "git.ignoredRepositories": [],
+  "editor.formatOnSave": false,
+  "editor.codeActionsOnSave": {
+    "source.fixAll": false
+  }
+}

@@ -532,7 +532,7 @@ jobs:
       # - name: Copy to Docker-compose
       #   run: cp deploy.yml docker-compose.yml
 
-      - name: Copy to vite.congig
+      - name: Copy to vite.config
         run: cp deploy.js vite.config.mjs
 
       - name: Install dependencies
@@ -555,7 +555,6 @@ jobs:
 
       - name: Build For Deploy
         run: |
-          rm -rf build
           npm run build
 
       - name: Deploy To Firebase
