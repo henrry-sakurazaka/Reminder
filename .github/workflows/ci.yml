@@ -555,7 +555,6 @@ jobs:
 
       - name: Build For Deploy
         run: |
-          rm -rf build
           npm run build
 
       - name: Deploy To Firebase
