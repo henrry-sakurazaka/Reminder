@@ -17,8 +17,6 @@ services:
       - .:/app2
       - /app2/node_modules # 監視対象から除外
       - /app2/dist # 監視対象から除外
-      # - ./server.key.pem:/etc/ssl/private/server.key.pem
-      # - ./server.cert.pem:/etc/ssl/certs/server.cert.pem
       - /Users/Tsp33786/Desktop/trial_html/MY_WEB_SIGHT/reminder/test-results:/app2/test-results
     entrypoint: ./entrypoint.sh
     environment:
