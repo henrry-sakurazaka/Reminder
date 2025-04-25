@@ -71,13 +71,13 @@ import './@floating-ui-C_tFKrs3.js';
 })();
 const De = {
     apiKey: 'AIzaSyCFn-eJuAP2f2zYP4VxMvvwef15jzyW7bA',
-    authDomain: 'reminder3-65e84.firebaseapp.com',
-    projectId: 'reminder3-65e84',
-    storageBucket: 'reminder3-65e84.firebasestorage.app',
+    authDomain: 'reminder5-27ef0.firebaseapp.com',
+    projectId: 'reminder5-27ef0',
+    storageBucket: 'reminder5-27ef0.firebasestorage.app',
     messagingSenderId: void 0,
     appId: '1:280162142902:web:4fed1bc9d4b35e75963417',
     measurementId: '280162142902',
-    databaseURL: 'https://reminder3-65e84-default-rtdb.firebaseio.com',
+    databaseURL: 'https://reminder5-27ef0-default-rtdb.firebaseio.com',
   },
   we = Ce().length ? ze() : Ne(De),
   O = _(we),
