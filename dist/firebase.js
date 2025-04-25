@@ -79,7 +79,7 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // // トークンをサーバーに送信する関数
 // const sendTokenToServer = async (token) => {
 //   try {
-//     const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
+//     const response = await fetch('https://us-central1-reminder5-27ef0.cloudfunctions.net/registerToken', {
 
 //       method: 'POST',
 //       headers: {
