@@ -180,7 +180,7 @@ const Modal = ({ todo }) => {
     try {
       const permission = await Notification.requestPermission();
       if (permission === 'granted') {
-        console.log('');
+        return;
       } else if (permission === 'denied') {
         console.warn('Notification permission denied');
       } else {

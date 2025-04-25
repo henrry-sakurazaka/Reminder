@@ -133,8 +133,6 @@ const NotificationHandler = ({
                 if (!alreadeyExists) {
                   existingTasks.push(task);
                   localStorage.setItem('tasks', JSON.stringify(existingTasks));
-                  console.log('exisitingTasks', existingTasks);
-                  console.log('pushed task');
                 }
               });
             };
