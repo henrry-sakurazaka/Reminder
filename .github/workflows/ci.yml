@@ -546,6 +546,12 @@ jobs:
       - name: Copy to vite.config
         run: cp deploy.js vite.config.mjs
 
+      - name: Clear Cache .firebase
+        run: rm -rf .firebase
+
+      - name: Clear Cache .vite
+        run: rm -rf node_modules/.vite
+
       - name: Install dependencies
         run: |
           rm -rf package-lock.json node_modules
