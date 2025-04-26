@@ -550,7 +550,7 @@ jobs:
         run: rm -rf .firebase
 
       - name: Clear Cache .vite
-        run: rm -rf node_modules/.vite dist .firebase
+        run: rm -rf node_modules/.vite build/dist .firebase
 
       - name: Install dependencies
         run: |
@@ -570,11 +570,11 @@ jobs:
       - name: Install deps
         run: npm ci
 
+      - name: Clear dist
+        run: rm -rf dist
+
       - name: Build For Deploy
         run: |
-          set -a
-          source .env
-          set +a
           npm run build
 
       - name: Deploy To Firebase
