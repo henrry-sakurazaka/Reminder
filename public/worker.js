@@ -11,6 +11,14 @@ self.addEventListener('push', function (event) {
   );
 });
 
+self.addEventListener('install', (event) => {
+  self.skipWaiting(); // ← 古いSWを待たずに即時適用
+});
+
+self.addEventListener('activate', (event) => {
+  clients.claim(); // ← ページを即座に新しいSWに関連づけ
+});
+
 // self.addEventListener('install', function(event) {
 //   event.waitUntil(
 //     caches.open('my-cache').then(function(cache) {

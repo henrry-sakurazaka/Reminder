@@ -550,7 +550,7 @@ jobs:
         run: rm -rf .firebase
 
       - name: Clear Cache .vite
-        run: rm -rf node_modules/.vite
+        run: rm -rf node_modules/.vite dist .firebase
 
       - name: Install dependencies
         run: |
