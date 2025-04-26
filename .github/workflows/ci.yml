@@ -567,6 +567,8 @@ jobs:
       - name: Build For Deploy
         run: |
           npm run build
+          echo 'ビルド後のファイル構成:'
+          ls -la dist
 
       - name: Deploy To Firebase
         run: |
