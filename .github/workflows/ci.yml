@@ -501,6 +501,10 @@ jobs:
           # 同じ内容を .env.production にコピー
           cp .env .env.production
 
+      - name: Build For Deploy
+        run: |
+          npx dotenv -e .env -- npm run build
+
       - name: Decode to json file
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
