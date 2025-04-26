@@ -13,6 +13,7 @@ functions/.env
 .env
 build/assets/
 build/dist/
+dist/
 serviceAccountKey.json
 serviceAccountKey2.json
 firebase/serviceAccountKey.json
