@@ -460,6 +460,9 @@ jobs:
       - name: Check Firebase CLI
         run: firebase --version
 
+      - name: Firebase install SDK latest
+        run: npm install firebase@latest
+
       - name: Set up Firebase credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
