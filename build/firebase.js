@@ -1,6 +1,7 @@
 /* eslint-disable no-console */
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
+import 'firebase/auth';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { ref, set } from 'firebase/database'; // Realtime Databaseをインポート
