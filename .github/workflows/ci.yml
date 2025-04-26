@@ -503,7 +503,7 @@ jobs:
 
       - name: Build For Deploy
         run: |
-          npx dotenv -e .env -- npm run build
+          npx dotenv -- npm run build
 
       - name: Decode to json file
         run: |
