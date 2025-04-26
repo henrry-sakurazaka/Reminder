@@ -572,7 +572,10 @@ jobs:
 
       - name: Build For Deploy
         run: |
-          npx dotenv -- npm run build
+          set -a
+          source .env
+          set +a
+          npm run build
 
       - name: Deploy To Firebase
         run: |
