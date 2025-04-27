@@ -53,10 +53,10 @@ export default defineConfig({
       '@': path.resolve(__dirname, 'src'),
       components: path.resolve(__dirname, 'src/components'),
 
-      '@firebase/auth': path.resolve(
-        __dirname,
-        'node_modules/@firebase/auth/assets/firebase-BTCi8-9J.js'
-      ),
+      // '@firebase/auth': path.resolve(
+      //   __dirname,
+      //   'node_modules/@firebase/auth/assets/firebase-BTCi8-9J.js'
+      // ),
     },
   },
   plugins: [
