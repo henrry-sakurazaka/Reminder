@@ -66,7 +66,7 @@ const showNotification = (task) => {
     Notification.requestPermission().then((permission) => {
       if (permission === 'granted') {
         new Notification('Reminder', {
-          body: `Task: ${task.content}`, // タスクの内容を表示
+          body: `Task: ${task.content}`,
           tag: 'unique-notification-id', // 一意のタグを設定
         });
       }
