@@ -19,6 +19,19 @@ self.addEventListener('activate', (event) => {
   clients.claim(); // ← ページを即座に新しいSWに関連づけ
 });
 
+self.addEventListener('activate', (event) => {
+  event.waitUntil(
+    caches.keys().then((cacheNames) => {
+      return Promise.all(
+        cacheNames.map((cacheName) => {
+          // キャッシュを削除
+          return caches.delete(cacheName);
+        })
+      );
+    })
+  );
+});
+
 // self.addEventListener('install', function(event) {
 //   event.waitUntil(
 //     caches.open('my-cache').then(function(cache) {
