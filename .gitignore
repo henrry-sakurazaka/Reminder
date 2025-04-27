@@ -13,7 +13,6 @@ functions/.env
 .env
 build/assets/
 build/dist/
-dist/assets/firebase-DbxlpnmS.js:21258
 serviceAccountKey.json
 serviceAccountKey2.json
 firebase/serviceAccountKey.json
