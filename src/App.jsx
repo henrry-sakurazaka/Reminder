@@ -9,6 +9,7 @@ import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import EasyLogin from './components/EasyLogin';
 import DeleteAccount from './components/DeleteAccount';
+import AuthRedirect from './components/AuthRedirect';
 import PrivacyPolicy from './components/PrivacyPolicy';
 import Terms from './components/Terms';
 import Terms2 from './components/Terms2';
@@ -53,6 +54,7 @@ export default function App() {
       >
         <Routes>
           <Route path="/" element={<FirstAuth />} />
+          <Route path="/AuthRedirect" element={<AuthRedirect />} />
           <Route path="/Example" element={<Example />} />
           <Route path="/UserAuth" element={<UserAuth />} />
           <Route path="/SignOut" element={<SignOut />} />
