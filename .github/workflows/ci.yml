@@ -576,142 +576,142 @@ jobs:
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
-  docker-hub:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    needs:
-      - lint
-      - prettier
-      - E2E-tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # docker-hub:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #   needs:
+  #     - lint
+  #     - prettier
+  #     - E2E-tests
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Create .env file and keys
-        run: |
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
-          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
-          echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+  #     - name: Create .env file and keys
+  #       run: |
+  #         echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+  #         echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+  #         echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
+  #         echo "HOST=${{ secrets.HOST }}" >> .env
+  #         echo "PORT=${{ secrets.PORT }}" >> .env
 
-          # 証明書ファイルの作成
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM2 }}" > .cloudflared/cert.pem
+  #         # 証明書ファイルの作成
+  #         printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+  #         printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+  #         printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
+  #         printf -- "${{ secrets.CF_CERT_PEM2 }}" > .cloudflared/cert.pem
 
-      - name: Load environment variables from .env
-        run: |
-          source .env
-          echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
+  #     - name: Load environment variables from .env
+  #       run: |
+  #         source .env
+  #         echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
-      - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" > ./serviceAccountKey.json
+  #     - name: Create Service Account Key
+  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" > ./serviceAccountKey.json
 
-      - name: Copy Service Account Key to Functions
-        run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
+  #     - name: Copy Service Account Key to Functions
+  #       run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
 
-      - name: Copy Service Account Key to Firebase
-        run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
+  #     - name: Copy Service Account Key to Firebase
+  #       run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
 
-      - name: Create nonroot user
-        run: |
-          sudo useradd -m nonroot
-          sudo chown -R nonroot:nonroot /home/nonroot
-          sudo chmod 755 /home/nonroot
+  #     - name: Create nonroot user
+  #       run: |
+  #         sudo useradd -m nonroot
+  #         sudo chown -R nonroot:nonroot /home/nonroot
+  #         sudo chmod 755 /home/nonroot
 
-      - name: Set up Cloudflared credentials
-        run: |
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
-          sudo chmod 644 .cloudflared/offsetcodecraft.site.json
-          sudo ls -la .cloudflared/
+  #     - name: Set up Cloudflared credentials
+  #       run: |
+  #         echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+  #         sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
+  #         sudo chmod 644 .cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la .cloudflared/
 
-      - name: Set up Cloudflared credentials2
-        run: |
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo chmod 755 /home/nonroot/.cloudflared
-          sudo chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo ls -la /home/nonroot/.cloudflared/
+  #     - name: Set up Cloudflared credentials2
+  #       run: |
+  #         sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+  #         echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
+  #         sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo chmod 755 /home/nonroot/.cloudflared
+  #         sudo chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la /home/nonroot/.cloudflared/
 
-      - name: Debug JSON file content
-        run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #     - name: Debug JSON file content
+  #       run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
-      - name: Define Permission
-        run: |
-          chmod u+rx .cloudflared/entrypoint.sh
-          chmod 600 .cloudflared/config.yml
+  #     - name: Define Permission
+  #       run: |
+  #         chmod u+rx .cloudflared/entrypoint.sh
+  #         chmod 600 .cloudflared/config.yml
 
-      - name: Fix Permissions for Cloudflared Credentials
-        run: |
-          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo chmod 666 /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo ls -la /home/nonroot/.cloudflared/
+  #     - name: Fix Permissions for Cloudflared Credentials
+  #       run: |
+  #         sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo chmod 666 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la /home/nonroot/.cloudflared/
 
-      - name: Setup cloudflared directory
-        run: |
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          sudo chmod -R 777 /home/nonroot/.cloudflared
-          sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
+  #     - name: Setup cloudflared directory
+  #       run: |
+  #         sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+  #         sudo chmod -R 777 /home/nonroot/.cloudflared
+  #         sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
 
-      - name: Define Directory
-        run: |
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM2 }}" > /home/nonroot/.cloudflared/cert.pem
+  #     - name: Define Directory
+  #       run: |
+  #         printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
+  #         printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
+  #         printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
+  #         printf -- "${{ secrets.CF_CERT_PEM2 }}" > /home/nonroot/.cloudflared/cert.pem
 
-      - name: Copy Cloudflared Config to Target Directory
-        run: |
-          if ! id -u nonroot &>/dev/null; then
-          sudo useradd -m -s /bin/bash nonroot
-          fi
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-          sudo chmod -R 777 /home/nonroot/.cloudflared
-          sudo chmod 777 /home/nonroot
-          sudo chmod 666 .cloudflared/offsetcodecraft.site.json
+  #     - name: Copy Cloudflared Config to Target Directory
+  #       run: |
+  #         if ! id -u nonroot &>/dev/null; then
+  #         sudo useradd -m -s /bin/bash nonroot
+  #         fi
+  #         sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+  #         sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+  #         sudo chmod -R 777 /home/nonroot/.cloudflared
+  #         sudo chmod 777 /home/nonroot
+  #         sudo chmod 666 .cloudflared/offsetcodecraft.site.json
 
-          sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
-          sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
-          sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
-          sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo ls -la /home/nonroot/.cloudflared/
+  #         sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
+  #         sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
+  #         sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
+  #         sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la /home/nonroot/.cloudflared/
 
-      - name: Set up Cloudflare API token
-        run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+  #     - name: Set up Cloudflare API token
+  #       run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Increase UDP Buffer Size
-        run: |
-          sudo sysctl -w net.core.rmem_max=8388608
-          sudo sysctl -w net.core.wmem_max=8388608
+  #     - name: Increase UDP Buffer Size
+  #       run: |
+  #         sudo sysctl -w net.core.rmem_max=8388608
+  #         sudo sysctl -w net.core.wmem_max=8388608
 
-      - name: Adjust ping_group_range
-        run: |
-          echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
-          echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
+  #     - name: Adjust ping_group_range
+  #       run: |
+  #         echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
+  #         echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
 
-      - name: Build Docker Images
-        run: |
-          docker compose build
+  #     - name: Build Docker Images
+  #       run: |
+  #         docker compose build
 
-      - name: Setting env file
-        run: |
-          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
-          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
+  #     - name: Setting env file
+  #       run: |
+  #         echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+  #         echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
 
-      - name: Push to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker tag reminder-app2 henrry301/reminder:1
-          docker tag reminder-firebase henrry301/reminder:2
-          docker tag mcr.microsoft.com/playwright:v1.49.0-jammy henrry301/playwright:v1.49.0-jammy
-          docker tag cloudflare/cloudflared henrry301/reminder:3
-          docker push henrry301/reminder:1
-          docker push henrry301/reminder:2
-          docker push henrry301/reminder:3
-          docker push henrry301/playwright:v1.49.0-jammy
+  #     - name: Push to Docker Hub
+  #       run: |
+  #         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+  #         docker tag reminder-app2 henrry301/reminder:1
+  #         docker tag reminder-firebase henrry301/reminder:2
+  #         docker tag mcr.microsoft.com/playwright:v1.49.0-jammy henrry301/playwright:v1.49.0-jammy
+  #         docker tag cloudflare/cloudflared henrry301/reminder:3
+  #         docker push henrry301/reminder:1
+  #         docker push henrry301/reminder:2
+  #         docker push henrry301/reminder:3
+  #         docker push henrry301/playwright:v1.49.0-jammy
