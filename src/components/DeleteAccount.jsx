@@ -4,6 +4,7 @@ import {
   reauthenticateWithCredential,
   EmailAuthProvider,
 } from 'firebase/auth';
+import { auth } from '@/firebase';
 import { useNavigate } from 'react-router-dom';
 import './delete.css';
 
@@ -11,7 +12,7 @@ const DeleteAccount = () => {
   const [showReauthenticateForm, setShowReauthenticateForm] = useState(false);
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const auth = getAuth();
+  // const auth = getAuth();
   const user = auth.currentUser;
   const navigate = useNavigate();
 
