@@ -1,8 +1,8 @@
 // AuthRedirect.js
 import React, { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, getRedirectResult } from 'firebase/auth';
-import { auth } from '../firebase'; // firebase.jsからインポート
+import { getRedirectResult } from 'firebase/auth';
+import { auth } from '@/firebase';
 
 const AuthRedirect = () => {
   const navigate = useNavigate();
