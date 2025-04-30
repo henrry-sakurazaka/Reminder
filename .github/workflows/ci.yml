@@ -552,7 +552,6 @@ jobs:
           rm -rf node_modules/.vite
           rm -rf dist
           rm -rf .vite
-          pnpm vite --clearScreen false
 
       - name: Install dependencies
         run: |
