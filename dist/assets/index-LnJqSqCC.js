@@ -25,7 +25,7 @@ import {
   E as lt,
   t as dt,
   v as ut,
-} from './firebase-B0GFfoza.js';
+} from './firebase-CAJAbvHH.js';
 import './vite-plugin-node-polyfills-CYF0W5wK.js';
 import { r as i, j as e, d as mt, b as pt } from './vendor-BEztx3UH.js';
 import { B as gt } from './react-router-dom-Djf-viZn.js';

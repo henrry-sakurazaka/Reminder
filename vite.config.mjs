@@ -10,7 +10,12 @@ if (process.env.CI !== 'true') {
 
 export default defineConfig({
   define: {
-    'process.env': process.env,
+    'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
+      process.env.GOOGLE_APPLICATION_CREDENTIALS
+    ),
+    'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
+      process.env.VITE_REACT_APP_FIREBASE_API_KEY
+    ), // 必要なものだけ
   },
   base: './',
   root: __dirname,
