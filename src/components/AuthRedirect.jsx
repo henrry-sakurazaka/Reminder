@@ -13,11 +13,10 @@ const AuthRedirect = () => {
         const result = await getRedirectResult(auth); // リダイレクト結果を取得
         if (result) {
           // 成功した場合、UserAuthコンポーネントに遷移
-          navigate('/userAuth'); // 例：/userAuth
+          navigate('/UserAuth');
         }
       } catch (error) {
         console.error('Error during authentication redirect:', error);
-        // 必要に応じてエラーハンドリング
       }
     };
 
