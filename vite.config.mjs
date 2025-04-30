@@ -15,7 +15,10 @@ export default defineConfig({
     ),
     'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
       process.env.VITE_REACT_APP_FIREBASE_API_KEY
-    ), // 必要なものだけ
+    ),
+    'process.env.VITE_REACT_APP_FIREBASE_API_PROJECTT_ID': JSON.stringify(
+      process.env.VITE_REACT_APP_FIREBASE_PROJECT_ID
+    ),
   },
   base: './',
   root: __dirname,
@@ -24,6 +27,12 @@ export default defineConfig({
     define: {
       'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
         process.env.GOOGLE_APPLICATION_CREDENTIALS
+      ),
+      'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
+        process.env.VITE_REACT_APP_FIREBASE_API_KEY
+      ),
+      'process.env.VITE_REACT_APP_FIREBASE_API_PROJECTT_ID': JSON.stringify(
+        process.env.VITE_REACT_APP_FIREBASE_PROJECT_ID
       ),
     },
     emptyOutDir: true,
