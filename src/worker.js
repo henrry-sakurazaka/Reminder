@@ -11,6 +11,13 @@ self.addEventListener('push', function (event) {
   );
 });
 
+// ブラウザのDevToolsで以下を実行（F12 → Console）
+navigator.serviceWorker.getRegistrations().then((registrations) => {
+  for (const registration of registrations) {
+    registration.unregister().then(() => console.log('SW unregistered'));
+  }
+});
+
 // self.addEventListener('notificationclick', function(event) {
 //   event.notification.close();
 //   event.waitUntil(
