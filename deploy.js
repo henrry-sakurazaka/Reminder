@@ -4,9 +4,7 @@ import { nodePolyfills } from 'vite-plugin-node-polyfills';
 import path, { resolve } from 'path';
 import * as dotenv from 'dotenv';
 
-if (process.env.CI !== 'true') {
-  dotenv.config();
-}
+dotenv.config();
 
 export default defineConfig({
   define: {

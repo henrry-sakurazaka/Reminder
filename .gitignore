@@ -11,6 +11,7 @@ functions/serviceAccoutnKey2.json
 firebaseInit.js
 functions/.env
 .env
+.env.production
 build/assets/
 build/dist/
 dist/assets/firebase-DbxlpnmS.js
