@@ -17,8 +17,8 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-// const app = initializeApp(firebaseConfig);
+// const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 // const messaging = getMessaging(app);
