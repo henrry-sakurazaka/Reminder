@@ -529,8 +529,8 @@ jobs:
           cat $GOOGLE_APPLICATION_CREDENTIALS
           file ./serviceAccountKey.json
 
-      - name: Use production firebase.json
-        run: cp firebase.prod.json firebase.json
+      # - name: Use production firebase.json
+      #   run: cp firebase.prod.json firebase.json
 
       # - name: Copy to Dockerfile
       #   run: cp Deployfile Dockerfile

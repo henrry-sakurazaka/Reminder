@@ -1,7 +1,7 @@
 /* eslint-disable no-console */
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { getAuth, GoogleAuthProvider, useDeviceLanguage } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { ref, set } from 'firebase/database'; // Realtime Databaseをインポート
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
@@ -17,9 +17,13 @@ const firebaseConfig = {
   measurementId: import.meta.env.VITE_REACT_APP_FIREBASE_MEASUREMENT_ID,
 };
 
-// const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
-const app = initializeApp(firebaseConfig);
+const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
+// const app = initializeApp(firebaseConfig);
+// console.log('Firebase config:', firebaseConfig);
+// console.log('Apps:', getApps());
 const auth = getAuth(app);
+auth.useDeviceLanguage();
+
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 // const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
