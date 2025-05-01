@@ -107,4 +107,16 @@ export default defineConfig({
       ('html', { outputDir: '/app2/test-results' })
     ],
   ],
+  resolve: {
+    alias: {
+      '@firebase/auth': path.resolve(
+        __dirname,
+        'node_modules/@firebase/auth/dist/esm2017/index.js'
+      ),
+      '@firebase/app': path.resolve(
+        __dirname,
+        'node_modules/@firebase/app/dist/esm/index.esm2017.js'
+      ),
+    },
+  },
 });
