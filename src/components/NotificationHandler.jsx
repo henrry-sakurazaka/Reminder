@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/firebase';
 import { useTodos } from '../context/TodoContext';
 import {
   collection,
@@ -24,7 +25,7 @@ if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
 
-const auth = getAuth();
+// const auth = getAuth();
 
 const NotificationHandler = ({
   shouldHandleNotifications = false,

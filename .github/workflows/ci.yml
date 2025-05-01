@@ -104,8 +104,8 @@ jobs:
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
+          echo "FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY2=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY2 }}" >> .env
@@ -123,8 +123,8 @@ jobs:
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
@@ -215,7 +215,7 @@ jobs:
           sudo ls -la /home/nonroot/.cloudflared/
 
       - name: Set up Cloudflare API token
-        run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+        run: echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
       - name: Increase UDP Buffer Size
         run: |
@@ -467,8 +467,8 @@ jobs:
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
+          echo "FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY2=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY2 }}" >> .env
@@ -486,15 +486,15 @@ jobs:
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env
           echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> .env
 
-          # 同じ内容を .env.production にコピー
           cp .env .env.production
+          cat .env.production
 
       - name: Decode to json file
         run: |
@@ -532,11 +532,11 @@ jobs:
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
 
-      # - name: Copy to Dockerfile
-      #   run: cp Deployfile Dockerfile
+      - name: Copy to Dockerfile
+        run: cp Deployfile Dockerfile
 
-      # - name: Copy to Docker-compose
-      #   run: cp deploy.yml docker-compose.yml
+      - name: Copy to Docker-compose
+        run: cp deploy.yml docker-compose.yml
 
       - name: Copy to vite.config
         run: cp deploy.js vite.config.mjs
@@ -565,9 +565,6 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Clear dist
-        run: rm -rf dist
-
       - name: Build For Deploy
         run: |
           npm run build
@@ -593,8 +590,8 @@ jobs:
 
       - name: Create .env file and keys
         run: |
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
           echo "PORT=${{ secrets.PORT }}" >> .env

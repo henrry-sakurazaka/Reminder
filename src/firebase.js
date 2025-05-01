@@ -2,6 +2,7 @@
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
 import { getAuth, GoogleAuthProvider } from 'firebase/auth';
+import { useDeviceLanguage } from 'firebase/auth';
 import { getFirestore } from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
@@ -20,7 +21,10 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
+auth.useDeviceLanguage();
+
 const firestore = getFirestore(app);
 // const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();

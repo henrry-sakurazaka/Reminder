@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useTodos, useDispatchTodos } from '../context/TodoContext';
 import { onAuthStateChanged } from 'firebase/auth';
-import { firestore, auth } from '../firebase';
+import { firestore, auth } from '@/firebase';
 import { collection, setDoc, doc } from 'firebase/firestore';
 import SSwitch2 from './SSwitch2';
 import MyTimePicker from './MyTimePicker';

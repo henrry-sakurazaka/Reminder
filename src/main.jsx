@@ -5,6 +5,7 @@ import App from './App';
 import reportWebVitals from './reportWebVitals';
 
 const root = createRoot(document.getElementById('root')); // root DOM要素の取得
+
 root.render(
   <React.StrictMode>
     <App />
