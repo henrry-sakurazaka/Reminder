@@ -3,7 +3,8 @@ import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PrivateRoute, checkAuthentication } from './checkAuthentication';
 import Example from './Example';
-import UserAuth from './UserAuth';
+// import UserAuth from './UserAuth';
+import AuthRedirect from './AuthRedirect';
 
 function FirstAuth() {
   const navigate = useNavigate();
@@ -24,7 +25,7 @@ function FirstAuth() {
     <>
       <div>
         <PrivateRoute>
-          {authenticated ? <Example /> : <UserAuth />}
+          {authenticated ? <Example /> : <AuthRedirect />}
         </PrivateRoute>
       </div>
     </>
