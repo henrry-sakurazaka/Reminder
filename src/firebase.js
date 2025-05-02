@@ -1,9 +1,13 @@
 /* eslint-disable no-console */
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { useDeviceLanguage } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
+import { getAuth, GoogleAuthProvider, useDeviceLanguage } from 'firebase/auth';
+import {
+  getFirestore,
+  initializeFirestore,
+  persistentMultipleTabManager,
+  persistentLocalCache,
+} from 'firebase/firestore';
 import { ref, set } from 'firebase/database';
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
 
@@ -25,7 +29,15 @@ const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 const auth = getAuth(app);
 auth.useDeviceLanguage();
 
-const firestore = getFirestore(app);
+// const firestore = getFirestore(app);
+
+const firestore = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+  // experimentalAutoDetectLongPolling: true, // ★これを追加すべき
+});
+
 // const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
 

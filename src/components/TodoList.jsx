@@ -5,7 +5,7 @@ import Edit from './Edit';
 
 const TodoList = () => {
   const { todos } = useTodos();
-  const { data, loading } = useAsyncContext();
+  const { data, loading } = useAsyncContext() || {};
 
   return (
     <>
