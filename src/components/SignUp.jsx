@@ -71,6 +71,7 @@ function SignUp() {
             editingLock: todo.editingLock,
             editingColor: todo.editingColor,
             editingDateTime: todo.editingDateTime,
+            agreement: todo.agreement,
             notification: todo.notification,
           };
         });
