@@ -1,9 +1,6 @@
 import React from 'react';
 import Example2 from './Example2';
 import { useNavigate } from 'react-router-dom';
-import { AsyncContextProvider } from '../context/AsyncContext';
-import NotificationHandler from './NotificationHandler';
-
 import './Todo.css';
 
 const Example1 = () => {
@@ -17,10 +14,7 @@ const Example1 = () => {
       <span className="back" onClick={navigationHandler}>
         Back to Auth
       </span>
-
-      <AsyncContextProvider>
-        <Example2 />
-      </AsyncContextProvider>
+      <Example2 />
     </>
   );
 };

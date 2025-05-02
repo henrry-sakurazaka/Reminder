@@ -146,6 +146,7 @@ const TodoProvider = ({ children }) => {
   const [docId, setDocId] = useState();
   const [completedTask, setCompletedTask] = useState(false);
   const [completedTask2, setCompletedTask2] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   return (
     <TodoContext.Provider
@@ -216,6 +217,8 @@ const TodoProvider = ({ children }) => {
         setCompletedTask,
         completedTask2,
         setCompletedTask2,
+        isReady,
+        setIsReady,
       }}
     >
       <TodoDispatchContext.Provider value={dispatch}>

@@ -255,7 +255,7 @@
 // });
 import dotenv from 'dotenv';
 import express from 'express';
-// import cors from 'cors';
+import cors from 'cors';
 
 const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
@@ -265,25 +265,31 @@ const app = express();
 const app2 = express();
 const app3 = express();
 
-// const corsOptions = {
-//   origin: [
-//       'https://reminder5-27ef0.web.app',
-//       'http://localhost:3000',
-//       'https://offsetcodecraft.site'
-//     ],
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-//   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: [
+    'https://reminder5-27ef0.web.app',
+    'http://localhost:3000',
+    'https://offsetcodecraft.site',
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Access-Control-Allow-Origin',
+  ],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
 dotenv.config();
 
 // ミドルウェア
 app.use(express.json());
 // CORSミドルウェアを使用
-// app.use(cors(corsOptions));
-// app.use(cors());
+
+app.use(cors(corsOptions));
+app2.use(cors(corsOptions));
+app3.use(cors(corsOptions));
 
 // ルート
 app.get('/', (req, res) => {
@@ -294,7 +300,6 @@ app.get('/', (req, res) => {
 app.listen(PORT, HOST, () => {
   console.log('Server is running on port 3000');
 });
-
 app2.listen(PORT2, () => {
   console.log(`Server is running on port ${PORT2}`);
 });
@@ -303,5 +308,12 @@ app3.listen(PORT3, () => {
 });
 
 // Firebase Functionsとしてエクスポート
-exports.apiX = functions.https.onRequest(app2);
-exports.api17 = functions.https.onRequest(app3);
+exports.apiX = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app2(req, res));
+});
+exports.api17 = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app3(req, res));
+});
+exports.api = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app(req, res));
+});
