@@ -16,8 +16,8 @@ import {
   collectionGroup,
   addDoc,
 } from 'firebase/firestore';
-import { firestore } from '../firebase';
-import firebaseConfig from '../firebase';
+import { firestore } from '@/firebase';
+import firebaseConfig from '@/firebase';
 import PropTypes from 'prop-types';
 import { all } from 'axios';
 
@@ -63,9 +63,9 @@ const NotificationHandler = ({
   const [authUser, setAuthUser] = useState(null);
   const [shouldNotificaion, setShouldNotification] = useState(false);
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      user.getIdToken(true);
+      await user.getIdToken(true);
     }
   });
 
@@ -99,7 +99,7 @@ const NotificationHandler = ({
 
   useEffect(() => {
     if (shouldNotificaion) {
-      const unsubscribe2 = onAuthStateChanged(auth, (user) => {
+      const unsubscribe2 = onAuthStateChanged(auth, async (user) => {
         if (user) {
           const fetchAndStoreNotifications = async () => {
             const timersCollection = collectionGroup(
@@ -139,7 +139,7 @@ const NotificationHandler = ({
             };
             setNotifications();
           };
-          fetchAndStoreNotifications(user);
+          await fetchAndStoreNotifications(user);
         }
       });
       return () => unsubscribe2();
@@ -173,7 +173,7 @@ const NotificationHandler = ({
           new Date(notificationTime).getTime() + 24 * 60 * 60 * 1000;
 
         if (notificationTime > currentTime || completedTask) {
-          updateNotificationStatus();
+          await updateNotificationStatus();
           setCompletedTask2(true);
         }
         if (oneDayAfterNotification >= currentTime) {

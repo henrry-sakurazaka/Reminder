@@ -1,10 +1,11 @@
 import React from 'react';
+import AuthCheck from './AuthCheck';
+import Example from './Example';
+import AuthRedirect from './AuthRedirect';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PrivateRoute, checkAuthentication } from './checkAuthentication';
-import Example from './Example';
-// import UserAuth from './UserAuth';
-import AuthRedirect from './AuthRedirect';
+import { TodoProvider } from '../context/TodoContext';
 
 function FirstAuth() {
   const navigate = useNavigate();
@@ -13,9 +14,11 @@ function FirstAuth() {
   useEffect(() => {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
-        navigate('/UserAuth'); // ログインしていない場合は認証ページにリダイレクト
+        navigate('/AuthRedirect'); // ログインしていない場合は認証ページにリダイレクト
+        console.log('AuthRedirect');
       } else {
         setAuthenticated(true);
+        console.log('true');
       }
     });
   }, [navigate]);
@@ -25,7 +28,9 @@ function FirstAuth() {
     <>
       <div>
         <PrivateRoute>
-          {authenticated ? <Example /> : <AuthRedirect />}
+          <TodoProvider>
+            {authenticated ? <AuthCheck /> : <AuthRedirect />}
+          </TodoProvider>
         </PrivateRoute>
       </div>
     </>

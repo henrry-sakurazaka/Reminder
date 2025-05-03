@@ -36,6 +36,7 @@ const todoList = [
     editingDateTime: false,
     notification: false,
     shouldHandleNotifications: false,
+    agreement: false,
   },
   {
     title: 'buy flowers',
@@ -141,11 +142,12 @@ const TodoProvider = ({ children }) => {
   const [Todo2, setTodo2] = useState();
   const [shouldHandleNotifications, setShouldHandleNotifications] =
     useState(false);
-  const [agree, setAgree] = useState();
+  const [agree, setAgree] = useState(false);
   const [isSet, setIsSet] = useState(false);
   const [docId, setDocId] = useState();
   const [completedTask, setCompletedTask] = useState(false);
   const [completedTask2, setCompletedTask2] = useState(false);
+  const [isReady, setIsReady] = useState(false);
 
   return (
     <TodoContext.Provider
@@ -216,6 +218,8 @@ const TodoProvider = ({ children }) => {
         setCompletedTask,
         completedTask2,
         setCompletedTask2,
+        isReady,
+        setIsReady,
       }}
     >
       <TodoDispatchContext.Provider value={dispatch}>

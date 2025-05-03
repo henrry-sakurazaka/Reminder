@@ -8,7 +8,7 @@ import MyTimePicker from './MyTimePicker';
 import MyDatePickerCom from './MyDatePickerCom';
 import SelectSwitch from './SelectSwitch';
 import NotificationHandler from './NotificationHandler';
-import 'firebase/firestore';
+// import 'firebase/firestore';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Modal.css';
 import { v4 as uuidv4 } from 'uuid';

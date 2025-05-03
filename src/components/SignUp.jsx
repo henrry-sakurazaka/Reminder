@@ -20,6 +20,7 @@ const todoList = [
     editingColor: false,
     editingDateTime: false,
     notification: false,
+    agreement: false,
   },
   {
     title: 'send a letter',
@@ -34,6 +35,7 @@ const todoList = [
     editingColor: false,
     editingDateTime: false,
     notification: false,
+    agreement: false,
   },
   {
     title: 'buy flowers',
@@ -48,6 +50,7 @@ const todoList = [
     editingColor: false,
     editingDateTime: false,
     notification: false,
+    agreement: false,
   },
 ];
 
@@ -71,6 +74,7 @@ function SignUp() {
             editingLock: todo.editingLock,
             editingColor: todo.editingColor,
             editingDateTime: todo.editingDateTime,
+            agreement: todo.agreement,
             notification: todo.notification,
           };
         });

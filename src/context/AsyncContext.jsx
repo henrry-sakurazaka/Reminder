@@ -9,7 +9,7 @@ import {
   useMemo,
 } from 'react';
 import { useDispatchTodos, useTodos } from './TodoContext';
-import { firestore, auth } from '../firebase';
+import { firestore, auth } from '@/firebase';
 import { doc, setDoc, getDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 
@@ -32,12 +32,20 @@ const AsyncContextProvider = ({ children }) => {
     const unsubscribe = onAuthStateChanged(auth, (user) => {
       if (user) {
         setUid(user.uid);
-      } else {
-        console.log('No user is signed in');
-      }
+      } else return;
     });
 
     return () => unsubscribe();
+  }, []);
+
+  useEffect(() => {
+    const unloadCallback = () => {
+      firebase.app().delete();
+    };
+    window.addEventListener('beforeunload', unloadCallback);
+    return async () => {
+      window.removeEventListener('beforeunload', unloadCallback);
+    };
   }, []);
 
   const todosConverter2 = useMemo(() => {
@@ -91,10 +99,8 @@ const AsyncContextProvider = ({ children }) => {
 
   useEffect(() => {
     const setTodosToFirestore = async () => {
-      if (!uid) {
-        console.log('');
-        return;
-      }
+      if (!uid) return;
+
       try {
         const convertedData = todosConverter2.toFirestore(todos);
         const dataWithUid = { todoId: user.uid, todos: convertedData };
@@ -105,16 +111,14 @@ const AsyncContextProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
-        setTodosToFirestore(todos, user.uid);
-      } else {
-        console.log('User signed out or not yet logged in');
-      }
+        await setTodosToFirestore(todos, user.uid);
+      } else return;
     });
 
     return () => unsubscribe();
-  }, [dispatch, todos, firestore, todosConverter2]);
+  }, [dispatch, todos, todosConverter2]);
 
   useEffect(() => {
     const fetchTodosFromFirestore = async (uid) => {
@@ -145,12 +149,10 @@ const AsyncContextProvider = ({ children }) => {
         setLoading(false);
       }
     };
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
-      if (!todosChanged) {
-        fetchTodosFromFirestore(user.uid);
-      } else {
-        console.log('User signed out');
-      }
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
+      if (user && !todosChanged) {
+        await fetchTodosFromFirestore(user.uid);
+      } else return;
     });
 
     return () => unsubscribe();
