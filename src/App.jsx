@@ -4,6 +4,7 @@ import { BrowserRouter, Routes, Route } from 'react-router-dom';
 import AuthCheck from './components/AuthCheck';
 import Example from './components/Example';
 import Example1 from './components/Example1';
+import Example2 from './components/Example2';
 import FirstAuth from './components/FirstAuth';
 import UserAuth from './components/UserAuth';
 import SignOut from './components/SignOut';
@@ -60,6 +61,7 @@ export default function App() {
           <Route path="/AuthRedirect" element={<AuthRedirect />} />
           <Route path="/Example" element={<Example />} />
           <Route path="/Example1" element={<Example1 />} />
+          <Route path="/Example2" element={<Example2 />} />
           <Route path="/Example" element={<Example />} />
           <Route path="/UserAuth" element={<UserAuth />} />
           <Route path="/SignOut" element={<SignOut />} />

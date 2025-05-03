@@ -15,8 +15,10 @@ function FirstAuth() {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
         navigate('/AuthRedirect'); // ログインしていない場合は認証ページにリダイレクト
+        console.log('AuthRedirect');
       } else {
         setAuthenticated(true);
+        console.log('true');
       }
     });
   }, [navigate]);

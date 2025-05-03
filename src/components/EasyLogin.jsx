@@ -29,6 +29,7 @@ const easyLoginUser = {
 
 const EasyLogin = () => {
   const navigate = useNavigate();
+
   const handleEasyLogin = async () => {
     const userCredential = await signInWithEmailAndPassword(
       auth,

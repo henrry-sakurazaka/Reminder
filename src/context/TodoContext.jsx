@@ -36,6 +36,7 @@ const todoList = [
     editingDateTime: false,
     notification: false,
     shouldHandleNotifications: false,
+    agreement: false,
   },
   {
     title: 'buy flowers',
@@ -141,7 +142,7 @@ const TodoProvider = ({ children }) => {
   const [Todo2, setTodo2] = useState();
   const [shouldHandleNotifications, setShouldHandleNotifications] =
     useState(false);
-  const [agree, setAgree] = useState();
+  const [agree, setAgree] = useState(false);
   const [isSet, setIsSet] = useState(false);
   const [docId, setDocId] = useState();
   const [completedTask, setCompletedTask] = useState(false);
