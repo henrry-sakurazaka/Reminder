@@ -38,15 +38,19 @@ const AsyncContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  useEffect(() => {
-    const unloadCallback = () => {
-      firebase.app().delete();
-    };
-    window.addEventListener('beforeunload', unloadCallback);
-    return async () => {
-      window.removeEventListener('beforeunload', unloadCallback);
-    };
-  }, []);
+  // useEffect(() => {
+  //   const unloadCallback = () => {
+  //     if (auth.currentUser) {
+  //       auth.currentUser.delete().catch((err) => {
+  //         console.error('User deletion failed:', err);
+  //       });
+  //     }
+  //   };
+  //   window.addEventListener('beforeunload', unloadCallback);
+  //   return () => {
+  //     window.removeEventListener('beforeunload', unloadCallback);
+  //   };
+  // }, []);
 
   const todosConverter2 = useMemo(() => {
     return {
