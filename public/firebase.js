@@ -26,6 +26,10 @@ auth.useDeviceLanguage();
 
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 // const messaging = getMessaging(app);
+
+async function loadController() {
+  const { getDocs, collection } = await import('firebase/firestore');
+}
 const provider = new GoogleAuthProvider();
 
 // Analyticsの初期化
@@ -148,5 +152,5 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // サービスワーカーを登録し、トークンを取得
 // registerServiceWorkerAndRequestToken();
 
-export { app, auth, firestore, provider, ref, set }; // dbもエクスポートする
+export { app, auth, firestore, provider, ref, set, loadController }; // dbもエクスポートする
 export default firebaseConfig;

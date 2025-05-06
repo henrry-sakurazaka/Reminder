@@ -14,11 +14,9 @@ const AuthCheck = () => {
       if (user) {
         // ユーザーがログイン済み → FirestoreなどにアクセスOK
         setIsReady(true);
-        console.log('isReady', isReady);
       } else {
         // 未ログイン → リダイレクトやスキップ
         setIsReady(false);
-        console.log('isReady', isReady);
       }
     });
     return () => unsubscribe();

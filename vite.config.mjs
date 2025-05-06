@@ -93,9 +93,11 @@ export default defineConfig({
       'app2',
       'localhost',
       '0.0.0.0',
+      'reminder5-27ef0',
       'offsetcodecraft.site',
       '172.18.0.4',
-      'reminder5-27ef0',
+      '192.168.0.3',
+      '192.168.0.7',
     ],
     // https:
     //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
