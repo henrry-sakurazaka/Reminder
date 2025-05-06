@@ -270,6 +270,11 @@ const corsOptions = {
     'https://reminder5-27ef0.web.app',
     'http://localhost:3000',
     'https://offsetcodecraft.site',
+    '0.0.0.0',
+    '172.18.0.4',
+    'http://app2:3000',
+    'http://192.168.0.3:3000',
+    'http://192.168.0.7:3000',
   ],
   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
   allowedHeaders: [

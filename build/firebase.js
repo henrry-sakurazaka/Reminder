@@ -26,6 +26,10 @@ auth.useDeviceLanguage();
 
 const firestore = getFirestore(app); // Firestoreのインスタンスを取得
 // const messaging = getMessaging(app);
+
+async function loadController() {
+  const { getDocs, collection } = await import('firebase/firestore');
+}
 const provider = new GoogleAuthProvider();
 
 // Analyticsの初期化
