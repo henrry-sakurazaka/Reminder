@@ -99,13 +99,19 @@ export default defineConfig({
       '192.168.0.3',
       '192.168.0.7',
     ],
-    // https:
-    //   process.env.VITE_NODE_ENV === 'production' || process.env.VITE_HTTPS === 'true'
-    //     ? {
-    //         key: fs.readFileSync('./server.key.pem' || '/etc/ssl/private/server.key.pem'),
-    //         cert: fs.readFileSync('./server.cert.pem' || '/etc/ssl/certs/server.cert.pem'),
-    //       }
-    //     : false,
+    proxy: {
+      '/todoList': {
+        target: 'http://localhost:3001', // Expressサーバーのポート
+        changeOrigin: true,
+        rewrite: (path) => path,
+      },
+      // proxy: {
+      //   '/api': {
+      //     target: 'http://localhost:9090',
+      //     changeOrigin: true,
+      //     rewrite: (path) => path.replace(/^\/api/, ''),
+      //   },
+    },
     hmr: true,
     overlay: false,
     cors: true,
