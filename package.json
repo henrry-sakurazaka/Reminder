@@ -56,7 +56,9 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "vite",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node server.js",
+    "client": "vite",
     "build": "vite build",
     "clean": "rm -rf node_modules && npm install",
     "preview": "vite preview",
@@ -81,6 +83,7 @@
     "@typescript-eslint/parser": "^5.62.0",
     "@vitejs/plugin-react": "^4.3.3",
     "babel-jest": "^29.7.0",
+    "concurrently": "^9.1.2",
     "eslint": "^8.57.1",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-prettier": "^5.2.1",
@@ -152,5 +155,6 @@
       "node": true,
       "es6": true
     }
-  }
+  },
+  "proxy": "https://firestore.googleapis.com"
 }

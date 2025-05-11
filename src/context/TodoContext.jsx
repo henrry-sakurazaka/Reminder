@@ -36,7 +36,6 @@ const todoList = [
     editingDateTime: false,
     notification: false,
     shouldHandleNotifications: false,
-    agreement: false,
   },
   {
     title: 'buy flowers',
@@ -93,7 +92,8 @@ const todoReducer = (todos, action) => {
           : { ..._todo, editingDateTime: false }
       );
     case 'FETCH_TODOS':
-      return action.payload;
+      // return action.payload;
+      return action.payload.filter((todo) => todo !== null);
 
     case 'complete2':
       return todos.map((todo) =>

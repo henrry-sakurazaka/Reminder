@@ -1,5 +1,5 @@
 import React from 'react';
-import { onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged, getIdToken } from 'firebase/auth';
 import {
   createContext,
   useState,
@@ -25,11 +25,14 @@ const AsyncContextProvider = ({ children }) => {
   const dispatch = useDispatchTodos();
   const user = auth.currentUser;
   const [uid, setUid] = useState(); // uidの初期化
+  const [fetchTodos, setFetchTodos] = useState();
+  const [todosArray, setTodosArray] = useState();
+  const [render, setRender] = useState(false);
 
   const fetchedDataRef = useRef(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUid(user.uid);
       } else return;
@@ -38,138 +41,193 @@ const AsyncContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // useEffect(() => {
-  //   const unloadCallback = () => {
-  //     if (auth.currentUser) {
-  //       auth.currentUser.delete().catch((err) => {
-  //         console.error('User deletion failed:', err);
+  // const todosConverter2 = useMemo(() => {
+  //   return {
+  //     toFirestore: (todos) => {
+  //       const todosArray = Object.values(todos);
+  //       const firestoreData = {};
+  //       todosArray.forEach((todo, index) => {
+  //         firestoreData[index.toString()] = {
+  //           title: todo.title,
+  //           description: todo.description,
+  //           type: todo.type,
+  //           id: todo.id,
+  //           content: todo.content,
+  //           editing: todo.editing,
+  //           completed: todo.completed,
+  //           reserve: todo.reserve,
+  //           editingLock: todo.editingLock,
+  //           editingColor: todo.editingColor,
+  //           editingDateTime: todo.editingDateTime,
+  //           notification: todo.notification,
+  //         };
   //       });
-  //     }
-  //   };
-  //   window.addEventListener('beforeunload', unloadCallback);
-  //   return () => {
-  //     window.removeEventListener('beforeunload', unloadCallback);
+  //       return firestoreData;
+  //     },
   //   };
   // }, []);
 
-  const todosConverter2 = useMemo(() => {
-    return {
-      toFirestore: (todos) => {
-        const todosArray = Object.values(todos);
-        const firestoreData = {};
-        todosArray.forEach((todo, index) => {
-          firestoreData[index.toString()] = {
-            title: todo.title,
-            description: todo.description,
-            type: todo.type,
-            id: todo.id,
-            content: todo.content,
-            editing: todo.editing,
-            completed: todo.completed,
-            reserve: todo.reserve,
-            editingLock: todo.editingLock,
-            editingColor: todo.editingColor,
-            editingDateTime: todo.editingDateTime,
-            notification: todo.notification,
-          };
-        });
-        return firestoreData;
-      },
-    };
-  }, []);
+  // const todosConverter2 = useMemo(() => {
+  //   return {
+  //     toFirestore: (todos) => {
+  //       const firestoreData = {};
+  //       if (!todos || typeof todos !== 'object') return firestoreData;
 
-  const GetConverter = useMemo(() => {
-    return {
-      fromFirestore: (snapshot) => {
-        const data = snapshot;
-        const dataArray = Object.values(data).map((item) => ({
-          title: item.title,
-          description: item.description,
-          type: item.type,
-          id: item.id,
-          content: item.content,
-          editing: item.editing,
-          completed: item.completed,
-          reserve: item.reserve,
-          editingLock: item.editingLock,
-          editingColor: item.editingColor,
-          editingDateTime: item.editingDateTime,
-          notification: item.notification,
-        }));
-        return dataArray;
-      },
-    };
-  }, []);
+  //       Object.entries(todos).forEach(([key, todo]) => {
+  //         if (todo && typeof todo === 'object') {
+  //           firestoreData[key] = {
+  //             title: todo.title ?? '',
+  //             description: todo.description ?? '',
+  //             type: todo.type ?? '',
+  //             id: todo.id ?? '',
+  //             content: todo.content ?? '',
+  //             editing: todo.editing ?? false,
+  //             completed: todo.completed ?? false,
+  //             reserve: todo.reserve ?? '',
+  //             editingLock: todo.editingLock ?? false,
+  //             editingColor: todo.editingColor ?? '',
+  //             editingDateTime: todo.editingDateTime ?? '',
+  //             notification: todo.notification ?? '',
+  //           };
+  //         }
+  //       });
+
+  //       return firestoreData;
+  //     },
+  //   };
+  // }, []);
+
+  // const GetConverter = useMemo(() => {
+  //   return {
+  //     fromFirestore: (todosArray) => {
+  //       const data = todosArray;
+  //       const dataArray = Object.values(data).map((todo) => ({
+  //         title: todo.title,
+  //         description: todo.description,
+  //         type: todo.type,
+  //         id: todo.id,
+  //         content: todo.content,
+  //         editing: todo.editing,
+  //         completed: todo.completed,
+  //         reserve: todo.reserve,
+  //         editingLock: todo.editingLock,
+  //         editingColor: todo.editingColor,
+  //         editingDateTime: todo.editingDateTime,
+  //         notification: todo.notification,
+  //       }));
+  //       return dataArray;
+  //     },
+  //   };
+  // }, []);
+
+  // const parseFromApi = (dataArray) => {
+  //   if (!Array.isArray(dataArray)) return [];
+
+  //   return dataArray.flatMap((data) => {
+  //     const todos = data.todos || {};
+  //     return Object.values(todos)
+  //       .filter((todo) => todo && typeof todo === 'object')
+  //       .map((todo) => ({
+  //         title: todo.title,
+  //         description: todo.description,
+  //         type: todo.type,
+  //         id: todo.id,
+  //         content: todo.content,
+  //         editing: todo.editing,
+  //         completed: todo.completed,
+  //         reserve: todo.reserve,
+  //         editingLock: todo.editingLock,
+  //         editingColor: todo.editingColor,
+  //         editingDateTime: todo.editingDateTime,
+  //         notification: todo.notification,
+  //         shouldHandleNotifications: todo.shouldHandleNotifications,
+  //         agreement: todo.agreement,
+  //       }));
+  //   });
+  // };
 
   useEffect(() => {
-    const setTodosToFirestore = async () => {
-      if (!uid) return;
-
+    const sendTodosToApi = async (uid, todos) => {
+      if (!uid || !todos) return;
       try {
-        const convertedData = todosConverter2.toFirestore(todos);
-        const dataWithUid = { todoId: user.uid, todos: convertedData };
-        await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
+        await fetch('http://localhost:3001/todoList', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid, todos: filteredTodos }),
+        });
+        console.log('✅ Successfully sent todos to API');
       } catch (error) {
-        console.error('Error adding todoList to Firestore:', error);
+        console.error('🔥 Error sending todos:', error);
       } finally {
         setLoading(false);
       }
     };
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await setTodosToFirestore(todos, user.uid);
+      if (
+        user &&
+        todos.length > 0 &&
+        todos.forEach((todo) => todo !== null && todo !== undefined)
+      ) {
+        await sendTodosToApi(uid, todos);
+        console.log('sendTodoApi');
       } else return;
     });
-
     return () => unsubscribe();
-  }, [dispatch, todos, todosConverter2]);
+  }, [dispatch]);
 
   useEffect(() => {
-    const fetchTodosFromFirestore = async (uid) => {
+    const fetchTodosFromFirestore = async (uid, todos) => {
       try {
-        const todoDocRef = doc(firestore, 'todoList3', uid);
-        const snapshot = await getDoc(todoDocRef);
-
-        // ドキュメントが存在する場合のみ処理を続行
-        if (snapshot.exists()) {
-          const data2 = snapshot.data();
-          const datatodos = data2.todos || [];
-          const getData = GetConverter.fromFirestore(datatodos);
-          setData(true);
-          // getData がオブジェクトである場合、配列にラップする
-          const newFetchedData = Array.isArray(getData) ? getData : [getData];
-          // fetchedData が null でないことを確認してから処理を続行
+        const fetchTodoList = async () => {
+          if (!uid) return;
+          const response = await fetch(
+            `/todoList?uid=${encodeURIComponent(uid)}`
+          );
+          const data = await response.json();
+          const data2 = Object.values(data[0].todos);
+          setFetchTodos(data2);
+          const newFetchedData = Array.isArray(data2) ? data2 : [data2];
 
           if (newFetchedData !== null && newFetchedData.length > 0) {
             setFetchedData(newFetchedData);
             setData(true);
             fetchedDataRef.current = newFetchedData;
-            dispatch({ type: 'FETCH_TODOS', payload: newFetchedData || [] });
+            dispatch({
+              type: 'FETCH_TODOS',
+              payload: newFetchedData.filter(
+                (newFetch) => newFetch !== 'undefind'
+              ),
+            });
           }
-        }
+        };
+        fetchTodoList();
       } catch (error) {
         console.error('Error fetching todoList to Firestore:', error);
       } finally {
         setLoading(false);
       }
     };
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && !todosChanged) {
+      if ((uid, !todosChanged)) {
         await fetchTodosFromFirestore(user.uid);
       } else return;
     });
 
     return () => unsubscribe();
-  }, [GetConverter, dispatch]);
+  }, [dispatch]);
 
   useEffect(() => {
     const AddTodos = async () => {
       try {
-        const convertedData = todosConverter2.toFirestore(todos);
-        const dataWithUid = { todoId: user.uid, todos: convertedData };
-        await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
+        const filteredTodos = todos.filter((todo) => todo !== null);
+        await fetch('/todoList', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ uid, todos: filteredTodos }),
+        });
       } catch (error) {
-        console.error('Error adding todoList to Firestore:', error);
+        console.error('🔥 Error sending todos:', error);
       } finally {
         setLoading(false);
       }
@@ -177,7 +235,7 @@ const AsyncContextProvider = ({ children }) => {
     if (AddTodosExecuted) {
       AddTodos();
     }
-  }, [AddTodosExecuted, dispatch, todos, GetConverter, todosConverter2]);
+  }, [AddTodosExecuted, dispatch]);
 
   return (
     <AsyncLogic.Provider
