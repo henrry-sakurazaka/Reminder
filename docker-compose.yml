@@ -68,6 +68,23 @@ services:
     networks:
       - my_custom_network
 
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    depends_on:
+      - firebase
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: '/api/serviceAccountKey.json'
+    volumes:
+      - ./api:/api
+      - ./firebase/serviceAccountKey.json:/api/serviceAccountKey.json
+    networks:
+      - my_custom_network
+
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
