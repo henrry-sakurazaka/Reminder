@@ -45,6 +45,8 @@ test('タスクをフォームに入力して出力を確認', async ({ page }) 
 
   await expect(page).toHaveURL(`${baseUrl}/Example`);
 
+  await page.waitForTimeout(50000);
+
   const lastCircle = page.locator('span.circleI').last();
   await lastCircle.click();
 
