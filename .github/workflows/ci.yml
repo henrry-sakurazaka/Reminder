@@ -59,6 +59,17 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Clear app2 cache
+        run: |
+          rm -rf node_modules/.vite
+          npm cache clean --force
+
+      # - name: Install dependencies
+      #   run: npm install
+
+      - name: Clean install dependencies
+        run: npm ci
+
       - name: Clear Playwright cache
         run: rm -rf /home/nonroot/.cache/ms-playwright
 
@@ -70,17 +81,6 @@ jobs:
 
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
-
-      - name: Clear app2 cache
-        run: |
-          rm -rf node_modules/.vite
-          npm cache clean --force
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Clean install dependencies
-        run: npm ci
 
       - name: Install Docker Compose
         run: |
