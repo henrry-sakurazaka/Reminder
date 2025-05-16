@@ -48,6 +48,10 @@
 
     "rewrites": [
       {
+        "source": "/api/**",
+        "function": "app"
+      },
+      {
         "source": "/firebase-messaging-sw.js",
         "destination": "/firebase-messaging-sw.js"
       },
