@@ -19,6 +19,10 @@
         "function": "app"
       },
       {
+        "source": "/firebase-messaging-sw.js",
+        "destination": "/firebase-messaging-sw.js"
+      },
+      {
         "source": "/__/auth/**",
         "destination": "/__/auth/index.html"
       },
@@ -28,7 +32,26 @@
       }
     ]
   },
-
+  "emulators": {
+    "hosting": {
+      "port": 5000
+    },
+    "pubsub": {
+      "port": 5020
+    },
+    "functions": {
+      "port": 5001
+    },
+    "firestore": {
+      "port": 7000
+    },
+    "auth": {
+      "port": 9099
+    },
+    "storage": {
+      "port": 9199
+    }
+  },
   "storage": {
     "rules": "storage.rules"
   },
