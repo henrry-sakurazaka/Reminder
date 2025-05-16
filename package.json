@@ -56,8 +56,8 @@
     "web-vitals": "^2.1.4"
   },
   "scripts": {
-    "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "server": "node server.js",
+    "dev": "concurrently \"npm run server\" \"vite\"",
+    "server": "node functions/index.mjs",
     "client": "vite",
     "build": "vite build",
     "clean": "rm -rf node_modules && npm install",

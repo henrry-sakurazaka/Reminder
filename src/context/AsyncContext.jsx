@@ -45,7 +45,7 @@ const AsyncContextProvider = ({ children }) => {
     const sendTodosToApi = async (uid, todos) => {
       if (!uid || !todos) return;
       try {
-        await fetch('http://localhost:3001/todoList', {
+        await fetch('http://localhost:3001/api/todoList', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ uid, todos: filteredTodos }),
@@ -76,7 +76,7 @@ const AsyncContextProvider = ({ children }) => {
         const fetchTodoList = async () => {
           if (!uid) return;
           const response = await fetch(
-            `/todoList?uid=${encodeURIComponent(uid)}`
+            `/api/todoList?uid=${encodeURIComponent(uid)}`
           );
           const data = await response.json();
           const data2 = Object.values(data[0].todos);
@@ -110,13 +110,13 @@ const AsyncContextProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [dispatch, uid, todosChanged]);
+  }, [dispatch, uid]);
 
   useEffect(() => {
     const AddTodos = async () => {
       try {
         const filteredTodos = todos.filter((todo) => todo !== null);
-        await fetch('/todoList', {
+        await fetch('/api/todoList', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ uid, todos: filteredTodos }),

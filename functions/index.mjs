@@ -2,22 +2,23 @@ import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
 import admin from 'firebase-admin';
+import functions from 'firebase-functions';
 
 admin.initializeApp();
 
 // Firestoreにアクセス
 const db = admin.firestore();
 
-// const PORT = process.env.PORT || 3000;
-// const HOST = process.env.HOST || 'localhost';
-// const PORT2 = 4200;
-// const PORT3 = 6060;
-// const PORT5 = 9090;
+const PORT = process.env.PORT || 3000;
+const HOST = process.env.HOST || 'localhost';
+const PORT2 = 4200;
+const PORT3 = 6060;
+const PORT5 = 9090;
 const PORT7 = 3001;
 const app = express();
-// const app2 = express();
-// const app3 = express();
-// const app5 = express();
+const app2 = express();
+const app3 = express();
+const app5 = express();
 
 const corsOptions = {
   origin: [
@@ -45,15 +46,15 @@ dotenv.config();
 
 // ミドルウェア
 app.use(express.json());
-// app2.use(express.json());
-// app3.use(express.json());
-// app5.use(express.json());
+app2.use(express.json());
+app3.use(express.json());
+app5.use(express.json());
 // CORSミドルウェアを使用
 
 app.use(cors(corsOptions));
-// app2.use(cors(corsOptions));
-// app3.use(cors(corsOptions));
-// app5.use(cors(corsOptions));
+app2.use(cors(corsOptions));
+app3.use(cors(corsOptions));
+app5.use(cors(corsOptions));
 
 // app5.options('*', cors(corsOptions));
 
@@ -76,11 +77,11 @@ function convertTodoForFirestore(todo) {
   };
 }
 
-// app5.get('/', (req, res) => {
-//   res.send('Hello, World!');
-// });
+app5.get('/', (req, res) => {
+  res.send('Hello, World!');
+});
 
-app.get('/todoList', async (req, res) => {
+app.get('/api/todoList', async (req, res) => {
   try {
     const uid = req.query.uid;
     if (!uid) return res.status(400).json({ error: 'No UID' });
@@ -98,7 +99,7 @@ app.get('/todoList', async (req, res) => {
   }
 });
 
-app.post('/todoList', async (req, res) => {
+app.post('/api/todoList', async (req, res) => {
   try {
     const { uid, todos } = req.body;
 
@@ -123,26 +124,26 @@ app.post('/todoList', async (req, res) => {
 app.listen(PORT7, HOST, () => {
   console.log(`Server is running on port ${PORT7}`);
 });
-// app2.listen(PORT2, () => {
-//   console.log(`Server is running on port ${PORT2}`);
-// });
-// app3.listen(PORT3, () => {
-//   console.log(`Server is running on port ${PORT3}`);
-// });
-// app5.listen(PORT5, () => {
-//   console.log(`Server is running on port ${PORT5}`);
-// });
+app2.listen(PORT2, () => {
+  console.log(`Server is running on port ${PORT2}`);
+});
+app3.listen(PORT3, () => {
+  console.log(`Server is running on port ${PORT3}`);
+});
+app5.listen(PORT5, () => {
+  console.log(`Server is running on port ${PORT5}`);
+});
 
-// // Firebase Functionsとしてエクスポート
-// exports.apiX = functions.https.onRequest((req, res) => {
-//   corsHandler(req, res, () => app2(req, res));
-// });
-// exports.api17 = functions.https.onRequest((req, res) => {
-//   corsHandler(req, res, () => app3(req, res));
-// });
-exports.api = functions.https.onRequest((req, res) => {
+// Firebase Functionsとしてエクスポート
+export const apiX = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app2(req, res));
+});
+export const api17 = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app3(req, res));
+});
+export const api = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app(req, res));
 });
-// exports.api5 = functions.https.onRequest((req, res) => {
-//   corsHandler(req, res, () => app5(req, res));
-// });
+export const api5 = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app5(req, res));
+});
