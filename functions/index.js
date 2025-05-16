@@ -1,435 +1,148 @@
-// const express = require('express');
-// const { onRequest } = require('firebase-functions/v2/https');
-// const logger = require('firebase-functions/logger');
-// const functions = require('firebase-functions/v2');
-// const admin = require('firebase-admin');
-// const bodyParser = require('body-parser');
-// const path = require('path');
-// const fs = require('fs');
-// const cors = require('cors');
-// const dotenv = require('dotenv');
-// const { environments } = require('eslint-plugin-prettier');
+import dotenv from 'dotenv';
+import express from 'express';
+import cors from 'cors';
+import admin from 'firebase-admin';
 
-// dotenv.config();
+admin.initializeApp();
 
-// if (process.env.CI !== 'true') {
-//   dotenv.config();
-// }
+// Firestoreにアクセス
+const db = admin.firestore();
 
-//For local environment
-// var serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-// var serviceAccount = require(process.env.FIREBASE_SERVICE_ACCOUNT);
-
-// let serviceAccount;
-
-// if (process.env.FIREBASE_SERVICE_ACCOUNT) {
-//   try {
-//     // JSON形式ならオブジェクトにパース
-//     serviceAccount = JSON.parse(process.env.FIREBASE_SERVICE_ACCOUNT);
-//   } catch (error) {
-//     // JSONでない場合はファイルパスとみなして require() する
-//     serviceAccount = require(process.env.GOOGLE_APPLICATION_CREDENTIALS);
-//   }
-// } else {
-//   // 環境変数が未定義ならデフォルトのパスを使用
-//   const defaultPath = path.join(__dirname, "serviceAccountKey.json");
-//   if (fs.existsSync(defaultPath)) {
-//     serviceAccount = require(defaultPath);
-//   } else {
-//     throw new Error("Service account credentials not found.");
-//   }
-// }
-// console.log('=== DEBUG INFO ===');
-// console.log('Current Directory:', __dirname);
-
-// admin.initializeApp({
-//   credential: admin.credential.cert(serviceAccount),
-//   databaseURL: process.env.VITE_REACT_APP_FIREBASE_DATABASE_URL,
-// });
-
-// const app = express();
+// const PORT = process.env.PORT || 3000;
+// const HOST = process.env.HOST || 'localhost';
+// const PORT2 = 4200;
+// const PORT3 = 6060;
+// const PORT5 = 9090;
+const PORT7 = 3001;
+const app = express();
 // const app2 = express();
-// const isEmulator = process.env.FUNCTIONS_EMULATOR === 'true';
-// const PORT = 4200;
-// const PORT2 = 6060;
-// const PORT = 8080;
-// const PORT = isEmulator ? 6000 : process.env.PORT || 6080;
+// const app3 = express();
+// const app5 = express();
 
-// CORSのミドルウェアを設定
-// const corsOptions = {
-//   origin: [
-//     'https://reminder5-27ef0.web.app',
-//     'http://localhost:3000',
-//     'https://offsetcodecraft.site',
-//   ],
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-//   allowedHeaders: [
-//     'Content-Type',
-//     'Authorization',
-//     'Access-Control-Allow-Origin',
-//   ],
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+const corsOptions = {
+  origin: [
+    'https://reminder5-27ef0.web.app',
+    'http://localhost:3000',
+    'http://localhost:9090',
+    'https://offsetcodecraft.site',
+    '0.0.0.0',
+    '172.18.0.4',
+    'http://app2:3000',
+    'http://192.168.0.3:3000',
+    'http://192.168.0.7:3000',
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Access-Control-Allow-Origin',
+  ],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
-// Express app に CORS ミドルウェアを適用
+dotenv.config();
 
-// app.use(express.json());
+// ミドルウェア
+app.use(express.json());
 // app2.use(express.json());
-// app.use(express.static(path.join(__dirname, 'build')));
-// app.use(bodyParser.json());
-// app.use(cors(corsOptions));
+// app3.use(express.json());
+// app5.use(express.json());
+// CORSミドルウェアを使用
 
-// 静的ファイルを正しいMIMEタイプで配信するための設定
-// app.use(
-//   express.static(path.join(__dirname, 'public'), {
-//     setHeaders: (res, path) => {
-//       if (path.endsWith('.js')) {
-//         res.setHeader('Content-Type', 'application/javascript');
-//       }
-//     },
-//   })
-// );
+app.use(cors(corsOptions));
+// app2.use(cors(corsOptions));
+// app3.use(cors(corsOptions));
+// app5.use(cors(corsOptions));
 
-// app.get('/', (req, res) => {
-//   res.sendFile(path.join(__dirname, 'build', 'index.html'));
+// app5.options('*', cors(corsOptions));
+
+function convertTodoForFirestore(todo) {
+  if (!todo) return false;
+  return {
+    title: todo.title,
+    description: todo.description,
+    type: todo.type,
+    id: todo.id,
+    content: todo.content,
+    editing: todo.editing,
+    completed: todo.completed,
+    reserve: todo.reserve,
+    editingLock: todo.editingLock,
+    editingColor: todo.editingColor,
+    editingDateTime: todo.editingDateTime,
+    notification: todo.notification,
+    shouldHandleNotifications: todo.shouldHandleNotifications ?? false,
+  };
+}
+
+// app5.get('/', (req, res) => {
+//   res.send('Hello, World!');
 // });
 
-// app.post('/handleEasyLogin', (req, res) => {
-//   const { email, password } = req.body;
+app.get('/todoList', async (req, res) => {
+  try {
+    const uid = req.query.uid;
+    if (!uid) return res.status(400).json({ error: 'No UID' });
 
-//   admin
-//     .auth()
-//     .signInWithEmailAndPassword(email, password)
-//     .then((userCredential) => {
-//       const idToken = userCredential.user.getIdToken();
-//       res.status(200).send({ idToken: idToken });
-//     })
-//     .catch((error) => {
-//       res
-//         .status(400)
-//         .send({ message: 'Failed to login', error: error.message });
-//     });
-// });
+    const snapshot = await db
+      .collection('todoList3')
+      .where('todoId', '==', uid)
+      .get();
+    const todos = snapshot.docs.map((doc) => doc.data());
 
-// if (isEmulator) {
-//   console.log('Running in emulator mode');
-// } else {
-//   console.log('Running in production mode');
-//   // 本番デプロイではエミュレーターを起動しない
-//   console.log('PORT:', process.env.PORT);
-// }
+    res.json(todos);
+  } catch (error) {
+    console.error('🔥 Error in /todoList:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
-// app.get('/', (req, res) => {
-//   res.send('Hello World!');
-// });
+app.post('/todoList', async (req, res) => {
+  try {
+    const { uid, todos } = req.body;
 
-// app.listen(PORT, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// });
+    if (!uid || !Array.isArray(todos)) {
+      return res.status(400).json({ error: 'Missing uid or invalid todos' });
+    }
+    const filteredTodos = todos
+      .filter((todo) => todo !== null)
+      .map(convertTodoForFirestore);
+    // Firestore に保存（上書き or 新規）
+    await db.collection('todoList3').doc(uid).set({
+      todoId: uid,
+      todos: filteredTodos,
+    });
+    res.status(200).json({ message: 'Todo list saved successfully' });
+  } catch (error) {
+    console.error('🔥 Error in POST /todoList:', error);
+    res.status(500).json({ error: 'Internal Server Error' });
+  }
+});
 
+app.listen(PORT7, HOST, () => {
+  console.log(`Server is running on port ${PORT7}`);
+});
 // app2.listen(PORT2, () => {
 //   console.log(`Server is running on port ${PORT2}`);
 // });
+// app3.listen(PORT3, () => {
+//   console.log(`Server is running on port ${PORT3}`);
+// });
+// app5.listen(PORT5, () => {
+//   console.log(`Server is running on port ${PORT5}`);
+// });
 
 // // Firebase Functionsとしてエクスポート
-// exports.apiX = functions.https.onRequest(app);
-// exports.api17 = functions.https.onRequest(app2);
-
-// // トークンを返すエンドポイントを追加
-// app.get('/get-token', cors(corsOptions), async (req, res) => {
-
-//     const { uid } = req.query;
-//     if (!uid) {
-//       return res.status(400).send('UID is required');
-//     }
-//     try {
-
-//       const tokenSnapshot = await admin.database().ref('tokens').child(uid).get();
-
-//       if (!tokenSnapshot.exists()) {
-//         return res.status(404).send('Token not found');
-//       }
-
-//       const deviceToken = tokenSnapshot.val().deviceToken;
-//       res.status(200).json({ token: deviceToken });
-//     } catch (error) {
-
-//       res.status(500).send(`Error fetching token: ${error.message}`);
-//     }
-//   });
-
-// app.post('/api/saveTokens',cors(corsOptions), async (req, res) => {
-// const { idToken, deviceToken } = req.body;
-
-// // トークンを保存する処理を実装する
-// res.status(200).send('Tokens saved successfully');
-
-// try {
-//     // idToken を検証し、ユーザーを認証
-//     const decodedToken = await admin.auth().verifyIdToken(idToken);
-//     const uid = decodedToken.uid;
-
-//     // トークンをデータベースに保存
-//     await admin.database().ref('tokens').child(uid).set({
-//       deviceToken: deviceToken,
-//     });
-
-//     res.status(200).send('Tokens saved successfully');
-//   } catch (error) {
-
-//     res.status(500).send(`Error saving tokens: ${error.message}`);
-//   }
+// exports.apiX = functions.https.onRequest((req, res) => {
+//   corsHandler(req, res, () => app2(req, res));
 // });
-
-//  // トークンを受け取るエンドポイント
-// app.post('/registerToken', cors(corsOptions), async (req, res) => {
-//   const token = req.body.token;
-//   if (!token) {
-//     return res.status(400).send('Invalid request: Token is missing');
-//   }
-
-//   try {
-//     // トークンをデータベースに保存する処理をここに追加します
-//     // 例:
-//     await admin.firestore().collection('tokens').add({ token });
-
-//     return res.status(200).send('Token registered successfully');
-//   } catch (error) {
-//     console.log(error);
-//     return res.status(500).send('Internal Server Error');
-//   }
+// exports.api17 = functions.https.onRequest((req, res) => {
+//   corsHandler(req, res, () => app3(req, res));
 // });
-
-// app.post('/send-notification', cors(corsOptions), async (req, res) => {
-// const idToken = req.headers.authorization?.split('Bearer ')[1]; // Authorizationヘッダーからトークンを取得
-// if (!idToken) {
-//     return res.status(403).json({ error: 'Authorization header missing' });
-//     }
-
-// try {
-//     const decodedToken = await admin.auth().verifyIdToken(idToken);
-//     const uid = decodedToken.uid;
-//     const { deviceToken } = req.body;
-
-//     if (!deviceToken) {
-//         return res.status(400).json({ error: 'Device token missing' });
-//         }
-//     // デバイストークンをデータベースに保存
-//     await admin.database().ref('tokens').child(uid).set({
-//         deviceToken: deviceToken,
-//     });
-//     // // プッシュ通知の送信
-//     // const payload = {
-//     //     notification: {
-//     //         title: message.title,
-//     //         body: message.body,
-//     //     },
-//     // };
-
-//     res.status(200).send('Notification sent successfully');
-// } catch (error) {
-//     console.error(error); // エラーをログに出力
-//     res.status(500).send(`Error sending notification: ${error.message}`);
-// }
-// });
-
-// exports.api = functions.https.onRequest(app);
-
-// exports.registerToken = functions.https.onRequest((req, res) => {
-//   const allowedOrigins = ['https://reminder5-27ef0.web.app', 'http://localhost3000'];
-
-//   const origin = req.headers.origin;
-
-//   if (allowedOrigins.includes(origin)) {
-//     res.set('Access-Control-Allow-Origin', origin);
-//   } else {
-//     res.set('Access-Control-Allow-Origin', '*');
-//   }
-
-//   if (req.method === 'OPTIONS') {
-//     // Preflightリクエストの処理
-//     res.set('Access-Control-Allow-Methods', 'GET, POST');
-//     res.set('Access-Control-Allow-Headers', 'Content-Type, Authorization');
-//     res.status(204).send('');
-//     return;
-//   }
-
-//   if (req.method !== 'POST') {
-//     return res.status(405).send('Method Not Allowed');
-//   }
-
-//   const token = req.body.token;
-//   if (!token) {
-//     return res.status(400).send('Token is required');
-//   }
-
-//   admin.firestore().collection('tokens').add({ token })
-
-//       if (allowedOrigins.includes(origin)) {
-//         res.set('Access-Control-Allow-Origin', origin);
-//       } else {
-//         res.set('Access-Control-Allow-Origin', '*');
-//       }
-//       res.status(200).send('Token registered successfully');
-
-// });
-
-// // データベースの特定の場所を監視するトリガー関数を定義する
-// exports.monitorDatabaseChanges = functions.database.ref("/todos/{todoId}")
-//     .onWrite((change) => {
-//         // 変更を取得する
-//         // const beforeData = change.before.val();
-//         // const afterData = change.after.val();
-
-//         // 変更を処理する
-//         // ここにプッシュ通知の送信などの処理を追加します
-
-//         // 処理が完了したことを示すPromiseを返す
-//         return Promise.resolve();
-//     });
-
-// const firestore = admin.firestore();
-
-// exports.sendNotificationOnTodoUpdate = functions.firestore.document('todoList3/{todoId}')
-//     .onUpdate(async (change, context) => {
-//         const beforeData = change.before.data(); // 変更前のデータ
-//         const afterData = change.after.data(); // 変更後のデータ
-//         if (beforeData.someField !== afterData.someField) {
-//           console.log('Field has changed:', beforeData.someField, 'to', afterData.someField);
-//         }
-
-//         // データの変更をチェック
-//         if (beforeData.notificationTime !== afterData.notificationTime) {
-//             const payload = {
-//                 notification: {
-//                     title: 'Todo Updated',
-//                     body: `Todo with ID: ${context.params.todoId} has been updated.`,
-//                 }
-//             };
-
-//             // ユーザーのトークンを取得して通知を送信
-//             try {
-//                 const tokensSnapshot = await firestore.collection('tokens').get();
-//                 const deviceTokens = tokensSnapshot.docs.map(doc => doc.data().deviceToken);
-
-//                 if (deviceTokens.length > 0) {
-//                     const response = await admin.messaging().send(deviceTokens, payload);
-//                     console.log('response', response);
-//                 }
-//             } catch (error) {
-//                 console.error('Error sending notifications:', error);
-//             }
-//         }
-
-//         return null;
-//     });
-
-// // 通知を送信する関数
-// exports.sendNotification = functions.https.onRequest((req, res) => {
-//         cors(corsOptions)(req, res, async  () => {
-//             try {
-
-//                 const idToken = req.headers.authorization?.split('Bearer ')[1];
-
-//                 if (!idToken) {
-//                   return res.status(403).json({ error: 'Authorization header missing' });
-//                 }
-
-//                 // Firebase Auth トークンを検証
-//                 // const decodedToken = await admin.auth().verifyIdToken(idToken);
-//                 // const uid = decodedToken.uid; // デコードされたトークンから UID を取得
-
-//                 const topic = 'valid-topic_123';
-//                 const title = String(req.body.title); // title を文字列型に変換
-//                 const body = String(req.body.body);
-//                 const payload = {
-//                 notification: {
-//                     title: title,
-//                     body: body
-//                 }
-//                 };
-//                // Preflightリクエストの処理
-
-//                 if (req.method === 'OPTIONS') {
-//                     res.set('Access-Control-Allow-Origin', ['https://reminder5-27ef0.web.app', 'http://localhost3000']);
-//                     res.set('Access-Control-Allow-Methods', 'GET, POST');
-//                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
-
-//                     res.status(204).send('');
-
-//                 } else {
-//                 cors(req, res, () => {
-//                     res.set('Access-Control-Allow-Origin', ['https://reminder5-27ef0.web.app', 'http://localhost3000']);
-//                     res.set('Access-Control-Allow-Methods', 'GET, POST');
-//                     res.set('Access-Control-Allow-Headers', 'Content-Type', 'Authorization');
-//                     res.status(204).send('');
-//                 });
-//                 }
-
-//                 const response = await admin.messaging().sendToTopic(topic, payload);
-
-//                 return res.status(200).json({ message: "Successfully sent message", response: response });
-//             } catch (error) {
-//             res.status(500).json({error:`Error sending notification2: ${error.message}`});
-//         }
-//     });
-// });
-
-// exports.saveTokens = functions.https.onRequest((req, res) => {
-//     cors(corsOptions)(req, res, () => {
-//         if (req.method !== 'POST') {
-//             return res.status(405).send({ message: 'Only POST requests are allowed' });
-//             }
-//       // ここにトークンを保存するロジックを記述
-//       const idToken = req.body.idToken;
-//       const deviceToken = req.body.deviceToken;
-
-//       // トークンを保存する処理（例）
-//       admin.firestore().collection('tokens').add({
-//         idToken: idToken,
-//         deviceToken: deviceToken,
-//         createdAt: admin.firestore.FieldValue.serverTimestamp()
-//       })
-//       .then(() => {
-//         return res.status(200).send({ success: true });
-//       })
-//       .catch(error => {
-//         return res.status(500).send({ success: false, error: error.message });
-//       });
-//     });
-//   });
-
-// データを取得する関数
-// exports.getTodoList = functions.https.onRequest((req, res) => {
-//     const db = admin.firestore();
-//     db.collection('todoList3').get()
-//         .then(snapshot => {
-//             let data = [];
-//             snapshot.forEach(doc => {
-//                 data.push(doc.data());
-//             });
-//             res.status(200).send(data);
-//         })
-//         .catch(error => {
-//             console.error("Error accessing Firestore: ", error);
-//             res.status(500).send("Error accessing Firestore");
-//         });
-// });
-
-// // データを取得する関数
-// exports.myFunction = functions.https.onRequest((req, res) => {
-//     const db = admin.firestore();
-//     db.collection('todoList3').get()
-//         .then(snapshot => {
-//             let data = [];
-//             snapshot.forEach(doc => {
-//                 data.push(doc.data());
-//             });
-//             res.status(200).send(data);
-//         })
-//         .catch(error => {
-//             console.error("Error accessing Firestore: ", error);
-//             res.status(500).send("Error accessing Firestore");
-//         });
+exports.api = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app(req, res));
+});
+// exports.api5 = functions.https.onRequest((req, res) => {
+//   corsHandler(req, res, () => app5(req, res));
 // });

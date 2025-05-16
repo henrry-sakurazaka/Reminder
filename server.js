@@ -269,7 +269,7 @@ const PORT2 = 4200;
 const PORT3 = 6060;
 const PORT5 = 9090;
 const PORT7 = 3001;
-const app = express();
+// const app = express();
 const app2 = express();
 const app3 = express();
 const app5 = express();
@@ -299,13 +299,13 @@ const corsOptions = {
 dotenv.config();
 
 // ミドルウェア
-app.use(express.json());
+// app.use(express.json());
 app2.use(express.json());
 app3.use(express.json());
 app5.use(express.json());
 // CORSミドルウェアを使用
 
-app.use(cors(corsOptions));
+// app.use(cors(corsOptions));
 app2.use(cors(corsOptions));
 app3.use(cors(corsOptions));
 app5.use(cors(corsOptions));
@@ -335,49 +335,49 @@ app5.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-app.get('/todoList', async (req, res) => {
-  try {
-    const uid = req.query.uid;
-    if (!uid) return res.status(400).json({ error: 'No UID' });
+// app.get('/todoList', async (req, res) => {
+//   try {
+//     const uid = req.query.uid;
+//     if (!uid) return res.status(400).json({ error: 'No UID' });
 
-    const snapshot = await db
-      .collection('todoList3')
-      .where('todoId', '==', uid)
-      .get();
-    const todos = snapshot.docs.map((doc) => doc.data());
+//     const snapshot = await db
+//       .collection('todoList3')
+//       .where('todoId', '==', uid)
+//       .get();
+//     const todos = snapshot.docs.map((doc) => doc.data());
 
-    res.json(todos);
-  } catch (error) {
-    console.error('🔥 Error in /todoList:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+//     res.json(todos);
+//   } catch (error) {
+//     console.error('🔥 Error in /todoList:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
-app.post('/todoList', async (req, res) => {
-  try {
-    const { uid, todos } = req.body;
+// app.post('/todoList', async (req, res) => {
+//   try {
+//     const { uid, todos } = req.body;
 
-    if (!uid || !Array.isArray(todos)) {
-      return res.status(400).json({ error: 'Missing uid or invalid todos' });
-    }
-    const filteredTodos = todos
-      .filter((todo) => todo !== null)
-      .map(convertTodoForFirestore);
-    // Firestore に保存（上書き or 新規）
-    await db.collection('todoList3').doc(uid).set({
-      todoId: uid,
-      todos: filteredTodos,
-    });
-    res.status(200).json({ message: 'Todo list saved successfully' });
-  } catch (error) {
-    console.error('🔥 Error in POST /todoList:', error);
-    res.status(500).json({ error: 'Internal Server Error' });
-  }
-});
+//     if (!uid || !Array.isArray(todos)) {
+//       return res.status(400).json({ error: 'Missing uid or invalid todos' });
+//     }
+//     const filteredTodos = todos
+//       .filter((todo) => todo !== null)
+//       .map(convertTodoForFirestore);
+//     // Firestore に保存（上書き or 新規）
+//     await db.collection('todoList3').doc(uid).set({
+//       todoId: uid,
+//       todos: filteredTodos,
+//     });
+//     res.status(200).json({ message: 'Todo list saved successfully' });
+//   } catch (error) {
+//     console.error('🔥 Error in POST /todoList:', error);
+//     res.status(500).json({ error: 'Internal Server Error' });
+//   }
+// });
 
-app.listen(PORT7, HOST, () => {
-  console.log(`Server is running on port ${PORT7}`);
-});
+// app.listen(PORT7, HOST, () => {
+//   console.log(`Server is running on port ${PORT7}`);
+// });
 app2.listen(PORT2, () => {
   console.log(`Server is running on port ${PORT2}`);
 });
