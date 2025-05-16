@@ -568,7 +568,7 @@ jobs:
 
       - name: Deploy To Firebase
         run: |
-          firebase deploy --only hosting
+          firebase deploy
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
