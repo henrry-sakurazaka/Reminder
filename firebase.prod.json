@@ -52,10 +52,6 @@
         "destination": "/firebase-messaging-sw.js"
       },
       {
-        "source": "/api/**",
-        "function": "app"
-      },
-      {
         "source": "/__/auth/**",
         "destination": "/__/auth/index.html"
       },

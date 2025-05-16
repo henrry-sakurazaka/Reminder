@@ -110,7 +110,7 @@ const AsyncContextProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, uid, todosChanged]);
 
   useEffect(() => {
     const AddTodos = async () => {
