@@ -101,7 +101,7 @@ export default defineConfig({
     ],
     proxy: {
       '/api/todoList': {
-        target: 'http://localhost:3001', // Expressサーバーのポート
+        target: 'http://api:3001', // Expressサーバーのポート
         changeOrigin: true,
         rewrite: (path) => path,
       },
