@@ -13,7 +13,7 @@ function FirstAuth() {
   useEffect(() => {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
-        navigate('/AuthRedirect'); // ログインしていない場合は認証ページにリダイレクト
+        navigate('/UserAuth'); // ログインしていない場合は認証ページにリダイレクト
       } else {
         setAuthenticated(true);
       }
