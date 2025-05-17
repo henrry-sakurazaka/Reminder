@@ -430,10 +430,10 @@ jobs:
 
   deploy:
     runs-on: ubuntu-latest
-    needs:
-      # - lint
-      # - E2E-tests
-      # - prettier
+    # needs:
+    # - lint
+    # - E2E-tests
+    # - prettier
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
