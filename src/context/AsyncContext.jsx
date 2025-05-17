@@ -45,12 +45,11 @@ const AsyncContextProvider = ({ children }) => {
     const sendTodosToApi = async (uid, todos) => {
       if (!uid || !todos) return;
       try {
-        await fetch('http://localhost:3001/api/todoList', {
+        await fetch('/api/todoList', {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ uid, todos: filteredTodos }),
+          body: JSON.stringify({ uid, todos }),
         });
-        console.log('✅ Successfully sent todos to API');
       } catch (error) {
         console.error('🔥 Error sending todos:', error);
       } finally {
@@ -61,14 +60,13 @@ const AsyncContextProvider = ({ children }) => {
       if (
         user &&
         todos.length > 0 &&
-        todos.forEach((todo) => todo !== null && todo !== undefined)
+        todos.every((todo) => todo !== null && todo !== undefined)
       ) {
         await sendTodosToApi(uid, todos);
-        console.log('sendTodoApi');
       } else return;
     });
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [todos, dispatch]);
 
   useEffect(() => {
     const fetchTodosFromFirestore = async (uid, todos) => {
@@ -110,7 +108,7 @@ const AsyncContextProvider = ({ children }) => {
     });
 
     return () => unsubscribe();
-  }, [dispatch, uid]);
+  }, [dispatch]);
 
   useEffect(() => {
     const AddTodos = async () => {

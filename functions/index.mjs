@@ -9,7 +9,6 @@ admin.initializeApp();
 // Firestoreにアクセス
 const db = admin.firestore();
 
-const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const PORT2 = 4200;
 const PORT3 = 6060;
