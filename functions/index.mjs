@@ -8,7 +8,7 @@ admin.initializeApp();
 
 // Firestoreにアクセス
 const db = admin.firestore();
-
+const PORT = process.env.PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const PORT2 = 4200;
 const PORT3 = 6060;
@@ -18,6 +18,7 @@ const app = express();
 const app2 = express();
 const app3 = express();
 const app5 = express();
+const app9 = express();
 
 const corsOptions = {
   origin: [
@@ -48,12 +49,14 @@ app.use(express.json());
 app2.use(express.json());
 app3.use(express.json());
 app5.use(express.json());
+app9.use(express.json());
 // CORSミドルウェアを使用
 
 app.use(cors(corsOptions));
 app2.use(cors(corsOptions));
 app3.use(cors(corsOptions));
 app5.use(cors(corsOptions));
+app9.use(cors(corsOptions));
 
 // app5.options('*', cors(corsOptions));
 
@@ -79,6 +82,9 @@ function convertTodoForFirestore(todo) {
 app5.get('/', (req, res) => {
   res.send('Hello, World!');
 });
+// app9.get('/', (req, res) => {
+//   res.send('Reminder');
+// })
 
 app.get('/api/todoList', async (req, res) => {
   try {
@@ -132,6 +138,9 @@ app3.listen(PORT3, () => {
 app5.listen(PORT5, () => {
   console.log(`Server is running on port ${PORT5}`);
 });
+// app9.listen(PORT, HOST, () => {
+//   console.log(`Server is running on port ${PORT}`);
+// })
 
 // Firebase Functionsとしてエクスポート
 export const apiX = functions.https.onRequest((req, res) => {

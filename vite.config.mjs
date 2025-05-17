@@ -105,12 +105,6 @@ export default defineConfig({
         changeOrigin: true,
         rewrite: (path) => path,
       },
-      // proxy: {
-      //   '/api': {
-      //     target: 'http://localhost:9090',
-      //     changeOrigin: true,
-      //     rewrite: (path) => path.replace(/^\/api/, ''),
-      //   },
     },
     hmr: true,
     overlay: false,
