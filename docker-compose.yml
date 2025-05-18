@@ -106,7 +106,7 @@ services:
     volumes:
       #Setting for CI/CD
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
-      #Setting for local environment
+      # #Setting for local environment
       # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ['/home/nonroot/.cloudflared/entrypoint.sh']
     environment:
