@@ -57,7 +57,7 @@
   },
   "scripts": {
     "dev": "concurrently \"npm run server\" \"vite\"",
-    "server": "node functions/index.mjs",
+    "server": "node functions/index.js",
     "client": "vite",
     "build": "vite build",
     "clean": "rm -rf node_modules && npm install",

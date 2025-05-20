@@ -34,7 +34,7 @@ services:
       VITE_PORT: ${VITE_PORT}
       VITE_HOST: ${VITE_HOST}
       HOST: 0.0.0.0
-      PORT: 3000
+      CUSTOM_PORT: 3000
     depends_on:
       - firebase
       - api

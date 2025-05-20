@@ -8,17 +8,19 @@ admin.initializeApp();
 
 // Firestoreにアクセス
 const db = admin.firestore();
-const PORT = process.env.PORT || 3000;
+const CUSTOM_PORT = process.env.CUSTOM_PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
-const PORT2 = 4200;
-const PORT3 = 6060;
-const PORT5 = 9090;
-const PORT7 = 3001;
+const CUSTOM_PORT2 = 4200;
+const CUSTOM_PORT3 = 6060;
+const CUSTOM_PORT5 = 9090;
+const CUSTOM_PORT7 = 3001;
 const app = express();
 const app2 = express();
 const app3 = express();
 const app5 = express();
 const app9 = express();
+const isLocal = !process.env.FUNCTIONS_NAME;
+const ci = process.env.CI;
 
 const corsOptions = {
   origin: [
@@ -126,31 +128,33 @@ app.post('/api/todoList', async (req, res) => {
   }
 });
 
-app.listen(PORT7, HOST, () => {
-  console.log(`Server is running on port ${PORT7}`);
-});
-app2.listen(PORT2, () => {
-  console.log(`Server is running on port ${PORT2}`);
-});
-app3.listen(PORT3, () => {
-  console.log(`Server is running on port ${PORT3}`);
-});
-app5.listen(PORT5, () => {
-  console.log(`Server is running on port ${PORT5}`);
-});
-// app9.listen(PORT, HOST, () => {
-//   console.log(`Server is running on port ${PORT}`);
-// })
+if (isLocal) {
+  app.listen(CUSTOM_PORT7, HOST, () => {
+    console.log(`Server is running on port ${CUSTOM_PORT7}`);
+  });
+  app2.listen(CUSTOM_PORT2, () => {
+    console.log(`Server is running on port ${CUSTOM_PORT2}`);
+  });
+  app3.listen(CUSTOM_PORT3, () => {
+    console.log(`Server is running on port ${CUSTOM_PORT3}`);
+  });
+  app5.listen(CUSTOM_PORT5, () => {
+    console.log(`Server is running on port ${CUSTOM_PORT5}`);
+  });
+  // app9.listen(CUSTOM_PORT, HOST, () => {
+  //   console.log(`Server is running on port ${CUSTOM_PORT}`);
+  // })
+}
 
 // Firebase Functionsとしてエクスポート
+export const api = functions.https.onRequest((req, res) => {
+  corsHandler(req, res, () => app(req, res));
+});
 export const apiX = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app2(req, res));
 });
 export const api17 = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app3(req, res));
-});
-export const api = functions.https.onRequest((req, res) => {
-  corsHandler(req, res, () => app(req, res));
 });
 export const api5 = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app5(req, res));

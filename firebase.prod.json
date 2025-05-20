@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -49,7 +52,7 @@
     "rewrites": [
       {
         "source": "/api/**",
-        "function": "app"
+        "function": "api"
       },
       {
         "source": "/firebase-messaging-sw.js",

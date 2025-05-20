@@ -262,7 +262,7 @@ admin.initializeApp();
 
 const db = admin.firestore();
 
-const PORT = process.env.PORT || 3000;
+const PORT = process.env.CUSTOM_PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 
 const app = express();
