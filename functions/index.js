@@ -20,7 +20,6 @@ const app3 = express();
 const app5 = express();
 const app9 = express();
 const isLocal = !process.env.FUNCTIONS_NAME;
-const ci = process.env.CI;
 
 const corsOptions = {
   origin: [
@@ -44,6 +43,7 @@ const corsOptions = {
   optionsSuccessStatus: 204,
 };
 
+const corsHandler = cors(corsOptions);
 dotenv.config();
 
 // ミドルウェア
