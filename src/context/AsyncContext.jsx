@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { useDispatchTodos, useTodos } from './TodoContext';
 import { firestore, auth } from '@/firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 
 const AsyncLogic = createContext();
@@ -28,7 +27,6 @@ const AsyncContextProvider = ({ children }) => {
   const [fetchTodos, setFetchTodos] = useState();
   const [todosArray, setTodosArray] = useState();
   const [render, setRender] = useState(false);
-
   const fetchedDataRef = useRef(null);
 
   useEffect(() => {
@@ -44,8 +42,13 @@ const AsyncContextProvider = ({ children }) => {
   useEffect(() => {
     const sendTodosToApi = async (uid, todos) => {
       if (!uid || !todos) return;
+      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      const apiUrl2 = isLocal
+        ? `/api/todoList`
+        : `https://reminder5-27ef0.web.app/api/todoList`;
+
       try {
-        await fetch('/api/todoList', {
+        await fetch(apiUrl2, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ uid, todos }),
@@ -70,12 +73,15 @@ const AsyncContextProvider = ({ children }) => {
 
   useEffect(() => {
     const fetchTodosFromFirestore = async (uid, todos) => {
+      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      const apiUrl = isLocal
+        ? `/api/todoList?uid=${encodeURIComponent(uid)}`
+        : `https://reminder5-27ef0.web.app/api/todoList?uid=${encodeURIComponent(uid)}`;
+
       try {
         const fetchTodoList = async () => {
           if (!uid) return;
-          const response = await fetch(
-            `/api/todoList?uid=${encodeURIComponent(uid)}`
-          );
+          const response = await fetch(apiUrl);
           const data = await response.json();
           const data2 = Object.values(data[0].todos);
           setFetchTodos(data2);
@@ -112,9 +118,14 @@ const AsyncContextProvider = ({ children }) => {
 
   useEffect(() => {
     const AddTodos = async () => {
+      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      const apiUrl2 = isLocal
+        ? `/api/todoList`
+        : `https://reminder5-27ef0.web.app/api/todoList`;
+
       try {
         const filteredTodos = todos.filter((todo) => todo !== null);
-        await fetch('/api/todoList', {
+        await fetch(apiUrl2, {
           method: 'POST',
           headers: { 'Content-Type': 'application/json' },
           body: JSON.stringify({ uid, todos: filteredTodos }),

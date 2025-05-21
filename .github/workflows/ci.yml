@@ -96,6 +96,7 @@ jobs:
 
       - name: Create .env file and keys
         run: |
+          echo "VITE_IS_LOCAL=${{ secrets.VITE_IS_LOCAl }}" >> .env
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
           echo "CUSTOM_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
@@ -563,6 +564,8 @@ jobs:
         run: npm ci
 
       - name: Build For Deploy
+        env:
+          VITE_NODE_ENV: production
         run: |
           npm run build
 
