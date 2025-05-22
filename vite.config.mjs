@@ -103,15 +103,15 @@ export default defineConfig(({ mode }) => {
       hmr: true,
       overlay: false,
       cors: true,
-      proxy: isLocal
-        ? {
-            '/api/todoList': {
-              target: 'http://localhost:3001',
-              changeOrigin: true,
-              rewrite: (path) => path,
-            },
-          }
-        : undefined,
+      // proxy: isLocal
+      //   ? {
+      //       '/api/apiTodoList': {
+      //         target: 'http://localhost:3001',
+      //         changeOrigin: true,
+      //         rewrite: (path) => path,
+      //       },
+      //     }
+      //   : undefined,
     },
     // reporter は Vite の設定ではなく、Vitest 用。通常 vite.config には不要。
   };

@@ -493,6 +493,7 @@ jobs:
 
           cp .env .env.production
           cat .env.production
+          echo "NODE_ENV=production" >> .env.production
 
       - name: Decode to json file
         run: |
@@ -571,7 +572,8 @@ jobs:
 
       - name: Deploy To Firebase
         run: |
-          firebase deploy
+          firebase deploy --only functions
+          firebase deploy --only hosting
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json

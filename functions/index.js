@@ -1,14 +1,22 @@
 import dotenv from 'dotenv';
 import express from 'express';
 import cors from 'cors';
+// import * as functions from 'firebase-functions';
+// import * as admin from 'firebase-admin';
 import admin from 'firebase-admin';
 import functions from 'firebase-functions';
+import { Firestore } from 'firebase-admin/firestore';
+import { projectID } from 'firebase-functions/params';
+import serviceAccount from './serviceAccountKey.json' assert { type: 'json' };
 
-admin.initializeApp();
+
+admin.initializeApp({
+  credential: admin.credential.cert(serviceAccount),
+});
 
 // Firestoreにアクセス
 const db = admin.firestore();
-const CUSTOM_PORT = process.env.CUSTOM_PORT || 3000;
+// const CUSTOM_PORT = process.env.CUSTOM_PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
 const CUSTOM_PORT2 = 4200;
 const CUSTOM_PORT3 = 6060;
@@ -19,7 +27,7 @@ const app2 = express();
 const app3 = express();
 const app5 = express();
 const app9 = express();
-const isLocal = !process.env.FUNCTIONS_NAME;
+const isLocal = process.env.NODE_ENV !== 'production';
 
 const corsOptions = {
   origin: [
@@ -88,7 +96,7 @@ app5.get('/', (req, res) => {
 //   res.send('Reminder');
 // })
 
-app.get('/api/todoList', async (req, res) => {
+app.get('/todoList', async (req, res) => {
   try {
     const uid = req.query.uid;
     if (!uid) return res.status(400).json({ error: 'No UID' });
@@ -106,7 +114,7 @@ app.get('/api/todoList', async (req, res) => {
   }
 });
 
-app.post('/api/todoList', async (req, res) => {
+app.post('/todoList', async (req, res) => {
   try {
     const { uid, todos } = req.body;
 
@@ -129,9 +137,9 @@ app.post('/api/todoList', async (req, res) => {
 });
 
 if (isLocal) {
-  app.listen(CUSTOM_PORT7, HOST, () => {
-    console.log(`Server is running on port ${CUSTOM_PORT7}`);
-  });
+  // app.listen(CUSTOM_PORT7, HOST, () => {
+  //   console.log(`Server is running on port ${CUSTOM_PORT7}`);
+  // });
   app2.listen(CUSTOM_PORT2, () => {
     console.log(`Server is running on port ${CUSTOM_PORT2}`);
   });
@@ -146,8 +154,20 @@ if (isLocal) {
   // })
 }
 
+// export const apiTodoList = functions.https.onRequest(async (req, res) => {
+//   try {
+//     const snapshot = await admin.firestore().collection('todoList3').get();
+//     const todos = snapshot.docs.map(doc => doc.data());
+//     res.status(200).json(todos);
+//   } catch (error) {
+//     console.error('Error fetching todos:', error);
+//     res.status(500).send('Internal Server Error');
+//   }
+// });
+
+
 // Firebase Functionsとしてエクスポート
-export const api = functions.https.onRequest((req, res) => {
+export const apiTodoList = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app(req, res));
 });
 export const apiX = functions.https.onRequest((req, res) => {

@@ -1,8 +1,4 @@
 {
-  "functions": {
-    "source": "functions"
-  },
-
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -20,7 +16,7 @@
     "rewrites": [
       {
         "source": "/api/**",
-        "function": "api"
+        "function": "apiTodoList"
       },
       {
         "source": "/firebase-messaging-sw.js",
@@ -36,6 +32,29 @@
       }
     ]
   },
+  "functions": {
+    "source": "functions"  
+  },
+  "emulators": {
+  "hosting": {
+    "port": 5000
+  },
+  "pubsub": {
+    "port": 5020
+  },
+  "functions": {
+    "port": 5001
+  },
+  "firestore": {
+    "port": 8080  
+  },
+  "auth": {
+    "port": 9099
+  },
+  "storage": {
+    "port": 9199
+  }
+},
 
   "storage": {
     "rules": "storage.rules"

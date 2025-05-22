@@ -92,13 +92,6 @@ export default defineConfig({
       '192.168.0.3',
       '192.168.0.7',
     ],
-    proxy: {
-      '/api/todoList': {
-        target: 'http://localhost:3001', // Expressサーバーのポート
-        changeOrigin: true,
-        rewrite: (path) => path,
-      },
-    },
     hmr: true,
     overlay: false,
     cors: true,

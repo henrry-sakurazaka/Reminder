@@ -42,11 +42,11 @@ const AsyncContextProvider = ({ children }) => {
   useEffect(() => {
     const sendTodosToApi = async (uid, todos) => {
       if (!uid || !todos) return;
-      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
-      const apiUrl2 = isLocal
-        ? `/api/todoList`
-        : `https://reminder5-27ef0.web.app/api/todoList`;
-
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      // const apiUrl2 = isLocal
+      //   ? `/api/todoList?uid=${uid}`
+      //   : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodolist/todoList?uid=${uid}`;
+      const apiUrl2 = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`
       try {
         await fetch(apiUrl2, {
           method: 'POST',
@@ -72,57 +72,60 @@ const AsyncContextProvider = ({ children }) => {
   }, [todos, dispatch]);
 
   useEffect(() => {
-    const fetchTodosFromFirestore = async (uid, todos) => {
-      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
-      const apiUrl = isLocal
-        ? `/api/todoList?uid=${encodeURIComponent(uid)}`
-        : `https://reminder5-27ef0.web.app/api/todoList?uid=${encodeURIComponent(uid)}`;
-
+    const fetchTodosFromFirestore = async (uid) => {
+      if (!uid) return;
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      // const apiUrl = isLocal
+      //   ? `/api/todoList?uid=${encodeURIComponent(uid)}`
+      //   : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${encodeURIComponent(uid)}`;
+      const apiUrl = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${encodeURIComponent(uid)}`;
       try {
-        const fetchTodoList = async () => {
-          if (!uid) return;
-          const response = await fetch(apiUrl);
-          const data = await response.json();
-          const data2 = Object.values(data[0].todos);
-          setFetchTodos(data2);
-          const newFetchedData = Array.isArray(data2) ? data2 : [data2];
+        const response = await fetch(apiUrl, {
+          headers: {
+            Authorization: `Bearer ${await auth.currentUser.getIdToken(true)}`,
+          },
+        });
+        const data = await response.json();
+        const data2 = Object.values(data[0]?.todos || {});
+        setFetchTodos(data2);
 
-          if (newFetchedData !== null && newFetchedData.length > 0) {
-            setFetchedData(newFetchedData);
-            setData(true);
-            fetchedDataRef.current = newFetchedData;
-            dispatch({
-              type: 'FETCH_TODOS',
-              payload: newFetchedData.filter(
-                (newFetch) => newFetch !== 'undefind'
-              ),
-            });
-          }
-        };
-        fetchTodoList();
+        const newFetchedData = Array.isArray(data2) ? data2 : [data2];
+
+        if (newFetchedData.length > 0) {
+          setFetchedData(newFetchedData);
+          setData(true);
+          fetchedDataRef.current = newFetchedData;
+
+          dispatch({
+            type: 'FETCH_TODOS',
+            payload: newFetchedData.filter(
+              (newFetch) => newFetch !== 'undefined'
+            ),
+          });
+        }
       } catch (error) {
-        console.error('Error fetching todoList to Firestore:', error);
+        console.error('Error fetching apiTodoList from Firestore:', error);
       } finally {
         setLoading(false);
       }
     };
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if ((uid, !todosChanged)) {
-        await fetchTodosFromFirestore(user.uid);
-      } else return;
+      if (user && uid && !todosChanged) {
+        await fetchTodosFromFirestore(uid);
+      }
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, uid, todosChanged]);
 
   useEffect(() => {
     const AddTodos = async () => {
-      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
-      const apiUrl2 = isLocal
-        ? `/api/todoList`
-        : `https://reminder5-27ef0.web.app/api/todoList`;
-
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      // const apiUrl2 = isLocal
+      //   ? `/api/todoList?uid=${uid}`
+      //   : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`;
+      const apiUrl2 = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`
       try {
         const filteredTodos = todos.filter((todo) => todo !== null);
         await fetch(apiUrl2, {
