@@ -7,8 +7,7 @@ import admin from 'firebase-admin';
 import functions from 'firebase-functions';
 import { Firestore } from 'firebase-admin/firestore';
 import { projectID } from 'firebase-functions/params';
-import serviceAccount from './serviceAccountKey.json' assert { type: 'json' };
-
+import serviceAccount from './serviceAccountKey.json';
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
@@ -164,7 +163,6 @@ if (isLocal) {
 //     res.status(500).send('Internal Server Error');
 //   }
 // });
-
 
 // Firebase Functionsとしてエクスポート
 export const apiTodoList = functions.https.onRequest((req, res) => {

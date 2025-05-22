@@ -46,7 +46,7 @@ const AsyncContextProvider = ({ children }) => {
       // const apiUrl2 = isLocal
       //   ? `/api/todoList?uid=${uid}`
       //   : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodolist/todoList?uid=${uid}`;
-      const apiUrl2 = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`
+      const apiUrl2 = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`;
       try {
         await fetch(apiUrl2, {
           method: 'POST',
@@ -125,7 +125,7 @@ const AsyncContextProvider = ({ children }) => {
       // const apiUrl2 = isLocal
       //   ? `/api/todoList?uid=${uid}`
       //   : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`;
-      const apiUrl2 = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`
+      const apiUrl2 = `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/todoList?uid=${uid}`;
       try {
         const filteredTodos = todos.filter((todo) => todo !== null);
         await fetch(apiUrl2, {
