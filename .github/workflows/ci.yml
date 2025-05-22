@@ -59,6 +59,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Clear app2 cache
+        run: |
+          rm -rf node_modules/.vite
+          npm cache clean --force
+
+      - name: Clean install dependencies
+        run: npm ci
+
       - name: Clear Playwright cache
         run: rm -rf /home/nonroot/.cache/ms-playwright
 
@@ -70,17 +78,6 @@ jobs:
 
       - name: Install Playwright Test
         run: npm install --save-dev @playwright/test
-
-      - name: Clear app2 cache
-        run: |
-          rm -rf node_modules/.vite
-          npm cache clean --force
-
-      - name: Install dependencies
-        run: npm install
-
-      - name: Clean install dependencies
-        run: npm ci
 
       - name: Install Docker Compose
         run: |
@@ -99,8 +96,9 @@ jobs:
 
       - name: Create .env file and keys
         run: |
+          echo "VITE_IS_LOCAL=${{ secrets.VITE_IS_LOCAl }}" >> .env
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
+          echo "CUSTOM_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
@@ -127,7 +125,7 @@ jobs:
           echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "CUSTOM_PORT=${{ secrets.PORT }}" >> .env
 
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -381,10 +379,10 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
-      - name: Check responsed URL
-        run: |
-          docker exec reminder-playwright-1 curl http://172.18.0.3:3000
-          docker exec reminder-playwright-1 ps aux | grep node
+      # - name: Check responsed URL
+      #   run: |
+      #     docker exec reminder-playwright-1 curl http://172.18.0.3:3000
+      #     docker exec reminder-playwright-1 ps aux | grep node
 
       - name: Set permissions for test-results directory
         run: |
@@ -463,7 +461,7 @@ jobs:
       - name: Create .env and .env.production files
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
+          echo "CUSTOM_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
@@ -490,11 +488,12 @@ jobs:
           echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "CUSTOM_PORT=${{ secrets.PORT }}" >> .env
           echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> .env
 
           cp .env .env.production
           cat .env.production
+          echo "NODE_ENV=production" >> .env.production
 
       - name: Decode to json file
         run: |
@@ -566,11 +565,14 @@ jobs:
         run: npm ci
 
       - name: Build For Deploy
+        env:
+          VITE_NODE_ENV: production
         run: |
           npm run build
 
       - name: Deploy To Firebase
         run: |
+          firebase deploy --only functions
           firebase deploy --only hosting
 
         env:
@@ -594,7 +596,7 @@ jobs:
           echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "CUSTOM_PORT=${{ secrets.PORT }}" >> .env
 
           # 証明書ファイルの作成
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem

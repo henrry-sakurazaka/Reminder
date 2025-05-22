@@ -74,7 +74,6 @@ function SignUp() {
             editingLock: todo.editingLock,
             editingColor: todo.editingColor,
             editingDateTime: todo.editingDateTime,
-            agreement: todo.agreement,
             notification: todo.notification,
           };
         });
@@ -140,7 +139,7 @@ function SignUp() {
         const convertedData = todosConverter2.toFirestore(todoList);
         const dataWithUid = {
           todoId: user.uid,
-          agreement: agree,
+          agreement: true,
           todos: convertedData,
         };
         // サインアップ成功時にtodoListを保存する

@@ -21,6 +21,7 @@ serviceAccountKey2.json
 firebase/serviceAccountKey.json
 firebase/serviceAccountKey2.json
 functions/serviceAccountKey.json
+api/serviceAccountKey.json
 bfg-repo-cleaner/
 .cloudflared/cert.pem
 .cloudflared/offsetcodecraft.site.json

@@ -34,9 +34,10 @@ services:
       VITE_PORT: ${VITE_PORT}
       VITE_HOST: ${VITE_HOST}
       HOST: 0.0.0.0
-      PORT: 3000
+      CUSTOM_PORT: 3000
     depends_on:
       - firebase
+      - api
     networks:
       - my_custom_network
       # my_custom_network:
@@ -68,6 +69,23 @@ services:
     networks:
       - my_custom_network
 
+  api:
+    container_name: api
+    build:
+      context: ./api
+      dockerfile: Dockerfile
+    ports:
+      - '3001:3001'
+    depends_on:
+      - firebase
+    environment:
+      GOOGLE_APPLICATION_CREDENTIALS: '/api/serviceAccountKey.json'
+    volumes:
+      - ./api:/api
+      - ./firebase/serviceAccountKey.json:/api/serviceAccountKey.json
+    networks:
+      - my_custom_network
+
   cloudflared:
     image: cloudflare/cloudflared:latest
     container_name: cloudflared
@@ -88,7 +106,7 @@ services:
     volumes:
       #Setting for CI/CD
       - /home/nonroot/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
-      #Setting for local environment
+      # #Setting for local environment
       # - ~/.cloudflared/offsetcodecraft.site.json:/home/nonroot/.cloudflared/offsetcodecraft.site.json
     entrypoint: ['/home/nonroot/.cloudflared/entrypoint.sh']
     environment:
