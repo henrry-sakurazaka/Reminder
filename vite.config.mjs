@@ -115,8 +115,8 @@ export default defineConfig(({ mode }) => {
             '/apiTodoList/api/todoList': {
               target: 'https://us-central1-reminder5-27ef0.cloudfunctions.net',
               changeOrigin: true,
-              rewrite: (path) => path
-              },
+              rewrite: (path) => path,
+            },
           },
     },
   };
