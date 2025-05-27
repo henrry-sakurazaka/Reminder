@@ -17,6 +17,8 @@ import PropTypes from 'prop-types';
 const Modal = ({ todo }) => {
   Modal.propTypes = {
     todo: PropTypes.shape({
+      title: PropTypes.string,
+      description: PropTypes.string,
       id: PropTypes.number,
       content: PropTypes.string,
       editing: PropTypes.bool,
