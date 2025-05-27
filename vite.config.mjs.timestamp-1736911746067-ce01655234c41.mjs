@@ -6,7 +6,6 @@ import path, { resolve } from 'path';
 import dotenv from 'dotenv';
 var __vite_injected_original_dirname = '/app2';
 
-
 if (process.env.CI !== 'true') {
   dotenv.config();
 }
@@ -97,7 +96,7 @@ var vite_config_default = defineConfig({
     //         cert: fs.readFileSync('./server.cert.pem' || '/etc/ssl/certs/server.cert.pem'),
     //       }
     //     : false,
-   ...(isLocal && {
+    ...(isLocal && {
       proxy: {
         '/api/todoList': {
           target: 'http://localhost:3001',
@@ -106,7 +105,7 @@ var vite_config_default = defineConfig({
         },
       },
     }),
-    
+
     hmr: true,
     overlay: false,
     cors: true,

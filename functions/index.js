@@ -9,8 +9,6 @@ admin.initializeApp();
 //   credential: admin.credential.applicationDefault()
 // });
 
-
-
 // Firestoreにアクセス
 const db = admin.firestore();
 const CUSTOM_PORT = process.env.CUSTOM_PORT || 3000;
@@ -71,7 +69,7 @@ function convertTodoForFirestore(todo) {
   if (!todo) return false;
 
   return {
-    title: todo.title ?? '', 
+    title: todo.title ?? '',
     description: todo.description ?? '',
     type: todo.type ?? '',
     id: todo.id ?? '',
@@ -87,7 +85,6 @@ function convertTodoForFirestore(todo) {
   };
 }
 
-
 app5.get('/', (req, res) => {
   res.send('Hello, World!');
 });
@@ -95,7 +92,7 @@ app5.get('/', (req, res) => {
 //   res.send('Reminder');
 // })
 
-  // Firestoreアクセス処理
+// Firestoreアクセス処理
 app.get('/api/todoList', async (req, res) => {
   try {
     const authHeader = req.headers.authorization;
@@ -105,7 +102,7 @@ app.get('/api/todoList', async (req, res) => {
     console.log('🔍 Authorization header:', req.headers.authorization);
 
     const idToken = authHeader.split('Bearer ')[1];
-    
+
     if (!idToken) {
       res.status(401).send('No token provided');
     }
@@ -114,7 +111,7 @@ app.get('/api/todoList', async (req, res) => {
 
     // const uid = req.query.uid;
     if (!uid) return res.status(400).json({ error: 'No UID' });
-    
+
     const snapshot = await db
       .collection('todoList3')
       .where('todoId', '==', uid)
@@ -123,7 +120,7 @@ app.get('/api/todoList', async (req, res) => {
     if (snapshot.empty || snapshot.docs.length === 0) {
       return res.status(200).json([]); //空の配列を返して正常終了
     }
-  
+
     // 1つのドキュメントを取得（この前提で設計されている）
     const docData = snapshot.docs[0].data();
     // todos は Map 型なので Object.values() で配列に変換
@@ -171,7 +168,6 @@ app.post('/api/todoList', async (req, res) => {
     res.status(500).json({ error: 'Internal Server Error' });
   }
 });
-
 
 if (isLocal) {
   // app.listen(CUSTOM_PORT7, HOST, () => {
