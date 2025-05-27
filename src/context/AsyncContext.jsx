@@ -1,5 +1,5 @@
 import React from 'react';
-import { onAuthStateChanged, getIdToken } from 'firebase/auth';
+import { onAuthStateChanged　} from 'firebase/auth';
 import {
   createContext,
   useState,
@@ -29,6 +29,7 @@ const AsyncContextProvider = ({ children }) => {
   const [render, setRender] = useState(false);
   const fetchedDataRef = useRef(null);
 
+ 
   useEffect(() => {
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
@@ -40,18 +41,29 @@ const AsyncContextProvider = ({ children }) => {
   }, []);
 
   useEffect(() => {
-    const sendTodosToApi = async (uid, todos) => {
-      if (!uid || !todos) return;
+    const sendTodosToApi = async () => {
+      if (!user) return;
+      const uid = user.uid;
+      if (!user || !uid || !todos) return;
       const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'false';
+      const token = await user.getIdToken(); // Firebase ID トークンを取得
       const apiUrl2 = isLocal
         ? `/api/todoList`
-        : `https://reminder5-27ef0.web.app/api/todoList`;
+        : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/api/todoList?uid=${encodeURIComponent(uid)}`;;
 
       try {
         await fetch(apiUrl2, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ uid, todos }),
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+             uid: uid, 
+             todos: todos
+             }),
+          mode: 'cors'
         });
       } catch (error) {
         console.error('🔥 Error sending todos:', error);
@@ -72,20 +84,30 @@ const AsyncContextProvider = ({ children }) => {
   }, [todos, dispatch]);
 
   useEffect(() => {
-    const fetchTodosFromFirestore = async (uid, todos) => {
+    const fetchTodosFromFirestore = async (user) => {
+      if (!user) return;
+      const uid = user.uid;
       const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
-      const apiUrl = isLocal
+      const apiUrl = isLocal 
         ? `/api/todoList?uid=${encodeURIComponent(uid)}`
-        : `https://reminder5-27ef0.web.app/api/todoList?uid=${encodeURIComponent(uid)}`;
-
+        : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/api/todoList?uid=${encodeURIComponent(uid)}`;
+      
       try {
         const fetchTodoList = async () => {
-          if (!uid) return;
-          const response = await fetch(apiUrl);
+          if (!user || !uid) return;
+          const token = await user.getIdToken(); // Firebase ID トークンを取得
+
+          const response = await fetch(apiUrl, {
+            method: "GET",
+            headers: {
+              Authorization: `Bearer ${token}`,
+            }
+          });
+          console.log(response)
           const data = await response.json();
-          const data2 = Object.values(data[0].todos);
-          setFetchTodos(data2);
-          const newFetchedData = Array.isArray(data2) ? data2 : [data2];
+          // const data2 = Object.values(data[0].todos);
+          setFetchTodos(data);
+          const newFetchedData = Array.isArray(data) ? data : [data];
 
           if (newFetchedData !== null && newFetchedData.length > 0) {
             setFetchedData(newFetchedData);
@@ -108,27 +130,37 @@ const AsyncContextProvider = ({ children }) => {
     };
 
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if ((uid, !todosChanged)) {
-        await fetchTodosFromFirestore(user.uid);
+      if (user && (uid || !todosChanged)) {
+        await fetchTodosFromFirestore(user);
       } else return;
     });
 
     return () => unsubscribe();
-  }, [dispatch]);
+  }, [dispatch, uid, todosChanged]);
 
   useEffect(() => {
     const AddTodos = async () => {
+      const uid = user.uid;
       const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'false';
       const apiUrl2 = isLocal
         ? `/api/todoList`
-        : `https://reminder5-27ef0.web.app/api/todoList`;
+        : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/api/todoList?uid=${encodeURIComponent(uid)}`;;
 
       try {
-        const filteredTodos = todos.filter((todo) => todo !== null);
+        const safeTodos = Array.isArray(todos) ? todos : Object.values(todos || {});
+        const filteredTodos = safeTodos.filter((todo) => todo !== null);
         await fetch(apiUrl2, {
           method: 'POST',
-          headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ uid, todos: filteredTodos }),
+          headers: { 
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`,
+           },
+          body: JSON.stringify({ 
+            uid: uid, 
+            todos: filteredTodos 
+          }),
+          mode: 'cors'
         });
       } catch (error) {
         console.error('🔥 Error sending todos:', error);

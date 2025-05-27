@@ -13,9 +13,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     define: {
-      'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
-        process.env.GOOGLE_APPLICATION_CREDENTIALS
-      ),
+      // 'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
+      //   process.env.GOOGLE_APPLICATION_CREDENTIALS
+      // ),
       'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
         process.env.VITE_REACT_APP_FIREBASE_API_KEY
       ),
@@ -29,9 +29,9 @@ export default defineConfig(({ mode }) => {
       outDir: resolve(__dirname, 'build'),
       emptyOutDir: true,
       define: {
-        'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
-          process.env.GOOGLE_APPLICATION_CREDENTIALS
-        ),
+        // 'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
+        //   process.env.GOOGLE_APPLICATION_CREDENTIALS
+        // ),
         'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
           process.env.VITE_REACT_APP_FIREBASE_API_KEY
         ),
@@ -111,8 +111,13 @@ export default defineConfig(({ mode }) => {
               rewrite: (path) => path,
             },
           }
-        : undefined,
+        : {
+            '/apiTodoList/api/todoList': {
+              target: 'https://us-central1-reminder5-27ef0.cloudfunctions.net',
+              changeOrigin: true,
+              rewrite: (path) => path
+              },
+          },
     },
-    // reporter は Vite の設定ではなく、Vitest 用。通常 vite.config には不要。
   };
 });

@@ -5,6 +5,11 @@ import admin from 'firebase-admin';
 import functions from 'firebase-functions';
 
 admin.initializeApp();
+// admin.initializeApp({
+//   credential: admin.credential.applicationDefault()
+// });
+
+
 
 // Firestoreにアクセス
 const db = admin.firestore();
@@ -64,22 +69,24 @@ app9.use(cors(corsOptions));
 
 function convertTodoForFirestore(todo) {
   if (!todo) return false;
+
   return {
-    title: todo.title,
-    description: todo.description,
-    type: todo.type,
-    id: todo.id,
-    content: todo.content,
-    editing: todo.editing,
-    completed: todo.completed,
-    reserve: todo.reserve,
-    editingLock: todo.editingLock,
-    editingColor: todo.editingColor,
-    editingDateTime: todo.editingDateTime,
-    notification: todo.notification,
+    title: todo.title ?? '', 
+    description: todo.description ?? '',
+    type: todo.type ?? '',
+    id: todo.id ?? '',
+    content: todo.content ?? '',
+    editing: todo.editing ?? false,
+    completed: todo.completed ?? false,
+    reserve: todo.reserve ?? '',
+    editingLock: todo.editingLock ?? false,
+    editingColor: todo.editingColor ?? '',
+    editingDateTime: todo.editingDateTime ?? '',
+    notification: todo.notification ?? false,
     shouldHandleNotifications: todo.shouldHandleNotifications ?? false,
   };
 }
+
 
 app5.get('/', (req, res) => {
   res.send('Hello, World!');
@@ -88,18 +95,41 @@ app5.get('/', (req, res) => {
 //   res.send('Reminder');
 // })
 
+  // Firestoreアクセス処理
 app.get('/api/todoList', async (req, res) => {
   try {
-    const uid = req.query.uid;
-    if (!uid) return res.status(400).json({ error: 'No UID' });
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).send('Unauthorized');
+    }
+    console.log('🔍 Authorization header:', req.headers.authorization);
 
+    const idToken = authHeader.split('Bearer ')[1];
+    
+    if (!idToken) {
+      res.status(401).send('No token provided');
+    }
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    // const uid = req.query.uid;
+    if (!uid) return res.status(400).json({ error: 'No UID' });
+    
     const snapshot = await db
       .collection('todoList3')
       .where('todoId', '==', uid)
       .get();
-    const todos = snapshot.docs.map((doc) => doc.data());
 
-    res.json(todos);
+    if (snapshot.empty || snapshot.docs.length === 0) {
+      return res.status(200).json([]); //空の配列を返して正常終了
+    }
+  
+    // 1つのドキュメントを取得（この前提で設計されている）
+    const docData = snapshot.docs[0].data();
+    // todos は Map 型なので Object.values() で配列に変換
+    const todos = Object.values(docData.todos || {});
+
+    return res.json(todos);
   } catch (error) {
     console.error('🔥 Error in /todoList:', error);
     res.status(500).json({ error: 'Internal Server Error' });
@@ -108,19 +138,33 @@ app.get('/api/todoList', async (req, res) => {
 
 app.post('/api/todoList', async (req, res) => {
   try {
-    const { uid, todos } = req.body;
+    const { todos } = req.body;
+    const authHeader = req.headers.authorization;
+    if (!authHeader || !authHeader.startsWith('Bearer ')) {
+      return res.status(401).send('Unauthorized');
+    }
+    console.log('🔍 Authorization header:', req.headers.authorization);
+
+    const idToken = authHeader.split('Bearer ')[1];
+    const decodedToken = await admin.auth().verifyIdToken(idToken);
+    const uid = decodedToken.uid;
+
+    // const uid = req.query.uid;
+    if (!uid) return res.status(400).json({ error: 'No UID' });
 
     if (!uid || !Array.isArray(todos)) {
       return res.status(400).json({ error: 'Missing uid or invalid todos' });
     }
+
     const filteredTodos = todos
-      .filter((todo) => todo !== null)
+      .filter((todo) => todo !== null && typeof todo === 'object')
       .map(convertTodoForFirestore);
-    // Firestore に保存（上書き or 新規）
+
     await db.collection('todoList3').doc(uid).set({
       todoId: uid,
       todos: filteredTodos,
     });
+
     res.status(200).json({ message: 'Todo list saved successfully' });
   } catch (error) {
     console.error('🔥 Error in POST /todoList:', error);
@@ -128,8 +172,12 @@ app.post('/api/todoList', async (req, res) => {
   }
 });
 
+
 if (isLocal) {
-  app.listen(CUSTOM_PORT7, HOST, () => {
+  // app.listen(CUSTOM_PORT7, HOST, () => {
+  //   console.log(`Server is running on port ${CUSTOM_PORT7}`);
+  // });
+  app.listen(CUSTOM_PORT7, () => {
     console.log(`Server is running on port ${CUSTOM_PORT7}`);
   });
   app2.listen(CUSTOM_PORT2, () => {
@@ -145,11 +193,20 @@ if (isLocal) {
   //   console.log(`Server is running on port ${CUSTOM_PORT}`);
   // })
 }
+// export const apiTodoList = functions.https.onRequest(
+//   {
+//     region: 'us-central1',
+//     serviceAccountEmail: 'firebase-adminsdk-fbsvc@reminder5-27ef0.iam.gserviceaccount.com',
+//     memory: '256MiB',
+//     timeoutSeconds: 60,
+//   },
+//   app // ← Express アプリをそのまま渡す
+// );
 
-// Firebase Functionsとしてエクスポート
-export const api = functions.https.onRequest((req, res) => {
+export const apiTodoList = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app(req, res));
 });
+
 export const apiX = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app2(req, res));
 });
