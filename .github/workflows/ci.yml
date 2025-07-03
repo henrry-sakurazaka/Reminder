@@ -87,6 +87,11 @@ jobs:
           sudo chown -R nonroot:nonroot /home/nonroot
           sudo chmod 755 /home/nonroot
 
+      - name: Fix permissions for current workspace
+        run: |
+          sudo chown -R nonroot:nonroot $GITHUB_WORKSPACE
+          sudo chmod -R u+rwX $GITHUB_WORKSPACE
+
       - name: Install Playwright browsers as nonroot
         run: |
           sudo -u nonroot HOME=/home/nonroot npx playwright install --with-deps
