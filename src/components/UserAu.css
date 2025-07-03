@@ -9,17 +9,21 @@ body {
 .container {
   max-width: 1976px;
   width: 100vw;
+  height: 50vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  position: relative;
 }
 
 .logo {
   z-index: -10;
   width: 720px;
   position: absolute;
-  top: 40%;
+  top: 25%;
   left: 50%;
+  /* top: 40%;
+  left: 50%; */
   transform: translate(-50%, -50%);
 }
 
@@ -33,7 +37,10 @@ body {
 .inner9-container {
   width: 336px;
   height: 336px;
-  position: relative;
+  position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -44,6 +51,9 @@ body {
   width: 336px;
   height: 336px;
   position: absolute;
+  top: 30%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   border: 0.5px solid rgb(244, 232, 164);
 }
 
@@ -103,4 +113,82 @@ body {
   top: 20%;
   left: 50%;
   transform: translate(-50%, -50%);
+}
+
+.container2 {
+  position: absolute;
+  bottom: 5%;
+  width: 100vw;
+  height: 240px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.caption {
+  width: 800px;
+  height: 400px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+}
+.caption-display {
+  width: 240px;
+  height: 240px;
+  border: 1px solid ;
+} 
+
+.description {
+  position: absolute;
+  width: 800px;
+  top: 60%;
+  left: 50%;
+  transform: translate( -50%, -50%);
+}
+p {
+  text-align: justify;
+}
+
+
+@media screen and (max-width: 768px) {
+  
+  .container2 {
+    top: 150%;
+    bottom: 5%;
+  }
+  .caption {
+    flex-direction: column;
+  }
+  .caption-display {
+    width: 336px;
+    height: 336px;
+  }
+  .logo {
+    width: 375px;
+  }  
+}
+@media screen and (max-width: 768px) {
+  .description {
+    width: 400px;
+  }  
+}
+@media screen and (max-width: 430px) {
+  .description {
+    width: 336px;
+    top: 70%
+  }  
+}
+@media screen and (max-width: 390px) {
+  .description {
+    width: 336px;
+  }  
+}
+@media screen and (max-width: 375px) {
+  .description {
+    top: 80%;
+    width: 336px;
+  }
+  .container2 {
+    top: 180%;
+  }  
 }

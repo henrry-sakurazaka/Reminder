@@ -102,7 +102,6 @@ const AsyncContextProvider = ({ children }) => {
               Authorization: `Bearer ${token}`,
             },
           });
-          console.log(response);
           const data = await response.json();
           // const data2 = Object.values(data[0].todos);
           setFetchTodos(data);
@@ -141,6 +140,7 @@ const AsyncContextProvider = ({ children }) => {
     const AddTodos = async () => {
       const uid = user.uid;
       const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      const token = await user.getIdToken();
       // const isLocal = import.meta.env.VITE_IS_LOCAL === 'false';
       const apiUrl2 = isLocal
         ? `/api/todoList`
@@ -173,6 +173,7 @@ const AsyncContextProvider = ({ children }) => {
       AddTodos();
     }
   }, [AddTodosExecuted, dispatch]);
+
 
   return (
     <AsyncLogic.Provider

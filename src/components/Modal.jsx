@@ -19,7 +19,10 @@ const Modal = ({ todo }) => {
     todo: PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
-      id: PropTypes.number,
+      id: PropTypes.oneOfType([
+        PropTypes.number,
+        PropTypes.string,
+      ]),
       content: PropTypes.string,
       editing: PropTypes.bool,
       editingColor: PropTypes.bool,
