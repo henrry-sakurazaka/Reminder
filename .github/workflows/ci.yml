@@ -87,9 +87,6 @@ jobs:
           sudo chown -R nonroot:nonroot /home/nonroot
           sudo chmod 755 /home/nonroot
 
-      # - name: Install Playwright Test
-      #   run: npm install --save-dev @playwright/test
-
       - name: Install Playwright browsers as nonroot
         run: |
           sudo -u nonroot HOME=/home/nonroot npx playwright install --with-deps
