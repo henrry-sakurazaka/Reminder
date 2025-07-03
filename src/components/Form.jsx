@@ -1,6 +1,6 @@
 import React from 'react';
 import { useDispatchTodos, useTodos } from '../context/TodoContext';
-import { v4 as uuidv4 } from 'uuid'
+import { v4 as uuidv4 } from 'uuid';
 
 const Form = () => {
   const dispatch = useDispatchTodos();

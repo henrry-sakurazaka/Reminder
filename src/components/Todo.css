@@ -211,7 +211,6 @@ input {
 .flex-box {
   display: flex;
 }
-     
 
 @media screen and (max-width: 1366px) {
   .clone-text {
