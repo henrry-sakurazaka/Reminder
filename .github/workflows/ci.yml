@@ -76,22 +76,16 @@ jobs:
       - name: Install Playwright dependencies
         run: sudo apt-get install -y libx11-dev libxcomposite-dev libxrandr-dev libasound2-dev libatk-bridge2.0-dev libgtk-3-dev
 
-      # - name: Create nonroot user if not exists
-      #   run: |
-      #     if ! id -u nonroot >/dev/null 2>&1; then
-      #       sudo useradd -m -s /bin/bash nonroot
-      #     else
-      #       echo "User nonroot already exists"
-      #     fi
-
-      - name: Fix permissions for project directory
+      - name: Create nonroot user if not exists
         run: |
-          sudo chown -R nonroot:nonroot /home/runner/work/Reminder
-          sudo chmod -R u+rx /home/runner/work/Reminder
+          if ! id -u nonroot >/dev/null 2>&1; then
+            sudo useradd -m -s /bin/bash nonroot
+          # else
+          #   echo "User nonroot already exists"
+          # fi
 
       - name: Create nonroot user
         run: |
-          sudo useradd -m nonroot
           sudo chown -R nonroot:nonroot /home/nonroot
           sudo chmod 755 /home/nonroot
 
