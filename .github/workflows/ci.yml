@@ -172,12 +172,6 @@ jobs:
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
 
-      - name: Create nonroot user
-        run: |
-          sudo useradd -m nonroot
-          sudo chown -R nonroot:nonroot /home/nonroot
-          sudo chmod 755 /home/nonroot
-
       - name: Set up Cloudflared credentials
         run: |
           echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
