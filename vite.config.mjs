@@ -13,9 +13,9 @@ export default defineConfig(({ mode }) => {
 
   return {
     define: {
-      // 'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
-      //   process.env.GOOGLE_APPLICATION_CREDENTIALS
-      // ),
+      'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
+        process.env.GOOGLE_APPLICATION_CREDENTIALS
+      ),
       'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
         process.env.VITE_REACT_APP_FIREBASE_API_KEY
       ),
@@ -29,9 +29,9 @@ export default defineConfig(({ mode }) => {
       outDir: resolve(__dirname, 'build'),
       emptyOutDir: true,
       define: {
-        // 'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
-        //   process.env.GOOGLE_APPLICATION_CREDENTIALS
-        // ),
+        'process.env.GOOGLE_APPLICATION_CREDENTIALS': JSON.stringify(
+          process.env.GOOGLE_APPLICATION_CREDENTIALS
+        ),
         'process.env.VITE_REACT_APP_FIREBASE_API_KEY': JSON.stringify(
           process.env.VITE_REACT_APP_FIREBASE_API_KEY
         ),

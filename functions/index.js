@@ -189,20 +189,10 @@ if (isLocal) {
   //   console.log(`Server is running on port ${CUSTOM_PORT}`);
   // })
 }
-// export const apiTodoList = functions.https.onRequest(
-//   {
-//     region: 'us-central1',
-//     serviceAccountEmail: 'firebase-adminsdk-fbsvc@reminder5-27ef0.iam.gserviceaccount.com',
-//     memory: '256MiB',
-//     timeoutSeconds: 60,
-//   },
-//   app // ← Express アプリをそのまま渡す
-// );
 
 export const apiTodoList = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app(req, res));
 });
-
 export const apiX = functions.https.onRequest((req, res) => {
   corsHandler(req, res, () => app2(req, res));
 });

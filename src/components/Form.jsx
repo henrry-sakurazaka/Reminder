@@ -1,16 +1,19 @@
 import React from 'react';
 import { useDispatchTodos, useTodos } from '../context/TodoContext';
+import { v4 as uuidv4 } from 'uuid'
 
 const Form = () => {
   const dispatch = useDispatchTodos();
   const { enteredTodo, setEnteredTodo, setAddTodosExecuted } = useTodos();
+  const newId = uuidv4();
 
   const addTodo = () => {
     const newTodo = {
       title: enteredTodo,
       description: enteredTodo,
       type: 'string',
-      id: Math.floor(Math.random() * 1e5),
+      // id: Math.floor(Math.random() * 1e5),
+      id: newId,
       content: enteredTodo,
       editing: false,
       completed: false,
