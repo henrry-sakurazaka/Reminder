@@ -92,9 +92,8 @@ jobs:
           sudo chown -R nonroot:nonroot $GITHUB_WORKSPACE
           sudo chmod -R u+rwX $GITHUB_WORKSPACE
 
-      - name: Install Playwright browsers as nonroot
-        run: |
-          sudo -u nonroot HOME=/home/nonroot npx playwright install --with-deps
+      - name: Install Playwright browsers (root)
+        run: npx playwright install --with-deps
 
       - name: Install Docker Compose
         run: |
