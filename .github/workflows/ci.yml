@@ -110,6 +110,12 @@ jobs:
           sudo chmod +x /usr/local/bin/cloudflared
           cloudflared --version
 
+      - name: Reset .env file
+        run: |
+          rm -f .env
+          touch .env
+          chmod 644 .env
+
       - name: Create .env file and keys
         run: |
           echo "VITE_IS_LOCAL=${{ secrets.VITE_IS_LOCAl }}" >> .env
