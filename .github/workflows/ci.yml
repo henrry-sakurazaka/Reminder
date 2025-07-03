@@ -110,11 +110,11 @@ jobs:
           sudo chmod +x /usr/local/bin/cloudflared
           cloudflared --version
 
-      - name: Reset .env file
+      - name: Force remove and recreate .env file with correct permissions
         run: |
-          rm -f .env
-          touch .env
-          chmod 644 .env
+          sudo rm -f .env
+          sudo touch .env
+          sudo chmod 666 .env
 
       - name: Create .env file and keys
         run: |
