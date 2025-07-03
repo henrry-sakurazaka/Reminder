@@ -85,6 +85,11 @@ jobs:
       # - name: Install Playwright Test
       #   run: npm install --save-dev @playwright/test
 
+      - name: Fix permissions for project directory
+        run: |
+          sudo chown -R nonroot:nonroot /home/runner/work/Reminder
+          sudo chmod -R u+rx /home/runner/work/Reminder
+
       - name: Install Playwright browsers as nonroot
         run: |
           sudo -u nonroot HOME=/home/nonroot npx playwright install --with-deps
