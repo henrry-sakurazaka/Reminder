@@ -404,6 +404,11 @@ jobs:
       #     docker exec reminder-playwright-1 curl http://172.18.0.3:3000
       #     docker exec reminder-playwright-1 ps aux | grep node
 
+      - name: Fix test-results permissions
+        run: |
+          sudo chown -R $USER:$USER ./test-results
+          sudo chmod -R 777 ./test-results
+
       - name: Set permissions for test-results directory
         run: |
           sudo chmod 777 server.key.pem
