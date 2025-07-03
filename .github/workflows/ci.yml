@@ -76,6 +76,11 @@ jobs:
       - name: Install Playwright dependencies
         run: sudo apt-get install -y libx11-dev libxcomposite-dev libxrandr-dev libasound2-dev libatk-bridge2.0-dev libgtk-3-dev
 
+      - name: Fix permissions for project directory
+        run: |
+          sudo chown -R nonroot:nonroot /home/runner/work/Reminder
+          sudo chmod -R u+rx /home/runner/work/Reminder
+
       - name: Create nonroot user
         run: |
           sudo useradd -m nonroot
@@ -84,11 +89,6 @@ jobs:
 
       # - name: Install Playwright Test
       #   run: npm install --save-dev @playwright/test
-
-      - name: Fix permissions for project directory
-        run: |
-          sudo chown -R nonroot:nonroot /home/runner/work/Reminder
-          sudo chmod -R u+rx /home/runner/work/Reminder
 
       - name: Install Playwright browsers as nonroot
         run: |
