@@ -34,10 +34,7 @@ const NotificationHandler = ({
 }) => {
   NotificationHandler.propTypes = {
     todo: PropTypes.shape({
-      id: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-      ]),
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       content: PropTypes.string,
       editing: PropTypes.bool,
       editingColor: PropTypes.bool,

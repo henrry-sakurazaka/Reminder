@@ -120,27 +120,26 @@ const UserAuth = () => {
           </div>
         </div>
         {message()}
-      </div> 
-       <div className="description">
-            <p>
-              Manage your tasks and make your lifestyle meaningful with the
-              Reminder App. Let&apos;s get started. You can input your
-              requirements and add them by pressing the plus button. Once your
-              tasks are successfully executed and completed, press the complete
-              button. You can delete a task by double-clicking it. Once all
-              tasks are completed, you can clear them using the refresh button.
-              Be careful, as pressing the refresh button is irreversible. Have a
-              great lifestyle!
-            </p>
+      </div>
+      <div className="description">
+        <p>
+          Manage your tasks and make your lifestyle meaningful with the Reminder
+          App. Let&apos;s get started. You can input your requirements and add
+          them by pressing the plus button. Once your tasks are successfully
+          executed and completed, press the complete button. You can delete a
+          task by double-clicking it. Once all tasks are completed, you can
+          clear them using the refresh button. Be careful, as pressing the
+          refresh button is irreversible. Have a great lifestyle!
+        </p>
+      </div>
+      <section className="container2">
+        <div className="caption">
+          <img className="caption-display" src="/caption-img.png" />
+          <img className="caption-display" src="/caption-img2.png" />
+          <img className="caption-display" src="/caption-img3.png" />
+          <img className="caption-display" src="/caption-img5.png" />
         </div>
-        <section className='container2'>
-          <div className='caption'>
-            <img className='caption-display' src='/caption-img.png'/>
-            <img className='caption-display' src='/caption-img2.png'/>
-            <img className='caption-display' src='/caption-img3.png'/>
-            <img className='caption-display' src='/caption-img5.png'/>
-        </div>
-      </section>  
+      </section>
     </>
   );
 };

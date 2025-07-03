@@ -9,10 +9,7 @@ const Edit = ({ todo }) => {
     todo: PropTypes.shape({
       title: PropTypes.string,
       description: PropTypes.string,
-      id: PropTypes.oneOfType([
-        PropTypes.number,
-        PropTypes.string,
-      ]),
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       content: PropTypes.string,
       editing: PropTypes.bool,
       completed: PropTypes.bool,
@@ -24,7 +21,7 @@ const Edit = ({ todo }) => {
     }).isRequired,
     children: PropTypes.node,
   };
-  
+
   const {
     setModalOpen,
     setReserveModeTodo,
