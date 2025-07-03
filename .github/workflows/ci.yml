@@ -191,10 +191,10 @@ jobs:
       - name: Debug JSON file content
         run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
-      - name: Define Permission
+      - name: Fix entrypoint.sh permissions
         run: |
-          chmod u+rx .cloudflared/entrypoint.sh
-          chmod 600 .cloudflared/config.yml
+          sudo chmod u+rx .cloudflared/entrypoint.sh
+          sudo chmod 600 .cloudflared/config.yml
 
       - name: Fix Permissions for Cloudflared Credentials
         run: |
