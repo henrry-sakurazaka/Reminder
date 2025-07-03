@@ -116,6 +116,10 @@ jobs:
           sudo touch .env
           sudo chmod 666 .env
 
+      - name: Fix permissions for workspace
+        run: |
+          sudo chmod -R u+rwX,go+rwX .
+
       - name: Create .env file and keys
         run: |
           echo "VITE_IS_LOCAL=${{ secrets.VITE_IS_LOCAl }}" >> .env
