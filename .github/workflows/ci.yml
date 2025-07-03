@@ -80,6 +80,7 @@ jobs:
         run: |
           if ! id -u nonroot >/dev/null 2>&1; then
             sudo useradd -m -s /bin/bash nonroot
+          fi
 
       - name: Create nonroot user
         run: |
