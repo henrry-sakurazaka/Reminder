@@ -7,13 +7,17 @@ import PropTypes from 'prop-types';
 const Edit = ({ todo }) => {
   Edit.propTypes = {
     todo: PropTypes.shape({
-      id: PropTypes.number.isRequired,
-      content: PropTypes.string.isRequired,
-      editing: PropTypes.bool.isRequired,
-      editingColor: PropTypes.bool,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+      content: PropTypes.string,
+      editing: PropTypes.bool,
       completed: PropTypes.bool,
       editingDateTime: PropTypes.bool,
       editingLock: PropTypes.bool,
+      editingColor: PropTypes.bool,
+      notification: PropTypes.bool,
+      shouldHandleNotifications: PropTypes.bool,
     }).isRequired,
     children: PropTypes.node,
   };

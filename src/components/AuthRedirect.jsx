@@ -19,7 +19,6 @@ const AuthRedirect = () => {
         } else {
           setIsReady(true);
           navigate('/Example');
-          console.log('isReady', isReady);
         }
       } catch (error) {
         console.error('Error during authentication redirect:', error);

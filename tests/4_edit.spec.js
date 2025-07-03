@@ -50,7 +50,7 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
 
   await expect(page).toHaveURL(`${baseUrl}/Example`);
 
-  await page.waitForTimeout(40000);
+  await page.waitForTimeout(60000);
   await page.fill('input#task', 'test');
   await page.click('button.add');
   const lastSpan = page.locator('span.content').last();

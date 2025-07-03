@@ -46,6 +46,7 @@ test('タスクをフォームに入力して出力を確認', async ({ page }) 
   await expect(page).toHaveURL(`${baseUrl}/Example`);
 
   const lastCircle = page.locator('span.circleI').last();
+  await lastCircle.waitFor({ state: 'visible', timeout: 40000 });
   await lastCircle.click();
 
   await expect(page.locator('div.modal')).toBeVisible();

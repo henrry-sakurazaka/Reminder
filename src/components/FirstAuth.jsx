@@ -1,7 +1,6 @@
 import React from 'react';
-import AuthCheck from './AuthCheck';
 import Example from './Example';
-import AuthRedirect from './AuthRedirect';
+import UserAuth from './UserAuth';
 import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { PrivateRoute, checkAuthentication } from './checkAuthentication';
@@ -14,7 +13,7 @@ function FirstAuth() {
   useEffect(() => {
     checkAuthentication().then((authenticated) => {
       if (!authenticated) {
-        navigate('/AuthRedirect'); // ログインしていない場合は認証ページにリダイレクト
+        navigate('/UserAuth'); // ログインしていない場合は認証ページにリダイレクト
       } else {
         setAuthenticated(true);
       }
@@ -27,7 +26,7 @@ function FirstAuth() {
       <div>
         <PrivateRoute>
           <TodoProvider>
-            {authenticated ? <AuthCheck /> : <AuthRedirect />}
+            {authenticated ? <Example /> : <UserAuth />}
           </TodoProvider>
         </PrivateRoute>
       </div>

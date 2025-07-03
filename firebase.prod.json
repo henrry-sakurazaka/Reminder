@@ -1,4 +1,7 @@
 {
+  "functions": {
+    "source": "functions"
+  },
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -15,7 +18,7 @@
         ]
       },
       {
-        "source": "/worker.js",
+        "source": "/firebase-messaging-sw.js",
         "headers": [
           {
             "key": "Content-Type",
@@ -48,16 +51,12 @@
 
     "rewrites": [
       {
-        "source": "/worker.js",
-        "destination": "/worker.js"
+        "source": "/api/**",
+        "function": "api"
       },
       {
         "source": "/firebase-messaging-sw.js",
-        "destination": "/worker.js"
-      },
-      {
-        "source": "/api/**",
-        "function": "app"
+        "destination": "/firebase-messaging-sw.js"
       },
       {
         "source": "/__/auth/**",
@@ -78,8 +77,5 @@
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
-  },
-  "database": {
-    "rules": "/database.rules.json"
   }
 }

@@ -10,7 +10,6 @@ import {
 } from 'react';
 import { useDispatchTodos, useTodos } from './TodoContext';
 import { firestore, auth } from '@/firebase';
-import { doc, setDoc, getDoc } from 'firebase/firestore';
 import PropTypes from 'prop-types';
 
 const AsyncLogic = createContext();
@@ -25,11 +24,13 @@ const AsyncContextProvider = ({ children }) => {
   const dispatch = useDispatchTodos();
   const user = auth.currentUser;
   const [uid, setUid] = useState(); // uidの初期化
-
+  const [fetchTodos, setFetchTodos] = useState();
+  const [todosArray, setTodosArray] = useState();
+  const [render, setRender] = useState(false);
   const fetchedDataRef = useRef(null);
 
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, (user) => {
+    const unsubscribe = onAuthStateChanged(auth, async (user) => {
       if (user) {
         setUid(user.uid);
       } else return;
@@ -38,138 +39,132 @@ const AsyncContextProvider = ({ children }) => {
     return () => unsubscribe();
   }, []);
 
-  // useEffect(() => {
-  //   const unloadCallback = () => {
-  //     if (auth.currentUser) {
-  //       auth.currentUser.delete().catch((err) => {
-  //         console.error('User deletion failed:', err);
-  //       });
-  //     }
-  //   };
-  //   window.addEventListener('beforeunload', unloadCallback);
-  //   return () => {
-  //     window.removeEventListener('beforeunload', unloadCallback);
-  //   };
-  // }, []);
-
-  const todosConverter2 = useMemo(() => {
-    return {
-      toFirestore: (todos) => {
-        const todosArray = Object.values(todos);
-        const firestoreData = {};
-        todosArray.forEach((todo, index) => {
-          firestoreData[index.toString()] = {
-            title: todo.title,
-            description: todo.description,
-            type: todo.type,
-            id: todo.id,
-            content: todo.content,
-            editing: todo.editing,
-            completed: todo.completed,
-            reserve: todo.reserve,
-            editingLock: todo.editingLock,
-            editingColor: todo.editingColor,
-            editingDateTime: todo.editingDateTime,
-            notification: todo.notification,
-          };
-        });
-        return firestoreData;
-      },
-    };
-  }, []);
-
-  const GetConverter = useMemo(() => {
-    return {
-      fromFirestore: (snapshot) => {
-        const data = snapshot;
-        const dataArray = Object.values(data).map((item) => ({
-          title: item.title,
-          description: item.description,
-          type: item.type,
-          id: item.id,
-          content: item.content,
-          editing: item.editing,
-          completed: item.completed,
-          reserve: item.reserve,
-          editingLock: item.editingLock,
-          editingColor: item.editingColor,
-          editingDateTime: item.editingDateTime,
-          notification: item.notification,
-        }));
-        return dataArray;
-      },
-    };
-  }, []);
-
   useEffect(() => {
-    const setTodosToFirestore = async () => {
-      if (!uid) return;
+    const sendTodosToApi = async () => {
+      if (!user) return;
+      const uid = user.uid;
+      if (!user || !uid || !todos) return;
+      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'false';
+      const token = await user.getIdToken(); // Firebase ID トークンを取得
+      const apiUrl2 = isLocal
+        ? `/api/todoList`
+        : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/api/todoList?uid=${encodeURIComponent(uid)}`;
 
       try {
-        const convertedData = todosConverter2.toFirestore(todos);
-        const dataWithUid = { todoId: user.uid, todos: convertedData };
-        await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
+        await fetch(apiUrl2, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            uid: uid,
+            todos: todos,
+          }),
+          mode: 'cors',
+        });
       } catch (error) {
-        console.error('Error adding todoList to Firestore:', error);
+        console.error('🔥 Error sending todos:', error);
       } finally {
         setLoading(false);
       }
     };
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user) {
-        await setTodosToFirestore(todos, user.uid);
+      if (
+        user &&
+        todos.length > 0 &&
+        todos.every((todo) => todo !== null && todo !== undefined)
+      ) {
+        await sendTodosToApi(uid, todos);
       } else return;
     });
-
     return () => unsubscribe();
-  }, [dispatch, todos, todosConverter2]);
+  }, [todos, dispatch]);
 
   useEffect(() => {
-    const fetchTodosFromFirestore = async (uid) => {
-      try {
-        const todoDocRef = doc(firestore, 'todoList3', uid);
-        const snapshot = await getDoc(todoDocRef);
+    const fetchTodosFromFirestore = async (user) => {
+      if (!user) return;
+      const uid = user.uid;
+      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      const apiUrl = isLocal
+        ? `/api/todoList?uid=${encodeURIComponent(uid)}`
+        : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/api/todoList?uid=${encodeURIComponent(uid)}`;
 
-        // ドキュメントが存在する場合のみ処理を続行
-        if (snapshot.exists()) {
-          const data2 = snapshot.data();
-          const datatodos = data2.todos || [];
-          const getData = GetConverter.fromFirestore(datatodos);
-          setData(true);
-          // getData がオブジェクトである場合、配列にラップする
-          const newFetchedData = Array.isArray(getData) ? getData : [getData];
-          // fetchedData が null でないことを確認してから処理を続行
+      try {
+        const fetchTodoList = async () => {
+          if (!user || !uid) return;
+          const token = await user.getIdToken(); // Firebase ID トークンを取得
+
+          const response = await fetch(apiUrl, {
+            method: 'GET',
+            headers: {
+              Authorization: `Bearer ${token}`,
+            },
+          });
+          const data = await response.json();
+          // const data2 = Object.values(data[0].todos);
+          setFetchTodos(data);
+          const newFetchedData = Array.isArray(data) ? data : [data];
 
           if (newFetchedData !== null && newFetchedData.length > 0) {
             setFetchedData(newFetchedData);
             setData(true);
             fetchedDataRef.current = newFetchedData;
-            dispatch({ type: 'FETCH_TODOS', payload: newFetchedData || [] });
+            dispatch({
+              type: 'FETCH_TODOS',
+              payload: newFetchedData.filter(
+                (newFetch) => newFetch !== 'undefind'
+              ),
+            });
           }
-        }
+        };
+        fetchTodoList();
       } catch (error) {
         console.error('Error fetching todoList to Firestore:', error);
       } finally {
         setLoading(false);
       }
     };
+
     const unsubscribe = onAuthStateChanged(auth, async (user) => {
-      if (user && !todosChanged) {
-        await fetchTodosFromFirestore(user.uid);
+      if (user && (uid || !todosChanged)) {
+        await fetchTodosFromFirestore(user);
       } else return;
     });
 
     return () => unsubscribe();
-  }, [GetConverter, dispatch]);
+  }, [dispatch, uid, todosChanged]);
 
   useEffect(() => {
     const AddTodos = async () => {
+      const uid = user.uid;
+      const isLocal = import.meta.env.VITE_IS_LOCAL === 'true';
+      const token = await user.getIdToken();
+      // const isLocal = import.meta.env.VITE_IS_LOCAL === 'false';
+      const apiUrl2 = isLocal
+        ? `/api/todoList`
+        : `https://us-central1-reminder5-27ef0.cloudfunctions.net/apiTodoList/api/todoList?uid=${encodeURIComponent(uid)}`;
+
       try {
-        const convertedData = todosConverter2.toFirestore(todos);
-        const dataWithUid = { todoId: user.uid, todos: convertedData };
-        await setDoc(doc(firestore, 'todoList3', user.uid), dataWithUid);
+        const safeTodos = Array.isArray(todos)
+          ? todos
+          : Object.values(todos || {});
+        const filteredTodos = safeTodos.filter((todo) => todo !== null);
+        await fetch(apiUrl2, {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`,
+          },
+          body: JSON.stringify({
+            uid: uid,
+            todos: filteredTodos,
+          }),
+          mode: 'cors',
+        });
       } catch (error) {
-        console.error('Error adding todoList to Firestore:', error);
+        console.error('🔥 Error sending todos:', error);
       } finally {
         setLoading(false);
       }
@@ -177,7 +172,7 @@ const AsyncContextProvider = ({ children }) => {
     if (AddTodosExecuted) {
       AddTodos();
     }
-  }, [AddTodosExecuted, dispatch, todos, GetConverter, todosConverter2]);
+  }, [AddTodosExecuted, dispatch]);
 
   return (
     <AsyncLogic.Provider

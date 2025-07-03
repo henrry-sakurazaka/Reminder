@@ -1,4 +1,8 @@
 {
+  "functions": {
+    "source": "functions"
+  },
+
   "hosting": {
     "public": "build",
     "ignore": ["firebase.json", "**/.*", "**/node_modules/**"],
@@ -15,12 +19,20 @@
     ],
     "rewrites": [
       {
-        "source": "**",
-        "destination": "/index.html"
+        "source": "/api/**",
+        "function": "apiTodoList"
       },
       {
-        "source": "/api/**",
-        "function": "app"
+        "source": "/firebase-messaging-sw.js",
+        "destination": "/firebase-messaging-sw.js"
+      },
+      {
+        "source": "/__/auth/**",
+        "destination": "/__/auth/index.html"
+      },
+      {
+        "source": "**",
+        "destination": "/index.html"
       }
     ]
   },
@@ -35,7 +47,7 @@
       "port": 5001
     },
     "firestore": {
-      "port": 7000
+      "port": 8080
     },
     "auth": {
       "port": 9099
@@ -44,14 +56,12 @@
       "port": 9199
     }
   },
+
   "storage": {
     "rules": "storage.rules"
   },
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
-  },
-  "database": {
-    "rules": "/database.rules.json"
   }
 }

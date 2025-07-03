@@ -21,6 +21,7 @@ serviceAccountKey2.json
 firebase/serviceAccountKey.json
 firebase/serviceAccountKey2.json
 functions/serviceAccountKey.json
+api/serviceAccountKey.json
 bfg-repo-cleaner/
 .cloudflared/cert.pem
 .cloudflared/offsetcodecraft.site.json
@@ -34,6 +35,7 @@ encoded3_correct.txt
 encoded5_correct.txt
 encoded7_correct.txt
 encoded9_correct.txt
+encodedX_correct.txt
 appspot-serviceAccountKey.json
 chjy7-serviceAccountKey.json
 reminder5-serviceAccountKey.json

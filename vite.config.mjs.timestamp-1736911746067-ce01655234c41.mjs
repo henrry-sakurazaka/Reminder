@@ -96,6 +96,16 @@ var vite_config_default = defineConfig({
     //         cert: fs.readFileSync('./server.cert.pem' || '/etc/ssl/certs/server.cert.pem'),
     //       }
     //     : false,
+    ...(isLocal && {
+      proxy: {
+        '/api/todoList': {
+          target: 'http://localhost:3001',
+          changeOrigin: true,
+          rewrite: (path) => path,
+        },
+      },
+    }),
+
     hmr: true,
     overlay: false,
     cors: true,
