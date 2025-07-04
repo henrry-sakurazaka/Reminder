@@ -33,7 +33,7 @@ Reactライブラリを使用し、ユーザーのタスク管理を支援する
 
 ## 🧭 アーキテクチャ構成図
 
-![アーキテクチャ図](./public/Blank_diagram-11.png)
+![アーキテクチャ図](./public/Blank%20diagram-12.png)
 
 - スクリーンショットやGIF（UI紹介）
 
