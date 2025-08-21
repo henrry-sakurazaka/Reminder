@@ -47,6 +47,8 @@ test('ログインテスト', async ({ page }) => {
   await expect(page).toHaveURL(`${baseUrl}/Example`);
   await page.click('span.back');
 
+  await page.waitForTimeout(5000);
+
   await expect(page).toHaveURL(`${baseUrl}/UserAuth`);
 
   await page.click('span#SO');
