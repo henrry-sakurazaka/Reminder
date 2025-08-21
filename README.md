@@ -42,6 +42,10 @@ Reactライブラリを使用し、ユーザーのタスク管理を支援する
 ![UI紹介](./public/caption-img3.png)
 ![UI紹介](./public/caption-img5.png)
 
+## テスト成功の画像です
+
+![GitHub Actions](./public/スクリーンショット:CI:CD%202025-03-11%2022.01.38.png)
+
 ## Docker Hub
 
 このプロジェクトのDockerイメージは、[Docker Hub](https://hub.docker.com/repositories/henrry301)で公開されています。ここでは、以下の情報を確認できます：
