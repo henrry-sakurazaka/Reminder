@@ -538,7 +538,7 @@ const Ct = () => i.useContext(Le),
     const { setDisplayTimePicker: o, setDisplayDatePicker: r } = O();
     return (
       i.useEffect(() => {
-        o(!0), r(!1);
+        (o(!0), r(!1));
       }, [o, r]),
       e.jsxs('div', {
         className: 'time-picker-container',
@@ -594,7 +594,7 @@ const Ct = () => i.useContext(Le),
     } = O();
     return (
       i.useEffect(() => {
-        r(!0), d(!1);
+        (r(!0), d(!1));
       }, [d, r]),
       e.jsxs('div', {
         className: 'date-picker-container',
@@ -705,18 +705,18 @@ const Ue = ({
     const [S, x] = i.useState(),
       [C, T] = i.useState(null),
       [E, A] = i.useState(!1);
-    W(D, (j) => {
+    (W(D, (j) => {
       j && j.getIdToken(!0);
     }),
       i.useEffect(() => {
         const j = W(D, (w) => {
           if (w) {
             const v = D.currentUser;
-            T(v), x(w.uid), r(s), A(!0);
+            (T(v), x(w.uid), r(s), A(!0));
           }
         });
         return () => j();
-      }, []);
+      }, []));
     const I = async () => {
       await Ce(B(L, 'notifications', a), { isNotified: !0 });
     };
@@ -784,8 +784,8 @@ const Ue = ({
               c = (b = m.data().notificationTime) == null ? void 0 : b.toDate(),
               y = new Date().getTime(),
               R = new Date(c).getTime() + 24 * 60 * 60 * 1e3;
-            (c > y || d) && (I(), h(!0)),
-              R >= y && (await at(B(L, 'notifications', f)));
+            ((c > y || d) && (I(), h(!0)),
+              R >= y && (await at(B(L, 'notifications', f))));
           }
         })();
       }, [n, t, o, d]),
@@ -840,7 +840,7 @@ const Ue = ({
         Todo2: le,
         setTodo2: de,
       } = O();
-    i.useEffect(() => {
+    (i.useEffect(() => {
       const k = W(D, (N) => {
         N && w(N.uid);
       });
@@ -848,7 +848,7 @@ const Ue = ({
     }, []),
       i.useEffect(() => {
         'Notification' in window || I(!1);
-      }, []);
+      }, []));
     const ue = () => {
         if (!A)
           return e.jsx('div', {
@@ -866,20 +866,20 @@ const Ue = ({
         m(!k);
       },
       ge = (k) => {
-        u(!0), y(!1), M(!0);
+        (u(!0), y(!1), M(!0));
       },
       fe = (k) => {
-        y(!0), u(!1), se(!0);
+        (y(!0), u(!1), se(!0));
       },
       H = (k) => {
         const N = new Date(k.target.value);
-        a(N), U(!0);
+        (a(N), U(!0));
       },
       J = (k) => {
         const { value: N } = k.target,
           [V, Y] = N.split(':'),
           $ = new Date();
-        $.setHours(parseInt(V), parseInt(Y), 0, 0), r($), p(N), G(!0), E(!0);
+        ($.setHours(parseInt(V), parseInt(Y), 0, 0), r($), p(N), G(!0), E(!0));
       },
       he = async (k) => {
         if (!oe) {
@@ -904,12 +904,12 @@ const Ue = ({
                 $ = B(Ne(L, 'notifications'), V);
               await X($, Y);
               const je = { ...k, notification: !0 };
-              n({ type: 'todo/notification', todo: je }),
+              (n({ type: 'todo/notification', todo: je }),
                 ne(j),
                 ae($),
                 ie(!0),
                 re(!0),
-                de(k);
+                de(k));
             } catch (V) {
               console.error(
                 'Error writing notification data to Firestore: ',
@@ -934,8 +934,8 @@ const Ue = ({
       };
     i.useEffect(() => {
       const k = document.querySelector('.modal');
-      (k.style.alignItems = 'center'),
-        (s !== h || o !== x) && (s !== h || o !== x) && (S(s), C(o));
+      ((k.style.alignItems = 'center'),
+        (s !== h || o !== x) && (s !== h || o !== x) && (S(s), C(o)));
     }, [s, o]);
     const xe = () => {
       if (P)
@@ -1158,11 +1158,11 @@ const Ue = ({
         j({ type: 'todo/update', todo: c });
       },
       b = (u) => {
-        j({ type: 'todo/delete', todo: u }), E(!0);
+        (j({ type: 'todo/delete', todo: u }), E(!0));
       },
       m = (u) => {
         const c = { ...u, completed: !0 };
-        j({ type: 'complete2', todo: c }), E(!0);
+        (j({ type: 'complete2', todo: c }), E(!0));
       },
       f = (u) => {
         const c = !u.editingColor,
@@ -1174,7 +1174,7 @@ const Ue = ({
             id: u.id,
             content: u.content,
           };
-        j({ type: 'todo/reserve', todo: y }),
+        (j({ type: 'todo/reserve', todo: y }),
           j({ type: 'todo/reserveColor', todo: y }),
           j({ type: 'todo/editingDateTime', todo: y }),
           n((R) => !R),
@@ -1185,7 +1185,7 @@ const Ue = ({
           !h && r(!1),
           !h && d(!1),
           !h && p(!1),
-          !h && C(!1);
+          !h && C(!1));
       };
     return e.jsxs(
       'div',
@@ -1274,7 +1274,7 @@ const Ue = ({
           editingDateTime: !1,
           notification: !1,
         };
-        t({ type: 'todo/add', todo: d, editing: !1 }), s(''), a(!0);
+        (t({ type: 'todo/add', todo: d, editing: !1 }), s(''), a(!0));
       },
       r = () => {
         t({ type: 'todo/reset', todo: [] });
@@ -1410,7 +1410,7 @@ const Ue = ({
 function Ve() {
   return new Promise((t) => {
     const n = W(D, (s) => {
-      t(!!s), n();
+      (t(!!s), n());
     });
   });
 }
@@ -1441,7 +1441,7 @@ const We = () => {
     h = () => {
       De(D)
         .then(() => {
-          o(!0), localStorage.clear();
+          (o(!0), localStorage.clear());
         })
         .catch((T) => {
           console.error('ログアウトエラー:', T);
@@ -1540,10 +1540,10 @@ function Et() {
 function At() {
   const t = F();
   i.useEffect(() => {
-    (async () => {
-      await De(D), setTimeout(() => t('/UserAuth'), 1e4);
+    ((async () => {
+      (await De(D), setTimeout(() => t('/UserAuth'), 1e4));
     })(),
-      localStorage.clear();
+      localStorage.clear());
   }, [t]);
 }
 const It = [
@@ -1653,9 +1653,9 @@ function Rt() {
           await ct(b, { displayName: r });
           const m = s.toFirestore(It),
             f = { todoId: b.uid, agreement: t, todos: m };
-          await X(B(L, 'todoList3', b.uid), f),
+          (await X(B(L, 'todoList3', b.uid), f),
             await X(B(L, 'notifications', b.uid), {}),
-            h('/Example');
+            h('/Example'));
         } else
           return e.jsx('div', {
             children: e.jsx('h2', {
@@ -1663,12 +1663,13 @@ function Rt() {
             }),
           });
       } catch (g) {
-        alert(g.message),
+        (alert(g.message),
           g.code === 'auth/email-already-in-use'
             ? alert(
                 'This email is already in use. Please use a different email.'
               )
-            : (console.error('Error signing up:', g.message), alert(g.message));
+            : (console.error('Error signing up:', g.message),
+              alert(g.message)));
       }
     };
   return e.jsxs(e.Fragment, {
@@ -1889,7 +1890,7 @@ const be = { email: 'Peace.875136D.time@gmail.com', password: void 0 },
         if ((x.preventDefault(), d))
           try {
             const C = lt.credential(d.email, s);
-            await dt(d, C), await S();
+            (await dt(d, C), await S());
           } catch (C) {
             r(`再認証中にエラーが発生しました: ${C.message}`);
           }
@@ -1897,9 +1898,9 @@ const be = { email: 'Peace.875136D.time@gmail.com', password: void 0 },
       S = async () => {
         if (d)
           try {
-            await d.delete(),
+            (await d.delete(),
               r('ユーザーアカウントが削除されました'),
-              setTimeout(() => p('/UserAuth'), 3e3);
+              setTimeout(() => p('/UserAuth'), 3e3));
           } catch (x) {
             x.code === 'auth/requires-recent-login'
               ? n(!0)
@@ -1907,8 +1908,8 @@ const be = { email: 'Peace.875136D.time@gmail.com', password: void 0 },
                 setTimeout(() => p('/UserAuth', 1e4)));
           }
         else
-          r('サインインしているユーザーがいません'),
-            setTimeout(() => p('/UserAuth'), 1e4);
+          (r('サインインしているユーザーがいません'),
+            setTimeout(() => p('/UserAuth'), 1e4));
       };
     return (
       i.useEffect(() => {
