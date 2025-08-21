@@ -63,7 +63,7 @@ test('タスクをフォームを入力して出力を確認', async ({ page }) 
   await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
   await expect(lastSpan).toHaveCSS(
     'text-decoration',
-    'line-through solid rgb(8, 232, 158)'
+    'line-through rgb(8, 232, 158)'
   );
   await expect(lastBtn).toHaveCSS('color', 'rgb(8, 232, 158)');
 
