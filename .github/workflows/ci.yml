@@ -570,11 +570,6 @@ jobs:
       - name: Clear Cache .vite
         run: rm -rf node_modules/.vite build/dist .firebase
 
-      - name: Install dependencies
-        run: |
-          rm -rf package-lock.json node_modules
-          npm install
-
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
@@ -587,6 +582,11 @@ jobs:
 
       - name: Install deps
         run: npm ci
+
+      - name: Install dependencies
+        run: |
+          rm -rf package-lock.json node_modules
+          npm install
 
       - name: Build For Deploy
         env:
