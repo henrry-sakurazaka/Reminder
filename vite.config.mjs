@@ -80,11 +80,11 @@ export default defineConfig(({ mode }) => {
     },
     optimizeDeps: {
       include: [
-        '@firebase/app',
-        '@firebase/analytics',
-        '@firebase/database',
-        '@firebase/installations',
-        '@firebase/auth',
+        'firebase/app',
+        'firebase/auth',
+        'firebase/analytics',
+        'firebase/database',
+        'firebase/installations',
       ],
     },
     server: {
@@ -100,6 +100,9 @@ export default defineConfig(({ mode }) => {
         '192.168.0.3',
         '192.168.0.7',
       ],
+      ssr: {
+        noExternal: ['firebase'],
+      },
       hmr: true,
       overlay: false,
       cors: true,
