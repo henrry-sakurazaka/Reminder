@@ -67,7 +67,7 @@
     "start:client": "npx cross-env PORT=3003 vite",
     "lint": "eslint -c eslint.config.mjs .",
     "serve": "firebase serve",
-    "prettier": "prettier --check ."
+    "prettier": "prettier --write ."
   },
   "devDependencies": {
     "@babel/core": "^7.26.0",
