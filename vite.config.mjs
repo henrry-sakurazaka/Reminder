@@ -60,8 +60,6 @@ export default defineConfig(({ mode }) => {
           drop_console: true,
         },
       },
-      external: ['@firebase/app'],
-      chunkSizeWarningLimit: 700,
     },
     resolve: {
       alias: {
@@ -100,9 +98,6 @@ export default defineConfig(({ mode }) => {
         '192.168.0.3',
         '192.168.0.7',
       ],
-      ssr: {
-        noExternal: ['firebase'],
-      },
       hmr: true,
       overlay: false,
       cors: true,
