@@ -475,7 +475,7 @@ jobs:
       - name: Check Firebase CLI
         run: firebase --version
 
-      - name: Firebase install SDK latest
+      - name: Firebase install SDK
         run: npm install firebase@10.14.1
 
       - name: Set up Firebase credentials
