@@ -71,10 +71,11 @@ var vite_config_default = defineConfig({
   },
   optimizeDeps: {
     include: [
-      '@firebase/app',
-      '@firebase/analytics',
-      '@firebase/database',
-      '@firebase/installations',
+      'firebase/app',
+      'firebase/auth',
+      'firebase/analytics',
+      'firebase/database',
+      'firebase/installations',
     ],
   },
   server: {
