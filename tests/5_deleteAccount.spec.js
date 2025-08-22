@@ -60,6 +60,5 @@ test('アカウント削除のテスト', async ({ page }) => {
   await expect(page.locator('.message')).toHaveText(
     'ユーザーアカウントが削除されました'
   );
-  await page.waitForTimeout(5000);
   await expect(page).toHaveURL(`${baseUrl}/UserAuth`);
 });
