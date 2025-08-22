@@ -476,7 +476,7 @@ jobs:
         run: firebase --version
 
       - name: Firebase install SDK
-        run: npm install firebase@10.14.1
+        run: npm install firebase@10.12.3
 
       - name: Set up Firebase credentials
         run: |
