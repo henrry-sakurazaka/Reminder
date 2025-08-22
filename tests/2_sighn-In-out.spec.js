@@ -42,8 +42,6 @@ test('ログインテスト', async ({ page }) => {
   await page.fill('#password', password);
   await page.click('button.form-button[type="submit"]');
 
-  await page.waitForTimeout(5000);
-
   await expect(page).toHaveURL(`${baseUrl}/Example`);
   await page.click('span.back');
 
