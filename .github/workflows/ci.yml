@@ -475,9 +475,6 @@ jobs:
       - name: Check Firebase CLI
         run: firebase --version
 
-      - name: Firebase install SDK
-        run: npm install firebase@10.12.3
-
       - name: Set up Firebase credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
@@ -573,7 +570,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf package-lock.json node_modules
-          npm install firebase@10.12.3
+          npm install firebase@latest
 
       - name: Install deps
         run: npm ci
