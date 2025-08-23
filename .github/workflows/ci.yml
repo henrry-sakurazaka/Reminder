@@ -573,7 +573,7 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf package-lock.json node_modules
-          npm install firabase@10.12.3
+          npm install firebase@10.12.3
 
       - name: Install deps
         run: npm ci
