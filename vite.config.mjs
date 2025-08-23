@@ -60,13 +60,12 @@ export default defineConfig(({ mode }) => {
           drop_console: true,
         },
       },
-      external: ['@firebase/app'],
-      chunkSizeWarningLimit: 700,
     },
     resolve: {
       alias: {
         '@': path.resolve(__dirname, 'src'),
         components: path.resolve(__dirname, 'src/components'),
+        '@firebase/auth/dist/esm2017': '@firebase/auth/dist/index.esm.js',
       },
     },
     plugins: [
@@ -81,10 +80,10 @@ export default defineConfig(({ mode }) => {
     optimizeDeps: {
       include: [
         '@firebase/app',
+        '@firebase/auth',
         '@firebase/analytics',
         '@firebase/database',
         '@firebase/installations',
-        '@firebase/auth',
       ],
     },
     server: {

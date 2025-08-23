@@ -475,9 +475,6 @@ jobs:
       - name: Check Firebase CLI
         run: firebase --version
 
-      - name: Firebase install SDK latest
-        run: npm install firebase@latest
-
       - name: Set up Firebase credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
@@ -573,7 +570,10 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf package-lock.json node_modules
-          npm install
+          npm install firebase@10.12.3
+
+      - name: Install deps
+        run: npm ci
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
@@ -584,9 +584,6 @@ jobs:
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
-
-      - name: Install deps
-        run: npm ci
 
       - name: Build For Deploy
         env:

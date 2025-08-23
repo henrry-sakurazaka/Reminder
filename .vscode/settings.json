@@ -5,6 +5,6 @@
   "git.ignoredRepositories": [],
   "editor.formatOnSave": false,
   "editor.codeActionsOnSave": {
-    "source.fixAll": false
+    "source.fixAll": "never"
   }
 }
