@@ -65,6 +65,7 @@ export default defineConfig(({ mode }) => {
       alias: {
         '@': path.resolve(__dirname, 'src'),
         components: path.resolve(__dirname, 'src/components'),
+        '@firebase/auth/dist/esm2017': '@firebase/auth/dist/index.esm.js',
       },
     },
     plugins: [
