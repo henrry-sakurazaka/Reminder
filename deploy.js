@@ -72,11 +72,11 @@ export default defineConfig({
   },
   optimizeDeps: {
     include: [
-      'firebase/app',
-      'firebase/analytics',
-      'firebase/database',
-      'firebase/installations',
-      'firebase/auth',
+      '@firebase/app',
+      '@firebase/analytics',
+      '@firebase/database',
+      '@firebase/installations',
+      '@firebase/auth',
     ],
   },
   server: {
