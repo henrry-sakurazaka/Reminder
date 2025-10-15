@@ -122,9 +122,15 @@ p {
   position: relative;
 }
 
+.modalParent {
+  display: flex;
+  align-items: center;
+  column-gap: 3px;
+  row-gap: 8px;
+  margin-bottom: 8px;
+}
+
 .circleI {
-  position: absolute;
-  left: -24px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -133,7 +139,6 @@ p {
   height: 16px;
   border-radius: 50%;
   margin-right: 8px;
-  margin-top: 4px;
   font-size: 0.8em;
   color: grey;
   cursor: pointer;
@@ -178,7 +183,7 @@ input {
 }
 
 .compBtn {
-  margin-bottom: 8px;
+  /* margin-bottom: 4px; */
   margin-right: 8px;
   background-color: grey;
   cursor: pointer;
@@ -258,8 +263,9 @@ input {
     margin-left: 0;
     text-align: center;
   }
+
   .compBtn {
-    margin-bottom: 16px;
+    /* margin-bottom: 16px; */
     height: 32px;
     color: black;
   }
