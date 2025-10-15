@@ -51,15 +51,6 @@ export default defineConfig({
     alias: {
       '@': path.resolve(__dirname, 'src'),
       components: path.resolve(__dirname, 'src/components'),
-      // '@firebase/auth': path.resolve(
-      //   __dirname,
-      //   'node_modules/@firebase/auth/dist/esm2017/index.js'
-      // ),
-      // '@firebase/auth/dist/esm2017': '@firebase/auth/dist/index.esm.js',
-      // '@firebase/app': path.resolve(
-      //   __dirname,
-      //   'node_modules/@firebase/app/dist/esm/index.esm2017.js'
-      // ),
     },
   },
   plugins: [
