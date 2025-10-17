@@ -148,6 +148,7 @@ const TodoProvider = ({ children }) => {
   const [completedTask, setCompletedTask] = useState(false);
   const [completedTask2, setCompletedTask2] = useState(false);
   const [isReady, setIsReady] = useState(false);
+  const [clickEvent, setClickEvent] = useState(false);
 
   return (
     <TodoContext.Provider
@@ -220,6 +221,8 @@ const TodoProvider = ({ children }) => {
         setCompletedTask2,
         isReady,
         setIsReady,
+        clickEvent,
+        setClickEvent,
       }}
     >
       <TodoDispatchContext.Provider value={dispatch}>

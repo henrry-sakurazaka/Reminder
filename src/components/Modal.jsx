@@ -66,6 +66,8 @@ const Modal = ({ todo }) => {
     setDocId,
     Todo2,
     setTodo2,
+    setClickEvent,
+    setModalOpen,
   } = useTodos();
 
   useEffect(() => {
@@ -115,8 +117,8 @@ const Modal = ({ todo }) => {
     setSelectedTime(true);
   };
 
-  const handleDateChange = (e) => {
-    const newDate = new Date(e.target.value);
+  const handleDateChange = (dateValue) => {
+    const newDate = new Date(dateValue);
     setIsDate(newDate);
     setIsDateSet(true);
   };
@@ -131,6 +133,10 @@ const Modal = ({ todo }) => {
     setInputTime(value);
     setIsTimeSet(true);
     setTimeCheck(true);
+  };
+
+  const stopTask = () => {
+    setModalOpen((prev) => !prev);
   };
 
   const setTimer = async (todo) => {
@@ -170,6 +176,7 @@ const Modal = ({ todo }) => {
         setCompletedDateTimeSetting(true);
         setShouldHandleNotifications(true);
         setTodo2(todo);
+        setClickEvent(true);
       } catch (error) {
         console.error('Error writing notification data to Firestore: ', error);
       } finally {
@@ -358,6 +365,13 @@ const Modal = ({ todo }) => {
           }}
         >
           {!shouldHandleNotifications ? 'SET' : 'DONE'}
+        </button>
+        <button
+          className="quitBtn"
+          style={{ color: 'rgb(40, 147, 247, 0.772)' }}
+          onClick={() => stopTask()}
+        >
+          QUIT
         </button>
 
         {completedDateTimeSetting && shouldHandleNotifications && (

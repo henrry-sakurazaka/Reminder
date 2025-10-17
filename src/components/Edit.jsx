@@ -36,6 +36,9 @@ const Edit = ({ todo }) => {
     setShouldHandleNotifications,
     isSet,
     setCompletedTask,
+    clickEvent,
+    setClickEvent,
+    completedDateTimeSetting,
   } = useTodos();
 
   const [editingContent, setEditingContent] = useState(todo.content);
