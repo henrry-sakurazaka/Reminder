@@ -8,6 +8,7 @@ const Form = () => {
   const newId = uuidv4();
 
   const addTodo = () => {
+    if (!enteredTodo || enteredTodo.trim() === '') return;
     const newTodo = {
       title: enteredTodo,
       description: enteredTodo,
@@ -34,30 +35,37 @@ const Form = () => {
   };
 
   return (
-    <div>
-      <input
-        type="text"
-        value={enteredTodo}
-        id="task"
-        name="task"
-        onChange={(e) => {
-          setEnteredTodo(e.target.value);
+    <>
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          addTodo();
         }}
-      />
-      <div className="flex-box">
-        <button className="add" onClick={() => addTodo()}>
-          <div className="plus">
-            <span className="gif1"></span>
-            <span className="gif2"></span>
-          </div>
-        </button>
-        <button className="reset2" onClick={() => allComplete()}>
-          <div className="reset">
-            <img src="/icon_007476_32.png" alt="reset"></img>
-          </div>
-        </button>
-      </div>
-    </div>
+      >
+        <input
+          type="text"
+          value={enteredTodo}
+          id="task"
+          name="task"
+          onChange={(e) => {
+            setEnteredTodo(e.target.value);
+          }}
+        />
+        <div className="flex-box">
+          <button className="add" onClick={() => addTodo()}>
+            <div className="plus">
+              <span className="gif1"></span>
+              <span className="gif2"></span>
+            </div>
+          </button>
+          <button className="reset2" onClick={() => allComplete()}>
+            <div className="reset">
+              <img src="/icon_007476_32.png" alt="reset"></img>
+            </div>
+          </button>
+        </div>
+      </form>
+    </>
   );
 };
 
