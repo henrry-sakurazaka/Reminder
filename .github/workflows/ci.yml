@@ -328,8 +328,11 @@ jobs:
       - name: Inspect Network Setting
         run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPv4Address'
 
+      # - name: Test connection to app2 from cloudflared
+      #   run: docker exec cloudflared curl -v http://app2:3000 &
+
       - name: Test connection to app2 from cloudflared
-        run: docker exec cloudflared curl -v http://app2:3000 &
+        run: docker exec cloudflared curl -v --max-time 30 http://app2:3000
 
       - name: Inspect connected to cloudflare
         run: docker logs cloudflared --tail 50
