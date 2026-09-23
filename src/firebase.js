@@ -10,6 +10,7 @@ import {
 } from 'firebase/firestore';
 // import { ref, set } from 'firebase/database';
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
+////////////
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
