@@ -49,9 +49,6 @@ const UserAuth = () => {
     setTimeout(() => setIsSignOut(false), 5000);
   };
 
-  const handleClickEasyLogin = () => {
-    navigate('/EasyLogin');
-  };
 
   const handleDeleteAccount = () => {
     navigate('/DeleteAccount');
@@ -103,12 +100,6 @@ const UserAuth = () => {
               onClick={() => handleClickSignOut()}
             >
               Sign Out
-            </span>
-            <span
-              className="select-auth easy-login"
-              onClick={() => handleClickEasyLogin()}
-            >
-              試してみる
             </span>
             <span
               id="DA"

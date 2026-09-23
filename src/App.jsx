@@ -10,7 +10,6 @@ import UserAuth from './components/UserAuth';
 import SignOut from './components/SignOut';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
-import EasyLogin from './components/EasyLogin';
 import DeleteAccount from './components/DeleteAccount';
 import AuthRedirect from './components/AuthRedirect';
 import PrivacyPolicy from './components/PrivacyPolicy';
@@ -67,7 +66,6 @@ export default function App() {
           <Route path="/SignOut" element={<SignOut />} />
           <Route path="/SignUp" element={<SignUp />} />
           <Route path="/SignIn" element={<SignIn />} />
-          <Route path="/EasyLogin" element={<EasyLogin />} />
           <Route path="/DeleteAccount" element={<DeleteAccount />} />
           <Route path="/PrivacyPolicy" element={<PrivacyPolicy />} />
           <Route path="/Terms" element={<Terms />} />

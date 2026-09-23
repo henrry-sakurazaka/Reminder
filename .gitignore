@@ -12,6 +12,7 @@ firebaseInit.js
 functions/.env
 .env
 .env.production
+.env.development
 build/assets/
 build/dist/
 dist/assets/firebase-DbxlpnmS.js
@@ -45,3 +46,4 @@ functions/appspot-serviceAccountKey.json
 cert_pubkey.pem
 public.key
 git-filter-repo-2.47.0/
+
