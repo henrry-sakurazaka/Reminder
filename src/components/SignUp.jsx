@@ -2,7 +2,7 @@ import React from 'react';
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { updateProfile, createUserWithEmailAndPassword } from 'firebase/auth';
-import { auth, firestore } from '../firebase';
+import { auth, firestore } from '@/firebase';
 import { doc, setDoc } from 'firebase/firestore';
 import './SignUp.css';
 
@@ -20,6 +20,7 @@ const todoList = [
     editingColor: false,
     editingDateTime: false,
     notification: false,
+    agreement: false,
   },
   {
     title: 'send a letter',
@@ -34,6 +35,7 @@ const todoList = [
     editingColor: false,
     editingDateTime: false,
     notification: false,
+    agreement: false,
   },
   {
     title: 'buy flowers',
@@ -48,6 +50,7 @@ const todoList = [
     editingColor: false,
     editingDateTime: false,
     notification: false,
+    agreement: false,
   },
 ];
 
@@ -136,7 +139,7 @@ function SignUp() {
         const convertedData = todosConverter2.toFirestore(todoList);
         const dataWithUid = {
           todoId: user.uid,
-          agreement: agree,
+          agreement: true,
           todos: convertedData,
         };
         // サインアップ成功時にtodoListを保存する

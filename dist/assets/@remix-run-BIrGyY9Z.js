@@ -24,7 +24,7 @@
 }
 var v;
 (function (e) {
-  (e.Pop = 'POP'), (e.Push = 'PUSH'), (e.Replace = 'REPLACE');
+  ((e.Pop = 'POP'), (e.Push = 'PUSH'), (e.Replace = 'REPLACE'));
 })(v || (v = {}));
 const I = 'popstate';
 function oe(e) {
@@ -84,8 +84,8 @@ function R(e) {
     let n = e.indexOf('#');
     n >= 0 && ((t.hash = e.substr(n)), (e = e.substr(0, n)));
     let a = e.indexOf('?');
-    a >= 0 && ((t.search = e.substr(a)), (e = e.substr(0, a))),
-      e && (t.pathname = e);
+    (a >= 0 && ((t.search = e.substr(a)), (e = e.substr(0, a))),
+      e && (t.pathname = e));
   }
   return t;
 }
@@ -104,7 +104,7 @@ function k(e, t, n, a) {
     s = v.Pop;
     let u = f(),
       d = u == null ? null : u - c;
-    (c = u), l && l({ action: s, location: m.location, delta: d });
+    ((c = u), l && l({ action: s, location: m.location, delta: d }));
   }
   function p(u, d) {
     s = v.Push;
@@ -126,8 +126,8 @@ function k(e, t, n, a) {
     c = f();
     let E = O(g, c),
       x = m.createHref(g);
-    o.replaceState(E, '', x),
-      i && l && l({ action: s, location: m.location, delta: 0 });
+    (o.replaceState(E, '', x),
+      i && l && l({ action: s, location: m.location, delta: 0 }));
   }
   function w(u) {
     let d = r.location.origin !== 'null' ? r.location.origin : r.location.href,
@@ -155,7 +155,7 @@ function k(e, t, n, a) {
         r.addEventListener(I, h),
         (l = u),
         () => {
-          r.removeEventListener(I, h), (l = null);
+          (r.removeEventListener(I, h), (l = null));
         }
       );
     },
@@ -177,13 +177,13 @@ function k(e, t, n, a) {
 }
 var j;
 (function (e) {
-  (e.data = 'data'),
+  ((e.data = 'data'),
     (e.deferred = 'deferred'),
     (e.redirect = 'redirect'),
-    (e.error = 'error');
+    (e.error = 'error'));
 })(j || (j = {}));
 function ce(e, t, n) {
-  return n === void 0 && (n = '/'), A(e, t, n);
+  return (n === void 0 && (n = '/'), A(e, t, n));
 }
 function A(e, t, n, a) {
   let r = typeof t == 'string' ? R(t) : t,
@@ -199,7 +199,9 @@ function A(e, t, n, a) {
   return s;
 }
 function U(e, t, n, a) {
-  t === void 0 && (t = []), n === void 0 && (n = []), a === void 0 && (a = '');
+  (t === void 0 && (t = []),
+    n === void 0 && (n = []),
+    a === void 0 && (a = ''));
   let r = (i, o, s) => {
     let l = {
       relativePath: s === void 0 ? i.path || '' : s,
@@ -219,7 +221,7 @@ function U(e, t, n, a) {
       (l.relativePath = l.relativePath.slice(a.length)));
     let c = S([a, l.relativePath]),
       f = n.concat(l);
-    i.children &&
+    (i.children &&
       i.children.length > 0 &&
       (y(
         i.index !== !0,
@@ -228,7 +230,7 @@ function U(e, t, n, a) {
       ),
       U(i.children, t, f, c)),
       !(i.path == null && !i.index) &&
-        t.push({ path: c, score: J(c, i.index), routesMeta: f });
+        t.push({ path: c, score: J(c, i.index), routesMeta: f }));
   };
   return (
     e.forEach((i, o) => {
@@ -302,14 +304,14 @@ function Q(e, t, n) {
       ),
       p = l.route;
     if (!h) return null;
-    Object.assign(r, h.params),
+    (Object.assign(r, h.params),
       o.push({
         params: r,
         pathname: S([i, h.pathname]),
         pathnameBase: re(S([i, h.pathnameBase])),
         route: p,
       }),
-      h.pathnameBase !== '/' && (i = S([i, h.pathnameBase]));
+      h.pathnameBase !== '/' && (i = S([i, h.pathnameBase])));
   }
   return o;
 }
@@ -330,7 +332,8 @@ function X(e, t) {
       }
       const w = s[h];
       return (
-        $ && !w ? (c[p] = void 0) : (c[p] = (w || '').replace(/%2F/g, '/')), c
+        $ && !w ? (c[p] = void 0) : (c[p] = (w || '').replace(/%2F/g, '/')),
+        c
       );
     }, {}),
     pathname: i,
@@ -339,7 +342,7 @@ function X(e, t) {
   };
 }
 function Y(e, t, n) {
-  t === void 0 && (t = !1),
+  (t === void 0 && (t = !1),
     n === void 0 && (n = !0),
     C(
       e === '*' || !e.endsWith('*') || e.endsWith('/*'),
@@ -349,7 +352,7 @@ function Y(e, t, n) {
         ('"' + e.replace(/\*$/, '/*') + '" because the `*` character must ') +
         'always follow a `/` in the pattern. To get rid of this warning, ' +
         ('please change the route path to "' + e.replace(/\*$/, '/*') + '".')
-    );
+    ));
   let a = [],
     r =
       '^' +
@@ -470,7 +473,7 @@ function he(e, t, n, a) {
     let h = t.length - 1;
     if (!a && o.startsWith('..')) {
       let p = o.split('/');
-      for (; p[0] === '..'; ) p.shift(), (h -= 1);
+      for (; p[0] === '..'; ) (p.shift(), (h -= 1));
       r.pathname = p.join('/');
     }
     s = h >= 0 ? t[h] : '/';
@@ -478,7 +481,7 @@ function he(e, t, n, a) {
   let l = te(r, s),
     c = o && o !== '/' && o.endsWith('/'),
     f = (i || o === '.') && n.endsWith('/');
-  return !l.pathname.endsWith('/') && (c || f) && (l.pathname += '/'), l;
+  return (!l.pathname.endsWith('/') && (c || f) && (l.pathname += '/'), l);
 }
 const S = (e) => e.join('/').replace(/\/\/+/g, '/'),
   re = (e) => e.replace(/\/+$/, '').replace(/^\/*/, '/'),

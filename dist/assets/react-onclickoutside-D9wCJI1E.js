@@ -1,15 +1,15 @@
 import { r as O, a as k } from './vendor-BEztx3UH.js';
 function y(e, r) {
-  (e.prototype = Object.create(r.prototype)),
+  ((e.prototype = Object.create(r.prototype)),
     (e.prototype.constructor = e),
-    v(e, r);
+    v(e, r));
 }
 function v(e, r) {
   return (
     (v =
       Object.setPrototypeOf ||
       function (s, u) {
-        return (s.__proto__ = u), s;
+        return ((s.__proto__ = u), s);
       }),
     v(e, r)
   );
@@ -21,7 +21,7 @@ function E(e, r) {
     u,
     c;
   for (c = 0; c < s.length; c++)
-    (u = s[c]), !(r.indexOf(u) >= 0) && (o[u] = e[u]);
+    ((u = s[c]), !(r.indexOf(u) >= 0) && (o[u] = e[u]));
   return o;
 }
 function _(e) {
@@ -85,7 +85,7 @@ var N = S(),
 function g(e, r) {
   var o = {},
     s = I.indexOf(r) !== -1;
-  return s && m && (o.passive = !e.props.preventDefault), o;
+  return (s && m && (o.passive = !e.props.preventDefault), o);
 }
 function L(e, r) {
   var o,
@@ -127,9 +127,9 @@ function L(e, r) {
             }),
             (t.enableOnClickOutside = function () {
               if (!(typeof document > 'u' || h[t._uid])) {
-                typeof m > 'u' && (m = w()), (h[t._uid] = !0);
+                (typeof m > 'u' && (m = w()), (h[t._uid] = !0));
                 var n = t.props.eventTypes;
-                n.forEach || (n = [n]),
+                (n.forEach || (n = [n]),
                   (p[t._uid] = function (i) {
                     if (
                       t.componentNode !== null &&
@@ -149,7 +149,7 @@ function L(e, r) {
                   }),
                   n.forEach(function (i) {
                     document.addEventListener(i, p[t._uid], g(_(t), i));
-                  });
+                  }));
               }
             }),
             (t.disableOnClickOutside = function () {
@@ -157,11 +157,11 @@ function L(e, r) {
               var n = p[t._uid];
               if (n && typeof document < 'u') {
                 var i = t.props.eventTypes;
-                i.forEach || (i = [i]),
+                (i.forEach || (i = [i]),
                   i.forEach(function (f) {
                     return document.removeEventListener(f, n, g(_(t), f));
                   }),
-                  delete p[t._uid];
+                  delete p[t._uid]);
               }
             }),
             (t.getRef = function (n) {

@@ -1,10 +1,13 @@
 import React from 'react';
 // import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import AuthCheck from './components/AuthCheck';
 import Example from './components/Example';
+import Example1 from './components/Example1';
+import Example2 from './components/Example2';
 import FirstAuth from './components/FirstAuth';
 import UserAuth from './components/UserAuth';
-import SignOut from './components/ SignOut';
+import SignOut from './components/SignOut';
 import SignUp from './components/SignUp';
 import SignIn from './components/SignIn';
 import EasyLogin from './components/EasyLogin';
@@ -54,7 +57,11 @@ export default function App() {
       >
         <Routes>
           <Route path="/" element={<FirstAuth />} />
+          <Route path="/AuthCheck" element={<AuthCheck />} />
           <Route path="/AuthRedirect" element={<AuthRedirect />} />
+          <Route path="/Example" element={<Example />} />
+          <Route path="/Example1" element={<Example1 />} />
+          <Route path="/Example2" element={<Example2 />} />
           <Route path="/Example" element={<Example />} />
           <Route path="/UserAuth" element={<UserAuth />} />
           <Route path="/SignOut" element={<SignOut />} />

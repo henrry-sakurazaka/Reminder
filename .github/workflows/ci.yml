@@ -59,6 +59,14 @@ jobs:
         with:
           node-version: '20'
 
+      - name: Clear app2 cache
+        run: |
+          rm -rf node_modules/.vite
+          npm cache clean --force
+
+      - name: Clean install dependencies
+        run: npm ci
+
       - name: Clear Playwright cache
         run: rm -rf /home/nonroot/.cache/ms-playwright
 
@@ -68,19 +76,24 @@ jobs:
       - name: Install Playwright dependencies
         run: sudo apt-get install -y libx11-dev libxcomposite-dev libxrandr-dev libasound2-dev libatk-bridge2.0-dev libgtk-3-dev
 
-      - name: Install Playwright Test
-        run: npm install --save-dev @playwright/test
-
-      - name: Clear app2 cache
+      - name: Create nonroot user if not exists
         run: |
-          rm -rf node_modules/.vite
-          npm cache clean --force
+          if ! id -u nonroot >/dev/null 2>&1; then
+            sudo useradd -m -s /bin/bash nonroot
+          fi
 
-      - name: Install dependencies
-        run: npm install
+      - name: Create nonroot user
+        run: |
+          sudo chown -R nonroot:nonroot /home/nonroot
+          sudo chmod 755 /home/nonroot
 
-      - name: Clean install dependencies
-        run: npm ci
+      - name: Fix permissions for current workspace
+        run: |
+          sudo chown -R nonroot:nonroot $GITHUB_WORKSPACE
+          sudo chmod -R u+rwX $GITHUB_WORKSPACE
+
+      - name: Install Playwright browsers (root)
+        run: npx playwright install --with-deps
 
       - name: Install Docker Compose
         run: |
@@ -97,18 +110,28 @@ jobs:
           sudo chmod +x /usr/local/bin/cloudflared
           cloudflared --version
 
+      - name: Force remove and recreate .env file with correct permissions
+        run: |
+          sudo rm -f .env
+          sudo touch .env
+          sudo chmod 666 .env
+
+      - name: Fix permissions for workspace
+        run: |
+          sudo chmod -R u+rwX,go+rwX .
+
       - name: Create .env file and keys
         run: |
+          echo "VITE_IS_LOCAL=${{ secrets.VITE_IS_LOCAL }}" >> .env
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
+          echo "CUSTOM_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
+          echo "FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_API_KEY2=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY2 }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.VITE_REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_DATABASE_URL=${{ secrets.VITE_REACT_APP_FIREBASE_DATABASE_URL }}" >> .env
@@ -123,11 +146,11 @@ jobs:
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "CUSTOM_PORT=${{ secrets.PORT }}" >> .env
 
           printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
           printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
@@ -140,19 +163,13 @@ jobs:
           echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
       - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" > ./serviceAccountKey.json
+        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" > ./serviceAccountKey.json
 
       - name: Copy Service Account Key to Functions
         run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
 
       - name: Copy Service Account Key to Firebase
         run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
-
-      - name: Create nonroot user
-        run: |
-          sudo useradd -m nonroot
-          sudo chown -R nonroot:nonroot /home/nonroot
-          sudo chmod 755 /home/nonroot
 
       - name: Set up Cloudflared credentials
         run: |
@@ -173,10 +190,10 @@ jobs:
       - name: Debug JSON file content
         run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
-      - name: Define Permission
+      - name: Fix entrypoint.sh permissions
         run: |
-          chmod u+rx .cloudflared/entrypoint.sh
-          chmod 600 .cloudflared/config.yml
+          sudo chmod u+rx .cloudflared/entrypoint.sh
+          sudo chmod 600 .cloudflared/config.yml
 
       - name: Fix Permissions for Cloudflared Credentials
         run: |
@@ -215,7 +232,7 @@ jobs:
           sudo ls -la /home/nonroot/.cloudflared/
 
       - name: Set up Cloudflare API token
-        run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+        run: echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
       - name: Increase UDP Buffer Size
         run: |
@@ -310,8 +327,11 @@ jobs:
       - name: Inspect Network Setting
         run: docker inspect cloudflared | jq '.[0].NetworkSettings.IPv4Address'
 
+      # - name: Test connection to app2 from cloudflared
+      #   run: docker exec cloudflared curl -v http://app2:3000 &
+
       - name: Test connection to app2 from cloudflared
-        run: docker exec cloudflared curl -v http://app2:3000 &
+        run: docker exec cloudflared curl -v --max-time 30 http://app2:3000
 
       - name: Inspect connected to cloudflare
         run: docker logs cloudflared --tail 50
@@ -381,10 +401,15 @@ jobs:
             echo "Container is already connected to the network."
           fi
 
-      - name: Check responsed URL
+      # - name: Check responsed URL
+      #   run: |
+      #     docker exec reminder-playwright-1 curl http://172.18.0.3:3000
+      #     docker exec reminder-playwright-1 ps aux | grep node
+
+      - name: Fix test-results permissions
         run: |
-          docker exec reminder-playwright-1 curl http://172.18.0.3:3000
-          docker exec reminder-playwright-1 ps aux | grep node
+          sudo chown -R $USER:$USER ./test-results
+          sudo chmod -R 777 ./test-results
 
       - name: Set permissions for test-results directory
         run: |
@@ -415,7 +440,12 @@ jobs:
 
       - name: Playwright Test Logs
         if: failure()
-        run: cat playwright-report/output.log
+        run: |
+          if [ -f playwright-report/output.log ]; then
+            cat playwright-report/output.log
+          else
+            echo "playwright-report/output.log が存在しません"
+          fi
 
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
@@ -452,9 +482,6 @@ jobs:
       - name: Check Firebase CLI
         run: firebase --version
 
-      - name: Firebase install SDK latest
-        run: npm install firebase@latest
-
       - name: Set up Firebase credentials
         run: |
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" > functions/.env
@@ -463,15 +490,14 @@ jobs:
       - name: Create .env and .env.production files
         run: |
           echo "VITE_HTTPS=${{ secrets.VITE_HTTPS }}" >> .env
-          echo "FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
+          echo "CUSTOM_FIREBASE_EMULATOR_HOST=${{ secrets.FIREBASE_EMULATOR_HOST }}" >> .env
           echo "VITE_REACT_APP_API_URL=${{ secrets.VITE_REACT_APP_API_URL }}" >> .env
           echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
           echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
-          echo "VITE_REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
-          echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
+          echo "REACT_APP_VAPID_KEY=${{ secrets.VITE_REACT_APP_VAPID_KEY }}" >> .env
+          echo "FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_API_KEY=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY }}" >> .env
-          echo "VITE_REACT_APP_FIREBASE_API_KEY2=${{ secrets.VITE_REACT_APP_FIREBASE_API_KEY2 }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_APP_ID=${{ secrets.VITE_REACT_APP_FIREBASE_APP_ID }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_AUTH_DOMAIN=${{ secrets.VITE_REACT_APP_FIREBASE_AUTH_DOMAIN }}" >> .env
           echo "VITE_REACT_APP_FIREBASE_DATABASE_URL=${{ secrets.VITE_REACT_APP_FIREBASE_DATABASE_URL }}" >> .env
@@ -486,32 +512,32 @@ jobs:
           echo "VITE_HOST=${{ secrets.VITE_HOST }}" >> .env
           echo "VITE_PORT=${{ secrets.VITE_PORT }}" >> .env
           echo "VITE_PLAYWRIGHT_BASE_URL=${{ secrets.VITE_PLAYWRIGHT_BASE_URL }}" >> .env
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+          echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+          echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
           echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
           echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+          echo "CUSTOM_PORT=${{ secrets.PORT }}" >> .env
           echo "DEPLOY_PORT=${{ secrets.DEPLOY_PORT }}" >> .env
 
-          # 同じ内容を .env.production にコピー
           cp .env .env.production
+          cat .env.production
 
       - name: Decode to json file
         run: |
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> functions/.env
           echo "VITE_FIREBASE_TOKEN=${{ secrets.VITE_FIREBASE_TOKEN }}" >> .env
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee .env > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" | base64 --decode | sudo tee ./serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" | base64 --decode | sudo tee ./functions/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" | base64 --decode | sudo tee ./firebase/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" | base64 --decode | sudo tee .env > /dev/null
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> $GITHUB_ENV
           echo "GOOGLE_APPLICATION_CREDENTIALS=${{ secrets.GOOGLE_APPLICATION_CREDENTIALS }}" >> ./functions/.env
         env:
-          FIREBASE_SERVICE_ACCOUNT9: ${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}
+          FIREBASE_SERVICE_ACCOUNT10: ${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}
 
       - name: Authenticate with Service Account
         run: |
-          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" | base64 --decode | sudo tee /tmp/serviceAccountKey.json > /dev/null
+          echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" | base64 --decode | sudo tee /tmp/serviceAccountKey.json > /dev/null
           gcloud auth activate-service-account --key-file=/tmp/serviceAccountKey.json
           echo "GOOGLE_APPLICATION_CREDENTIALS=/tmp/serviceAccountKey.json" >> $GITHUB_ENV
 
@@ -532,11 +558,11 @@ jobs:
       - name: Use production firebase.json
         run: cp firebase.prod.json firebase.json
 
-      # - name: Copy to Dockerfile
-      #   run: cp Deployfile Dockerfile
+      - name: Copy to Dockerfile
+        run: cp Deployfile Dockerfile
 
-      # - name: Copy to Docker-compose
-      #   run: cp deploy.yml docker-compose.yml
+      - name: Copy to Docker-compose
+        run: cp deploy.yml docker-compose.yml
 
       - name: Copy to vite.config
         run: cp deploy.js vite.config.mjs
@@ -550,171 +576,171 @@ jobs:
       - name: Install dependencies
         run: |
           rm -rf package-lock.json node_modules
-          npm install
+          npm install firebase@10.12.3
+
+      - name: Install deps
+        run: npm ci
 
       - name: Authenticate with Google Cloud
         uses: google-github-actions/auth@v1
         with:
-          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}
+          credentials_json: ${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}
 
       - name: Set up Google Cloud SDK
         uses: google-github-actions/setup-gcloud@v2
         with:
           project_id: ${{ secrets.GCP_PROJECT_ID }}
 
-      - name: Install deps
-        run: npm ci
-
-      - name: Clear dist
-        run: rm -rf dist
-
       - name: Build For Deploy
+        env:
+          VITE_NODE_ENV: production
         run: |
           npm run build
 
       - name: Deploy To Firebase
         run: |
+          firebase deploy --only functions --force
           firebase deploy --only hosting
 
         env:
           GOOGLE_APPLICATION_CREDENTIALS: ./serviceAccountKey.json
 
-  docker-hub:
-    runs-on: ubuntu-latest
-    permissions:
-      contents: read
-    needs:
-      - lint
-      - prettier
-      - E2E-tests
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v3
+  # docker-hub:
+  #   runs-on: ubuntu-latest
+  #   permissions:
+  #     contents: read
+  #   needs:
+  #     - lint
+  #     - prettier
+  #     - E2E-tests
+  #   steps:
+  #     - name: Checkout code
+  #       uses: actions/checkout@v3
 
-      - name: Create .env file and keys
-        run: |
-          echo "VITE_CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
-          echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
-          echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
-          echo "HOST=${{ secrets.HOST }}" >> .env
-          echo "PORT=${{ secrets.PORT }}" >> .env
+  #     - name: Create .env file and keys
+  #       run: |
+  #         echo "CLOUDFLARE_TUNNEL_TOKEN=${{ secrets.VITE_CLOUDFLARE_TUNNEL_TOKEN }}" >> .env
+  #         echo "CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> .env
+  #         echo "TUNNEL_ID=${{ secrets.TUNNEL_ID }}" >> .env
+  #         echo "HOST=${{ secrets.HOST }}" >> .env
+  #         echo "CUSTOM_PORT=${{ secrets.PORT }}" >> .env
 
-          # 証明書ファイルの作成
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM2 }}" > .cloudflared/cert.pem
+  #         # 証明書ファイルの作成
+  #         printf -- "${{ secrets.VITE_SERVER_CERT }}" > server.cert.pem
+  #         printf -- "${{ secrets.VITE_SERVER_KEY }}" > server.key.pem
+  #         printf -- "${{ secrets.CF_CONFIG_YML }}" > .cloudflared/config.yml
+  #         printf -- "${{ secrets.CF_CERT_PEM2 }}" > .cloudflared/cert.pem
 
-      - name: Load environment variables from .env
-        run: |
-          source .env
-          echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
+  #     - name: Load environment variables from .env
+  #       run: |
+  #         source .env
+  #         echo "Firebase API Key is $VITE_REACT_APP_FIREBASE_API_KEY"
 
-      - name: Create Service Account Key
-        run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT9 }}" > ./serviceAccountKey.json
+  #     - name: Create Service Account Key
+  #       run: echo "${{ secrets.FIREBASE_SERVICE_ACCOUNT10 }}" > ./serviceAccountKey.json
 
-      - name: Copy Service Account Key to Functions
-        run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
+  #     - name: Copy Service Account Key to Functions
+  #       run: cp ./serviceAccountKey.json ./functions/serviceAccountKey.json
 
-      - name: Copy Service Account Key to Firebase
-        run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
+  #     - name: Copy Service Account Key to Firebase
+  #       run: cp ./serviceAccountKey.json ./firebase/serviceAccountKey.json
 
-      - name: Create nonroot user
-        run: |
-          sudo useradd -m nonroot
-          sudo chown -R nonroot:nonroot /home/nonroot
-          sudo chmod 755 /home/nonroot
+  #     - name: Create nonroot user
+  #       run: |
+  #         sudo useradd -m nonroot
+  #         sudo chown -R nonroot:nonroot /home/nonroot
+  #         sudo chmod 755 /home/nonroot
 
-      - name: Set up Cloudflared credentials
-        run: |
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
-          sudo chmod 644 .cloudflared/offsetcodecraft.site.json
-          sudo ls -la .cloudflared/
+  #     - name: Set up Cloudflared credentials
+  #       run: |
+  #         echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee .cloudflared/offsetcodecraft.site.json > /dev/null
+  #         sudo chown nonroot:nonroot .cloudflared/offsetcodecraft.site.json
+  #         sudo chmod 644 .cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la .cloudflared/
 
-      - name: Set up Cloudflared credentials2
-        run: |
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
-          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo chmod 755 /home/nonroot/.cloudflared
-          sudo chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo ls -la /home/nonroot/.cloudflared/
+  #     - name: Set up Cloudflared credentials2
+  #       run: |
+  #         sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+  #         echo "${{ secrets.CF_CREDENTIALS_FILE }}" | base64 --decode | sudo tee /home/nonroot/.cloudflared/offsetcodecraft.site.json > /dev/null
+  #         sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo chmod 755 /home/nonroot/.cloudflared
+  #         sudo chmod 644 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la /home/nonroot/.cloudflared/
 
-      - name: Debug JSON file content
-        run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #     - name: Debug JSON file content
+  #       run: sudo cat /home/nonroot/.cloudflared/offsetcodecraft.site.json
 
-      - name: Define Permission
-        run: |
-          chmod u+rx .cloudflared/entrypoint.sh
-          chmod 600 .cloudflared/config.yml
+  #     - name: Define Permission
+  #       run: |
+  #         chmod u+rx .cloudflared/entrypoint.sh
+  #         chmod 600 .cloudflared/config.yml
 
-      - name: Fix Permissions for Cloudflared Credentials
-        run: |
-          sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo chmod 666 /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo ls -la /home/nonroot/.cloudflared/
+  #     - name: Fix Permissions for Cloudflared Credentials
+  #       run: |
+  #         sudo chown nonroot:nonroot /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo chmod 666 /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la /home/nonroot/.cloudflared/
 
-      - name: Setup cloudflared directory
-        run: |
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          sudo chmod -R 777 /home/nonroot/.cloudflared
-          sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
+  #     - name: Setup cloudflared directory
+  #       run: |
+  #         sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+  #         sudo chmod -R 777 /home/nonroot/.cloudflared
+  #         sudo -u nonroot touch /home/nonroot/.cloudflared/config.yml
 
-      - name: Define Directory
-        run: |
-          printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
-          printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
-          printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
-          printf -- "${{ secrets.CF_CERT_PEM2 }}" > /home/nonroot/.cloudflared/cert.pem
+  #     - name: Define Directory
+  #       run: |
+  #         printf -- "${{ secrets.VITE_SERVER_CERT }}" > /home/nonroot/.cloudflared/server.cert.pem
+  #         printf -- "${{ secrets.VITE_SERVER_KEY }}" > /home/nonroot/.cloudflared/server.key.pem
+  #         printf -- "${{ secrets.CF_CONFIG_YML }}" > /home/nonroot/.cloudflared/config.yml
+  #         printf -- "${{ secrets.CF_CERT_PEM2 }}" > /home/nonroot/.cloudflared/cert.pem
 
-      - name: Copy Cloudflared Config to Target Directory
-        run: |
-          if ! id -u nonroot &>/dev/null; then
-          sudo useradd -m -s /bin/bash nonroot
-          fi
-          sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
-          sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
-          sudo chmod -R 777 /home/nonroot/.cloudflared
-          sudo chmod 777 /home/nonroot
-          sudo chmod 666 .cloudflared/offsetcodecraft.site.json
+  #     - name: Copy Cloudflared Config to Target Directory
+  #       run: |
+  #         if ! id -u nonroot &>/dev/null; then
+  #         sudo useradd -m -s /bin/bash nonroot
+  #         fi
+  #         sudo -u nonroot mkdir -p /home/nonroot/.cloudflared
+  #         sudo chown -R nonroot:nonroot /home/nonroot/.cloudflared
+  #         sudo chmod -R 777 /home/nonroot/.cloudflared
+  #         sudo chmod 777 /home/nonroot
+  #         sudo chmod 666 .cloudflared/offsetcodecraft.site.json
 
-          sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
-          sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
-          sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
-          sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
-          sudo ls -la /home/nonroot/.cloudflared/
+  #         sudo cp .cloudflared/entrypoint.sh /home/nonroot/.cloudflared/entrypoint.sh
+  #         sudo cp .cloudflared/config.yml /home/nonroot/.cloudflared/config.yml
+  #         sudo cp .cloudflared/cert.pem /home/nonroot/.cloudflared/cert.pem
+  #         sudo cp .cloudflared/offsetcodecraft.site.json /home/nonroot/.cloudflared/offsetcodecraft.site.json
+  #         sudo ls -la /home/nonroot/.cloudflared/
 
-      - name: Set up Cloudflare API token
-        run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
+  #     - name: Set up Cloudflare API token
+  #       run: echo "VITE_CLOUDFLARE_API_TOKEN=${{ secrets.VITE_CLOUDFLARE_API_TOKEN }}" >> $GITHUB_ENV
 
-      - name: Increase UDP Buffer Size
-        run: |
-          sudo sysctl -w net.core.rmem_max=8388608
-          sudo sysctl -w net.core.wmem_max=8388608
+  #     - name: Increase UDP Buffer Size
+  #       run: |
+  #         sudo sysctl -w net.core.rmem_max=8388608
+  #         sudo sysctl -w net.core.wmem_max=8388608
 
-      - name: Adjust ping_group_range
-        run: |
-          echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
-          echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
+  #     - name: Adjust ping_group_range
+  #       run: |
+  #         echo "1 2147483647" | sudo tee /proc/sys/net/ipv4/ping_group_range
+  #         echo "net.ipv4.ping_group_range=1 2147483647" | sudo tee -a /etc/sysctl.conf
 
-      - name: Build Docker Images
-        run: |
-          docker compose build
+  #     - name: Build Docker Images
+  #       run: |
+  #         docker compose build
 
-      - name: Setting env file
-        run: |
-          echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
-          echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
+  #     - name: Setting env file
+  #       run: |
+  #         echo "DOCKER_PASSWORD=${{ secrets.DOCKER_PASSWORD }}" >> .env
+  #         echo "DOCKER_USERNAME=${{ secrets.DOCKER_USERNAME }}" >> .env
 
-      - name: Push to Docker Hub
-        run: |
-          echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
-          docker tag reminder-app2 henrry301/reminder:1
-          docker tag reminder-firebase henrry301/reminder:2
-          docker tag mcr.microsoft.com/playwright:v1.49.0-jammy henrry301/playwright:v1.49.0-jammy
-          docker tag cloudflare/cloudflared henrry301/reminder:3
-          docker push henrry301/reminder:1
-          docker push henrry301/reminder:2
-          docker push henrry301/reminder:3
-          docker push henrry301/playwright:v1.49.0-jammy
+  #     - name: Push to Docker Hub
+  #       run: |
+  #         echo "${{ secrets.DOCKER_PASSWORD }}" | docker login -u "${{ secrets.DOCKER_USERNAME }}" --password-stdin
+  #         docker tag reminder-app2 henrry301/reminder:1
+  #         docker tag reminder-firebase henrry301/reminder:2
+  #         docker tag mcr.microsoft.com/playwright:v1.49.0-jammy henrry301/playwright:v1.49.0-jammy
+  #         docker tag cloudflare/cloudflared henrry301/reminder:3
+  #         docker push henrry301/reminder:1
+  #         docker push henrry301/reminder:2
+  #         docker push henrry301/reminder:3
+  #         docker push henrry301/playwright:v1.49.0-jammy

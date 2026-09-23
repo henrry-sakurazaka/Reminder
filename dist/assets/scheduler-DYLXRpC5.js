@@ -15,7 +15,7 @@ var H = { exports: {} },
     n: for (; 0 < t; ) {
       var r = (t - 1) >>> 1,
         i = n[r];
-      if (0 < h(i, e)) (n[r] = e), (n[t] = i), (t = r);
+      if (0 < h(i, e)) ((n[r] = e), (n[t] = i), (t = r));
       else break n;
     }
   }
@@ -37,7 +37,7 @@ var H = { exports: {} },
           b < i && 0 > h(I, N)
             ? ((n[r] = I), (n[b] = t), (r = b))
             : ((n[r] = N), (n[v] = t), (r = v));
-        else if (b < i && 0 > h(I, t)) (n[r] = I), (n[b] = t), (r = b);
+        else if (b < i && 0 > h(I, t)) ((n[r] = I), (n[b] = t), (r = b));
         else break n;
       }
     }
@@ -78,21 +78,21 @@ var H = { exports: {} },
     for (var e = o(s); e !== null; ) {
       if (e.callback === null) _(s);
       else if (e.startTime <= n)
-        _(s), (e.sortIndex = e.expirationTime), P(f, e);
+        (_(s), (e.sortIndex = e.expirationTime), P(f, e));
       else break;
       e = o(s);
     }
   }
   function E(n) {
     if (((y = !1), T(n), !c))
-      if (o(f) !== null) (c = !0), M(C);
+      if (o(f) !== null) ((c = !0), M(C));
       else {
         var e = o(s);
         e !== null && F(E, e.startTime - n);
       }
   }
   function C(n, e) {
-    (c = !1), y && ((y = !1), B(d), (d = -1)), (m = !0);
+    ((c = !1), y && ((y = !1), B(d), (d = -1)), (m = !0));
     var t = u;
     try {
       for (
@@ -102,22 +102,22 @@ var H = { exports: {} },
       ) {
         var r = a.callback;
         if (typeof r == 'function') {
-          (a.callback = null), (u = a.priorityLevel);
+          ((a.callback = null), (u = a.priorityLevel));
           var i = r(a.expirationTime <= e);
-          (e = l.unstable_now()),
+          ((e = l.unstable_now()),
             typeof i == 'function' ? (a.callback = i) : a === o(f) && _(f),
-            T(e);
+            T(e));
         } else _(f);
         a = o(f);
       }
       if (a !== null) var w = !0;
       else {
         var v = o(s);
-        v !== null && F(E, v.startTime - e), (w = !1);
+        (v !== null && F(E, v.startTime - e), (w = !1));
       }
       return w;
     } finally {
-      (a = null), (u = t), (m = !1);
+      ((a = null), (u = t), (m = !1));
     }
   }
   var k = !1,
@@ -148,23 +148,23 @@ var H = { exports: {} },
   else if (typeof MessageChannel < 'u') {
     var G = new MessageChannel(),
       S = G.port2;
-    (G.port1.onmessage = L),
+    ((G.port1.onmessage = L),
       (g = function () {
         S.postMessage(null);
-      });
+      }));
   } else
     g = function () {
       j(L, 0);
     };
   function M(n) {
-    (p = n), k || ((k = !0), g());
+    ((p = n), k || ((k = !0), g()));
   }
   function F(n, e) {
     d = j(function () {
       n(l.unstable_now());
     }, e);
   }
-  (l.unstable_IdlePriority = 5),
+  ((l.unstable_IdlePriority = 5),
     (l.unstable_ImmediatePriority = 1),
     (l.unstable_LowPriority = 4),
     (l.unstable_NormalPriority = 3),
@@ -283,7 +283,7 @@ var H = { exports: {} },
           u = t;
         }
       };
-    });
+    }));
 })(J);
 H.exports = J;
 var U = H.exports;

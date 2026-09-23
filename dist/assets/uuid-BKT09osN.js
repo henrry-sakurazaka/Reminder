@@ -47,6 +47,6 @@ function m(n, u, a) {
   if (o.randomUUID && !n) return o.randomUUID();
   n = n || {};
   var t = n.random || (n.rng || y)();
-  return (t[6] = (t[6] & 15) | 64), (t[8] = (t[8] & 63) | 128), c(t);
+  return ((t[6] = (t[6] & 15) | 64), (t[8] = (t[8] & 63) | 128), c(t));
 }
 export { m as v };

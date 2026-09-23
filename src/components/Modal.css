@@ -60,7 +60,8 @@
   position: absolute;
   bottom: 36px;
 }
-.set-btn {
+.set-btn,
+.quitBtn {
   width: 96px;
   height: 40px;
   border-radius: 40px;

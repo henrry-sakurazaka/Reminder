@@ -1,8 +1,9 @@
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
+import { auth } from '@/firebase';
 
-const auth = getAuth();
+// const auth = getAuth();
 
 export function checkAuthentication() {
   return new Promise((resolve) => {

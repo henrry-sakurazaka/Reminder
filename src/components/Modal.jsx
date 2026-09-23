@@ -1,14 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useTodos, useDispatchTodos } from '../context/TodoContext';
 import { onAuthStateChanged } from 'firebase/auth';
-import { firestore, auth } from '../firebase';
+import { firestore, auth } from '@/firebase';
 import { collection, setDoc, doc } from 'firebase/firestore';
 import SSwitch2 from './SSwitch2';
 import MyTimePicker from './MyTimePicker';
 import MyDatePickerCom from './MyDatePickerCom';
 import SelectSwitch from './SelectSwitch';
 import NotificationHandler from './NotificationHandler';
-import 'firebase/firestore';
+// import 'firebase/firestore';
 import 'react-datepicker/dist/react-datepicker.css';
 import './Modal.css';
 import { v4 as uuidv4 } from 'uuid';
@@ -17,7 +17,9 @@ import PropTypes from 'prop-types';
 const Modal = ({ todo }) => {
   Modal.propTypes = {
     todo: PropTypes.shape({
-      id: PropTypes.number,
+      title: PropTypes.string,
+      description: PropTypes.string,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       content: PropTypes.string,
       editing: PropTypes.bool,
       editingColor: PropTypes.bool,
@@ -64,6 +66,8 @@ const Modal = ({ todo }) => {
     setDocId,
     Todo2,
     setTodo2,
+    setClickEvent,
+    setModalOpen,
   } = useTodos();
 
   useEffect(() => {
@@ -113,8 +117,8 @@ const Modal = ({ todo }) => {
     setSelectedTime(true);
   };
 
-  const handleDateChange = (e) => {
-    const newDate = new Date(e.target.value);
+  const handleDateChange = (dateValue) => {
+    const newDate = new Date(dateValue);
     setIsDate(newDate);
     setIsDateSet(true);
   };
@@ -129,6 +133,10 @@ const Modal = ({ todo }) => {
     setInputTime(value);
     setIsTimeSet(true);
     setTimeCheck(true);
+  };
+
+  const stopTask = () => {
+    setModalOpen((prev) => !prev);
   };
 
   const setTimer = async (todo) => {
@@ -168,6 +176,7 @@ const Modal = ({ todo }) => {
         setCompletedDateTimeSetting(true);
         setShouldHandleNotifications(true);
         setTodo2(todo);
+        setClickEvent(true);
       } catch (error) {
         console.error('Error writing notification data to Firestore: ', error);
       } finally {
@@ -356,6 +365,13 @@ const Modal = ({ todo }) => {
           }}
         >
           {!shouldHandleNotifications ? 'SET' : 'DONE'}
+        </button>
+        <button
+          className="quitBtn"
+          style={{ color: 'rgb(40, 147, 247, 0.772)' }}
+          onClick={() => stopTask()}
+        >
+          QUIT
         </button>
 
         {completedDateTimeSetting && shouldHandleNotifications && (

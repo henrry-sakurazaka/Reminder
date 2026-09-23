@@ -1,10 +1,16 @@
 /* eslint-disable no-console */
 
 import { initializeApp, getApps, getApp } from 'firebase/app';
-import { getAuth, GoogleAuthProvider } from 'firebase/auth';
-import { getFirestore } from 'firebase/firestore';
-import { ref, set } from 'firebase/database';
+import { getAuth, GoogleAuthProvider, useDeviceLanguage } from 'firebase/auth';
+import {
+  getFirestore,
+  initializeFirestore,
+  persistentMultipleTabManager,
+  persistentLocalCache,
+} from 'firebase/firestore';
+// import { ref, set } from 'firebase/database';
 // import { getAnalytics, logEvent, isSupported, initializeAnalytics } from 'firebase/analytics';
+////////////
 
 const firebaseConfig = {
   apiKey: import.meta.env.VITE_REACT_APP_FIREBASE_API_KEY,
@@ -20,25 +26,25 @@ const firebaseConfig = {
 
 const app = !getApps().length ? initializeApp(firebaseConfig) : getApp();
 // const app = initializeApp(firebaseConfig);
+
 const auth = getAuth(app);
-const firestore = getFirestore(app);
+auth.useDeviceLanguage();
+
+// const firestore = getFirestore(app);
+
+const firestore = initializeFirestore(app, {
+  localCache: persistentLocalCache({
+    tabManager: persistentMultipleTabManager(),
+  }),
+  experimentalAutoDetectLongPolling: true,
+});
+
+async function loadController() {
+  const { getDocs, collection } = await import('firebase/firestore');
+}
+
 // const messaging = getMessaging(app);
 const provider = new GoogleAuthProvider();
-
-// Analyticsの初期化
-// isSupported().then((supported) => {
-//   if (supported) {
-//     const analytics = getAnalytics(app);
-//      // イベントを記録する例
-//      logEvent(analytics, 'notification_received', {
-//       item: 'Welcome Notification',
-//     });
-//   } else {
-//     console.warn("Firebase Analytics is not supported in this environment.");
-//   }
-// }).catch((error) => {
-//   console.error("Error checking analytics support: ", error);
-// });
 
 function checkForNotificationsAndTrigger() {
   const tasks = JSON.parse(localStorage.getItem('tasks')) || [];
@@ -76,29 +82,6 @@ const showNotification = (task) => {
 };
 // タイマーで定期的にチェックする
 setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェック
-
-// // トークンをサーバーに送信する関数
-// const sendTokenToServer = async (token) => {
-//   try {
-//     const response = await fetch('https://us-central1-reminder3-65e84.cloudfunctions.net/registerToken', {
-
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json',
-//       },
-//       body: JSON.stringify({ token }),
-//       mode: 'cors', // CORSリクエストを送信する設定
-//     });
-//     if (response.ok) {
-//       console.log('トークンがサーバーに送信されました');
-//     } else {
-//       console.error('トークンの送信に失敗しました');
-//     }
-
-//   } catch (error) {
-//     console.error('トークンの送信中にエラーが発生しました:', error);
-//   }
-// };
 
 // export const registerServiceWorkerAndRequestToken = async () => {
 //   if ('serviceWorker' in navigator) {
@@ -145,5 +128,5 @@ setInterval(checkForNotificationsAndTrigger, 60000); // 1分ごとにチェッ�
 // サービスワーカーを登録し、トークンを取得
 // registerServiceWorkerAndRequestToken();
 
-export { app, auth, firestore, provider, ref, set };
+export { app, auth, firestore, provider, loadController };
 export default firebaseConfig;

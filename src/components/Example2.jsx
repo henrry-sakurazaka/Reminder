@@ -28,7 +28,7 @@ const Example = () => {
         ))}
       </div>
 
-      <div className="container">
+      <div className="container5">
         <section>
           <div className="big-title">
             <h1

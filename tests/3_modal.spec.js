@@ -46,6 +46,7 @@ test('タスクをフォームに入力して出力を確認', async ({ page }) 
   await expect(page).toHaveURL(`${baseUrl}/Example`);
 
   const lastCircle = page.locator('span.circleI').last();
+  await lastCircle.waitFor({ state: 'visible', timeout: 40000 });
   await lastCircle.click();
 
   await expect(page.locator('div.modal')).toBeVisible();
@@ -67,7 +68,6 @@ test('タスクをフォームに入力して出力を確認', async ({ page }) 
     'color',
     'rgba(40, 147, 247, 0.773)'
   );
-
   await page.waitForSelector('label.switch', { state: 'visible' });
   await page.click('label.switch');
   await expect(page.locator('div.date-picker-container')).toBeVisible();
