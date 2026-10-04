@@ -49,7 +49,6 @@ const UserAuth = () => {
     setTimeout(() => setIsSignOut(false), 5000);
   };
 
-
   const handleDeleteAccount = () => {
     navigate('/DeleteAccount');
   };
