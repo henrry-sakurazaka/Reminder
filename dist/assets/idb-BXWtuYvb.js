@@ -24,15 +24,16 @@ const b = new WeakMap(),
 function g(e) {
   const n = new Promise((t, o) => {
     const i = () => {
-        e.removeEventListener('success', c), e.removeEventListener('error', r);
+        (e.removeEventListener('success', c),
+          e.removeEventListener('error', r));
       },
       c = () => {
-        t(a(e.result)), i();
+        (t(a(e.result)), i());
       },
       r = () => {
-        o(e.error), i();
+        (o(e.error), i());
       };
-    e.addEventListener('success', c), e.addEventListener('error', r);
+    (e.addEventListener('success', c), e.addEventListener('error', r));
   });
   return (
     n
@@ -48,19 +49,19 @@ function P(e) {
   if (m.has(e)) return;
   const n = new Promise((t, o) => {
     const i = () => {
-        e.removeEventListener('complete', c),
+        (e.removeEventListener('complete', c),
           e.removeEventListener('error', r),
-          e.removeEventListener('abort', r);
+          e.removeEventListener('abort', r));
       },
       c = () => {
-        t(), i();
+        (t(), i());
       },
       r = () => {
-        o(e.error || new DOMException('AbortError', 'AbortError')), i();
+        (o(e.error || new DOMException('AbortError', 'AbortError')), i());
       };
-    e.addEventListener('complete', c),
+    (e.addEventListener('complete', c),
       e.addEventListener('error', r),
-      e.addEventListener('abort', r);
+      e.addEventListener('abort', r));
   });
   m.set(e, n);
 }
@@ -77,7 +78,7 @@ let y = {
     return a(e[n]);
   },
   set(e, n, t) {
-    return (e[n] = t), !0;
+    return ((e[n] = t), !0);
   },
   has(e, n) {
     return e instanceof IDBTransaction && (n === 'done' || n === 'store')
@@ -93,11 +94,11 @@ function S(e) {
     !('objectStoreNames' in IDBTransaction.prototype)
     ? function (n, ...t) {
         const o = e.call(h(this), n, ...t);
-        return p.set(o, n.sort ? n.sort() : [n]), a(o);
+        return (p.set(o, n.sort ? n.sort() : [n]), a(o));
       }
     : L().includes(e)
       ? function (...n) {
-          return e.apply(h(this), n), a(b.get(this));
+          return (e.apply(h(this), n), a(b.get(this)));
         }
       : function (...n) {
           return a(e.apply(h(this), n));
@@ -112,7 +113,7 @@ function a(e) {
   if (e instanceof IDBRequest) return g(e);
   if (f.has(e)) return f.get(e);
   const n = T(e);
-  return n !== e && (f.set(e, n), I.set(n, e)), n;
+  return (n !== e && (f.set(e, n), I.set(n, e)), n);
 }
 const h = (e) => I.get(e);
 function A(e, n, { blocked: t, upgrade: o, blocking: i, terminated: c } = {}) {
@@ -126,11 +127,11 @@ function A(e, n, { blocked: t, upgrade: o, blocking: i, terminated: c } = {}) {
     t && r.addEventListener('blocked', (s) => t(s.oldVersion, s.newVersion, s)),
     u
       .then((s) => {
-        c && s.addEventListener('close', () => c()),
+        (c && s.addEventListener('close', () => c()),
           i &&
             s.addEventListener('versionchange', (d) =>
               i(d.oldVersion, d.newVersion, d)
-            );
+            ));
       })
       .catch(() => {}),
     u
@@ -158,7 +159,7 @@ function B(e, n) {
       (await Promise.all([d[t](...u), i && s.done]))[0]
     );
   };
-  return D.set(n, c), c;
+  return (D.set(n, c), c);
 }
 C((e) => ({
   ...e,

@@ -44,7 +44,7 @@ function B() {
   return a.useContext(P) != null;
 }
 function j() {
-  return B() || v(!1), a.useContext(P).location;
+  return (B() || v(!1), a.useContext(P).location);
 }
 function D(e) {
   a.useContext(R).static || a.useLayoutEffect(e);
@@ -73,10 +73,10 @@ function q() {
           return;
         }
         let o = V(c, JSON.parse(i), d, s.relative === 'path');
-        e == null &&
+        (e == null &&
           t !== '/' &&
           (o.pathname = o.pathname === '/' ? t : U([t, o.pathname])),
-          (s.replace ? n.replace : n.push)(o, s.state, s);
+          (s.replace ? n.replace : n.push)(o, s.state, s));
       },
       [t, n, i, d, e]
     )
@@ -99,8 +99,8 @@ function K(e, t, r, n) {
   if (t) {
     var p;
     let f = typeof t == 'string' ? O(t) : t;
-    c === '/' || ((p = f.pathname) != null && p.startsWith(c)) || v(!1),
-      (o = f);
+    (c === '/' || ((p = f.pathname) != null && p.startsWith(c)) || v(!1),
+      (o = f));
   } else o = s;
   let h = o.pathname || '/',
     m = h;
@@ -178,12 +178,12 @@ function Q() {
 const S = a.createElement(Q, null);
 class X extends a.Component {
   constructor(t) {
-    super(t),
+    (super(t),
       (this.state = {
         location: t.location,
         revalidation: t.revalidation,
         error: t.error,
-      });
+      }));
   }
   static getDerivedStateFromError(t) {
     return { error: t };
@@ -257,7 +257,7 @@ function Z(e, t, r, n) {
     let s = i.findIndex(
       (o) => o.route.id && (u == null ? void 0 : u[o.route.id]) !== void 0
     );
-    s >= 0 || v(!1), (i = i.slice(0, Math.min(i.length, s + 1)));
+    (s >= 0 || v(!1), (i = i.slice(0, Math.min(i.length, s + 1))));
   }
   let g = !1,
     c = -1;
@@ -274,7 +274,7 @@ function Z(e, t, r, n) {
             p[o.route.id] === void 0 &&
             (!h || h[o.route.id] === void 0);
         if (o.route.lazy || m) {
-          (g = !0), c >= 0 ? (i = i.slice(0, c + 1)) : (i = [i[0]]);
+          ((g = !0), c >= 0 ? (i = i.slice(0, c + 1)) : (i = [i[0]]));
           break;
         }
       }
@@ -349,20 +349,20 @@ var M = (function (e) {
   })(T || {});
 function H(e) {
   let t = a.useContext(L);
-  return t || v(!1), t;
+  return (t || v(!1), t);
 }
 function ee(e) {
   let t = a.useContext($);
-  return t || v(!1), t;
+  return (t || v(!1), t);
 }
 function te(e) {
   let t = a.useContext(y);
-  return t || v(!1), t;
+  return (t || v(!1), t);
 }
 function w(e) {
   let t = te(),
     r = t.matches[t.matches.length - 1];
-  return r.route.id || v(!1), r.route.id;
+  return (r.route.id || v(!1), r.route.id);
 }
 function re() {
   var e;
@@ -381,11 +381,11 @@ function ne() {
     }),
     a.useCallback(
       function (l, d) {
-        d === void 0 && (d = {}),
+        (d === void 0 && (d = {}),
           r.current &&
             (typeof l == 'number'
               ? e.navigate(l)
-              : e.navigate(l, b({ fromRouteId: t }, d)));
+              : e.navigate(l, b({ fromRouteId: t }, d))));
       },
       [e, t]
     )
@@ -396,7 +396,7 @@ function ae(e, t, r) {
   k[e] || (k[e] = !0);
 }
 function ue(e, t) {
-  e == null || e.v7_startTransition, e == null || e.v7_relativeSplatPath;
+  (e == null || e.v7_startTransition, e == null || e.v7_relativeSplatPath);
 }
 function oe(e) {
   v(!1);
@@ -463,7 +463,7 @@ function I(e, t) {
         r.push.apply(r, I(n.props.children, d));
         return;
       }
-      n.type !== oe && v(!1), !n.props.index || !n.props.children || v(!1);
+      (n.type !== oe && v(!1), !n.props.index || !n.props.children || v(!1));
       let i = {
         id: n.props.id || d.join('-'),
         caseSensitive: n.props.caseSensitive,
@@ -481,7 +481,7 @@ function I(e, t) {
         handle: n.props.handle,
         lazy: n.props.lazy,
       };
-      n.props.children && (i.children = I(n.props.children, d)), r.push(i);
+      (n.props.children && (i.children = I(n.props.children, d)), r.push(i));
     }),
     r
   );

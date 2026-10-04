@@ -1,5 +1,6 @@
 node_modules/
 .firebase
 .env
+.env.production
 .serviceAccountKey.json
 .appspot-serviceAccountKey.json

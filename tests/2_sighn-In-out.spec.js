@@ -11,8 +11,8 @@ if (process.env.CI !== 'true') {
 
 test('ログインテスト', async ({ page }) => {
   const baseUrl = process.env.VITE_REACT_APP_API_URL;
-  const email = process.env.VITE_REACT_APP_TEST2_EMAIL;
-  const password = process.env.VITE_REACT_APP_TEST2_PASSWORD;
+  const email = process.env.TEST2_EMAIL;
+  const password = process.env.TEST2_PASSWORD;
 
   async ({ browser }) => {
     const context = await browser.newContext(); // 新しいコンテキストを生成
@@ -41,8 +41,6 @@ test('ログインテスト', async ({ page }) => {
   await page.fill('#email', email, { timeout: 30000 });
   await page.fill('#password', password);
   await page.click('button.form-button[type="submit"]');
-
-  await page.waitForTimeout(5000);
 
   await expect(page).toHaveURL(`${baseUrl}/Example`);
   await page.click('span.back');

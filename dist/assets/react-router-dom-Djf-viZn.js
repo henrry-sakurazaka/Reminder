@@ -44,16 +44,16 @@ function _(t) {
 }
 var m;
 (function (t) {
-  (t.UseScrollRestoration = 'useScrollRestoration'),
+  ((t.UseScrollRestoration = 'useScrollRestoration'),
     (t.UseSubmit = 'useSubmit'),
     (t.UseSubmitFetcher = 'useSubmitFetcher'),
     (t.UseFetcher = 'useFetcher'),
-    (t.useViewTransitionState = 'useViewTransitionState');
+    (t.useViewTransitionState = 'useViewTransitionState'));
 })(m || (m = {}));
 var f;
 (function (t) {
-  (t.UseFetcher = 'useFetcher'),
+  ((t.UseFetcher = 'useFetcher'),
     (t.UseFetchers = 'useFetchers'),
-    (t.UseScrollRestoration = 'useScrollRestoration');
+    (t.UseScrollRestoration = 'useScrollRestoration'));
 })(f || (f = {}));
 export { _ as B };

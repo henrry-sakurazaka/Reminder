@@ -255,53 +255,51 @@
 // });
 import dotenv from 'dotenv';
 import express from 'express';
-// import cors from 'cors';
+import cors from 'cors';
+import admin from 'firebase-admin';
 
-const PORT = process.env.PORT || 3000;
+admin.initializeApp();
+
+const db = admin.firestore();
+
+const PORT = process.env.CUSTOM_PORT || 3000;
 const HOST = process.env.HOST || 'localhost';
-const PORT2 = 4200;
-const PORT3 = 6060;
-const app = express();
-const app2 = express();
-const app3 = express();
 
-// const corsOptions = {
-//   origin: [
-//       'https://reminder5-27ef0.web.app',
-//       'http://localhost:3000',
-//       'https://offsetcodecraft.site'
-//     ],
-//   methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
-//   allowedHeaders: ['Content-Type', 'Authorization', 'Access-Control-Allow-Origin'],
-//   credentials: true,
-//   optionsSuccessStatus: 204,
-// };
+const app = express();
+
+const corsOptions = {
+  origin: [
+    'https://reminder5-27ef0.web.app',
+    'http://localhost:3000',
+    'http://localhost:9090',
+    'https://offsetcodecraft.site',
+    '0.0.0.0',
+    '172.18.0.4',
+    'http://app2:3000',
+    'http://192.168.0.3:3000',
+    'http://192.168.0.7:3000',
+  ],
+  methods: 'GET,HEAD,PUT,PATCH,POST,DELETE,OPTIONS',
+  allowedHeaders: [
+    'Content-Type',
+    'Authorization',
+    'Access-Control-Allow-Origin',
+  ],
+  credentials: true,
+  optionsSuccessStatus: 204,
+};
 
 dotenv.config();
 
 // ミドルウェア
 app.use(express.json());
-// CORSミドルウェアを使用
-// app.use(cors(corsOptions));
-// app.use(cors());
 
-// ルート
+app.use(cors(corsOptions));
+
 app.get('/', (req, res) => {
   res.send('Hello, World!');
 });
 
-// サーバーを起動
 app.listen(PORT, HOST, () => {
-  console.log('Server is running on port 3000');
+  console.log(`Server is running on port ${PORT}`);
 });
-
-app2.listen(PORT2, () => {
-  console.log(`Server is running on port ${PORT2}`);
-});
-app3.listen(PORT3, () => {
-  console.log(`Server is running on port ${PORT3}`);
-});
-
-// Firebase Functionsとしてエクスポート
-exports.apiX = functions.https.onRequest(app2);
-exports.api17 = functions.https.onRequest(app3);

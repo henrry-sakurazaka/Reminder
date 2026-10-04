@@ -98,11 +98,11 @@ function et(p, o) {
   var t = Object.keys(p);
   if (Object.getOwnPropertySymbols) {
     var e = Object.getOwnPropertySymbols(p);
-    o &&
+    (o &&
       (e = e.filter(function (n) {
         return Object.getOwnPropertyDescriptor(p, n).enumerable;
       })),
-      t.push.apply(t, e);
+      t.push.apply(t, e));
   }
   return t;
 }
@@ -161,10 +161,10 @@ function M(p, o) {
 function tt(p, o) {
   for (var t = 0; t < o.length; t++) {
     var e = o[t];
-    (e.enumerable = e.enumerable || !1),
+    ((e.enumerable = e.enumerable || !1),
       (e.configurable = !0),
       'value' in e && (e.writable = !0),
-      Object.defineProperty(p, _t(e.key), e);
+      Object.defineProperty(p, _t(e.key), e));
   }
 }
 function E(p, o, t) {
@@ -207,11 +207,11 @@ function ue() {
 function P(p, o) {
   if (typeof o != 'function' && o !== null)
     throw new TypeError('Super expression must either be null or a function');
-  (p.prototype = Object.create(o && o.prototype, {
+  ((p.prototype = Object.create(o && o.prototype, {
     constructor: { value: p, writable: !0, configurable: !0 },
   })),
     Object.defineProperty(p, 'prototype', { writable: !1 }),
-    o && Qe(p, o);
+    o && Qe(p, o));
 }
 function Me(p) {
   return (
@@ -228,7 +228,7 @@ function Qe(p, o) {
     (Qe = Object.setPrototypeOf
       ? Object.setPrototypeOf.bind()
       : function (e, n) {
-          return (e.__proto__ = n), e;
+          return ((e.__proto__ = n), e);
         }),
     Qe(p, o)
   );
@@ -304,7 +304,7 @@ function fr(p, o, t, e, n) {
           useAdditionalWeekYearTokens: !0,
           useAdditionalDayOfYearTokens: !0,
         });
-        e && (a = $(c, n) && p === C(c, i, t)), $(c, n) && a && (s = c);
+        (e && (a = $(c, n) && p === C(c, i, t)), $(c, n) && a && (s = c));
       }),
       s)
     : ((s = Oe(p, o, new Date(), {
@@ -335,7 +335,7 @@ function fr(p, o, t, e, n) {
       $(s) && a ? s : null);
 }
 function $(p, o) {
-  return (o = o || new Date('1/1/1000')), we(p) && !J(p, o);
+  return ((o = o || new Date('1/1/1000')), we(p) && !J(p, o));
 }
 function C(p, o, t) {
   if (t === 'en')
@@ -393,7 +393,7 @@ function Ie(p, o) {
   return ve(ge(ye(p, a), s), e);
 }
 function vr(p, o) {
-  return q() && j(q()), qt(p);
+  return (q() && j(q()), qt(p));
 }
 function gr(p, o) {
   return C(p, 'ddd', o);
@@ -638,11 +638,11 @@ function st(p, o) {
     e = o.maxTime;
   if (!t || !e) throw new Error('Both minTime and maxTime props required');
   var n = S();
-  (n = ve(n, F(p))), (n = ge(n, A(p))), (n = ye(n, K(p)));
+  ((n = ve(n, F(p))), (n = ge(n, A(p))), (n = ye(n, K(p))));
   var s = S();
-  (s = ve(s, F(t))), (s = ge(s, A(t))), (s = ye(s, K(t)));
+  ((s = ve(s, F(t))), (s = ge(s, A(t))), (s = ye(s, K(t))));
   var r = S();
-  (r = ve(r, F(e))), (r = ge(r, A(e))), (r = ye(r, K(e)));
+  ((r = ve(r, F(e))), (r = ge(r, A(e))), (r = ye(r, K(e))));
   var a;
   try {
     a = !ce(n, { start: s, end: r });
@@ -837,7 +837,7 @@ function xr() {
         ) {
           a.className = o;
           var i = a.holidayNames;
-          (a.holidayNames = i ? [].concat(z(i), [s]) : [s]), t.set(r, a);
+          ((a.holidayNames = i ? [].concat(z(i), [s]) : [s]), t.set(r, a));
         }
       }
     }),
@@ -847,7 +847,7 @@ function xr() {
 function Yr(p, o, t, e, n) {
   for (var s = n.length, r = [], a = 0; a < s; a++) {
     var i = p;
-    (i = Ut(i, F(n[a]))), (i = Ke(i, A(n[a]))), (i = Gt(i, K(n[a])));
+    ((i = Ut(i, F(n[a]))), (i = Ke(i, A(n[a]))), (i = Gt(i, K(n[a]))));
     var c = Ke(p, (t + 1) * e);
     G(i, o) && J(i, c) && r.push(n[a]);
   }
@@ -878,7 +878,7 @@ function Or(p, o) {
 function ft(p) {
   if (!oe(p)) throw new Error('Invalid date');
   var o = new Date(p);
-  return o.setHours(0, 0, 0, 0), o;
+  return (o.setHours(0, 0, 0, 0), o);
 }
 function mt(p, o) {
   if (!oe(p) || !oe(o)) throw new Error('Invalid date received');
@@ -894,14 +894,14 @@ function Ir(p, o, t, e) {
   for (var n = [], s = 0; s < 2 * o + 1; s++) {
     var r = p + o - s,
       a = !0;
-    t && (a = g(t) <= r), e && a && (a = g(e) >= r), a && n.push(r);
+    (t && (a = g(t) <= r), e && a && (a = g(e) >= r), a && n.push(r));
   }
   return n;
 }
 var Lr = (function (p) {
     function o(t) {
       var e;
-      M(this, o),
+      (M(this, o),
         (e = _(this, o, [t])),
         l(e, 'renderOptions', function () {
           var a = e.props.year,
@@ -986,7 +986,7 @@ var Lr = (function (p) {
         }),
         l(e, 'decrementYears', function () {
           return e.shiftYears(-1);
-        });
+        }));
       var n = t.yearDropdownItemNumber,
         s = t.scrollableYearDropdown,
         r = n || (s ? 10 : 5);
@@ -1108,10 +1108,10 @@ var Lr = (function (p) {
         l(t, 'renderScrollMode', function () {
           var r = t.state.dropdownVisible,
             a = [t.renderReadView(!r)];
-          return r && a.unshift(t.renderDropdown()), a;
+          return (r && a.unshift(t.renderDropdown()), a);
         }),
         l(t, 'onChange', function (r) {
-          t.toggleDropdown(), r !== t.props.year && t.props.onChange(r);
+          (t.toggleDropdown(), r !== t.props.year && t.props.onChange(r));
         }),
         l(t, 'toggleDropdown', function (r) {
           t.setState(
@@ -1122,7 +1122,7 @@ var Lr = (function (p) {
           );
         }),
         l(t, 'handleYearChange', function (r, a) {
-          t.onSelect(r, a), t.setOpen();
+          (t.onSelect(r, a), t.setOpen());
         }),
         l(t, 'onSelect', function (r, a) {
           t.props.onSelect && t.props.onSelect(r, a);
@@ -1283,10 +1283,10 @@ var Lr = (function (p) {
         l(t, 'renderScrollMode', function (r) {
           var a = t.state.dropdownVisible,
             i = [t.renderReadView(!a, r)];
-          return a && i.unshift(t.renderDropdown(r)), i;
+          return (a && i.unshift(t.renderDropdown(r)), i);
         }),
         l(t, 'onChange', function (r) {
-          t.toggleDropdown(), r !== t.props.month && t.props.onChange(r);
+          (t.toggleDropdown(), r !== t.props.month && t.props.onChange(r));
         }),
         l(t, 'toggleDropdown', function () {
           return t.setState({ dropdownVisible: !t.state.dropdownVisible });
@@ -1335,7 +1335,8 @@ var Lr = (function (p) {
     );
   })(d.Component);
 function $r(p, o) {
-  for (var t = [], e = V(p), n = V(o); !G(e, n); ) t.push(S(e)), (e = U(e, 1));
+  for (var t = [], e = V(p), n = V(o); !G(e, n); )
+    (t.push(S(e)), (e = U(e, 1)));
   return t;
 }
 var Br = (function (p) {
@@ -1420,14 +1421,14 @@ var Br = (function (p) {
 
           ) {
             var c = Be(r);
-            i.push(
+            (i.push(
               d.createElement(
                 'option',
                 { key: c, value: c },
                 C(r, t.props.dateFormat, t.props.locale)
               )
             ),
-              (r = U(r, 1));
+              (r = U(r, 1)));
           }
           return i;
         }),
@@ -1486,7 +1487,7 @@ var Br = (function (p) {
         l(t, 'renderScrollMode', function () {
           var r = t.state.dropdownVisible,
             a = [t.renderReadView(!r)];
-          return r && a.unshift(t.renderDropdown()), a;
+          return (r && a.unshift(t.renderDropdown()), a);
         }),
         l(t, 'onChange', function (r) {
           t.toggleDropdown();
@@ -1546,8 +1547,8 @@ var Br = (function (p) {
         }),
         l(t, 'handleOnKeyDown', function (r) {
           var a = r.key;
-          a === ' ' && (r.preventDefault(), (r.key = 'Enter')),
-            t.props.handleOnKeyDown(r);
+          (a === ' ' && (r.preventDefault(), (r.key = 'Enter')),
+            t.props.handleOnKeyDown(r));
         }),
         l(t, 'isSameDay', function (r) {
           return w(t.props.day, r);
@@ -1787,7 +1788,7 @@ var Br = (function (p) {
                 ? arguments[0]
                 : {},
             i = !1;
-          t.getTabIndex() === 0 &&
+          (t.getTabIndex() === 0 &&
             !a.isInputFocused &&
             t.isSameDay(t.props.preSelection) &&
             ((!document.activeElement ||
@@ -1808,7 +1809,7 @@ var Br = (function (p) {
             i &&
               ((r = t.dayEl.current) === null ||
                 r === void 0 ||
-                r.focus({ preventScroll: !0 }));
+                r.focus({ preventScroll: !0 })));
         }),
         l(t, 'renderDayContents', function () {
           return (t.props.monthShowsDuplicateDaysEnd && t.isAfterMonth()) ||
@@ -1880,8 +1881,8 @@ var Br = (function (p) {
         }),
         l(t, 'handleOnKeyDown', function (r) {
           var a = r.key;
-          a === ' ' && (r.preventDefault(), (r.key = 'Enter')),
-            t.props.handleOnKeyDown(r);
+          (a === ' ' && (r.preventDefault(), (r.key = 'Enter')),
+            t.props.handleOnKeyDown(r));
         }),
         l(t, 'isKeyboardSelected', function () {
           return (
@@ -1905,7 +1906,7 @@ var Br = (function (p) {
                 ? arguments[0]
                 : {},
             a = !1;
-          t.getTabIndex() === 0 &&
+          (t.getTabIndex() === 0 &&
             !r.isInputFocused &&
             w(t.props.date, t.props.preSelection) &&
             ((!document.activeElement ||
@@ -1922,7 +1923,7 @@ var Br = (function (p) {
               (a = !0)),
             a &&
               t.weekNumberEl.current &&
-              t.weekNumberEl.current.focus({ preventScroll: !0 });
+              t.weekNumberEl.current.focus({ preventScroll: !0 }));
         }),
         t
       );
@@ -2001,10 +2002,10 @@ var Br = (function (p) {
           t.props.onDayMouseEnter && t.props.onDayMouseEnter(r);
         }),
         l(t, 'handleWeekClick', function (r, a, i) {
-          typeof t.props.onWeekSelect == 'function' &&
+          (typeof t.props.onWeekSelect == 'function' &&
             t.props.onWeekSelect(r, a, i),
             t.props.showWeekPicker && t.handleDayClick(r, i),
-            t.props.shouldCloseOnSelect && t.props.setOpen(!1);
+            t.props.shouldCloseOnSelect && t.props.setOpen(!1));
         }),
         l(t, 'formatWeekNumber', function (r) {
           return t.props.formatWeekNumber ? t.props.formatWeekNumber(r) : vr(r);
@@ -2406,7 +2407,7 @@ var zr = (function (p) {
               !c;
 
           ) {
-            i++, (u = We(u, 1));
+            (i++, (u = We(u, 1)));
             var f = a && i >= Gr,
               D = !a && !t.isWeekInMonth(u);
             if (f || D)
@@ -2445,7 +2446,7 @@ var zr = (function (p) {
               x = Re[b].grid;
             switch (k) {
               case 'Enter':
-                t.onMonthClick(r, a), D(c);
+                (t.onMonthClick(r, a), D(c));
                 break;
               case 'ArrowRight':
                 t.handleMonthNavigation(a === 11 ? 0 : a + De, U(u, De));
@@ -2489,8 +2490,8 @@ var zr = (function (p) {
           if (!t.props.disabledKeyboardNavigation)
             switch (i) {
               case 'Enter':
-                t.onQuarterClick(r, a),
-                  t.props.setPreSelection(t.props.selected);
+                (t.onQuarterClick(r, a),
+                  t.props.setPreSelection(t.props.selected));
                 break;
               case 'ArrowRight':
                 t.handleQuarterNavigation(
@@ -2646,8 +2647,8 @@ var zr = (function (p) {
                       t.onMonthClick(b, D);
                     },
                     onKeyDown: function (b) {
-                      xt(b) && (b.preventDefault(), (b.key = 'Enter')),
-                        t.onMonthKeyDown(b, D);
+                      (xt(b) && (b.preventDefault(), (b.key = 'Enter')),
+                        t.onMonthKeyDown(b, D));
                     },
                     onMouseEnter: t.props.usePointerEvent
                       ? void 0
@@ -2832,7 +2833,7 @@ var zr = (function (p) {
           );
         }),
         l(t, 'handleOnKeyDown', function (r, a) {
-          r.key === ' ' && (r.preventDefault(), (r.key = 'Enter')),
+          (r.key === ' ' && (r.preventDefault(), (r.key = 'Enter')),
             (r.key === 'ArrowUp' || r.key === 'ArrowLeft') &&
               r.target.previousSibling &&
               (r.preventDefault(), r.target.previousSibling.focus()),
@@ -2840,7 +2841,7 @@ var zr = (function (p) {
               r.target.nextSibling &&
               (r.preventDefault(), r.target.nextSibling.focus()),
             r.key === 'Enter' && t.handleClick(a),
-            t.props.handleOnKeyDown(r);
+            t.props.handleOnKeyDown(r));
         }),
         l(t, 'renderTimes', function () {
           for (
@@ -2902,14 +2903,14 @@ var zr = (function (p) {
           {
             key: 'componentDidMount',
             value: function () {
-              this.scrollToTheSelectedTime(),
+              (this.scrollToTheSelectedTime(),
                 this.props.monthRef &&
                   this.header &&
                   this.setState({
                     height:
                       this.props.monthRef.clientHeight -
                       this.header.clientHeight,
-                  });
+                  }));
             },
           },
           {
@@ -3119,7 +3120,8 @@ var vt = 3,
           )
             switch (r) {
               case 'Enter':
-                e.onYearClick(n, s), e.props.setPreSelection(e.props.selected);
+                (e.onYearClick(n, s),
+                  e.props.setPreSelection(e.props.selected));
                 break;
               case 'ArrowRight':
                 e.handleYearNavigation(s + 1, H(e.props.preSelection, 1));
@@ -3134,7 +3136,7 @@ var vt = 3,
                   D = s - f;
                 if (D < m) {
                   var v = c % f;
-                  s >= m && s < m + v ? (f = v) : (f += v), (D = s - f);
+                  (s >= m && s < m + v ? (f = v) : (f += v), (D = s - f));
                 }
                 e.handleYearNavigation(D, ae(e.props.preSelection, f));
                 break;
@@ -3146,7 +3148,7 @@ var vt = 3,
                   x = s + y;
                 if (x > b) {
                   var Z = c % y;
-                  s <= b && s > b - Z ? (y = Z) : (y += Z), (x = s + y);
+                  (s <= b && s > b - Z ? (y = Z) : (y += Z), (x = s + y));
                 }
                 e.handleYearNavigation(x, H(e.props.preSelection, y));
                 break;
@@ -3235,8 +3237,8 @@ var vt = 3,
                           e.onYearClick(y, k);
                         },
                         onKeyDown: function (y) {
-                          xt(y) && (y.preventDefault(), (y.key = 'Enter')),
-                            e.onYearKeyDown(y, k);
+                          (xt(y) && (y.preventDefault(), (y.key = 'Enter')),
+                            e.onYearKeyDown(y, k));
                         },
                         tabIndex: e.getYearTabIndex(k),
                         className: e.getYearClassNames(k),
@@ -3305,9 +3307,9 @@ var vt = 3,
           var s = e.props.date,
             r = s instanceof Date && !isNaN(s),
             a = r ? s : new Date();
-          a.setHours(n.split(':')[0]),
+          (a.setHours(n.split(':')[0]),
             a.setMinutes(n.split(':')[1]),
-            e.props.onChange(a);
+            e.props.onChange(a));
         }),
         l(e, 'renderTimeInput', function () {
           var n = e.state.time,
@@ -3448,39 +3450,39 @@ var Jr = [
           );
         }),
         l(e, 'handleDayClick', function (n, s, r) {
-          e.props.onSelect(n, s, r),
-            e.props.setPreSelection && e.props.setPreSelection(n);
+          (e.props.onSelect(n, s, r),
+            e.props.setPreSelection && e.props.setPreSelection(n));
         }),
         l(e, 'handleDayMouseEnter', function (n) {
-          e.setState({ selectingDate: n }),
-            e.props.onDayMouseEnter && e.props.onDayMouseEnter(n);
+          (e.setState({ selectingDate: n }),
+            e.props.onDayMouseEnter && e.props.onDayMouseEnter(n));
         }),
         l(e, 'handleMonthMouseLeave', function () {
-          e.setState({ selectingDate: null }),
-            e.props.onMonthMouseLeave && e.props.onMonthMouseLeave();
+          (e.setState({ selectingDate: null }),
+            e.props.onMonthMouseLeave && e.props.onMonthMouseLeave());
         }),
         l(e, 'handleYearMouseEnter', function (n, s) {
-          e.setState({ selectingDate: L(S(), s) }),
-            e.props.onYearMouseEnter && e.props.onYearMouseEnter(n, s);
+          (e.setState({ selectingDate: L(S(), s) }),
+            e.props.onYearMouseEnter && e.props.onYearMouseEnter(n, s));
         }),
         l(e, 'handleYearMouseLeave', function (n, s) {
           e.props.onYearMouseLeave && e.props.onYearMouseLeave(n, s);
         }),
         l(e, 'handleYearChange', function (n) {
-          e.props.onYearChange &&
+          (e.props.onYearChange &&
             (e.props.onYearChange(n),
             e.setState({ isRenderAriaLiveMessage: !0 })),
             e.props.adjustDateOnChange &&
               (e.props.onSelect && e.props.onSelect(n),
               e.props.setOpen && e.props.setOpen(!0)),
-            e.props.setPreSelection && e.props.setPreSelection(n);
+            e.props.setPreSelection && e.props.setPreSelection(n));
         }),
         l(e, 'handleMonthChange', function (n) {
-          e.handleCustomMonthChange(n),
+          (e.handleCustomMonthChange(n),
             e.props.adjustDateOnChange &&
               (e.props.onSelect && e.props.onSelect(n),
               e.props.setOpen && e.props.setOpen(!0)),
-            e.props.setPreSelection && e.props.setPreSelection(n);
+            e.props.setPreSelection && e.props.setPreSelection(n));
         }),
         l(e, 'handleCustomMonthChange', function (n) {
           e.props.onMonthChange &&
@@ -3488,7 +3490,7 @@ var Jr = [
             e.setState({ isRenderAriaLiveMessage: !0 }));
         }),
         l(e, 'handleMonthYearChange', function (n) {
-          e.handleYearChange(n), e.handleMonthChange(n);
+          (e.handleYearChange(n), e.handleMonthChange(n));
         }),
         l(e, 'changeYear', function (n) {
           e.setState(
@@ -3619,14 +3621,14 @@ var Jr = [
                   'react-datepicker__navigation--previous',
                 ],
                 a = e.decreaseMonth;
-              (e.props.showMonthYearPicker ||
+              ((e.props.showMonthYearPicker ||
                 e.props.showQuarterYearPicker ||
                 e.props.showYearPicker) &&
                 (a = e.decreaseYear),
                 n &&
                   e.props.showDisabledMonthNavigation &&
                   (r.push('react-datepicker__navigation--previous--disabled'),
-                  (a = null));
+                  (a = null)));
               var i =
                   e.props.showMonthYearPicker ||
                   e.props.showQuarterYearPicker ||
@@ -3715,21 +3717,21 @@ var Jr = [
                   'react-datepicker__navigation-icon',
                   'react-datepicker__navigation-icon--next',
                 ];
-              e.props.showTimeSelect &&
+              (e.props.showTimeSelect &&
                 s.push('react-datepicker__navigation--next--with-time'),
                 e.props.todayButton &&
                   s.push(
                     'react-datepicker__navigation--next--with-today-button'
-                  );
+                  ));
               var a = e.increaseMonth;
-              (e.props.showMonthYearPicker ||
+              ((e.props.showMonthYearPicker ||
                 e.props.showQuarterYearPicker ||
                 e.props.showYearPicker) &&
                 (a = e.increaseYear),
                 n &&
                   e.props.showDisabledMonthNavigation &&
                   (s.push('react-datepicker__navigation--next--disabled'),
-                  (a = null));
+                  (a = null)));
               var i =
                   e.props.showMonthYearPicker ||
                   e.props.showQuarterYearPicker ||
@@ -3827,8 +3829,8 @@ var Jr = [
             });
         }),
         l(e, 'handleTodayButtonClick', function (n) {
-          e.props.onSelect(nt(), n),
-            e.props.setPreSelection && e.props.setPreSelection(nt());
+          (e.props.onSelect(nt(), n),
+            e.props.setPreSelection && e.props.setPreSelection(nt()));
         }),
         l(e, 'renderTodayButton', function () {
           if (!(!e.props.todayButton || e.props.showTimeSelectOnly))
@@ -4285,8 +4287,8 @@ var Jr = [
             .concat(r, ' ')
             .concat(n),
           onClick: function (i) {
-            typeof t.props.onClick == 'function' && t.props.onClick(i),
-              typeof s == 'function' && s(i);
+            (typeof t.props.onClick == 'function' && t.props.onClick(i),
+              typeof s == 'function' && s(i));
           },
         })
       : typeof t == 'string'
@@ -4325,7 +4327,7 @@ var Jr = [
         {
           key: 'componentDidMount',
           value: function () {
-            (this.portalRoot = (
+            ((this.portalRoot = (
               this.props.portalHost || document
             ).getElementById(this.props.portalId)),
               this.portalRoot ||
@@ -4334,7 +4336,7 @@ var Jr = [
                 (this.props.portalHost || document.body).appendChild(
                   this.portalRoot
                 )),
-              this.portalRoot.appendChild(this.el);
+              this.portalRoot.appendChild(this.el));
           },
         },
         {
@@ -4457,7 +4459,7 @@ function sn(p) {
 }
 var pn = (function (p) {
     function o() {
-      return M(this, o), _(this, o, arguments);
+      return (M(this, o), _(this, o, arguments));
     }
     return (
       P(o, p),
@@ -4509,11 +4511,11 @@ var pn = (function (p) {
                   )
                 );
               }
-              this.props.popperContainer &&
+              (this.props.popperContainer &&
                 (v = d.createElement(this.props.popperContainer, {}, v)),
                 h &&
                   !r &&
-                  (v = d.createElement(Tt, { portalId: h, portalHost: m }, v));
+                  (v = d.createElement(Tt, { portalId: h, portalHost: m }, v)));
               var b = N('react-datepicker-wrapper', s);
               return d.createElement(
                 d.Fragment,
@@ -4600,7 +4602,7 @@ var Fe = 'Date input not valid.',
           e.input && e.input.focus && e.input.focus({ preventScroll: !0 });
         }),
         l(e, 'setBlur', function () {
-          e.input && e.input.blur && e.input.blur(), e.cancelFocusInput();
+          (e.input && e.input.blur && e.input.blur(), e.cancelFocusInput());
         }),
         l(e, 'setOpen', function (n) {
           var s =
@@ -4621,7 +4623,7 @@ var Fe = 'Date input not valid.',
                     return { focused: s ? r.focused : !1 };
                   },
                   function () {
-                    !s && e.setBlur(), e.setState({ inputValue: null });
+                    (!s && e.setBlur(), e.setState({ inputValue: null }));
                   }
                 );
             }
@@ -4636,40 +4638,40 @@ var Fe = 'Date input not valid.',
             : e.props.open;
         }),
         l(e, 'handleFocus', function (n) {
-          e.state.preventFocus ||
+          (e.state.preventFocus ||
             (e.props.onFocus(n),
             !e.props.preventOpenOnFocus && !e.props.readOnly && e.setOpen(!0)),
-            e.setState({ focused: !0 });
+            e.setState({ focused: !0 }));
         }),
         l(e, 'sendFocusBackToInput', function () {
-          e.preventFocusTimeout && e.clearPreventFocusTimeout(),
+          (e.preventFocusTimeout && e.clearPreventFocusTimeout(),
             e.setState({ preventFocus: !0 }, function () {
               e.preventFocusTimeout = setTimeout(function () {
-                e.setFocus(), e.setState({ preventFocus: !1 });
+                (e.setFocus(), e.setState({ preventFocus: !1 }));
               });
-            });
+            }));
         }),
         l(e, 'cancelFocusInput', function () {
-          clearTimeout(e.inputFocusTimeout), (e.inputFocusTimeout = null);
+          (clearTimeout(e.inputFocusTimeout), (e.inputFocusTimeout = null));
         }),
         l(e, 'deferFocusInput', function () {
-          e.cancelFocusInput(),
+          (e.cancelFocusInput(),
             (e.inputFocusTimeout = setTimeout(function () {
               return e.setFocus();
-            }, 1));
+            }, 1)));
         }),
         l(e, 'handleDropdownFocus', function () {
           e.cancelFocusInput();
         }),
         l(e, 'handleBlur', function (n) {
-          (!e.state.open || e.props.withPortal || e.props.showTimeInput) &&
+          ((!e.state.open || e.props.withPortal || e.props.showTimeInput) &&
             e.props.onBlur(n),
-            e.setState({ focused: !1 });
+            e.setState({ focused: !1 }));
         }),
         l(e, 'handleCalendarClickOutside', function (n) {
-          e.props.inline || e.setOpen(!1),
+          (e.props.inline || e.setOpen(!1),
             e.props.onClickOutside(n),
-            e.props.withPortal && n.preventDefault();
+            e.props.withPortal && n.preventDefault());
         }),
         l(e, 'handleChange', function () {
           for (var n = arguments.length, s = new Array(n), r = 0; r < n; r++)
@@ -4691,7 +4693,7 @@ var Fe = 'Date input not valid.',
               e.props.strictParsing,
               e.props.minDate
             );
-            e.props.showTimeSelectOnly &&
+            (e.props.showTimeSelectOnly &&
               e.props.selected &&
               i &&
               !w(i, e.props.selected) &&
@@ -4700,7 +4702,7 @@ var Fe = 'Date input not valid.',
                 minutes: A(i),
                 seconds: K(i),
               })),
-              (i || !a.target.value) && e.setSelected(i, a, !0);
+              (i || !a.target.value) && e.setSelected(i, a, !0));
           }
         }),
         l(e, 'handleSelect', function (n, s, r) {
@@ -4768,7 +4770,7 @@ var Fe = 'Date input not valid.',
               var y = !m && !f,
                 x = m && !f,
                 Z = m && f;
-              y
+              (y
                 ? u([i, null], s)
                 : x &&
                   (i === null
@@ -4776,7 +4778,7 @@ var Fe = 'Date input not valid.',
                     : mt(i, m)
                       ? u(b ? [i, m] : [i, null], s)
                       : u([m, i], s)),
-                Z && u([i, null], s);
+                Z && u([i, null], s));
             } else if (D)
               if (!(v != null && v.length)) u([i], s);
               else {
@@ -4816,18 +4818,18 @@ var Fe = 'Date input not valid.',
         l(e, 'handleTimeChange', function (n) {
           var s = e.props.selected ? e.props.selected : e.getPreSelection(),
             r = e.props.selected ? n : Ie(s, { hour: F(n), minute: A(n) });
-          e.setState({ preSelection: r }),
+          (e.setState({ preSelection: r }),
             e.props.onChange(r),
             e.props.shouldCloseOnSelect &&
               (e.sendFocusBackToInput(), e.setOpen(!1)),
             e.props.showTimeInput && e.setOpen(!0),
             (e.props.showTimeSelectOnly || e.props.showTimeSelect) &&
               e.setState({ isRenderAriaLiveMessage: !0 }),
-            e.setState({ inputValue: null });
+            e.setState({ inputValue: null }));
         }),
         l(e, 'onInputClick', function () {
-          !e.props.disabled && !e.props.readOnly && e.setOpen(!0),
-            e.props.onInputClick();
+          (!e.props.disabled && !e.props.readOnly && e.setOpen(!0),
+            e.props.onInputClick());
         }),
         l(e, 'onInputKeyDown', function (n) {
           e.props.onKeyDown(n);
@@ -4854,7 +4856,7 @@ var Fe = 'Date input not valid.',
               return;
             }
             var i = S(e.state.preSelection);
-            s === 'Enter'
+            (s === 'Enter'
               ? (n.preventDefault(),
                 e.inputOk() && e.state.lastPreSelectChange === Ae
                   ? (e.handleSelect(i, n),
@@ -4863,7 +4865,7 @@ var Fe = 'Date input not valid.',
               : s === 'Escape'
                 ? (n.preventDefault(), e.sendFocusBackToInput(), e.setOpen(!1))
                 : s === 'Tab' && e.setOpen(!1),
-              e.inputOk() || e.props.onInputError({ code: 1, msg: Fe });
+              e.inputOk() || e.props.onInputError({ code: 1, msg: Fe }));
           }
         }),
         l(e, 'onPortalKeyDown', function (n) {
@@ -4871,10 +4873,10 @@ var Fe = 'Date input not valid.',
           s === 'Escape' &&
             (n.preventDefault(),
             e.setState({ preventFocus: !0 }, function () {
-              e.setOpen(!1),
+              (e.setOpen(!1),
                 setTimeout(function () {
-                  e.setFocus(), e.setState({ preventFocus: !1 });
-                });
+                  (e.setFocus(), e.setState({ preventFocus: !1 }));
+                }));
             }));
         }),
         l(e, 'onDayKeyDown', function (n) {
@@ -4883,13 +4885,13 @@ var Fe = 'Date input not valid.',
             r = n.shiftKey,
             a = S(e.state.preSelection);
           if (s === 'Enter')
-            n.preventDefault(),
+            (n.preventDefault(),
               e.handleSelect(a, n),
-              !e.props.shouldCloseOnSelect && e.setPreSelection(a);
+              !e.props.shouldCloseOnSelect && e.setPreSelection(a));
           else if (s === 'Escape')
-            n.preventDefault(),
+            (n.preventDefault(),
               e.setOpen(!1),
-              e.inputOk() || e.props.onInputError({ code: 1, msg: Fe });
+              e.inputOk() || e.props.onInputError({ code: 1, msg: Fe }));
           else if (!e.props.disabledKeyboardNavigation) {
             var i;
             switch (s) {
@@ -4948,12 +4950,12 @@ var Fe = 'Date input not valid.',
           s === 'Escape' && (n.preventDefault(), e.sendFocusBackToInput());
         }),
         l(e, 'onClearClick', function (n) {
-          n && n.preventDefault && n.preventDefault(),
+          (n && n.preventDefault && n.preventDefault(),
             e.sendFocusBackToInput(),
             e.props.selectsRange
               ? e.props.onChange([null, null], n)
               : e.props.onChange(null, n),
-            e.setState({ inputValue: null });
+            e.setState({ inputValue: null }));
         }),
         l(e, 'clear', function () {
           e.onClearClick();
@@ -5314,7 +5316,7 @@ var Fe = 'Date input not valid.',
           {
             key: 'componentDidUpdate',
             value: function (e, n) {
-              e.inline &&
+              (e.inline &&
                 un(e.selected, this.props.selected) &&
                 this.setPreSelection(this.props.selected),
                 this.state.monthSelectedIn !== void 0 &&
@@ -5333,14 +5335,14 @@ var Fe = 'Date input not valid.',
                     this.props.onCalendarOpen(),
                   n.open === !0 &&
                     this.state.open === !1 &&
-                    this.props.onCalendarClose());
+                    this.props.onCalendarClose()));
             },
           },
           {
             key: 'componentWillUnmount',
             value: function () {
-              this.clearPreventFocusTimeout(),
-                window.removeEventListener('scroll', this.onScroll, !0);
+              (this.clearPreventFocusTimeout(),
+                window.removeEventListener('scroll', this.onScroll, !0));
             },
           },
           {

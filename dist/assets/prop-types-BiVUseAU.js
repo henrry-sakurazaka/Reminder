@@ -46,7 +46,7 @@ var l = function () {
     checkPropTypes: a,
     resetWarningCache: n,
   };
-  return (t.PropTypes = t), t;
+  return ((t.PropTypes = t), t);
 };
 p.exports = l();
 var f = p.exports;

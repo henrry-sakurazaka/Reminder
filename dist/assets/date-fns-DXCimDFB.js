@@ -282,8 +282,8 @@ function B(r) {
       c = (n && r.parsePatterns[n]) || r.parsePatterns[r.defaultParseWidth],
       d = Array.isArray(c) ? Se(c, (T) => T.test(o)) : Ke(c, (T) => T.test(o));
     let h;
-    (h = r.valueCallback ? r.valueCallback(d) : d),
-      (h = e.valueCallback ? e.valueCallback(h) : h);
+    ((h = r.valueCallback ? r.valueCallback(d) : d),
+      (h = e.valueCallback ? e.valueCallback(h) : h));
     const M = t.slice(o.length);
     return { value: h, rest: M };
   };
@@ -441,7 +441,7 @@ const xe = 6048e5,
   gt = 1e3;
 function $(r) {
   const t = u(r);
-  return t.setHours(0, 0, 0, 0), t;
+  return (t.setHours(0, 0, 0, 0), t);
 }
 function j(r) {
   const t = u(r),
@@ -456,7 +456,7 @@ function j(r) {
         t.getMilliseconds()
       )
     );
-  return e.setUTCFullYear(t.getFullYear()), +r - +e;
+  return (e.setUTCFullYear(t.getFullYear()), +r - +e);
 }
 function yt(r, t) {
   const e = $(r),
@@ -471,7 +471,7 @@ function w(r, t) {
 function bt(r) {
   const t = u(r),
     e = w(r, 0);
-  return e.setFullYear(t.getFullYear(), 0, 1), e.setHours(0, 0, 0, 0), e;
+  return (e.setFullYear(t.getFullYear(), 0, 1), e.setHours(0, 0, 0, 0), e);
 }
 function xt(r) {
   const t = u(r);
@@ -494,7 +494,7 @@ function E(r, t) {
     a = u(r),
     s = a.getDay(),
     o = (s < n ? 7 : 0) + s - n;
-  return a.setDate(a.getDate() - o), a.setHours(0, 0, 0, 0), a;
+  return (a.setDate(a.getDate() - o), a.setHours(0, 0, 0, 0), a);
 }
 function I(r) {
   return E(r, { weekStartsOn: 1 });
@@ -503,10 +503,10 @@ function De(r) {
   const t = u(r),
     e = t.getFullYear(),
     n = w(r, 0);
-  n.setFullYear(e + 1, 0, 4), n.setHours(0, 0, 0, 0);
+  (n.setFullYear(e + 1, 0, 4), n.setHours(0, 0, 0, 0));
   const a = I(n),
     s = w(r, 0);
-  s.setFullYear(e, 0, 4), s.setHours(0, 0, 0, 0);
+  (s.setFullYear(e, 0, 4), s.setHours(0, 0, 0, 0));
   const o = I(s);
   return t.getTime() >= a.getTime()
     ? e + 1
@@ -517,7 +517,7 @@ function De(r) {
 function Dt(r) {
   const t = De(r),
     e = w(r, 0);
-  return e.setFullYear(t, 0, 4), e.setHours(0, 0, 0, 0), I(e);
+  return (e.setFullYear(t, 0, 4), e.setHours(0, 0, 0, 0), I(e));
 }
 function Me(r) {
   const t = u(r),
@@ -541,10 +541,10 @@ function ne(r, t) {
         : P.firstWeekContainsDate) ??
       1,
     o = w(r, 0);
-  o.setFullYear(n + 1, 0, s), o.setHours(0, 0, 0, 0);
+  (o.setFullYear(n + 1, 0, s), o.setHours(0, 0, 0, 0));
   const c = E(o, t),
     d = w(r, 0);
-  d.setFullYear(n, 0, s), d.setHours(0, 0, 0, 0);
+  (d.setFullYear(n, 0, s), d.setHours(0, 0, 0, 0));
   const h = E(d, t);
   return e.getTime() >= c.getTime()
     ? n + 1
@@ -568,7 +568,7 @@ function Mt(r, t) {
       1,
     a = ne(r, t),
     s = w(r, 0);
-  return s.setFullYear(a, 0, n), s.setHours(0, 0, 0, 0), E(s, t);
+  return (s.setFullYear(a, 0, n), s.setHours(0, 0, 0, 0), E(s, t));
 }
 function pe(r, t) {
   const e = u(r),
@@ -922,7 +922,7 @@ const v = {
     h: function (r, t, e) {
       if (t === 'ho') {
         let n = r.getHours() % 12;
-        return n === 0 && (n = 12), e.ordinalNumber(n, { unit: 'hour' });
+        return (n === 0 && (n = 12), e.ordinalNumber(n, { unit: 'hour' }));
       }
       return v.h(r, t);
     },
@@ -1257,31 +1257,31 @@ function lr(r) {
 }
 function fr(r, t) {
   const e = u(r);
-  return e.setSeconds(t), e;
+  return (e.setSeconds(t), e);
 }
 function hr(r, t) {
   const e = u(r);
-  return e.setMinutes(t), e;
+  return (e.setMinutes(t), e);
 }
 function mr(r, t) {
   const e = u(r);
-  return e.setHours(t), e;
+  return (e.setHours(t), e);
 }
 function Ct(r) {
   const t = u(r),
     e = t.getFullYear(),
     n = t.getMonth(),
     a = w(r, 0);
-  return a.setFullYear(e, n + 1, 0), a.setHours(0, 0, 0, 0), a.getDate();
+  return (a.setFullYear(e, n + 1, 0), a.setHours(0, 0, 0, 0), a.getDate());
 }
 function Oe(r, t) {
   const e = u(r),
     n = e.getFullYear(),
     a = e.getDate(),
     s = w(r, 0);
-  s.setFullYear(n, t, 15), s.setHours(0, 0, 0, 0);
+  (s.setFullYear(n, t, 15), s.setHours(0, 0, 0, 0));
   const o = Ct(s);
-  return e.setMonth(t, Math.min(a, o)), e;
+  return (e.setMonth(t, Math.min(a, o)), e);
 }
 function wr(r, t) {
   const e = u(r),
@@ -1334,17 +1334,17 @@ function Mr(r, t) {
 }
 function pr(r) {
   const t = u(r);
-  return t.setDate(1), t.setHours(0, 0, 0, 0), t;
+  return (t.setDate(1), t.setHours(0, 0, 0, 0), t);
 }
 function ye(r) {
   const t = u(r),
     e = t.getMonth(),
     n = e - (e % 3);
-  return t.setMonth(n, 1), t.setHours(0, 0, 0, 0), t;
+  return (t.setMonth(n, 1), t.setHours(0, 0, 0, 0), t);
 }
 function Tr(r) {
   const t = u(r);
-  return t.setHours(23, 59, 59, 999), t;
+  return (t.setHours(23, 59, 59, 999), t);
 }
 function kr(r, t) {
   var c, d;
@@ -1358,19 +1358,21 @@ function kr(r, t) {
     a = u(r),
     s = a.getDay(),
     o = (s < n ? -7 : 0) + 6 - (s - n);
-  return a.setDate(a.getDate() + o), a.setHours(23, 59, 59, 999), a;
+  return (a.setDate(a.getDate() + o), a.setHours(23, 59, 59, 999), a);
 }
 function Pr(r) {
   const t = u(r),
     e = t.getMonth();
   return (
-    t.setFullYear(t.getFullYear(), e + 1, 0), t.setHours(23, 59, 59, 999), t
+    t.setFullYear(t.getFullYear(), e + 1, 0),
+    t.setHours(23, 59, 59, 999),
+    t
   );
 }
 function Or(r) {
   const t = u(r),
     e = t.getFullYear();
-  return t.setFullYear(e + 1, 0, 0), t.setHours(23, 59, 59, 999), t;
+  return (t.setFullYear(e + 1, 0, 0), t.setHours(23, 59, 59, 999), t);
 }
 function Yr(r, t) {
   const e = u(r),
@@ -1439,12 +1441,12 @@ class Ye {
 }
 class Rt extends Ye {
   constructor(t, e, n, a, s) {
-    super(),
+    (super(),
       (this.value = t),
       (this.validateValue = e),
       (this.setValue = n),
       (this.priority = a),
-      s && (this.subPriority = s);
+      s && (this.subPriority = s));
   }
   validate(t, e) {
     return this.validateValue(t, this.value, e);
@@ -1509,7 +1511,7 @@ class Bt extends f {
     }
   }
   set(e, n, a) {
-    return (n.era = a), e.setFullYear(a, 0, 1), e.setHours(0, 0, 0, 0), e;
+    return ((n.era = a), e.setFullYear(a, 0, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 const x = {
@@ -1656,10 +1658,10 @@ class Gt extends f {
     const s = e.getFullYear();
     if (a.isTwoDigitYear) {
       const c = Ne(a.year, s);
-      return e.setFullYear(c, 0, 1), e.setHours(0, 0, 0, 0), e;
+      return (e.setFullYear(c, 0, 1), e.setHours(0, 0, 0, 0), e);
     }
     const o = !('era' in n) || n.era === 1 ? a.year : 1 - a.year;
-    return e.setFullYear(o, 0, 1), e.setHours(0, 0, 0, 0), e;
+    return (e.setFullYear(o, 0, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 class At extends f {
@@ -1741,7 +1743,7 @@ class $t extends f {
   }
   set(e, n, a) {
     const s = w(e, 0);
-    return s.setFullYear(a, 0, 4), s.setHours(0, 0, 0, 0), I(s);
+    return (s.setFullYear(a, 0, 4), s.setHours(0, 0, 0, 0), I(s));
   }
 }
 class jt extends f {
@@ -1766,7 +1768,7 @@ class jt extends f {
     return V(n === 'u' ? 4 : n.length, e);
   }
   set(e, n, a) {
-    return e.setFullYear(a, 0, 1), e.setHours(0, 0, 0, 0), e;
+    return (e.setFullYear(a, 0, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 class Vt extends f {
@@ -1817,7 +1819,7 @@ class Vt extends f {
     return n >= 1 && n <= 4;
   }
   set(e, n, a) {
-    return e.setMonth((a - 1) * 3, 1), e.setHours(0, 0, 0, 0), e;
+    return (e.setMonth((a - 1) * 3, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 class Ut extends f {
@@ -1868,7 +1870,7 @@ class Ut extends f {
     return n >= 1 && n <= 4;
   }
   set(e, n, a) {
-    return e.setMonth((a - 1) * 3, 1), e.setHours(0, 0, 0, 0), e;
+    return (e.setMonth((a - 1) * 3, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 class zt extends f {
@@ -1920,7 +1922,7 @@ class zt extends f {
     return n >= 0 && n <= 11;
   }
   set(e, n, a) {
-    return e.setMonth(a, 1), e.setHours(0, 0, 0, 0), e;
+    return (e.setMonth(a, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 class Zt extends f {
@@ -1972,13 +1974,13 @@ class Zt extends f {
     return n >= 0 && n <= 11;
   }
   set(e, n, a) {
-    return e.setMonth(a, 1), e.setHours(0, 0, 0, 0), e;
+    return (e.setMonth(a, 1), e.setHours(0, 0, 0, 0), e);
   }
 }
 function Jt(r, t, e) {
   const n = u(r),
     a = pe(n, e) - t;
-  return n.setDate(n.getDate() - a * 7), n;
+  return (n.setDate(n.getDate() - a * 7), n);
 }
 class Kt extends f {
   constructor() {
@@ -2020,7 +2022,7 @@ class Kt extends f {
 function St(r, t) {
   const e = u(r),
     n = Me(e) - t;
-  return e.setDate(e.getDate() - n * 7), e;
+  return (e.setDate(e.getDate() - n * 7), e);
 }
 class en extends f {
   constructor() {
@@ -2099,7 +2101,7 @@ class rn extends f {
     return s ? n >= 1 && n <= nn[o] : n >= 1 && n <= tn[o];
   }
   set(e, n, a) {
-    return e.setDate(a), e.setHours(0, 0, 0, 0), e;
+    return (e.setDate(a), e.setHours(0, 0, 0, 0), e);
   }
 }
 class an extends f {
@@ -2141,7 +2143,7 @@ class an extends f {
     return We(a) ? n >= 1 && n <= 366 : n >= 1 && n <= 365;
   }
   set(e, n, a) {
-    return e.setMonth(0, a), e.setHours(0, 0, 0, 0), e;
+    return (e.setMonth(0, a), e.setHours(0, 0, 0, 0), e);
   }
 }
 function oe(r, t, e) {
@@ -2202,7 +2204,7 @@ class sn extends f {
     return n >= 0 && n <= 6;
   }
   set(e, n, a, s) {
-    return (e = oe(e, a, s)), e.setHours(0, 0, 0, 0), e;
+    return ((e = oe(e, a, s)), e.setHours(0, 0, 0, 0), e);
   }
 }
 class on extends f {
@@ -2265,7 +2267,7 @@ class on extends f {
     return n >= 0 && n <= 6;
   }
   set(e, n, a, s) {
-    return (e = oe(e, a, s)), e.setHours(0, 0, 0, 0), e;
+    return ((e = oe(e, a, s)), e.setHours(0, 0, 0, 0), e);
   }
 }
 class un extends f {
@@ -2328,12 +2330,12 @@ class un extends f {
     return n >= 0 && n <= 6;
   }
   set(e, n, a, s) {
-    return (e = oe(e, a, s)), e.setHours(0, 0, 0, 0), e;
+    return ((e = oe(e, a, s)), e.setHours(0, 0, 0, 0), e);
   }
 }
 function cn(r) {
   let e = u(r).getDay();
-  return e === 0 && (e = 7), e;
+  return (e === 0 && (e = 7), e);
 }
 function dn(r, t) {
   const e = u(r),
@@ -2401,7 +2403,7 @@ class ln extends f {
     return n >= 1 && n <= 7;
   }
   set(e, n, a) {
-    return (e = dn(e, a)), e.setHours(0, 0, 0, 0), e;
+    return ((e = dn(e, a)), e.setHours(0, 0, 0, 0), e);
   }
 }
 class fn extends f {
@@ -2431,7 +2433,7 @@ class fn extends f {
     }
   }
   set(e, n, a) {
-    return e.setHours(se(a), 0, 0, 0), e;
+    return (e.setHours(se(a), 0, 0, 0), e);
   }
 }
 class hn extends f {
@@ -2461,7 +2463,7 @@ class hn extends f {
     }
   }
   set(e, n, a) {
-    return e.setHours(se(a), 0, 0, 0), e;
+    return (e.setHours(se(a), 0, 0, 0), e);
   }
 }
 class mn extends f {
@@ -2491,7 +2493,7 @@ class mn extends f {
     }
   }
   set(e, n, a) {
-    return e.setHours(se(a), 0, 0, 0), e;
+    return (e.setHours(se(a), 0, 0, 0), e);
   }
 }
 class wn extends f {
@@ -2545,7 +2547,7 @@ class gn extends f {
     return n >= 0 && n <= 23;
   }
   set(e, n, a) {
-    return e.setHours(a, 0, 0, 0), e;
+    return (e.setHours(a, 0, 0, 0), e);
   }
 }
 class yn extends f {
@@ -2597,7 +2599,7 @@ class bn extends f {
   }
   set(e, n, a) {
     const s = a <= 24 ? a % 24 : a;
-    return e.setHours(s, 0, 0, 0), e;
+    return (e.setHours(s, 0, 0, 0), e);
   }
 }
 class xn extends f {
@@ -2620,7 +2622,7 @@ class xn extends f {
     return n >= 0 && n <= 59;
   }
   set(e, n, a) {
-    return e.setMinutes(a, 0, 0), e;
+    return (e.setMinutes(a, 0, 0), e);
   }
 }
 class Dn extends f {
@@ -2643,7 +2645,7 @@ class Dn extends f {
     return n >= 0 && n <= 59;
   }
   set(e, n, a) {
-    return e.setSeconds(a, 0), e;
+    return (e.setSeconds(a, 0), e);
   }
 }
 class Mn extends f {
@@ -2657,7 +2659,7 @@ class Mn extends f {
     return D(b(n.length, e), a);
   }
   set(e, n, a) {
-    return e.setMilliseconds(a), e;
+    return (e.setMilliseconds(a), e);
   }
 }
 class pn extends f {
@@ -2818,8 +2820,8 @@ function Fr(r, t, e, n) {
       .match(Yn),
     T = [];
   for (let l of M) {
-    !(n != null && n.useAdditionalWeekYearTokens) && Pe(l) && te(l, t, r),
-      !(n != null && n.useAdditionalDayOfYearTokens) && ke(l) && te(l, t, r);
+    (!(n != null && n.useAdditionalWeekYearTokens) && Pe(l) && te(l, t, r),
+      !(n != null && n.useAdditionalDayOfYearTokens) && ke(l) && te(l, t, r));
     const y = l[0],
       Y = On[y];
     if (Y) {
@@ -2837,7 +2839,7 @@ function Fr(r, t, e, n) {
       T.push({ token: y, fullToken: l });
       const J = Y.run(r, l, s.match, d);
       if (!J) return w(e, NaN);
-      h.push(J.setter), (r = J.rest);
+      (h.push(J.setter), (r = J.rest));
     } else {
       if (y.match(En))
         throw new RangeError(
@@ -2998,7 +3000,7 @@ function Bn(r, t, e) {
   n.setUTCFullYear(r, 0, 4);
   const a = n.getUTCDay() || 7,
     s = (t - 1) * 7 + e + 1 - a;
-  return n.setUTCDate(n.getUTCDate() + s), n;
+  return (n.setUTCDate(n.getUTCDate() + s), n);
 }
 const Gn = [31, null, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
 function ve(r) {

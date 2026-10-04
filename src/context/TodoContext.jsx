@@ -92,7 +92,8 @@ const todoReducer = (todos, action) => {
           : { ..._todo, editingDateTime: false }
       );
     case 'FETCH_TODOS':
-      return action.payload;
+      // return action.payload;
+      return action.payload.filter((todo) => todo !== null);
 
     case 'complete2':
       return todos.map((todo) =>
@@ -141,11 +142,13 @@ const TodoProvider = ({ children }) => {
   const [Todo2, setTodo2] = useState();
   const [shouldHandleNotifications, setShouldHandleNotifications] =
     useState(false);
-  const [agree, setAgree] = useState();
+  const [agree, setAgree] = useState(false);
   const [isSet, setIsSet] = useState(false);
   const [docId, setDocId] = useState();
   const [completedTask, setCompletedTask] = useState(false);
   const [completedTask2, setCompletedTask2] = useState(false);
+  const [isReady, setIsReady] = useState(false);
+  const [clickEvent, setClickEvent] = useState(false);
 
   return (
     <TodoContext.Provider
@@ -216,6 +219,10 @@ const TodoProvider = ({ children }) => {
         setCompletedTask,
         completedTask2,
         setCompletedTask2,
+        isReady,
+        setIsReady,
+        clickEvent,
+        setClickEvent,
       }}
     >
       <TodoDispatchContext.Provider value={dispatch}>

@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { initializeApp, getApps } from 'firebase/app';
-import { getAuth, onAuthStateChanged } from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
+import { auth } from '@/firebase';
 import { useTodos } from '../context/TodoContext';
 import {
   collection,
@@ -15,8 +16,8 @@ import {
   collectionGroup,
   addDoc,
 } from 'firebase/firestore';
-import { firestore } from '../firebase';
-import firebaseConfig from '../firebase';
+import { firestore } from '@/firebase';
+import firebaseConfig from '@/firebase';
 import PropTypes from 'prop-types';
 import { all } from 'axios';
 
@@ -24,7 +25,7 @@ if (!getApps().length) {
   initializeApp(firebaseConfig);
 }
 
-const auth = getAuth();
+// const auth = getAuth();
 
 const NotificationHandler = ({
   shouldHandleNotifications = false,
@@ -33,7 +34,7 @@ const NotificationHandler = ({
 }) => {
   NotificationHandler.propTypes = {
     todo: PropTypes.shape({
-      id: PropTypes.number,
+      id: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
       content: PropTypes.string,
       editing: PropTypes.bool,
       editingColor: PropTypes.bool,
@@ -62,9 +63,9 @@ const NotificationHandler = ({
   const [authUser, setAuthUser] = useState(null);
   const [shouldNotificaion, setShouldNotification] = useState(false);
 
-  onAuthStateChanged(auth, (user) => {
+  onAuthStateChanged(auth, async (user) => {
     if (user) {
-      user.getIdToken(true);
+      await user.getIdToken(true);
     }
   });
 
@@ -98,7 +99,7 @@ const NotificationHandler = ({
 
   useEffect(() => {
     if (shouldNotificaion) {
-      const unsubscribe2 = onAuthStateChanged(auth, (user) => {
+      const unsubscribe2 = onAuthStateChanged(auth, async (user) => {
         if (user) {
           const fetchAndStoreNotifications = async () => {
             const timersCollection = collectionGroup(
@@ -138,7 +139,7 @@ const NotificationHandler = ({
             };
             setNotifications();
           };
-          fetchAndStoreNotifications(user);
+          await fetchAndStoreNotifications(user);
         }
       });
       return () => unsubscribe2();
@@ -172,7 +173,7 @@ const NotificationHandler = ({
           new Date(notificationTime).getTime() + 24 * 60 * 60 * 1000;
 
         if (notificationTime > currentTime || completedTask) {
-          updateNotificationStatus();
+          await updateNotificationStatus();
           setCompletedTask2(true);
         }
         if (oneDayAfterNotification >= currentTime) {

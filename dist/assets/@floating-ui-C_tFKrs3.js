@@ -111,7 +111,7 @@ function Mt(t) {
 }
 function G(t, e, o) {
   var n;
-  e === void 0 && (e = []), o === void 0 && (o = !0);
+  (e === void 0 && (e = []), o === void 0 && (o = !0));
   const r = Mt(t),
     i = r === ((n = t.ownerDocument) == null ? void 0 : n.body),
     s = B(r);
@@ -173,7 +173,7 @@ function Gt(t, e, o) {
       : n === 'start'
         ? 'bottom'
         : 'top';
-  return e.reference[i] > e.floating[i] && (s = it(s)), [s, it(s)];
+  return (e.reference[i] > e.floating[i] && (s = it(s)), [s, it(s)]);
 }
 function Jt(t) {
   const e = it(t);
@@ -202,7 +202,8 @@ function ee(t, e, o, n) {
   const r = et(t);
   let i = te(Q(t), o === 'start', n);
   return (
-    r && ((i = i.map((s) => s + '-' + r)), e && (i = i.concat(i.map(pt)))), i
+    r && ((i = i.map((s) => s + '-' + r)), e && (i = i.concat(i.map(pt)))),
+    i
   );
 }
 function it(t) {
@@ -298,7 +299,7 @@ const oe = async (t, e, o) => {
         platform: s,
         elements: { reference: t, floating: e },
       });
-    (u = b ?? u),
+    ((u = b ?? u),
       (d = p ?? d),
       (f = { ...f, [y]: { ...f[y], ...v } }),
       R &&
@@ -316,7 +317,7 @@ const oe = async (t, e, o) => {
                   })
                 : R.rects),
           ({ x: u, y: d } = Ot(a, g, l))),
-        (w = -1));
+        (w = -1)));
   }
   return { x: u, y: d, placement: g, strategy: r, middlewareData: f };
 };
@@ -576,7 +577,7 @@ function Bt(t) {
     i = r ? t.offsetWidth : o,
     s = r ? t.offsetHeight : n,
     c = rt(o) !== i || rt(n) !== s;
-  return c && ((o = i), (n = s)), { width: o, height: n, $: c };
+  return (c && ((o = i), (n = s)), { width: o, height: n, $: c });
 }
 function bt(t) {
   return M(t) ? t : t.contextElement;
@@ -602,10 +603,10 @@ function Wt(t) {
     : { x: e.visualViewport.offsetLeft, y: e.visualViewport.offsetTop };
 }
 function ae(t, e, o) {
-  return e === void 0 && (e = !1), !o || (e && o !== B(t)) ? !1 : e;
+  return (e === void 0 && (e = !1), !o || (e && o !== B(t)) ? !1 : e);
 }
 function X(t, e, o, n) {
-  e === void 0 && (e = !1), o === void 0 && (o = !1);
+  (e === void 0 && (e = !1), o === void 0 && (o = !1));
   const r = t.getBoundingClientRect(),
     i = bt(t);
   let s = V(1);
@@ -626,14 +627,14 @@ function X(t, e, o, n) {
         b = I(w),
         p = x.left + (w.clientLeft + parseFloat(b.paddingLeft)) * y.x,
         v = x.top + (w.clientTop + parseFloat(b.paddingTop)) * y.y;
-      (l *= y.x),
+      ((l *= y.x),
         (a *= y.y),
         (u *= y.x),
         (d *= y.y),
         (l += p),
         (a += v),
         (h = B(w)),
-        (w = ht(h));
+        (w = ht(h)));
     }
   }
   return st({ width: u, height: d, x: l, y: a });
@@ -661,7 +662,7 @@ function ue(t) {
     d = _(n);
   if ((d || (!d && !i)) && ((Z(n) !== 'body' || tt(s)) && (l = ut(n)), _(n))) {
     const f = X(n);
-    (a = q(n)), (u.x = f.x + n.clientLeft), (u.y = f.y + n.clientTop);
+    ((a = q(n)), (u.x = f.x + n.clientLeft), (u.y = f.y + n.clientTop));
   }
   const g = s && !d && !i ? $t(s, l, !0) : V(0);
   return {
@@ -696,7 +697,7 @@ function ge(t, e) {
     c = 0,
     l = 0;
   if (r) {
-    (i = r.width), (s = r.height);
+    ((i = r.width), (s = r.height));
     const a = yt();
     (!a || (a && e === 'fixed')) && ((c = r.offsetLeft), (l = r.offsetTop));
   }
@@ -738,7 +739,7 @@ function pe(t, e) {
   for (; M(s) && !U(s); ) {
     const c = I(s),
       l = xt(s);
-    !l && c.position === 'fixed' && (r = null),
+    (!l && c.position === 'fixed' && (r = null),
       (
         i
           ? !l && !r
@@ -750,9 +751,9 @@ function pe(t, e) {
       )
         ? (n = n.filter((u) => u !== s))
         : (r = c),
-      (s = z(s));
+      (s = z(s)));
   }
-  return e.set(t, n), n;
+  return (e.set(t, n), n);
 }
 function we(t) {
   let { element: e, boundary: o, rootBoundary: n, strategy: r } = t;
@@ -799,7 +800,7 @@ function ye(t, e, o) {
   if (n || (!n && !i))
     if (((Z(e) !== 'body' || tt(r)) && (c = ut(e)), n)) {
       const g = X(e, !0, i, e);
-      (l.x = g.x + e.clientLeft), (l.y = g.y + e.clientTop);
+      ((l.x = g.x + e.clientLeft), (l.y = g.y + e.clientTop));
     } else r && (l.x = Et(r));
   const a = r && !n && !i ? $t(r, c) : V(0),
     u = s.left + c.scrollLeft - l.x - a.x,
@@ -813,7 +814,7 @@ function Pt(t, e) {
   if (!_(t) || I(t).position === 'fixed') return null;
   if (e) return e(t);
   let o = t.offsetParent;
-  return H(t) === o && (o = o.ownerDocument.body), o;
+  return (H(t) === o && (o = o.ownerDocument.body), o);
 }
 function Nt(t, e) {
   const o = B(t);
@@ -865,10 +866,10 @@ function Ee(t, e) {
   const r = H(t);
   function i() {
     var c;
-    clearTimeout(n), (c = o) == null || c.disconnect(), (o = null);
+    (clearTimeout(n), (c = o) == null || c.disconnect(), (o = null));
   }
   function s(c, l) {
-    c === void 0 && (c = !1), l === void 0 && (l = 1), i();
+    (c === void 0 && (c = !1), l === void 0 && (l = 1), i());
     const a = t.getBoundingClientRect(),
       { left: u, top: d, width: g, height: f } = a;
     if ((c || e(), !g || !f)) return;
@@ -891,7 +892,7 @@ function Ee(t, e) {
               s(!1, 1e-7);
             }, 1e3));
       }
-      E === 1 && !Vt(a, t.getBoundingClientRect()) && s(), (v = !1);
+      (E === 1 && !Vt(a, t.getBoundingClientRect()) && s(), (v = !1));
     }
     try {
       o = new IntersectionObserver(R, { ...p, root: r.ownerDocument });
@@ -900,7 +901,7 @@ function Ee(t, e) {
     }
     o.observe(t);
   }
-  return s(!0), i;
+  return (s(!0), i);
 }
 function He(t, e, o, n) {
   n === void 0 && (n = {});
@@ -914,8 +915,8 @@ function He(t, e, o, n) {
     a = bt(t),
     u = r || i ? [...(a ? G(a) : []), ...G(e)] : [];
   u.forEach((x) => {
-    r && x.addEventListener('scroll', o, { passive: !0 }),
-      i && x.addEventListener('resize', o);
+    (r && x.addEventListener('scroll', o, { passive: !0 }),
+      i && x.addEventListener('resize', o));
   });
   const d = a && c ? Ee(a, o) : null;
   let g = -1,
@@ -923,7 +924,7 @@ function He(t, e, o, n) {
   s &&
     ((f = new ResizeObserver((x) => {
       let [b] = x;
-      b &&
+      (b &&
         b.target === a &&
         f &&
         (f.unobserve(e),
@@ -932,7 +933,7 @@ function He(t, e, o, n) {
           var p;
           (p = f) == null || p.observe(e);
         }))),
-        o();
+        o());
     })),
     a && !l && f.observe(a),
     f.observe(e));
@@ -941,20 +942,20 @@ function He(t, e, o, n) {
   l && y();
   function y() {
     const x = X(t);
-    w && !Vt(w, x) && o(), (w = x), (h = requestAnimationFrame(y));
+    (w && !Vt(w, x) && o(), (w = x), (h = requestAnimationFrame(y)));
   }
   return (
     o(),
     () => {
       var x;
-      u.forEach((b) => {
-        r && b.removeEventListener('scroll', o),
-          i && b.removeEventListener('resize', o);
+      (u.forEach((b) => {
+        (r && b.removeEventListener('scroll', o),
+          i && b.removeEventListener('resize', o));
       }),
         d == null || d(),
         (x = f) == null || x.disconnect(),
         (f = null),
-        l && cancelAnimationFrame(h);
+        l && cancelAnimationFrame(h));
     }
   );
 }
@@ -1050,7 +1051,7 @@ function Pe(t) {
     k = m.useCallback(() => {
       if (!A.current || !E.current) return;
       const C = { placement: e, strategy: o, middleware: g };
-      $.current && (C.platform = $.current),
+      ($.current && (C.platform = $.current),
         Ae(A.current, E.current, C).then((D) => {
           const j = { ...D, isPositioned: L.current !== !1 };
           O.current &&
@@ -1059,7 +1060,7 @@ function Pe(t) {
             zt.flushSync(() => {
               d(j);
             }));
-        });
+        }));
     }, [g, e, o, $, L]);
   ot(() => {
     a === !1 &&
@@ -1067,7 +1068,7 @@ function Pe(t) {
       ((S.current.isPositioned = !1), d((C) => ({ ...C, isPositioned: !1 })));
   }, [a]);
   const O = m.useRef(!1);
-  ot(
+  (ot(
     () => (
       (O.current = !0),
       () => {
@@ -1081,7 +1082,7 @@ function Pe(t) {
         if (F.current) return F.current(v, R, k);
         k();
       }
-    }, [v, R, k, F, W]);
+    }, [v, R, k, F, W]));
   const N = m.useMemo(
       () => ({ reference: A, floating: E, setReference: b, setFloating: p }),
       [b, p]
@@ -1303,9 +1304,9 @@ function Ve(t) {
     c = Ie() != null,
     [l, a] = m.useState(n.reference),
     u = De((f, h, w) => {
-      (i.current.openEvent = f ? h : void 0),
+      ((i.current.openEvent = f ? h : void 0),
         s.emit('openchange', { open: f, event: h, reason: w, nested: c }),
-        o == null || o(f, h, w);
+        o == null || o(f, h, w));
     }),
     d = m.useMemo(() => ({ setPositionReference: a }), []),
     g = m.useMemo(
@@ -1355,17 +1356,17 @@ function qe(t) {
               contextElement: p,
             }
           : p;
-        l(v), f.refs.setReference(v);
+        (l(v), f.refs.setReference(v));
       },
       [f.refs]
     ),
     w = m.useCallback(
       (p) => {
-        (M(p) || p === null) && ((d.current = p), s(p)),
+        ((M(p) || p === null) && ((d.current = p), s(p)),
           (M(f.refs.reference.current) ||
             f.refs.reference.current === null ||
             (p !== null && !M(p))) &&
-            f.refs.setReference(p);
+            f.refs.setReference(p));
       },
       [f.refs]
     ),

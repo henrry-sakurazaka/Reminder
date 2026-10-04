@@ -1,9 +1,10 @@
 import React, { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { getAuth, signOut } from 'firebase/auth';
+import { signOut } from 'firebase/auth';
+import { auth } from '@/firebase';
 import './UserAu.css';
 
-const auth = getAuth();
+// const auth = getAuth();
 
 const UserAuth = () => {
   const navigate = useNavigate();
@@ -46,10 +47,6 @@ const UserAuth = () => {
       );
     }
     setTimeout(() => setIsSignOut(false), 5000);
-  };
-
-  const handleClickEasyLogin = () => {
-    navigate('/EasyLogin');
   };
 
   const handleDeleteAccount = () => {
@@ -104,12 +101,6 @@ const UserAuth = () => {
               Sign Out
             </span>
             <span
-              className="select-auth easy-login"
-              onClick={() => handleClickEasyLogin()}
-            >
-              お試しログイン
-            </span>
-            <span
               id="DA"
               className="select-auth delete-account"
               onClick={() => handleDeleteAccount()}
@@ -120,6 +111,25 @@ const UserAuth = () => {
         </div>
         {message()}
       </div>
+      <div className="description">
+        <p>
+          Manage your tasks and make your lifestyle meaningful with the Reminder
+          App. Let&apos;s get started. You can input your requirements and add
+          them by pressing the plus button. Once your tasks are successfully
+          executed and completed, press the complete button. You can delete a
+          task by double-clicking it. Once all tasks are completed, you can
+          clear them using the refresh button. Be careful, as pressing the
+          refresh button is irreversible. Have a great lifestyle!
+        </p>
+      </div>
+      <section className="container2">
+        <div className="caption">
+          <img className="caption-display" src="/caption-img.png" />
+          <img className="caption-display" src="/caption-img2.png" />
+          <img className="caption-display" src="/caption-img3.png" />
+          <img className="caption-display" src="/caption-img5.png" />
+        </div>
+      </section>
     </>
   );
 };
